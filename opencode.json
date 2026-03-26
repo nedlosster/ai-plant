@@ -1,0 +1,31 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "model": "llama-server/default",
+  "provider": {
+    "llama-server": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "llama.cpp",
+      "options": {
+        "baseURL": "{env:OPENAI_BASE_URL}",
+        "apiKey": "{env:OPENAI_API_KEY}"
+      },
+      "models": {
+        "default": {
+          "name": "llama-server default",
+          "limit": { "context": 32768, "output": 8192 }
+        }
+      }
+    }
+  },
+  "default_agent": "build",
+  "agent": {
+    "build": {
+      "model": "llama-server/default",
+      "tools": { "bash": true, "write": true, "edit": true, "read": true }
+    },
+    "plan": {
+      "model": "llama-server/default",
+      "tools": { "bash": false, "write": false, "edit": false, "read": true }
+    }
+  }
+}
