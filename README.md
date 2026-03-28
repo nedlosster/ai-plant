@@ -9,7 +9,8 @@
 | Корпус | Meigao MS-S1 MAX |
 | CPU | AMD Ryzen AI MAX+ 395 (Zen 5, 16C/32T, до 5.2 GHz) |
 | GPU | Radeon 8060S (RDNA 3.5, 40 CU, gfx1151) |
-| VRAM | 96 GiB (unified LPDDR5, 256 GB/s) |
+| RAM | 128 GiB LPDDR5 (unified, 256 GB/s) |
+| VRAM | 96 GiB (из общего пула RAM) |
 | NPU | XDNA 2 (50 TOPS INT8) |
 | ОС | Ubuntu 24.04.4 LTS, ядро 6.19.8 |
 
