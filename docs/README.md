@@ -56,7 +56,7 @@ Inference-сервер на AMD Ryzen AI MAX+ 395 (Strix Halo, 96 GiB VRAM).
 | [Квантизация](llm-guide/quantization.md) | практика |
 | [Системные промпты](llm-guide/system-prompts.md) | практика |
 | [Prompt engineering](llm-guide/prompt-engineering.md) | практика |
-| [RAG](llm-guide/rag.md) | продвинутый |
+| [RAG](llm-guide/rag/README.md) | продвинутый |
 | [Function calling](llm-guide/function-calling.md) | продвинутый |
 | [Мультимодальные модели](llm-guide/multimodal.md) | продвинутый |
 | [Локальный vs API](llm-guide/local-vs-api.md) | продвинутый |

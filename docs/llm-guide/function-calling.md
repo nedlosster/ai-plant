@@ -1154,7 +1154,7 @@ def coding_agent(task: str, runtime: ToolRuntime) -> str:
 
 - [Prompt engineering](./prompt-engineering.md) -- техники промптинга
   для function calling
-- [RAG](./rag.md) -- RAG как инструмент для агентов
+- [RAG](./rag/README.md) -- RAG как инструмент для агентов
 - [Системные промпты](./system-prompts.md) -- описание инструментов
   в системном промпте
 - [Мультимодальные модели](./multimodal.md) -- vision как инструмент
@@ -1166,4 +1166,4 @@ def coding_agent(task: str, runtime: ToolRuntime) -> str:
 - [Prompt engineering](prompt-engineering.md)
 - [Системные промпты](system-prompts.md)
 - [AI-агенты](../use-cases/coding/agents.md)
-- [RAG](rag.md)
+- [RAG](rag/README.md)

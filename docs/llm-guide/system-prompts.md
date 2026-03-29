@@ -813,7 +813,7 @@ prompts/
   пользовательских промптов
 - [Function calling](./function-calling.md) -- специальные системные промпты
   для tool use
-- [RAG](./rag.md) -- системные промпты для retrieval-augmented generation
+- [RAG](./rag/README.md) -- системные промпты для retrieval-augmented generation
 - [Примеры промптов для кода](../use-cases/coding/prompts.md)
 
 ## Связанные статьи

@@ -231,7 +231,7 @@ MLA, expert offloading, load balancing.
 
 | Статья | Описание |
 |--------|----------|
-| [RAG](rag.md) | Retrieval-Augmented Generation: архитектура, embeddings, vector DB |
+| [RAG](rag/README.md) | Retrieval-Augmented Generation: архитектура, embeddings, vector DB, retrieval, pipeline, evaluation |
 | [Function calling](function-calling.md) | Tool use, JSON schema, интеграция с внешними системами |
 | [Multimodal](multimodal.md) | Vision, audio, объединение модальностей |
 | [Локальный запуск vs API](local-vs-api.md) | Сравнение подходов, стоимость, латентность, приватность |
@@ -251,7 +251,7 @@ MLA, expert offloading, load balancing.
 | 8 | [Квантизация](quantization.md) | 1 | ~585 строк | Написана |
 | 9 | [Системные промпты](system-prompts.md) | 1 | ~817 строк | Написана |
 | 10 | [Prompt engineering](prompt-engineering.md) | 1 | ~1032 строк | Написана |
-| 11 | [RAG](rag.md) | 2 | ~1229 строк | Написана |
+| 11 | [RAG](rag/README.md) | 2 | 7 статей | Написана |
 | 12 | [Function calling](function-calling.md) | 2 | ~1162 строк | Написана |
 | 13 | [Multimodal](multimodal.md) | 2 | ~930 строк | Написана |
 | 14 | [Локальный запуск vs API](local-vs-api.md) | 2 | ~926 строк | Написана |
