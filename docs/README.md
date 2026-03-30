@@ -73,6 +73,16 @@ Inference-сервер на AMD Ryzen AI MAX+ 395 (Strix Halo, 96 GiB VRAM).
 | [Alignment](training/alignment.md) | DPO, GRPO, ORPO |
 | [Проблемы](training/known-issues.md) | hipMemcpy, NaN, workarounds |
 
+## AI-агенты ([ai-agents/](ai-agents/README.md))
+
+| Документ | Описание |
+|----------|----------|
+| [Обзор](ai-agents/README.md) | Что такое AI-агенты, эволюция, концепции, рынок |
+| [Платные агенты](ai-agents/commercial.md) | Claude Code, Codex, Cursor, Windsurf, Devin, Junie, Copilot, Amazon Q, Gemini |
+| [Открытые агенты](ai-agents/open-source.md) | Aider, OpenCode, Hermes, Cline, Roo Code, Continue, OpenHands |
+| [Сравнение](ai-agents/comparison.md) | Таблица, бенчмарки, матрица выбора |
+| [Тренды](ai-agents/trends.md) | Multi-agent, bounded autonomy, context race, прогнозы |
+
 ## Прикладные задачи ([use-cases/](use-cases/README.md))
 
 | Раздел | Описание |
