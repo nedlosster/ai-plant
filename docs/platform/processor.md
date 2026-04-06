@@ -224,15 +224,26 @@ FP32 TFLOPS у 8060S выше RTX 4060 Laptop, но bandwidth делится с 
 
 ## Бенчмарки AI / LLM Inference
 
-### llama.cpp (Vulkan)
+### llama.cpp: Vulkan vs HIP (ROCm 7.2.1)
+
+llama-bench pp512/tg128, llama.cpp b8541, ngl=99. Дата: 2026-04-06.
+
+| Модель | Тип | Размер | Vulkan pp/tg | HIP pp/tg | HIP/Vulkan tg |
+|--------|-----|--------|-------------|-----------|---------------|
+| Qwen2.5-Coder-1.5B Q8_0 | dense | 1.5 GiB | 5242 / 121 | 5140 / 105 | -13% |
+| Qwen3.5-27B Q4_K_M | dense | 15.6 GiB | 305 / 12.6 | 297 / 11.3 | -10% |
+| Qwen3-Coder-30B-A3B Q4_K_M | MoE | 17.3 GiB | 1029 / 86 | 899 / 59 | -31% |
+
+Vulkan быстрее HIP на 10-31% (tg). На MoE-моделях разрыв наибольший.
+
+### llama.cpp: крупные модели (Vulkan)
 
 | Модель | Квантизация | tok/s (tg) |
 |--------|------------|------------|
-| Llama 2 7B | Q4_K_M | ~48 |
-| Shisa V2 8B | Q4_K_M | ~42 |
-| Qwen 3 30B-A3B (MoE) | Q4 | ~72 |
-| DeepSeek R1 70B | Q8_0 | ~3 |
+| Qwen3-Coder-Next-80B-A3B (MoE) | Q4_K_M | 53.2 |
+| Qwen3.5-122B-A10B (MoE) | Q4_K_M | 22.2 |
 | DeepSeek R1 70B | Q4_K_M | ~5 |
+| DeepSeek R1 70B | Q8_0 | ~3 |
 
 ### Сравнение по LLM inference (70B модели)
 
