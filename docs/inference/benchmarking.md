@@ -42,21 +42,40 @@ tg_max (tok/s) = bandwidth (GB/s) / model_size (GB)
 
 pp -- compute-bound для коротких промптов, переходит в memory-bound для длинных. Типично pp >> tg.
 
-## Реальные результаты (Vulkan, 2026-03-27)
+## Реальные результаты (2026-04-06)
 
-Платформа: Radeon 8060S (RADV GFX1151), Vulkan 1.4.318, llama.cpp b8541, ngl=99, t=16.
+Платформа: Radeon 8060S (gfx1151), llama.cpp b8541, ngl=99, t=16.
+
+### Vulkan vs HIP (ROCm 7.2.1)
+
+| Модель | Тип | Размер | Vulkan pp512 | Vulkan tg128 | HIP pp512 | HIP tg128 |
+|--------|-----|--------|-------------|-------------|-----------|-----------|
+| Qwen2.5-Coder-1.5B Q8_0 | dense | 1.5 GiB | 5242 | 121 | 5140 | 105 |
+| Qwen3.5-27B Q4_K_M | dense | 15.6 GiB | 305 | 12.6 | 297 | 11.3 |
+| Qwen3-Coder-30B-A3B Q4_K_M | MoE | 17.3 GiB | 1029 | 86 | 899 | 59 |
+
+### Vulkan (расширенный набор, 2026-03-27)
 
 | Модель | Тип | Размер | pp512 tok/s | tg128 tok/s |
 |--------|-----|--------|-------------|-------------|
-| Qwen2.5-Coder-1.5B Q8_0 | dense | 1.5 GiB | 5245 | 120.6 |
-| Qwen3-Coder-30B-A3B Q4_K_M | MoE | 17.3 GiB | 1036 | 86.1 |
-| Qwen3.5-27B Q4_K_M | dense | 15.6 GiB | 309 | 12.6 |
 | Qwen3-Coder-Next-80B-A3B Q4_K_M | MoE | 45.1 GiB | 590 | 53.2 |
 | Qwen3.5-122B-A10B Q4_K_M | MoE | 71.3 GiB | 300 | 22.2 |
 
-Наблюдения:
+### Разница HIP vs Vulkan
+
+| Модель | pp512 | tg128 |
+|--------|-------|-------|
+| 1.5B Q8_0 (dense) | -2% | -13% |
+| 27B Q4_K_M (dense) | -3% | -10% |
+| 30B MoE Q4_K_M | -13% | -31% |
+
+Vulkan быстрее во всех тестах. На MoE-моделях разрыв значительный (-31% tg). На dense-моделях разница меньше (-10-13% tg).
+
+### Наблюдения
+
 - MoE-модели при генерации активируют часть экспертов (~3B из 30B), поэтому tg значительно выше dense-моделей того же размера
-- Dense 27B: 12.6 t/s -- близко к теоретическому пределу (256 GB/s / 15.6 GB = 16.4 t/s, ~77% эффективность)
+- Dense 27B: 12.6 t/s (Vulkan) -- близко к теоретическому пределу (256 GB/s / 15.6 GB = 16.4 t/s, ~77% эффективность)
+- HIP-бэкенд на gfx1151 работает стабильно с ROCm 7.2.1 (segfault устранён), но уступает Vulkan по скорости
 - 122B MoE полностью помещается в GPU-память (71.3 GiB весов + KV-cache из 120 GiB доступных)
 
 ## Инструменты
@@ -105,12 +124,15 @@ pp -- compute-bound для коротких промптов, переходит
 5. Прогрев: первый прогон не считается (загрузка модели, JIT)
 
 ```bash
-# Пример: сравнение Vulkan vs CPU
 # Vulkan
-./build-vulkan/bin/llama-bench -m model.gguf -ngl 99 -p 512 -n 128
+./scripts/inference/vulkan/bench.sh model.gguf
 
-# CPU
-./build-cpu/bin/llama-bench -m model.gguf -ngl 0 -t 16 -p 512 -n 128
+# HIP (ROCm)
+./scripts/inference/rocm/bench.sh model.gguf
+
+# Или напрямую через llama-bench
+./build/bin/llama-bench -m model.gguf -ngl 99 -p 512 -n 128      # Vulkan
+./build-hip/bin/llama-bench -m model.gguf -ngl 99 -p 512 -n 128  # HIP
 ```
 
 ## Влияние параметров

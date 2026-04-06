@@ -50,16 +50,13 @@ AI_BACKEND=rocm ./scripts/inference/start-server.sh model.gguf --daemon
 
 HIP-инференс работает стабильно. GPU определяется нативно как gfx1151. VRAM 120 GiB (после ttm.pages_limit).
 
-| Параметр | Vulkan | HIP (ROCm 7.2.1) |
-|----------|--------|-------------------|
-| ROCm | не нужен | ROCm 7.2.1 |
-| HSA_OVERRIDE | не нужен | 11.5.1 |
-| VRAM видимый | 96 GiB | 120 GiB |
-| Стабильность | высокая | высокая |
-| pp512 (1.5B Q8_0) | 5256 tok/s | 5143 tok/s |
-| tg128 (1.5B Q8_0) | 121 tok/s | 106 tok/s |
+| Модель | Vulkan pp/tg | HIP pp/tg | HIP/Vulkan tg |
+|--------|-------------|-----------|---------------|
+| 1.5B Q8_0 (dense) | 5242 / 121 | 5140 / 105 | -13% |
+| 27B Q4_K_M (dense) | 305 / 12.6 | 297 / 11.3 | -10% |
+| 30B MoE Q4_K_M | 1029 / 86 | 899 / 59 | -31% |
 
-Бенчмарк 2026-04-06, ROCm 7.2.1, llama.cpp b8541.
+Бенчмарк 2026-04-06, ROCm 7.2.1, llama.cpp b8541, llama-bench pp512/tg128.
 
 ## Конфигурация
 
