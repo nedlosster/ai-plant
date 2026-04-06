@@ -1,15 +1,14 @@
 # Inference через ROCm/HIP: llama.cpp
 
-Платформа: Radeon 8060S (gfx1151), ROCm 6.x (требуется установка). Предварительно: [rocm-setup.md](rocm-setup.md).
+Платформа: Radeon 8060S (gfx1151), ROCm 7.2.1. Предварительно: [rocm-setup.md](rocm-setup.md).
 
 ## Зачем HIP если есть Vulkan
 
-- Потенциально выше производительность: нативный доступ к GPU-памяти и compute
-- Совместимость с PyTorch, vLLM, transformers (для будущего использования)
+- Совместимость с PyTorch, vLLM, transformers
 - Прямой контроль над GPU memory management
 - Flash Attention через HIP (не доступен через Vulkan)
 
-Vulkan -- стабильный рабочий вариант. HIP -- экспериментальный, для gfx1151 требует HSA_OVERRIDE_GFX_VERSION.
+Оба бэкенда работают стабильно. Vulkan немного быстрее на маленьких моделях, HIP предпочтителен для PyTorch-совместимости.
 
 ## Предварительные требования
 
@@ -22,7 +21,7 @@ hipcc --version
 
 # Переменная окружения
 echo $HSA_OVERRIDE_GFX_VERSION
-# 11.5.0
+# 11.5.1
 ```
 
 ## Сборка llama.cpp с HIP
@@ -31,12 +30,10 @@ echo $HSA_OVERRIDE_GFX_VERSION
 git clone https://github.com/ggerganov/llama.cpp.git
 cd llama.cpp
 
-# AMDGPU_TARGETS должен совпадать с HSA_OVERRIDE_GFX_VERSION
-# Для HSA_OVERRIDE_GFX_VERSION=11.5.0 -> gfx1150
-# Для HSA_OVERRIDE_GFX_VERSION=11.0.0 -> gfx1100
+# gfx1151 -- нативный таргет для Strix Halo (ROCm 7.2.1)
 cmake -B build \
     -DGGML_HIP=ON \
-    -DAMDGPU_TARGETS="gfx1150" \
+    -DAMDGPU_TARGETS="gfx1151" \
     -DCMAKE_PREFIX_PATH=/opt/rocm
 
 cmake --build build -j$(nproc)
@@ -52,7 +49,7 @@ export CMAKE_PREFIX_PATH=/opt/rocm
 ## Запуск
 
 ```bash
-HSA_OVERRIDE_GFX_VERSION=11.5.0 ./build/bin/llama-cli \
+./build/bin/llama-cli \
     -m ./models/model.gguf \
     -ngl 99 \
     -c 8192 \
@@ -62,7 +59,7 @@ HSA_OVERRIDE_GFX_VERSION=11.5.0 ./build/bin/llama-cli \
 ### Сервер
 
 ```bash
-HSA_OVERRIDE_GFX_VERSION=11.5.0 ./build/bin/llama-server \
+./build/bin/llama-server \
     -m ./models/model.gguf \
     -ngl 99 -c 8192 \
     --host 0.0.0.0 --port 8080
@@ -72,12 +69,11 @@ HSA_OVERRIDE_GFX_VERSION=11.5.0 ./build/bin/llama-server \
 
 ```bash
 # Включить HIP-логирование
-AMD_LOG_LEVEL=1 HSA_OVERRIDE_GFX_VERSION=11.5.0 \
-    ./build/bin/llama-cli -m model.gguf -ngl 99 -p "test" -n 10
+AMD_LOG_LEVEL=1 ./build/bin/llama-cli -m model.gguf -ngl 99 -p "test" -n 10
 
 # В выводе должно быть:
-# ggml_hip_init: found 1 ROCm devices
-# Device 0: AMD Radeon ...
+# ggml_cuda_init: found 1 ROCm devices (Total VRAM: 122880 MiB)
+# Device 0: AMD Radeon Graphics, gfx1151 (0x1151)
 
 # Мониторинг
 rocm-smi  # или watch -n1 rocm-smi
@@ -85,25 +81,25 @@ rocm-smi  # или watch -n1 rocm-smi
 
 ## Сравнение с Vulkan
 
-Ожидаемые результаты (зависят от HSA_OVERRIDE_GFX_VERSION и модели):
+Бенчмарк llama.cpp b8541, Qwen2.5-Coder 1.5B Q8_0, 2026-04-06:
 
-| Метрика | Vulkan | HIP (gfx1150) | HIP (gfx1100) |
-|---------|--------|---------------|---------------|
-| pp tok/s | baseline | ~1.0-1.3x | ~0.8-1.0x |
-| tg tok/s | baseline | ~1.0-1.2x | ~0.9-1.0x |
-| Стабильность | высокая | средняя | низкая |
+| Метрика | Vulkan | HIP (ROCm 7.2.1) |
+|---------|--------|-------------------|
+| pp512 tok/s | 5256 | 5143 (-2%)    |
+| tg128 tok/s | 121  | 106 (-12%)    |
+| Стабильность | высокая | высокая  |
 
-Примечание: реальные результаты для gfx1151 с HSA_OVERRIDE зависят от совместимости ISA. Провести собственные бенчмарки: [benchmarking.md](benchmarking.md).
+На маленьких моделях Vulkan немного быстрее. На больших моделях и при использовании Flash Attention HIP может быть предпочтительнее.
 
 ## Типичные ошибки
 
 **`hipErrorNoBinaryForGpu`**
-- AMDGPU_TARGETS при сборке не совпадает с HSA_OVERRIDE_GFX_VERSION
-- Решение: пересобрать с правильным AMDGPU_TARGETS
+- AMDGPU_TARGETS при сборке не совпадает с GPU target
+- Решение: пересобрать с `-DAMDGPU_TARGETS="gfx1151"`
 
 **Segfault при генерации**
-- ISA несовместимость (gfx1100 слишком далек от gfx1151)
-- Решение: попробовать gfx1150 вместо gfx1100
+- Устарев версия ROCm (6.x). Обновить до ROCm 7.2.1+
+- Проверить HSA_OVERRIDE_GFX_VERSION=11.5.1
 
 **OOM (Out of Memory)**
 - KFD VRAM heap = 120 GiB (после `ttm.pages_limit=31457280`), подробности: [vram-allocation.md](../platform/vram-allocation.md)

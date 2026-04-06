@@ -83,29 +83,26 @@ GGML_VK_DEBUG=1 ./build/bin/llama-cli -m model.gguf -ngl 99 -p "test" -n 10
 Причина: HSA_OVERRIDE_GFX_VERSION не установлена.
 
 ```bash
-export HSA_OVERRIDE_GFX_VERSION=11.5.0
+export HSA_OVERRIDE_GFX_VERSION=11.5.1
 rocminfo | grep gfx
 ```
 
 ### "hipErrorNoBinaryForGpu"
 
-Причина: AMDGPU_TARGETS при сборке llama.cpp не совпадает с HSA_OVERRIDE_GFX_VERSION.
+Причина: AMDGPU_TARGETS при сборке не совпадает с GPU target.
 
 ```bash
-# Если HSA_OVERRIDE_GFX_VERSION=11.5.0, сборка должна быть:
-cmake -B build -DGGML_HIP=ON -DAMDGPU_TARGETS="gfx1150"
-
-# Если HSA_OVERRIDE_GFX_VERSION=11.0.0:
-cmake -B build -DGGML_HIP=ON -DAMDGPU_TARGETS="gfx1100"
+# ROCm 7.2.1 -- нативный gfx1151:
+cmake -B build -DGGML_HIP=ON -DAMDGPU_TARGETS="gfx1151"
 ```
 
 ### Segfault при генерации (ROCm)
 
-Причина: ISA несовместимость между gfx1151 и target.
+Причина: устаревшая версия ROCm (6.x) с ISA-несовместимостью.
 
-- Попробовать другой HSA_OVERRIDE_GFX_VERSION (11.5.0 <-> 11.0.0)
-- Проверить версию ROCm (обновить до последней)
-- Откат на Vulkan-бэкенд
+- Обновить ROCm до 7.2.1+ (segfault устранён в ROCm 7.x, [ROCm#5853](https://github.com/ROCm/ROCm/issues/5853))
+- Проверить HSA_OVERRIDE_GFX_VERSION=11.5.1
+- Пересобрать llama.cpp с `-DAMDGPU_TARGETS="gfx1151"`
 
 ### "Could not load ROCm library"
 
@@ -180,7 +177,7 @@ watch -n 1 'echo "$(($(cat /sys/class/drm/card1/device/mem_info_vram_used) / 104
 GGML_VK_DEBUG=1 ./build/bin/llama-cli ...
 
 # ROCm/HIP отладка
-AMD_LOG_LEVEL=1 HSA_OVERRIDE_GFX_VERSION=11.5.0 ./build/bin/llama-cli ...
+AMD_LOG_LEVEL=1 ./build/bin/llama-cli ...
 
 # Ядро (amdgpu)
 journalctl -b 0 -k | grep -iE 'amdgpu.*error|fault|timeout'
