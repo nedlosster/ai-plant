@@ -1,11 +1,11 @@
 #!/bin/bash
-# Установка ROCm 6.4 на Ubuntu 24.04 (Strix Halo)
+# Установка ROCm 7.2.1 на Ubuntu 24.04 (Strix Halo)
 # Запуск: sudo ./scripts/inference/rocm/install.sh
 
 set -euo pipefail
 
-ROCM_VERSION="6.4"
-ROCM_DEB="amdgpu-install_6.4.60400-1_all.deb"
+ROCM_VERSION="7.2.1"
+ROCM_DEB="amdgpu-install_7.2.1.70201-1_all.deb"
 ROCM_URL="https://repo.radeon.com/amdgpu-install/${ROCM_VERSION}/ubuntu/noble/${ROCM_DEB}"
 
 if [[ $EUID -ne 0 ]]; then
@@ -37,7 +37,7 @@ tee /etc/profile.d/rocm.sh > /dev/null << 'EOF'
 export ROCM_PATH=/opt/rocm
 export PATH=$ROCM_PATH/bin:$PATH
 export LD_LIBRARY_PATH=$ROCM_PATH/lib:$LD_LIBRARY_PATH
-export HSA_OVERRIDE_GFX_VERSION=11.5.0
+export HSA_OVERRIDE_GFX_VERSION=11.5.1
 EOF
 
 echo ""

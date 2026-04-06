@@ -34,7 +34,7 @@ case "$BACKEND" in
     rocm)
         BUILD_SUFFIX="build-hip"
         export ROCM_PATH="${ROCM_PATH:-/opt/rocm}"
-        export HSA_OVERRIDE_GFX_VERSION="${HSA_OVERRIDE_GFX_VERSION:-11.5.0}"
+        export HSA_OVERRIDE_GFX_VERSION="${HSA_OVERRIDE_GFX_VERSION:-11.5.1}"
         export PATH="${ROCM_PATH}/bin:${PATH}"
         export LD_LIBRARY_PATH="${ROCM_PATH}/lib:${LD_LIBRARY_PATH:-}"
         ;;

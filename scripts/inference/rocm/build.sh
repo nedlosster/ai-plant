@@ -23,7 +23,7 @@ if $CLEAN || [[ ! -d "$BUILD_DIR" ]]; then
     rm -rf "$BUILD_DIR"
     cmake -B "$BUILD_DIR" \
         -DGGML_HIP=ON \
-        -DAMDGPU_TARGETS="gfx1150" \
+        -DAMDGPU_TARGETS="gfx1151" \
         -DCMAKE_PREFIX_PATH="$ROCM_PATH"
 else
     echo "Инкрементальная сборка..."
@@ -37,4 +37,4 @@ echo "Сборка завершена:"
 "$BUILD_DIR/bin/llama-cli" --version 2>&1 | head -5
 echo ""
 echo "Бинарники: $BUILD_DIR/bin/"
-echo "Запуск: HSA_OVERRIDE_GFX_VERSION=11.5.0 $BUILD_DIR/bin/llama-server -m model.gguf -ngl 99"
+echo "Запуск: $BUILD_DIR/bin/llama-server -m model.gguf -ngl 99"
