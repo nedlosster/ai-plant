@@ -156,6 +156,16 @@ parse_daemon_flag() {
 }
 
 # --- Запуск llama-server (общая логика) ---
+#
+# Дополнительные флаги -- через массив EXTRA_ARGS перед вызовом:
+#   EXTRA_ARGS=(--parallel 1 --no-mmap)
+#   run_server "$model" "$port" "$ctx" "llama-server"
+#
+# --jinja: по умолчанию включён (нужен для function calling Gemma 4 и аналогов).
+# Отключить: JINJA=0 ./start-server.sh ...
+#
+# --cache-reuse 256: переиспользование KV-cache через KV-shifting между
+# запросами с общим префиксом. Критично для multi-turn чата (opencode).
 run_server() {
     local model="$1"
     local port="$2"
@@ -163,49 +173,45 @@ run_server() {
     local log_prefix="$4"
     local log_file="/tmp/${log_prefix}-${port}.log"
 
+    local jinja_flag=()
+    [[ "${JINJA:-1}" != "0" ]] && jinja_flag=(--jinja)
+
+    local extra=("${EXTRA_ARGS[@]:-}")
+    [[ "${#extra[@]}" -eq 1 && -z "${extra[0]}" ]] && extra=()
+
     echo "Запуск llama-server:"
     echo "  Backend:  $BACKEND ($BUILD_SUFFIX)"
     echo "  Модель:   $(basename "$model")"
     echo "  Порт:     $port"
     echo "  Контекст: $ctx"
     echo "  GPU:      $DEFAULT_NGL слоев"
+    [[ "${#extra[@]}" -gt 0 ]] && echo "  Доп.:     ${extra[*]}"
     echo "  Режим:    $(if $DAEMON; then echo "daemon (лог: $log_file)"; else echo "foreground"; fi)"
     echo ""
 
-    # --cache-reuse: переиспользование KV-cache между запросами через KV-shifting
-    # Критично для multi-turn чата (opencode и т.п.) -- иначе каждый запрос
-    # переобрабатывает весь промпт с нуля
-    #
-    # --jinja: рендеринг Jinja2 chat-template из GGUF (вместо built-in fallback)
-    # Обязателен для function calling в Gemma 4 и аналогах. Совместим с
-    # большинством современных моделей (Qwen, Llama, Mistral). Отключить:
-    # JINJA=0 ./start-server.sh ...
-    local jinja_flag=""
-    [[ "${JINJA:-1}" != "0" ]] && jinja_flag="--jinja"
+    local args=(
+        -m "$model" --port "$port" -ngl "$DEFAULT_NGL"
+        -fa on -c "$ctx" --host "$DEFAULT_HOST"
+        --cache-reuse 256
+        "${jinja_flag[@]}"
+        "${extra[@]}"
+    )
 
     if $DAEMON; then
-        nohup "$LLAMA_SERVER" \
-            -m "$model" --port "$port" -ngl "$DEFAULT_NGL" \
-            -fa on -c "$ctx" --host "$DEFAULT_HOST" \
-            --cache-reuse 256 $jinja_flag \
-            > "$log_file" 2>&1 &
+        nohup "$LLAMA_SERVER" "${args[@]}" > "$log_file" 2>&1 &
         local pid=$!
         echo "PID: $pid"
         echo "Лог: tail -f $log_file"
-        # Ожидание запуска
-        for _ in $(seq 1 30); do
+        for _ in $(seq 1 60); do
             if curl -s --connect-timeout 1 "http://localhost:${port}/health" 2>/dev/null | grep -q "ok"; then
                 echo "Сервер запущен"
                 return 0
             fi
             sleep 1
         done
-        echo "ПРЕДУПРЕЖДЕНИЕ: сервер не ответил за 30 сек"
+        echo "ПРЕДУПРЕЖДЕНИЕ: сервер не ответил за 60 сек"
         echo "  Проверить: tail -f $log_file"
     else
-        exec "$LLAMA_SERVER" \
-            -m "$model" --port "$port" -ngl "$DEFAULT_NGL" \
-            -fa on -c "$ctx" --host "$DEFAULT_HOST" \
-            --cache-reuse 256 $jinja_flag
+        exec "$LLAMA_SERVER" "${args[@]}"
     fi
 }

@@ -10,6 +10,15 @@
 | `check.sh` | Проверка: ROCm, GPU, HIP, rocm-smi |
 | `build.sh` | Сборка llama.cpp с `GGML_HIP=ON` |
 | `config.sh` | `export AI_BACKEND=rocm` + source common/config.sh + check_rocm/check_gpu |
+| `qwen-coder-next.sh` | Пресет: Qwen3-Coder-Next 80B-A3B (см. предупреждение об OOM) |
+| `gemma4.sh` | Пресет: Gemma 4 26B-A4B, безопасные параметры |
+
+Пресеты -- тонкие обёртки над `common/presets/{qwen-coder-next,gemma4}.sh`,
+устанавливают `AI_BACKEND=rocm` и делегируют логику в общий пресет.
+
+ВНИМАНИЕ для Qwen3-Coder-Next: HIP-аллокация ограничена ~30 GiB GPU-памяти
+(см. KFD pool size в `rocminfo`), модель занимает ~45 GiB -- возможен OOM
+на загрузке. Для этой модели предпочтителен Vulkan-бекенд.
 
 Обёртки (`start-server.sh`, `bench.sh` и др.) делегируют в `scripts/inference/` с `AI_BACKEND=rocm`.
 
