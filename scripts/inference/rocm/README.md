@@ -10,15 +10,16 @@
 | `check.sh` | Проверка: ROCm, GPU, HIP, rocm-smi |
 | `build.sh` | Сборка llama.cpp с `GGML_HIP=ON` |
 | `config.sh` | `export AI_BACKEND=rocm` + source common/config.sh + check_rocm/check_gpu |
-| `qwen-coder-next.sh` | Пресет: Qwen3-Coder-Next 80B-A3B (см. предупреждение об OOM) |
-| `gemma4.sh` | Пресет: Gemma 4 26B-A4B, безопасные параметры |
+| `preset/qwen-coder-next.sh` | Qwen3-Coder-Next 80B-A3B, порт 8081, контекст 256K |
+| `preset/gemma4.sh` | Gemma 4 26B-A4B, порт 8081, контекст 32K (ужат для HIP) |
 
-Пресеты -- тонкие обёртки над `common/presets/{qwen-coder-next,gemma4}.sh`,
-устанавливают `AI_BACKEND=rocm` и делегируют логику в общий пресет.
+Пресеты -- self-contained, все параметры (модель, порт, контекст, доп. флаги)
+прописаны явно в каждом файле.
 
-ВНИМАНИЕ для Qwen3-Coder-Next: HIP-аллокация ограничена ~30 GiB GPU-памяти
-(см. KFD pool size в `rocminfo`), модель занимает ~45 GiB -- возможен OOM
-на загрузке. Для этой модели предпочтителен Vulkan-бекенд.
+ВНИМАНИЕ: HIP-аллокация ограничена ~30 GiB GPU-памяти (см. KFD pool size в
+`rocminfo`). Qwen3-Coder-Next (~45 GiB) скорее всего не загрузится.
+Gemma 4 на 64K контексте получает ROCm OOM в середине работы -- в HIP-пресете
+контекст ужат до 32K. Для стабильности обоих моделей предпочтителен Vulkan.
 
 Обёртки (`start-server.sh`, `bench.sh` и др.) делегируют в `scripts/inference/` с `AI_BACKEND=rocm`.
 

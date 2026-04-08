@@ -9,21 +9,21 @@
 | `check.sh` | Проверка окружения: Vulkan, GPU, группы, зависимости |
 | `build.sh` | Сборка/пересборка llama.cpp с `GGML_VULKAN=ON` |
 | `config.sh` | `export AI_BACKEND=vulkan` + source common/config.sh |
-| `qwen-coder-next.sh` | Пресет: Qwen3-Coder-Next 80B-A3B, порт 8081, контекст 256K |
-| `gemma4.sh` | Пресет: Gemma 4 26B-A4B, порт 8081, контекст 64K, `--parallel 1 --no-mmap --jinja` |
+| `preset/qwen-coder-next.sh` | Qwen3-Coder-Next 80B-A3B, порт 8081, контекст 256K |
+| `preset/gemma4.sh` | Gemma 4 26B-A4B, порт 8081, контекст 64K, `--parallel 1 --no-mmap` |
 
 Обёртки (`start-server.sh`, `bench.sh` и др.) делегируют в `scripts/inference/` с `AI_BACKEND=vulkan`.
 
 ## Пресеты запуска моделей
 
-Готовые скрипты с подобранными параметрами для конкретных моделей. Все запускают `llama-server` на порту **8081** через Vulkan-бэкенд.
+Готовые скрипты в `preset/` с явно прописанными параметрами (модель, порт, контекст, доп. флаги). Все запускают `llama-server` через Vulkan-бэкенд.
 
 ```bash
 # Стабильный 256K-контекст для Qwen3-Coder-Next
-./scripts/inference/vulkan/qwen-coder-next.sh -d
+./scripts/inference/vulkan/preset/qwen-coder-next.sh -d
 
 # Безопасные параметры для Gemma 4 (защита от OOM)
-./scripts/inference/vulkan/gemma4.sh -d
+./scripts/inference/vulkan/preset/gemma4.sh -d
 ```
 
 ### Почему Gemma 4 нужны спец. параметры
