@@ -155,50 +155,34 @@ parse_daemon_flag() {
     PARSED_ARGS=("${args[@]+"${args[@]}"}")
 }
 
-# --- Запуск llama-server (общая логика) ---
+# --- Запуск llama-server ---
 #
-# Дополнительные флаги -- через массив EXTRA_ARGS перед вызовом:
-#   EXTRA_ARGS=(--parallel 1 --no-mmap)
-#   run_server "$model" "$port" "$ctx" "llama-server"
+# Все llama-server флаги задаёт вызывающий скрипт (пресет) через массив ARGS:
 #
-# --jinja: по умолчанию включён (нужен для function calling Gemma 4 и аналогов).
-# Отключить: JINJA=0 ./start-server.sh ...
+#   ARGS=(
+#       -m "$MODEL" --port 8081 -ngl 99 -c 65536
+#       -fa on --host 0.0.0.0
+#       --parallel 1 --cache-reuse 256 --jinja --no-mmap
+#   )
+#   launch_server 8081 "llama-server" "${ARGS[@]}"
 #
-# --cache-reuse 256: переиспользование KV-cache через KV-shifting между
-# запросами с общим префиксом. Критично для multi-turn чата (opencode).
-run_server() {
-    local model="$1"
-    local port="$2"
-    local ctx="$3"
-    local log_prefix="$4"
+# launch_server отвечает только за daemon/foreground и health check.
+launch_server() {
+    local port="$1"
+    local log_prefix="$2"
+    shift 2
     local log_file="/tmp/${log_prefix}-${port}.log"
 
-    local jinja_flag=()
-    [[ "${JINJA:-1}" != "0" ]] && jinja_flag=(--jinja)
-
-    local extra=("${EXTRA_ARGS[@]:-}")
-    [[ "${#extra[@]}" -eq 1 && -z "${extra[0]}" ]] && extra=()
-
     echo "Запуск llama-server:"
-    echo "  Backend:  $BACKEND ($BUILD_SUFFIX)"
-    echo "  Модель:   $(basename "$model")"
-    echo "  Порт:     $port"
-    echo "  Контекст: $ctx"
-    echo "  GPU:      $DEFAULT_NGL слоев"
-    [[ "${#extra[@]}" -gt 0 ]] && echo "  Доп.:     ${extra[*]}"
-    echo "  Режим:    $(if $DAEMON; then echo "daemon (лог: $log_file)"; else echo "foreground"; fi)"
+    echo "  Backend: $BACKEND ($BUILD_SUFFIX)"
+    echo "  Порт:    $port"
+    echo "  Аргументы:"
+    printf '    %s\n' "$@"
+    echo "  Режим:   $(if $DAEMON; then echo "daemon (лог: $log_file)"; else echo "foreground"; fi)"
     echo ""
 
-    local args=(
-        -m "$model" --port "$port" -ngl "$DEFAULT_NGL"
-        -fa on -c "$ctx" --host "$DEFAULT_HOST"
-        --cache-reuse 256
-        "${jinja_flag[@]}"
-        "${extra[@]}"
-    )
-
     if $DAEMON; then
-        nohup "$LLAMA_SERVER" "${args[@]}" > "$log_file" 2>&1 &
+        nohup "$LLAMA_SERVER" "$@" > "$log_file" 2>&1 &
         local pid=$!
         echo "PID: $pid"
         echo "Лог: tail -f $log_file"
@@ -212,6 +196,27 @@ run_server() {
         echo "ПРЕДУПРЕЖДЕНИЕ: сервер не ответил за 60 сек"
         echo "  Проверить: tail -f $log_file"
     else
-        exec "$LLAMA_SERVER" "${args[@]}"
+        exec "$LLAMA_SERVER" "$@"
     fi
+}
+
+# --- run_server: обёртка с дефолтами для общих скриптов (start-server, start-fim) ---
+# Пресеты не используют, они вызывают launch_server напрямую с явным ARGS.
+run_server() {
+    local model="$1"
+    local port="$2"
+    local ctx="$3"
+    local log_prefix="$4"
+
+    local jinja_flag=()
+    [[ "${JINJA:-1}" != "0" ]] && jinja_flag=(--jinja)
+
+    local args=(
+        -m "$model" --port "$port" -ngl "$DEFAULT_NGL"
+        -fa on -c "$ctx" --host "$DEFAULT_HOST"
+        --parallel 4 --cache-reuse 256
+        "${jinja_flag[@]}"
+    )
+
+    launch_server "$port" "$log_prefix" "${args[@]}"
 }
