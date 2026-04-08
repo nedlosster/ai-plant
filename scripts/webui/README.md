@@ -53,6 +53,24 @@ webui/
 
 Показывает GPU, inference серверы, веб-интерфейсы, модели.
 
+## Локальная конфигурация inference
+
+Если inference запущен на нестандартном порту (например 8081 через `vulkan/preset/*.sh`), задай его в `~/.config/ai-plant/inference.env`:
+
+```bash
+mkdir -p ~/.config/ai-plant
+cp scripts/webui/inference.env.example ~/.config/ai-plant/inference.env
+$EDITOR ~/.config/ai-plant/inference.env
+```
+
+Файл не в git, читается всеми web-UI скриптами через `webui/config.sh`. Переменные:
+
+| Переменная | Дефолт | Назначение |
+|-----------|--------|------------|
+| `LLAMA_HOST` | `localhost` | хост llama-server (для health-check) |
+| `LLAMA_PORT` | `8080` | порт chat API |
+| `LLAMA_FIM_PORT` | `8081` | порт FIM-сервера |
+
 ## Требования
 
 - Docker (пользователь в группе docker)
