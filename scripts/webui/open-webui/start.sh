@@ -28,7 +28,7 @@ docker run -d \
     "$OPENWEBUI_IMAGE" > /dev/null
 
 echo "Open WebUI: http://localhost:${OPENWEBUI_PORT}"
-echo "Backend:    http://localhost:${LLAMA_PORT}/v1"
+echo "Backend:    ${LLAMA_API_URL}"
 echo ""
 echo "Ожидание запуска..."
 for _ in $(seq 1 30); do
