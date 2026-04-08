@@ -218,9 +218,100 @@ git clone https://github.com/idiap/coqui-ai-TTS ~/projects/coqui-tts
 | Инструмент для слабовидящих | XTTS v2 (быстро + 16 языков) |
 | Восстановление голоса умершего родственника | F5-TTS + reference из старых записей |
 
+## Веб-интерфейсы для TTS
+
+Все модели выше -- это веса. Чтобы пользоваться, нужен фронтенд. Варианты:
+
+### 1. TTS-WebUI (рекомендую -- "всё в одном")
+
+**Один Gradio-интерфейс с поддержкой 20+ моделей**: F5-TTS, XTTS v2, Fish Speech, ACE-Step, GPT-SoVITS, CosyVoice, Kokoro, OpenVoice, ParlerTTS, StyleTTS2, Tortoise, Bark, Voicecraft, RVC, Demucs и др.
+
+- **GitHub**: [rsxdalv/TTS-WebUI](https://github.com/rsxdalv/TTS-WebUI)
+- **Стек**: Conda + Python venv + Gradio (+ опционально React frontend в Docker)
+- **Установка**: один installer ставит всё, включая зависимости моделей
+- **Подходит для**: универсальная лаборатория, сравнение моделей на одном reference
+
+```bash
+# Установка через готовый скрипт (см. секцию ниже)
+./scripts/tts/install.sh
+./scripts/tts/start.sh -d
+# Web UI: http://localhost:7770
+```
+
+### 2. Open WebUI -> Custom TTS Engine
+
+В уже стоящей Open WebUI:
+
+1. Settings -> Audio -> Text-to-Speech Engine -> **Custom (OpenAI compatible)**
+2. Custom TTS API Base URL: `http://192.168.1.77:8880/v1` (или где запущен TTS)
+
+Любой TTS с OpenAI-совместимым API подойдёт. Backends:
+
+- **[remsky/Kokoro-FastAPI](https://github.com/remsky/Kokoro-FastAPI)** -- Kokoro, очень быстрый, без cloning
+- **[matatonic/openedai-speech](https://github.com/matatonic/openedai-speech)** -- XTTS/Piper в OpenAI API формате
+- **[Resemble Chatterbox](https://docs.openwebui.com/features/media-generation/audio/text-to-speech/chatterbox-tts-api-integration/)** -- voice cloning, native гайд для Open WebUI
+
+### 3. AllTalk TTS v2
+
+Standalone-сервер именно под voice cloning. Поддерживает XTTS, F5-TTS, Piper.
+
+- **GitHub**: [erew123/alltalk_tts](https://github.com/erew123/alltalk_tts)
+- Менеджер voice library, finetune XTTS, batch-обработка
+- Интегрируется с SillyTavern, Text-Generation-WebUI, Open WebUI
+
+### 4. Standalone Gradio каждой модели
+
+| Модель | Команда |
+|--------|---------|
+| F5-TTS | `f5-tts_infer-gradio --port 7860` |
+| Fish Speech | `python tools/run_webui.py` |
+| IndexTTS | `python webui.py` (в репо) |
+| XTTS | [daswer123/xtts-webui](https://github.com/daswer123/xtts-webui) |
+| Qwen3-TTS | `python qwen3_tts_webui.py` |
+
+Самое простое если нужна **одна модель**.
+
+### 5. SillyTavern (для ролеплея/чата)
+
+Встроенная TTS-интеграция с XTTS, AllTalk, F5-TTS, Coqui. Озвучка реплик голосами персонажей.
+
+### 6. Home Assistant
+
+Через Wyoming Protocol -- TTS становится backend голосового ассистента в умном доме.
+
+## Сравнение веб-стеков
+
+| Решение | Моделей | Voice cloning | Сложность | Лучше для |
+|---------|---------|---------------|-----------|-----------|
+| **TTS-WebUI** ⭐ | 20+ | да (XTTS, F5, Fish, ...) | средняя | универсальная лаборатория |
+| Open WebUI + Chatterbox | 1 | да | низкая | чат с озвучкой ответов LLM |
+| AllTalk TTS v2 | 3-5 | да | низкая | специализированный voice cloning |
+| Standalone Gradio | 1 | да | очень низкая | быстрый запуск одной модели |
+| Kokoro-FastAPI | 1 | нет | очень низкая | быстрая озвучка чата без клона |
+
+## Рекомендуемая схема
+
+**Двухуровневая:**
+
+1. **TTS-WebUI** -- основной хаб для экспериментов и проб. Удобно сравнить F5-TTS vs XTTS vs Fish Speech на одном reference, выбрать фаворита.
+2. **Open WebUI -> Custom TTS** -- продакшн-озвучка ответов LLM в чате. Подключить F5-TTS-сервер из TTS-WebUI как backend.
+
+## Скрипты на платформе
+
+В репо есть готовые скрипты для TTS-WebUI:
+
+```
+scripts/tts/
+├── install.sh      # Установка TTS-WebUI + PyTorch ROCm
+├── start.sh        # Запуск Gradio (порт 7770)
+├── stop.sh         # Остановка
+├── status.sh       # Статус
+└── config.sh       # Переменные окружения (HSA_OVERRIDE и т.п.)
+```
+
 ## Связанные статьи
 
-- [Vision LLM](vision.md) -- для голос+картинки сценариев см. Qwen2.5-Omni
+- [Vision LLM](vision.md) -- для голос+картинки см. Qwen2.5-Omni
 - [Музыка и вокал](music.md) -- ACE-Step (генерация песен с вокалом)
 - [Русский вокал](russian-vocals.md)
 - [LLM общего назначения](llm.md)
