@@ -1,10 +1,12 @@
 #!/bin/bash
 # Запуск Qwen3-Coder-Next 80B-A3B на порту 8081 с контекстом 256K
 # Стабильная конфигурация: подтверждено в работе с opencode
+# Backend: Vulkan
 #
-# Использование: ./scripts/inference/presets/qwen-coder-next.sh [--daemon|-d]
+# Использование: ./scripts/inference/vulkan/qwen-coder-next.sh [--daemon|-d]
 
 set -euo pipefail
+export AI_BACKEND=vulkan
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "${SCRIPT_DIR}/../common/config.sh"
 

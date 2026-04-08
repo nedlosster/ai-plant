@@ -1,5 +1,6 @@
 #!/bin/bash
 # Запуск Gemma 4 26B-A4B на порту 8081 с безопасными параметрами
+# Backend: Vulkan
 #
 # Особенности и причины ограничений:
 # - Контекст 64K (не 256K) -- Gemma 4 не поддерживает cache shifting,
@@ -7,11 +8,12 @@
 #   (32 чекпоинта × 765 MiB = 24 GiB только на снимки -- OOM)
 # - --parallel 1 -- один слот, чтобы не множить KV cache на 4
 # - --no-mmap -- модель сразу в RAM, без виртуальной памяти под mmap
-# - --jinja наследуется из run_server (нужен для function calling Gemma 4)
+# - --jinja -- обязателен для function calling Gemma 4
 #
-# Использование: ./scripts/inference/presets/gemma4.sh [--daemon|-d]
+# Использование: ./scripts/inference/vulkan/gemma4.sh [--daemon|-d]
 
 set -euo pipefail
+export AI_BACKEND=vulkan
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "${SCRIPT_DIR}/../common/config.sh"
 
