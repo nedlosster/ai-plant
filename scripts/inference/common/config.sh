@@ -172,10 +172,14 @@ run_server() {
     echo "  Режим:    $(if $DAEMON; then echo "daemon (лог: $log_file)"; else echo "foreground"; fi)"
     echo ""
 
+    # --cache-reuse: переиспользование KV-cache между запросами через KV-shifting
+    # Критично для multi-turn чата (opencode и т.п.) -- иначе каждый запрос
+    # переобрабатывает весь промпт с нуля
     if $DAEMON; then
         nohup "$LLAMA_SERVER" \
             -m "$model" --port "$port" -ngl "$DEFAULT_NGL" \
             -fa on -c "$ctx" --host "$DEFAULT_HOST" \
+            --cache-reuse 256 \
             > "$log_file" 2>&1 &
         local pid=$!
         echo "PID: $pid"
@@ -193,6 +197,7 @@ run_server() {
     else
         exec "$LLAMA_SERVER" \
             -m "$model" --port "$port" -ngl "$DEFAULT_NGL" \
-            -fa on -c "$ctx" --host "$DEFAULT_HOST"
+            -fa on -c "$ctx" --host "$DEFAULT_HOST" \
+            --cache-reuse 256
     fi
 }
