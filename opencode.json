@@ -5,6 +5,7 @@
     "llama-server": {
       "npm": "@ai-sdk/openai-compatible",
       "name": "llama.cpp",
+      "toolParser": ["raw-function-call", "json"],
       "options": {
         "baseURL": "{env:OPENAI_BASE_URL}",
         "apiKey": "{env:OPENAI_API_KEY}"
