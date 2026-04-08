@@ -10,6 +10,7 @@
 | [Российские LLM](russian-llm.md) | Saiga, T-pro, Vikhr -- модели с фокусом на русский язык | работает (llama.cpp + Vulkan) |
 | [Кодинг](coding.md) | Генерация и автодополнение кода | работает (llama.cpp + Vulkan) |
 | [Vision LLM](vision.md) | Multimodal: текст + изображения (Gemma 4, Qwen3-VL, InternVL, MiniCPM-o) | работает (llama.cpp + Vulkan + mmproj) |
+| [TTS с клонированием голоса](tts.md) | Озвучка по референсу: Qwen3-TTS, F5-TTS, Fish Speech, IndexTTS-2, XTTS | PyTorch ROCm |
 | [Музыка и вокал](music.md) | Генерация музыки и песен по тексту | частично (ACE-Step через ROCm) |
 | [Русский вокал](russian-vocals.md) | Обзор: русскоязычные песни через AI, сравнение подходов, промпты | ACE-Step 1.5 |
 | [Картинки](images.md) | Генерация изображений по описанию | частично (ComfyUI + GGUF) |
