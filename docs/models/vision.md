@@ -39,57 +39,146 @@ llama-server -m model.gguf --mmproj mmproj-BF16.gguf -ngl 99 ...
 - `mmproj-F16.gguf` (1.19 GB) -- идентично BF16 по размеру
 - `mmproj-F32.gguf` (2.29 GB) -- максимальная точность, не нужна для практики
 
-## Альтернативы (топ-3 из 2026)
+## Альтернативные vision-модели (2026)
 
-Помимо Gemma 4 есть более сильные специализированные vision-модели. Все имеют GGUF-версии и работают через llama.cpp.
+Все имеют GGUF-версии и работают через llama.cpp.
 
-### 1. Qwen3-VL (Alibaba)
+### 1. Qwen3-VL 30B-A3B (рекомендую как замену Gemma 4)
 
-Флагман от Qwen. Две основные версии:
-- **Qwen3-VL-30B-A3B** (MoE) -- ~17 GiB Q4_K_M, активны 3B параметров, быстрая
-- **Qwen3-VL-235B-A22B** (MoE) -- ~135 GiB Q4_K_M, по бенчмаркам конкурирует с Gemini-2.5-Pro и GPT-5
+**MoE с 3B активных параметров** -- быстрая как Qwen3-Coder-Next, но с vision.
 
-Сильные стороны: structured outputs, document understanding, video, OCR на 30+ языках. Доступны Instruct и Thinking варианты.
+- **Параметры**: 30B (A3B)
+- **Hub**: [Qwen/Qwen3-VL-30B-A3B-Instruct-GGUF](https://huggingface.co/Qwen/Qwen3-VL-30B-A3B-Instruct-GGUF)
+- **Размер**: 18.6 GB Q4_K_M + 1.08 GB mmproj F16
+- **Также**: [Thinking-вариант](https://huggingface.co/Qwen/Qwen3-VL-30B-A3B-Thinking-GGUF) с reasoning
+
+**Что умеет**: structured outputs, document understanding, video, OCR на 30+ языках, agentic capabilities.
 
 ```bash
-# Qwen3-VL-30B-A3B Q4_K_M (выбор для платформы -- умещается комфортно)
-./scripts/inference/download-model.sh unsloth/Qwen3-VL-30B-A3B-Instruct-GGUF \
-    --include '*Q4_K_M*' --include 'mmproj*'
+./scripts/inference/download-model.sh Qwen/Qwen3-VL-30B-A3B-Instruct-GGUF \
+    --include '*Q4_K_M*' --include '*mmproj*F16*'
 ```
 
-### 2. InternVL3 (OpenGVLab)
+### 2. Qwen3-VL 235B-A22B (флагман, на пределе платформы)
 
-Серия open-source vision-моделей с фокусом на reasoning и сложные задачи.
-- **InternVL3-78B** -- 72.2 на MMMU benchmark
-- **InternVL3-14B** -- средний размер для consumer-платформ
-- **InternVL3-2B** -- быстрая, для edge-устройств
+Конкурирует с Gemini-2.5-Pro и GPT-5 на multimodal-бенчмарках.
 
-Использует InternViT-6B-448px-V2_5 как vision encoder. Лучшая по математике/диаграммам в среднем сегменте.
+- **Параметры**: 235B (A22B)
+- **Hub**: [Qwen/Qwen3-VL-235B-A22B-Instruct-GGUF](https://huggingface.co/Qwen/Qwen3-VL-235B-A22B-Instruct-GGUF)
+- **Размер**: ~135 GB Q4_K_M + ~3 GB mmproj
+- **VRAM**: на пределе 120 GiB Vulkan (без запаса на контекст)
+
+**Что умеет**: лучшее качество vision-понимания среди open-source. Подходит для самых сложных задач (научные диаграммы, юридические документы, complex visual reasoning).
+
+```bash
+./scripts/inference/download-model.sh Qwen/Qwen3-VL-235B-A22B-Instruct-GGUF \
+    --include '*Q4_K_M*' --include '*mmproj*'
+```
+
+### 3. Qwen2.5-Omni 7B (vision + audio + text)
+
+**Multimodal в три стороны** -- понимает картинки И аудио. От ggml-org (официальный конвертер llama.cpp).
+
+- **Параметры**: 7B
+- **Hub**: [ggml-org/Qwen2.5-Omni-7B-GGUF](https://huggingface.co/ggml-org/Qwen2.5-Omni-7B-GGUF)
+- **Размер**: ~5 GB Q4_K_M + ~1 GB mmproj
+
+**Что умеет**: real-time speech conversation, multimodal streaming, голосовой ассистент, анализ видео+звука одновременно (например запись звонка), audio-описание изображений.
+
+```bash
+./scripts/inference/download-model.sh ggml-org/Qwen2.5-Omni-7B-GGUF \
+    --include '*Q4_K_M*' --include '*mmproj*'
+```
+
+### 4. Pixtral 12B (Mistral)
+
+**Apache 2.0** -- полная коммерческая свобода. Превосходит Qwen2-VL 7B, LLaVa-OneVision 7B, Phi-3.5 Vision.
+
+- **Параметры**: 12B
+- **Hub**: [ggml-org/pixtral-12b-GGUF](https://huggingface.co/ggml-org/pixtral-12b-GGUF)
+- **Размер**: 7.48 GB Q4_K_M + 463 MB mmproj Q8_0
+
+**Что умеет**: instruction following на vision-задачах -- сильнейший в среднем сегменте. Подходит когда нужна Apache 2.0 для коммерции.
+
+```bash
+./scripts/inference/download-model.sh ggml-org/pixtral-12b-GGUF \
+    --include '*Q4_K_M*' --include 'mmproj*Q8_0*'
+```
+
+### 5. Mistral Small 3.1 24B (multimodal)
+
+Сбалансированный размер, Apache 2.0.
+
+- **Параметры**: 24B
+- **Hub**: [ggml-org/Mistral-Small-3.1-24B-Instruct-2503-GGUF](https://huggingface.co/ggml-org/Mistral-Small-3.1-24B-Instruct-2503-GGUF)
+- **Размер**: ~14 GB Q4_K_M + ~1 GB mmproj
+
+**Что умеет**: сильная instruction following, vision-капабилитис, удобный размер для production-нагрузки.
+
+```bash
+./scripts/inference/download-model.sh ggml-org/Mistral-Small-3.1-24B-Instruct-2503-GGUF \
+    --include '*Q4_K_M*' --include '*mmproj*'
+```
+
+### 6. InternVL3 (OpenGVLab)
+
+Серия с фокусом на reasoning и сложные задачи.
+
+- **Параметры**: 2B / 14B / 78B
+- **Hub**: [bartowski/InternVL3-14B-GGUF](https://huggingface.co/bartowski/InternVL3-14B-GGUF), [официальные](https://huggingface.co/OpenGVLab)
+- **Размер 14B**: ~8 GB Q4_K_M + ~3 GB mmproj
+- **InternVL3-78B**: 72.2 на MMMU benchmark
+
+**Что умеет**: математика, диаграммы, графики, научные задачи. Использует InternViT-6B-448px-V2_5 как vision encoder.
 
 ```bash
 ./scripts/inference/download-model.sh bartowski/InternVL3-14B-GGUF \
     --include '*Q4_K_M*' --include 'mmproj*'
 ```
 
-### 3. MiniCPM-o 2.6 (OpenBMB)
+### 7. MiniCPM-o 2.6 (OpenBMB)
 
-End-side multimodal с поддержкой **изображений + видео + аудио + текста**. Real-time speech, multimodal streaming. Размер ~8B параметров. Очень эффективна для своего размера.
+End-side multimodal с поддержкой **изображений + видео + аудио + текста**.
+
+- **Параметры**: ~8B
+- **Hub**: [openbmb/MiniCPM-o-2_6-gguf](https://huggingface.co/openbmb/MiniCPM-o-2_6-gguf)
+- **Размер**: ~5 GB Q4_K_M + ~1 GB mmproj
+
+**Что умеет**: real-time speech, multimodal streaming, эффективность для своего размера.
 
 ```bash
 ./scripts/inference/download-model.sh openbmb/MiniCPM-o-2_6-gguf \
     --include '*Q4_K_M*' --include 'mmproj*'
 ```
 
+### 8. SmolVLM2 2.2B (компактная)
+
+Самая лёгкая, для edge или экспериментов. Поддержка видео.
+
+- **Параметры**: 2.2B (есть варианты 256M, 500M, 2.2B)
+- **Hub**: [HuggingFaceTB/SmolVLM2-2.2B-Instruct](https://huggingface.co/HuggingFaceTB/SmolVLM2-2.2B-Instruct), GGUF: [ggml-org/SmolVLM2-2.2B-Instruct-GGUF](https://huggingface.co/ggml-org/SmolVLM2-2.2B-Instruct-GGUF)
+- **Размер**: ~1.4 GB Q4_K_M + ~0.5 GB mmproj
+
+**Что умеет**: мгновенная скорость (~150 tok/s), поддержка видео, локальные сценарии где нужна минимальная задержка. SmolVLM2-256M вообще требует <1 GB VRAM.
+
+```bash
+./scripts/inference/download-model.sh ggml-org/SmolVLM2-2.2B-Instruct-GGUF \
+    --include '*Q4_K_M*' --include '*mmproj*'
+```
+
 ## Сравнение для платформы (gfx1151, 120 GiB)
 
-| Модель | Размер Q4_K_M | mmproj | tg (ожид.) | Сильные стороны |
-|--------|--------------|--------|------------|-----------------|
-| Gemma 4 26B-A4B | 17 GB | 1.2 GB | ~80 tok/s | function calling, reasoning, общий VLM |
-| Qwen3-VL 30B-A3B | 17 GB | ~1 GB | ~80 tok/s | OCR, документы, structured output |
-| InternVL3-14B | 8 GB | ~3 GB | ~25 tok/s | математика, диаграммы, reasoning |
-| MiniCPM-o 2.6 | 5 GB | ~1 GB | ~40 tok/s | мультимодальность (audio/video) |
-
-Все четыре помещаются с большим запасом. Можно держать несколько одновременно или быструю замену через пресет-скрипты.
+| Модель | Размер Q4 | mmproj | tg (ожид.) | Особенность |
+|--------|-----------|--------|------------|-------------|
+| **Qwen3-VL 30B-A3B** ⭐ | 18.6 GB | 1.1 GB | ~80 tok/s | universal vision, OCR, video |
+| Qwen3-VL 235B-A22B | 135 GB | ~3 GB | ~22 tok/s | флагман уровня Gemini-2.5/GPT-5 |
+| Qwen2.5-Omni 7B | ~5 GB | ~1 GB | ~50 tok/s | vision + audio + text |
+| Pixtral 12B | 7.5 GB | 463 MB | ~40 tok/s | instruction following, Apache 2.0 |
+| Mistral Small 3.1 24B | ~14 GB | ~1 GB | ~20 tok/s | сбалансированная |
+| InternVL3-14B | 8 GB | ~3 GB | ~25 tok/s | reasoning, диаграммы |
+| MiniCPM-o 2.6 | ~5 GB | ~1 GB | ~40 tok/s | мультимодальность (audio/video) |
+| SmolVLM2 2.2B | ~1.4 GB | ~0.5 GB | ~150 tok/s | edge, видео, минимум задержки |
+| Gemma 4 26B-A4B | 17 GB | 1.2 GB | ~80 tok/s | function calling, reasoning |
 
 ## Запуск vision-модели через llama-server
 

@@ -276,11 +276,88 @@
 | Llama CL (ограничение 700M MAU) | Llama 3.1/3.3/4 |
 | CC-BY-NC | Command A |
 
+---
+
+## Новинки 2026 (мониторинг трендов)
+
+### Gemma 4 26B-A4B (Google, multimodal MoE)
+
+- **Параметры**: 25.2B total / 3.8B active (8/128 экспертов)
+- **Hub**: [unsloth/gemma-4-26B-A4B-it-GGUF](https://huggingface.co/unsloth/gemma-4-26B-A4B-it-GGUF)
+- **Размер**: 16.9 GB Q4_K_M, 22.9 GB Q6_K, 26.9 GB Q8_0 + 1.19 GB mmproj
+- **Контекст**: **256K**
+- **Бенчмарки**: LiveCodeBench v6 = 77.1%, Codeforces ELO 1718, AIME 2026 = 88.3%
+
+**Что умеет**: native function calling, multimodal (text+images), thinking-режим, скорость как у 4B-модели (за счёт MoE A4B). Используется на платформе как замена Qwen3-Coder-Next (см. [vision.md](vision.md), пресет `vulkan/preset/gemma4.sh`).
+
+```bash
+./scripts/inference/download-model.sh unsloth/gemma-4-26B-A4B-it-GGUF \
+    --include '*Q6_K_XL*' --include 'mmproj-BF16.gguf'
+```
+
+### Qwen3.5-35B-A3B-APEX (mudler, smart quantization)
+
+Та же базовая Qwen3.5-35B-A3B MoE, но с **APEX-квантизацией** -- умное распределение точности между слоями экспертов. Достигает Q8_0-качества при 38% меньшем размере.
+
+- **Параметры**: 35B / 3B active (256 экспертов)
+- **Hub**: [mudler/Qwen3.5-35B-A3B-APEX-GGUF](https://huggingface.co/mudler/Qwen3.5-35B-A3B-APEX-GGUF)
+- **Варианты**:
+  - **APEX Quality** (21.3 GB) -- PPL 6.527 (лучше F16!)
+  - **APEX Balanced** (23.6 GB) -- общего назначения
+  - **APEX Compact** (16.1 GB) -- для consumer 24GB
+  - **APEX Mini** (12.2 GB) -- для 16 GB VRAM
+- **Скорость**: 62-74 tok/s
+- **Особенность**: edges Q6_K, middle Q5/IQ4, shared experts Q8_0 (всегда активны)
+
+```bash
+./scripts/inference/download-model.sh mudler/Qwen3.5-35B-A3B-APEX-GGUF \
+    --include 'Qwen3.5-35B-A3B-APEX-Quality.gguf'
+```
+
+### Qwen3.5-35B-A3B-Claude-4.6-Opus-Reasoning-Distilled
+
+LoRA-дообучение Qwen3.5-35B-A3B на трассах рассуждений Claude 4.6 Opus. Структурированное планирование в `<think>` блоках, без избыточных рассуждений на простых вопросах.
+
+- **Параметры**: 35B / 3B active
+- **Hub**: [Jackrong/Qwen3.5-35B-A3B-Claude-4.6-Opus-Reasoning-Distilled](https://huggingface.co/Jackrong/Qwen3.5-35B-A3B-Claude-4.6-Opus-Reasoning-Distilled)
+- **GGUF**: [mradermacher GGUF](https://huggingface.co/mradermacher/Qwen3.5-35B-A3B-Claude-4.6-Opus-Reasoning-Distilled-GGUF)
+- **Размеры**: Q4_K_M 21.3 GB, Q6_K 28.6 GB, Q8_0 37.0 GB
+- **Контекст**: 8K (мало для opencode)
+
+**Что умеет**: reasoning Claude Opus в открытой модели. Подходит для standalone CLI-задач (математика, алгоритмы, аналитика), не для длинных RAG/проектов.
+
+```bash
+./scripts/inference/download-model.sh mradermacher/Qwen3.5-35B-A3B-Claude-4.6-Opus-Reasoning-Distilled-GGUF \
+    --include '*Q6_K*'
+```
+
+### GLM-5.1 (zai-org, серверная)
+
+Флагман от Zhipu AI, Январь 2026. **94.6% от Claude Opus 4.6 на коде**, обучена полностью на Huawei чипах.
+
+- **Параметры**: 754B
+- **Hub**: [zai-org/GLM-5.1](https://huggingface.co/zai-org/GLM-5.1), [unsloth/GLM-5.1-GGUF](https://huggingface.co/unsloth/GLM-5.1-GGUF)
+- **Размер Q4**: ~440 GB -- **не помещается на платформе**
+
+Только для справки и отслеживания трендов. Для запуска нужен multi-GPU сервер.
+
+### Trinity-Large-Thinking (arcee-ai)
+
+- **Параметры**: 399B
+- **Hub**: [arcee-ai/Trinity-Large-Thinking](https://huggingface.co/arcee-ai/Trinity-Large-Thinking)
+- **Размер**: не помещается на платформе
+
+Тренд: thinking-модели большого размера от arcee. Для справки.
+
+---
+
 ## Связанные статьи
 
 - [Анатомия LLM](../llm-guide/model-anatomy.md)
 - [Квантизация](../llm-guide/quantization.md)
 - [HuggingFace](../llm-guide/huggingface.md)
 - [Модели для кодинга](coding.md)
+- [Vision LLM](vision.md)
+- [TTS с клонированием голоса](tts.md)
 - [Российские LLM](russian-llm.md)
 - [Бенчмарки](../inference/benchmarking.md)
