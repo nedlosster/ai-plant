@@ -175,11 +175,19 @@ run_server() {
     # --cache-reuse: переиспользование KV-cache между запросами через KV-shifting
     # Критично для multi-turn чата (opencode и т.п.) -- иначе каждый запрос
     # переобрабатывает весь промпт с нуля
+    #
+    # --jinja: рендеринг Jinja2 chat-template из GGUF (вместо built-in fallback)
+    # Обязателен для function calling в Gemma 4 и аналогах. Совместим с
+    # большинством современных моделей (Qwen, Llama, Mistral). Отключить:
+    # JINJA=0 ./start-server.sh ...
+    local jinja_flag=""
+    [[ "${JINJA:-1}" != "0" ]] && jinja_flag="--jinja"
+
     if $DAEMON; then
         nohup "$LLAMA_SERVER" \
             -m "$model" --port "$port" -ngl "$DEFAULT_NGL" \
             -fa on -c "$ctx" --host "$DEFAULT_HOST" \
-            --cache-reuse 256 \
+            --cache-reuse 256 $jinja_flag \
             > "$log_file" 2>&1 &
         local pid=$!
         echo "PID: $pid"
@@ -198,6 +206,6 @@ run_server() {
         exec "$LLAMA_SERVER" \
             -m "$model" --port "$port" -ngl "$DEFAULT_NGL" \
             -fa on -c "$ctx" --host "$DEFAULT_HOST" \
-            --cache-reuse 256
+            --cache-reuse 256 $jinja_flag
     fi
 }
