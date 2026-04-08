@@ -15,7 +15,19 @@ INFERENCE_ENV="${HOME}/.config/ai-plant/inference.env"
 LLAMA_HOST="${LLAMA_HOST:-localhost}"
 LLAMA_PORT="${LLAMA_PORT:-8080}"
 LLAMA_FIM_PORT="${LLAMA_FIM_PORT:-8081}"
-LLAMA_API_URL="http://host.docker.internal:${LLAMA_PORT}/v1"
+
+# LLAMA_API_URL -- адрес для Docker-контейнера (open-webui, lobe-chat).
+# Если LLAMA_HOST=localhost -- бэкенд на той же машине, что и Docker.
+#   Docker не видит localhost хоста, нужно host.docker.internal.
+# Если LLAMA_HOST=<IP> -- бэкенд на другой машине, контейнер ходит напрямую.
+# Можно явно задать LLAMA_API_URL в inference.env.
+if [[ -z "${LLAMA_API_URL:-}" ]]; then
+    if [[ "$LLAMA_HOST" == "localhost" || "$LLAMA_HOST" == "127.0.0.1" ]]; then
+        LLAMA_API_URL="http://host.docker.internal:${LLAMA_PORT}/v1"
+    else
+        LLAMA_API_URL="http://${LLAMA_HOST}:${LLAMA_PORT}/v1"
+    fi
+fi
 
 # --- Проверка Docker ---
 check_docker() {
