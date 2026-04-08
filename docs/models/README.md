@@ -9,6 +9,7 @@
 | [LLM общего назначения](llm.md) | Qwen2.5, Llama 3.3, DeepSeek-R1, Phi-4 -- рейтинг, VRAM | работает (llama.cpp + Vulkan) |
 | [Российские LLM](russian-llm.md) | Saiga, T-pro, Vikhr -- модели с фокусом на русский язык | работает (llama.cpp + Vulkan) |
 | [Кодинг](coding.md) | Генерация и автодополнение кода | работает (llama.cpp + Vulkan) |
+| [Vision LLM](vision.md) | Multimodal: текст + изображения (Gemma 4, Qwen3-VL, InternVL, MiniCPM-o) | работает (llama.cpp + Vulkan + mmproj) |
 | [Музыка и вокал](music.md) | Генерация музыки и песен по тексту | частично (ACE-Step через ROCm) |
 | [Русский вокал](russian-vocals.md) | Обзор: русскоязычные песни через AI, сравнение подходов, промпты | ACE-Step 1.5 |
 | [Картинки](images.md) | Генерация изображений по описанию | частично (ComfyUI + GGUF) |
