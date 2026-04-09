@@ -310,6 +310,30 @@ Qwen3-VL -- специализированная vision-серия от Alibaba 
 
 Пресет: 30B-A3B Instruct + mmproj F16, контекст 128K, 4 слота, --jinja для function calling.
 
+## Платформы и клиенты для работы с моделью
+
+Qwen3-VL через mmproj работает в llama-server с одним эндпоинтом, поэтому **любой OpenAI-compatible клиент с поддержкой `image_url`** заработает без дополнительной настройки.
+
+| Платформа | Удобство | Что даёт |
+|-----------|----------|----------|
+| **Open WebUI** ⭐ | максимум | Drag-and-drop изображений, multi-turn с историей картинок. Подключается к llama-server через `inference.env`. Лучший выбор для daily использования |
+| **[opencode](../../ai-agents/agents/opencode.md)** | высоко | Vision из коробки если модель поддерживает mmproj. Удобно для "скриншот ошибки → код". Через `/image path/to.png` или paste из буфера |
+| **[Cline](../../ai-agents/agents/cline.md) / [Roo Code](../../ai-agents/agents/roo-code.md)** | высоко | VS Code: правый клик по картинке в Explorer → "Send to". Хорошо для UI reverse engineering из скриншотов в проекте |
+| **llama.cpp `llama-mtmd-cli`** | средне | CLI-режим, batch-обработка, scripting. Удобно для пакетной OCR / анализа документов |
+| **Direct API (curl / Python)** | низко, но мощно | Автоматизация: OCR pipeline, batch document parsing, structured JSON extraction через `/v1/chat/completions` с `image_url` |
+| **[Continue.dev](../../ai-agents/agents/continue-dev.md)** | средне | VS Code / JetBrains chat panel. Поддерживает vision если модель её даёт |
+| **LM Studio** | высоко (desktop) | GUI macOS/Windows/Linux, drag-and-drop. Для локального ноутбука, не для headless-сервера |
+| **Jan / GPT4All** | средне | Desktop-альтернативы LM Studio, менее зрелые |
+
+### Рекомендация под сценарии платформы
+
+- **Daily multimodal chat / OCR / "опиши скриншот"** → Open WebUI → llama-server с пресетом `vulkan/preset/qwen3-vl.sh`
+- **UI reverse engineering (4-фазный workflow выше)** → Open WebUI для интерактивных итераций, или Python-скрипт через прямой API для воспроизводимости промптов и парсинга JSON-output
+- **Code + screenshot в IDE** → [opencode](../../ai-agents/agents/opencode.md) TUI (paste из буфера) или [Cline](../../ai-agents/agents/cline.md) в VS Code
+- **Batch обработка документов** → Python-скрипт через `/v1/chat/completions` с `image_url=base64`
+
+Антипаттерн: пытаться использовать клиенты без vision-поддержки в API ([Aider](../../ai-agents/agents/aider.md) на момент 2026, базовый CLI-клиент llama.cpp без `mtmd`) -- проще сразу выбрать клиент из таблицы выше.
+
 ## Связано
 
 - Направления: [vision](../vision.md)
