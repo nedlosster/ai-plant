@@ -129,6 +129,43 @@ LoRA-дообучение на трассах рассуждений Claude 4.6 
 | 122B-A10B | 122B MoE | 22.2 | -- (MoE bonus) |
 | 27B dense | 27B | 12.6 | 77% |
 
+## Имеет ли смысл в агентах кодинга
+
+**Краткий ответ**: нет, как основной бэкенд для [opencode](../../ai-agents/agents/opencode.md) / [Aider](../../ai-agents/agents/aider.md) / [Cline](../../ai-agents/agents/cline.md) -- не стоит. Для редких вспомогательных задач -- можно, но почти всегда есть лучший вариант.
+
+### Почему не рекомендуется
+
+1. **Не coding-tuned**. Qwen3.5 -- universal-серия, оптимизированная под chat / reasoning / multimodal / русский. Кодинг покрывает специализированная линейка [qwen3-coder](qwen3-coder.md), которая на той же базе обучена на ~7T токенов agentic-данных и trace'ах tool use. Сравнение на SWE-bench Verified:
+
+   | Модель | SWE-V | Active | tg tok/s | Назначение |
+   |--------|-------|--------|----------|------------|
+   | [Qwen3-Coder Next 80B-A3B](qwen3-coder.md#next-80b-a3b) | **70.6%** | 3B | ~80 | agent-style coding |
+   | [Qwen3-Coder 30B-A3B](qwen3-coder.md#30b-a3b) | ~62% | 3B | ~86 | chat по коду |
+   | [Devstral 2 24B](devstral.md) | **72.2%** | 24B (dense) | ~25 | dense alternative |
+   | Qwen3.5 122B-A10B | не публикуется | 10B | 22.2 | universal/chat |
+   | Qwen3.5 27B dense | не публикуется | 27B | 12.6 | universal/chat |
+
+   Qwen3.5 не публикует SWE-bench именно потому, что это не её домен -- сравнение проиграет coder-вариантам той же базы.
+
+2. **Слабее на tool use дисциплине**. Agent-инструменты требуют чёткого формата вызовов, стабильного JSON, не "уезжающего" reasoning-цикла. Coder-варианты тренированы именно на trace'ах tool calling, у Qwen3.5 это побочный навык.
+
+3. **Скорость убивает интерактивность**. opencode/Cline на одну задачу делают 5-20 итераций tool-loop. На 122B-A10B (22 tok/s) средний agentic запрос съест 2-5 минут wall clock против 30-60 сек на Qwen3-Coder Next (~80 tok/s). На 27B dense (12.6 tok/s) -- ещё хуже.
+
+4. **Контекст 128K vs 256K у coder-серии**. Для крупных monorepo разница ощутима: agentic-loop с repo map + grep + diff быстро забивает 128K, у Qwen3-Coder Next вдвое больший запас.
+
+5. **Multimodal не нужна** в большинстве coding-задач. Сильная сторона Qwen3.5 (vision, русский) в agent-кодинге не используется.
+
+### Когда всё-таки имеет смысл
+
+- **Скриншот ошибки + код в одном промпте** через [opencode](../../ai-agents/agents/opencode.md) -- но для этого лучше [Gemma 4 26B-A4B](gemma4.md) (специально натренирована на screenshot-to-code) или [Qwen3-VL](qwen3-vl.md).
+- **Code review с русскоязычными комментариями** -- 27B dense даёт лучший русский, объясняет диффы понятным языком. Узкая ниша.
+- **Standalone reasoning-задачи**: алгоритмика, математика, "объясни сложный участок", без многошаговой агентности. 122B-A10B здесь сильнее coder-вариантов на reasoning, но это уже не agent use case -- это chat по коду.
+- **35B-A3B-Claude-4.6-Opus-Reasoning-Distilled** (community-вариант) -- интересен для reasoning, но контекст 8K делает его непригодным для agent-loop.
+
+### Вердикт
+
+Для daily agent-кодинга на нашей платформе оставлять [Qwen3-Coder Next 80B-A3B](qwen3-coder.md#next-80b-a3b) (через `vulkan/preset/qwen-coder-next.sh`). Qwen3.5 122B-A10B держать как **универсальный chat / vision / русскоязычный assistant** (Open WebUI), не как agent backend. Параллельный запуск возможен -- 71 GiB (122B) + 45 GiB (Coder Next) ≈ 116 GiB, впритык под 120 GiB.
+
 ## Как выбрать вариант (27B vs 35B-A3B vs 122B-A10B)
 
 Подробный разбор с decision tree, расшифровкой обозначений (`A3B`, `A10B`) и практическими сценариями -- в статье **[«Имена моделей и выбор варианта»](../../llm-guide/naming-and-variants.md)**. Использует Qwen3.5 как сквозной пример.
