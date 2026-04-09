@@ -28,6 +28,46 @@ llama-server -m model.gguf --mmproj mmproj-BF16.gguf -ngl 99 ...
 
 Также мультимодальные [Qwen3.5-27B](families/qwen35.md#27b) и [Qwen3.5-122B](families/qwen35.md#122b-a10b) -- но без отдельного mmproj (vision встроен).
 
+## Топ vision-моделей для платформы (апрель 2026)
+
+Ранжирование по совокупности MMMU/MMMU-Pro, OCR-качества, скорости на платформе, размера контекста и зрелости llama.cpp-интеграции. Все варианты помещаются в 120 GiB unified memory **с запасом** на контекст и параллельные сервера.
+
+| # | Модель | Параметры | MMMU | VRAM Q4+mmproj | tg tok/s | Сильное место |
+|---|--------|-----------|------|----------------|----------|----------------|
+| 1 | [Qwen3-VL 30B-A3B Instruct](families/qwen3-vl.md#30b-a3b) | 30B MoE / 3B | ~70 | 19.7 GiB | ~80 | Лучший OCR open-source, structured JSON, video, 30+ языков |
+| 2 | [Gemma 4 26B-A4B](families/gemma4.md) | 26B MoE / 3.8B | ~72 | 17 GiB | ~70 | Function calling, screenshot-to-code, 256K, thinking |
+| 3 | InternVL3.5-38B | 38B dense | ~74 | ~24 GiB | ~15 | Лидер dense MMMU, math/charts/диаграммы, reasoning |
+| 4 | [Qwen3-VL 30B-A3B Thinking](families/qwen3-vl.md#30b-a3b) | 30B MoE / 3B | ~73 | 19.7 GiB | ~50 | Reasoning-режим над визуальными задачами |
+| 5 | [Mistral Small 3.1 24B](families/mistral-small-31.md) | 24B dense | 64 | ~16 GiB | ~22 | Function calling, balanced, Apache 2.0 |
+| 6 | [Pixtral 12B](families/pixtral.md) | 12B dense | 52 | ~8.5 GiB | ~35 | Multi-image input, Apache 2.0, instruction following |
+| 7 | [InternVL3-14B](families/internvl.md) | 14B dense | ~67 | ~12 GiB | ~25 | Math/charts фокус, reasoning |
+| 8 | [Qwen2.5-Omni 7B](families/qwen25-omni.md) | 7B dense | 59 | ~5 GiB | ~50 | Vision + audio + text omni |
+| 9 | [MiniCPM-o 2.6](families/minicpm-o.md) | 8B dense | 58 | ~5 GiB | ~55 | Streaming video, edge-friendly |
+| 10 | [SmolVLM2 2.2B](families/smolvlm2.md) | 2.2B dense | 42 | ~2 GiB | ~150 | Edge, минимальная latency, Raspberry Pi |
+
+**#1 [Qwen3-VL 30B-A3B Instruct](families/qwen3-vl.md#30b-a3b)** -- основной выбор для daily multimodal на платформе. MoE с 3B active даёт скорость ~80 tok/s. Лучший OCR в open-source (30+ языков), structured JSON output по schema, video understanding с таймкодами. Уже скачана. Минус -- контекст 128K (vs 256K у Gemma 4), reasoning только через Thinking-вариант.
+
+**#2 [Gemma 4 26B-A4B](families/gemma4.md)** -- вторая основная на платформе. Native function calling + thinking mode + 256K контекст. Лучше Qwen3-VL на screenshot-to-code задачах (специально натренирована). Уже скачана. Минус -- OCR на не-латинских скриптах слабее Qwen3-VL.
+
+**#3 InternVL3.5-38B** -- лидер dense-сегмента по MMMU (~74). Сильнейший на математике, диаграммах, графиках, научных публикациях. На платформу влезает (~24 GiB Q4), но dense 38B даёт ~15 tok/s -- ощутимо медленнее MoE-вариантов. Для редких сложных задач reasoning -- стоит рассмотреть.
+
+**#4 [Qwen3-VL 30B-A3B Thinking](families/qwen3-vl.md#30b-a3b)** -- та же база, что #1, но с reasoning-loop в `<think>`. Жертвуем скоростью ради качества на сложных visual reasoning. Можно держать параллельно с Instruct (один порт занят, другой свободен).
+
+**#5-7** -- специализированные альтернативы: Mistral Small 3.1 (function calling + Apache 2.0), Pixtral (multi-image), InternVL3-14B (компактный reasoning).
+
+**#8-10** -- omni и edge-сегмент: для голосовых сценариев, streaming video, или работы на слабом железе.
+
+### Что НЕ помещается на платформу
+
+| Модель | Параметры | Q4 размер | Почему не помещается |
+|--------|-----------|-----------|----------------------|
+| [Qwen3-VL 235B-A22B](families/qwen3-vl.md#235b-a22b) | 235B MoE / 22B | 135 + 3 GiB | 145-150 GiB суммарно при 120 GiB доступно. См. [реалистичный вердикт](families/qwen3-vl.md#235b-a22b) |
+| InternVL3.5-241B-A28B | 241B MoE / 28B | ~145 GiB | Лидер MMMU 77.7, но не помещается даже близко |
+| Llama 4 Maverick 400B MoE | 400B / 17B | ~240 GiB | MMMU 73.4, frontier, доступ только через API |
+| [Kimi K2.5](families/kimi-k25.md) | 1T MoE / 32B | 240+ GiB | Native multimodal (MoonViT 400M), MMMU Pro 78.5, через API |
+
+Frontier-tier (235B+) для нашей платформы -- только через API. Локально потолок -- 30-38B.
+
 ## Сравнительная таблица
 
 | Модель | Семейство | Параметры | mmproj | Контекст | Особенность |
