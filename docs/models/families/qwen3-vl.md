@@ -4,7 +4,7 @@
 
 **Тип**: MoE (3B-22B active)
 **Лицензия**: Apache 2.0
-**Статус на сервере**: не скачана
+**Статус на сервере**: скачана (30B-A3B Instruct Q4_K_M + mmproj F16)
 **Направления**: [vision](../vision.md)
 
 ## Обзор
@@ -15,7 +15,7 @@ Qwen3-VL -- специализированная vision-серия от Alibaba 
 
 | Вариант | Параметры | Active | VRAM Q4 | mmproj | Статус | Hub |
 |---------|-----------|--------|---------|--------|--------|-----|
-| 30B-A3B Instruct | 30B MoE | 3B | 18.6 GiB | 1.08 GB F16 | не скачана | [Qwen/Qwen3-VL-30B-A3B-Instruct-GGUF](https://huggingface.co/Qwen/Qwen3-VL-30B-A3B-Instruct-GGUF) |
+| 30B-A3B Instruct | 30B MoE | 3B | 18.6 GiB | 1.08 GB F16 | **скачана** | [Qwen/Qwen3-VL-30B-A3B-Instruct-GGUF](https://huggingface.co/Qwen/Qwen3-VL-30B-A3B-Instruct-GGUF) |
 | 30B-A3B Thinking | 30B MoE | 3B | 18.6 GiB | 1.08 GB F16 | не скачана | [Qwen/Qwen3-VL-30B-A3B-Thinking-GGUF](https://huggingface.co/Qwen/Qwen3-VL-30B-A3B-Thinking-GGUF) |
 | 235B-A22B Instruct | 235B MoE | 22B | ~135 GiB | ~3 GB | не скачана | [Qwen/Qwen3-VL-235B-A22B-Instruct-GGUF](https://huggingface.co/Qwen/Qwen3-VL-235B-A22B-Instruct-GGUF) |
 

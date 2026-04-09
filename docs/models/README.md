@@ -33,9 +33,11 @@
 | dense | 27B | Qwen3.5-27B | [qwen35](families/qwen35.md#27b) | [llm](llm.md), [vision](vision.md) | `vulkan/preset/qwen3.5-27b.sh` | 17 GiB |
 | MoE 10B/122B | 122B A10B | Qwen3.5-122B-A10B | [qwen35](families/qwen35.md#122b-a10b) | [llm](llm.md), [vision](vision.md) | `vulkan/preset/qwen3.5-122b.sh` | 71 GiB |
 | MoE 4B/26B | 26B A4B | Gemma 4 26B-A4B | [gemma4](families/gemma4.md) | [llm](llm.md), [vision](vision.md) | `vulkan/preset/gemma4.sh` | 22 GiB + 1.2 mmproj |
-| diffusion | 12B | FLUX.1-schnell | [flux](families/flux.md#schnell) | [images](images.md) | `comfyui/start.sh` | ~7 GiB |
-| diffusion | 12B | FLUX.1-dev | [flux](families/flux.md#dev) | [images](images.md) | `comfyui/start.sh` | ~13 GiB |
-| encoder | -- | T5-XXL | [flux](families/flux.md) | [images](images.md) | `comfyui/start.sh` | ~5 GiB |
+| MoE 3B/30B | 30B A3B | Qwen3-VL 30B-A3B | [qwen3-vl](families/qwen3-vl.md#30b-a3b) | [vision](vision.md) | -- (нужен пресет) | 18 GiB + 1 mmproj |
+| dense | 7B | Qwen2.5-Omni 7B | [qwen25-omni](families/qwen25-omni.md) | [vision](vision.md), [tts](tts.md) | -- (нужен пресет) | 5 GiB + 1.5 mmproj |
+| diffusion | 12B | FLUX.1-schnell Q4_K_S | [flux](families/flux.md#schnell) | [images](images.md) | `comfyui/start.sh` | ~7 GiB |
+| encoder | -- | T5-XXL Q8_0 | [flux](families/flux.md) | [images](images.md) | `comfyui/start.sh` | ~5 GiB |
+| encoder | -- | CLIP-L | [flux](families/flux.md) | [images](images.md) | `comfyui/start.sh` | 0.25 GiB |
 | diffusion audio | 1.5B | ACE-Step 1.5 | [ace-step](families/ace-step.md) | [music](music.md), [russian-vocals](russian-vocals.md) | `music/ace-step/start.sh` | <4 GiB |
 
 ## Ожидается open weights

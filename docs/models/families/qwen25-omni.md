@@ -4,7 +4,7 @@
 
 **Тип**: dense (7B)
 **Лицензия**: Apache 2.0
-**Статус на сервере**: не скачана
+**Статус на сервере**: скачана (7B Q4_K_M + mmproj Q8_0 + mmproj F16)
 **Направления**: [vision](../vision.md), [tts](../tts.md)
 
 ## Обзор
@@ -15,7 +15,7 @@ Qwen2.5-Omni -- единственная в коллекции **omni-модел
 
 | Вариант | Параметры | VRAM Q4 | mmproj | Статус | Hub |
 |---------|-----------|---------|--------|--------|-----|
-| 7B | 7B dense | ~5 GiB | ~1 GiB | не скачана | [ggml-org/Qwen2.5-Omni-7B-GGUF](https://huggingface.co/ggml-org/Qwen2.5-Omni-7B-GGUF) |
+| 7B | 7B dense | ~5 GiB | ~1 GiB | **скачана** | [ggml-org/Qwen2.5-Omni-7B-GGUF](https://huggingface.co/ggml-org/Qwen2.5-Omni-7B-GGUF) |
 | 3B | 3B dense | ~2 GiB | ~0.5 GiB | не скачана | [ggml-org/Qwen2.5-Omni-3B-GGUF](https://huggingface.co/ggml-org/Qwen2.5-Omni-3B-GGUF) |
 
 ## Архитектура

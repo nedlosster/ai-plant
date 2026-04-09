@@ -4,7 +4,7 @@
 
 **Тип**: diffusion (12B параметров)
 **Лицензия**: Schnell -- Apache 2.0; Dev -- FLUX-1-dev (некоммерческая)
-**Статус на сервере**: скачаны (FLUX.1-schnell, FLUX.1-dev, T5-XXL encoder)
+**Статус на сервере**: скачаны (FLUX.1-schnell Q4_K_S + T5-XXL encoder + CLIP-L + VAE)
 **Направления**: [images](../images.md)
 
 ## Обзор
@@ -17,8 +17,8 @@ FLUX -- семейство diffusion-моделей от Black Forest Labs (со
 
 | Вариант | Параметры | GGUF Q8 | GGUF Q4 | Скорость | Лицензия | Статус | Hub |
 |---------|-----------|---------|---------|----------|----------|--------|-----|
-| FLUX.1-dev | 12B | 12.6 GiB | 6.7 GiB | ~50 шагов | FLUX-1-dev (некоммерч.) | скачана (Q8) | [city96/FLUX.1-dev-gguf](https://huggingface.co/city96/FLUX.1-dev-gguf) |
-| FLUX.1-schnell | 12B | 12.6 GiB | 6.7 GiB | **4 шага** | Apache 2.0 | скачана (Q4) | [city96/FLUX.1-schnell-gguf](https://huggingface.co/city96/FLUX.1-schnell-gguf) |
+| FLUX.1-dev | 12B | 12.6 GiB | 6.7 GiB | ~50 шагов | FLUX-1-dev (некоммерч.) | не скачана | [city96/FLUX.1-dev-gguf](https://huggingface.co/city96/FLUX.1-dev-gguf) |
+| FLUX.1-schnell | 12B | 12.6 GiB | 6.7 GiB Q4_K_S | **4 шага** | Apache 2.0 | **скачана (Q4_K_S)** | [city96/FLUX.1-schnell-gguf](https://huggingface.co/city96/FLUX.1-schnell-gguf) |
 
 ### FLUX.1-dev {#dev}
 
