@@ -6,6 +6,8 @@
 **Лицензия**: Gemma Terms of Use
 **Статус на сервере**: скачана (26B-A4B Q6_K_XL + mmproj-BF16)
 **Направления**: [llm](../llm.md), [vision](../vision.md)
+**Function calling**: native (лучшее сочетание FC + vision на платформе)
+**Vision**: да (mmproj-BF16, 1.19 GB)
 
 ## Обзор
 

@@ -36,15 +36,17 @@
 
 ## Сравнительная таблица
 
-| Модель | Семейство | Параметры | Active | SWE-bench V | HumanEval | FIM | Контекст | Лицензия |
-|--------|-----------|-----------|--------|-------------|-----------|-----|----------|----------|
-| Qwen3-Coder-Next | [qwen3-coder](families/qwen3-coder.md#next-80b-a3b) | 80B MoE | 3B | **70.6%** | -- | нет | 256K | Apache 2.0 |
-| Qwen3-Coder-30B-A3B | [qwen3-coder](families/qwen3-coder.md#30b-a3b) | 30B MoE | 3B | -- | -- | нет | 256K | Apache 2.0 |
-| Devstral 2 | [devstral](families/devstral.md) | 24B dense | 24B | **72.2%** | -- | да | 256K | Apache 2.0 |
-| Qwen2.5-Coder-32B | [qwen25-coder](families/qwen25-coder.md#32b) | 32B dense | 32B | -- | **92.7%** | да | 128K | Apache 2.0 |
-| Codestral 25.08 | [codestral](families/codestral.md) | 22B dense | 22B | -- | 86.6% | **да (лидер FIM)** | 256K | MNPL |
-| Qwen2.5-Coder-7B | [qwen25-coder](families/qwen25-coder.md#7b) | 7B dense | 7B | -- | 88.4% | да | 128K | Apache 2.0 |
-| Qwen2.5-Coder-1.5B | [qwen25-coder](families/qwen25-coder.md#1-5b) | 1.5B dense | 1.5B | -- | ~75% | да | 128K | Apache 2.0 |
+| Модель | Семейство | Параметры | Active | SWE-bench V | HumanEval | FIM | FC | Контекст | Лицензия |
+|--------|-----------|-----------|--------|-------------|-----------|-----|-----|----------|----------|
+| Qwen3-Coder-Next | [qwen3-coder](families/qwen3-coder.md#next-80b-a3b) | 80B MoE | 3B | **70.6%** | -- | нет | **native** ⭐ | 256K | Apache 2.0 |
+| Qwen3-Coder-30B-A3B | [qwen3-coder](families/qwen3-coder.md#30b-a3b) | 30B MoE | 3B | -- | -- | нет | native | 256K | Apache 2.0 |
+| Devstral 2 | [devstral](families/devstral.md) | 24B dense | 24B | **72.2%** | -- | да | native | 256K | Apache 2.0 |
+| Qwen2.5-Coder-32B | [qwen25-coder](families/qwen25-coder.md#32b) | 32B dense | 32B | -- | **92.7%** | да | native | 128K | Apache 2.0 |
+| Codestral 25.08 | [codestral](families/codestral.md) | 22B dense | 22B | -- | 86.6% | **да (лидер FIM)** | native | 256K | MNPL |
+| Qwen2.5-Coder-7B | [qwen25-coder](families/qwen25-coder.md#7b) | 7B dense | 7B | -- | 88.4% | да | partial | 128K | Apache 2.0 |
+| Qwen2.5-Coder-1.5B | [qwen25-coder](families/qwen25-coder.md#1-5b) | 1.5B dense | 1.5B | -- | ~75% | да | нет | 128K | Apache 2.0 |
+
+⭐ Лучший FC на платформе для agent-style кодинга. Запуск с `--jinja` обязателен -- см. [llm-guide/function-calling.md](../llm-guide/function-calling.md#function-calling-на-платформе-2026).
 
 ## Бенчмарки на платформе (Vulkan, llama-bench pp512/tg128)
 

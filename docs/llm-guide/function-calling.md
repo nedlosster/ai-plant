@@ -683,6 +683,266 @@ else:
 ```
 
 
+## Function calling на платформе (2026)
+
+Практический гид: какие модели на нашей платформе поддерживают function calling, как их запускать и как настраивать инструменты.
+
+### Сводка моделей с native FC на платформе
+
+| Модель | Тип | Качество FC | Vision | Контекст | Когда брать |
+|--------|-----|-------------|--------|----------|-------------|
+| [Qwen3-Coder Next 80B-A3B](../models/families/qwen3-coder.md#next-80b-a3b) | Coder | **Отлично** | нет | 256K | Coding agents (opencode, Cline) |
+| [Qwen3-Coder 30B-A3B](../models/families/qwen3-coder.md#30b-a3b) | Coder | Хорошо | нет | 256K | Быстрые tool-call задачи в коде |
+| [Devstral 2 24B](../models/families/devstral.md) | Coder | Хорошо | нет | 256K | Dense alternative для tool use |
+| [Gemma 4 26B-A4B](../models/families/gemma4.md) | Universal+VLM | **Отлично** | да | 256K | Vision + tool use в одной модели |
+| [Qwen3-VL 30B-A3B](../models/families/qwen3-vl.md#30b-a3b) | VLM | Хорошо | да | 128K | OCR/документы + structured JSON |
+| [Mistral Small 3.1 24B](../models/families/mistral-small-31.md) | Universal+VLM | Хорошо | да | 128K | Function calling baseline |
+| [Qwen2.5-Coder 32B](../models/families/qwen25-coder.md#32b) | Coder | Хорошо | нет | 128K | FIM + tool use combo |
+
+### Обязательный флаг: `--jinja`
+
+llama-server по умолчанию **не парсит** chat-template модели и **не выделяет tool_calls** из вывода. Без `--jinja` модель будет возвращать tool calls как обычный текст внутри `content`, и приложению придётся регулярками выковыривать JSON.
+
+С `--jinja` сервер:
+1. Применяет реальный chat-template модели (из её `tokenizer_config.json`)
+2. Распознаёт спец-токены tool calls (`<tool_call>`, `[TOOL_CALLS]`, `<|python_tag|>` и т.п.)
+3. Возвращает структурированное поле `tool_calls` в OpenAI-compatible формате
+
+**Все наши пресеты в `scripts/inference/vulkan/preset/` уже включают `--jinja`** -- это критически важно для function calling.
+
+```bash
+# Проверка пресета
+grep -l '\-\-jinja' scripts/inference/vulkan/preset/*.sh
+```
+
+### Per-model setup
+
+#### Qwen3-Coder Next (рекомендуемый для coding agents)
+
+```bash
+./scripts/inference/vulkan/preset/qwen-coder-next.sh -d
+```
+
+Уже настроен: `--jinja`, контекст 256K, порт 8081. Подключается напрямую к [opencode](../ai-agents/agents/opencode.md), [Cline](../ai-agents/agents/cline.md), [Aider](../ai-agents/agents/aider.md).
+
+Особенности:
+- Native tool_calls в формате `<tool_call>...JSON...</tool_call>`
+- Натренирован на ~7T токенов agentic-данных, включая trace tool use
+- Поддерживает параллельные вызовы (несколько tools в одном ответе)
+- **Без `--jinja` НЕ работает** -- chat-template критичен
+
+#### Gemma 4 26B-A4B (рекомендуемый для vision + tool use)
+
+```bash
+./scripts/inference/vulkan/preset/gemma4.sh -d
+```
+
+Особенности:
+- Native function calling, формат отличается от Qwen (отдельные специальные токены)
+- Vision + FC в одной модели -- редкая комбинация
+- **Обязательно `--parallel 1 --no-mmap`** в пресете (sliding window cache OOM)
+- Контекст 256K -- можно загружать длинные tool descriptions + примеры
+
+#### Qwen3-VL 30B-A3B (vision + structured output)
+
+```bash
+./scripts/inference/vulkan/preset/qwen3-vl.sh -d
+```
+
+Особенности:
+- FC работает, но качество чуть ниже Qwen3-Coder Next (модель оптимизирована под OCR/vision, не agentic)
+- Часто используется без явных tools, через `response_format: {"type": "json_object"}` для structured extraction (счета, документы)
+- Подробнее -- [families/qwen3-vl.md](../models/families/qwen3-vl.md)
+
+### Базовый рабочий пример (Qwen3-Coder Next)
+
+```python
+import requests, json
+
+# 1. Описываем инструменты
+tools = [
+    {
+        "type": "function",
+        "function": {
+            "name": "read_file",
+            "description": "Прочитать файл из проекта",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "path": {"type": "string", "description": "Путь от корня проекта"}
+                },
+                "required": ["path"]
+            }
+        }
+    },
+    {
+        "type": "function",
+        "function": {
+            "name": "list_directory",
+            "description": "Список файлов в директории",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "path": {"type": "string"}
+                },
+                "required": ["path"]
+            }
+        }
+    }
+]
+
+# 2. Реальные функции на стороне клиента
+def read_file(path: str) -> str:
+    with open(path) as f:
+        return f.read()
+
+def list_directory(path: str) -> list[str]:
+    import os
+    return os.listdir(path)
+
+handlers = {"read_file": read_file, "list_directory": list_directory}
+
+# 3. Agent loop
+messages = [
+    {"role": "system", "content": "Ты помощник для работы с кодовой базой. Используй tools для исследования."},
+    {"role": "user", "content": "Найди в проекте файлы Python и покажи содержимое README"}
+]
+
+while True:
+    r = requests.post("http://192.168.1.77:8081/v1/chat/completions", json={
+        "model": "qwen3-coder-next",
+        "messages": messages,
+        "tools": tools,
+        "tool_choice": "auto",
+        "temperature": 0.2
+    }).json()
+
+    msg = r["choices"][0]["message"]
+    messages.append(msg)
+
+    # Если модель вызвала tool -- выполняем и продолжаем
+    if msg.get("tool_calls"):
+        for call in msg["tool_calls"]:
+            fn_name = call["function"]["name"]
+            fn_args = json.loads(call["function"]["arguments"])
+            result = handlers[fn_name](**fn_args)
+            messages.append({
+                "role": "tool",
+                "tool_call_id": call["id"],
+                "content": json.dumps(result, ensure_ascii=False)
+            })
+        continue
+
+    # Финальный ответ
+    print(msg["content"])
+    break
+```
+
+Этот цикл -- упрощённая версия того, что внутри [opencode](../ai-agents/agents/opencode.md), [Aider](../ai-agents/agents/aider.md), [Cline](../ai-agents/agents/cline.md). Реальные агенты добавляют ограничение глубины, ретраи, обработку ошибок tool calls, parallel execution.
+
+### Vision + function calling (Gemma 4)
+
+```python
+import base64, requests, json
+
+with open("screenshot.png", "rb") as f:
+    img_b64 = base64.b64encode(f.read()).decode()
+
+tools = [{
+    "type": "function",
+    "function": {
+        "name": "click_element",
+        "description": "Кликнуть на элемент UI по координатам",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "x": {"type": "integer"},
+                "y": {"type": "integer"},
+                "description": {"type": "string", "description": "Что это за элемент"}
+            },
+            "required": ["x", "y", "description"]
+        }
+    }
+}]
+
+r = requests.post("http://192.168.1.77:8081/v1/chat/completions", json={
+    "model": "gemma-4-26b-a4b",
+    "messages": [{
+        "role": "user",
+        "content": [
+            {"type": "text", "text": "Найди на скриншоте кнопку 'Войти' и кликни на неё"},
+            {"type": "image_url", "image_url": {"url": f"data:image/png;base64,{img_b64}"}}
+        ]
+    }],
+    "tools": tools,
+    "tool_choice": "auto"
+}).json()
+
+# Модель вернёт tool_call с координатами кнопки и её описанием
+print(r["choices"][0]["message"]["tool_calls"])
+```
+
+Это базовый пример **agentic GUI automation** -- модель видит интерфейс и сразу выдаёт вызов функции с координатами для следующего действия. На том же принципе работают browser-агенты (например Anthropic Computer Use).
+
+### Настройка через MCP (Model Context Protocol)
+
+Вместо ручного описания tools в каждом запросе можно использовать **MCP** -- стандарт от Anthropic для подключения внешних сервисов как наборов готовых tools. MCP-сервер описывает свои tools один раз, клиент (agent) подключается и автоматически получает schema.
+
+**Где работает MCP на платформе**:
+- [opencode](../ai-agents/agents/opencode.md) -- через `mcp` секцию в `~/.config/opencode/opencode.json`
+- [Claude Code](../ai-agents/agents/claude-code.md) -- родная экосистема (Anthropic создатели стандарта)
+- [Cline](../ai-agents/agents/cline.md), [Roo Code](../ai-agents/agents/roo-code.md), [Continue.dev](../ai-agents/agents/continue-dev.md) -- через настройки расширений
+
+Пример конфига MCP в opencode:
+
+```json
+{
+  "mcp": {
+    "filesystem": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-filesystem", "/home/user/projects"]
+    },
+    "github": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-github"],
+      "env": {"GITHUB_TOKEN": "ghp_..."}
+    },
+    "postgres": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-postgres", "postgresql://..."]
+    }
+  }
+}
+```
+
+После запуска opencode сам обнаружит tools от каждого MCP-сервера и предложит их модели. Список готовых серверов: [github.com/modelcontextprotocol/servers](https://github.com/modelcontextprotocol/servers).
+
+### Best practices для описания tools
+
+1. **Чёткие descriptions** -- модель решает "вызвать или нет" по description, не по name. "Read file content" хуже чем "Read text file from project. Use this when user asks about code, config, or documentation files".
+
+2. **Минимум обязательных параметров** -- помечайте только то, без чего функция реально не работает. Меньше required → меньше шанс что модель забьёт null.
+
+3. **Enums для дискретных значений** -- `"format": {"enum": ["json", "csv", "markdown"]}` лучше, чем свободная строка. Гарантирует валидный output.
+
+4. **Описание в parameters.properties** -- каждое поле должно иметь свой `description`. Модели неравнодушны к этому при выборе аргументов.
+
+5. **Не передавать слишком много tools** -- 5-15 это норма, 50+ начинает деградировать качество выбора. Если у вас 50 tools, разделите на категории через MCP-серверы.
+
+6. **Низкая температура** -- `temperature: 0.0-0.3` для стабильного выбора tools. Высокая температура заставляет модель импровизировать с аргументами.
+
+7. **Тестировать на конкретной модели** -- Qwen3-Coder Next, Gemma 4 и Mistral Small по-разному реагируют на одни и те же descriptions. Один универсальный prompt не оптимален для всех.
+
+8. **Trace через `--log-format json`** в llama-server -- видно полные tool_calls в логах, помогает отлаживать promp engineering.
+
+### Антипаттерны
+
+- **Запуск без `--jinja`** -- модель будет возвращать tool calls как текст, OpenAI-клиент их не распознает
+- **Огромные tool descriptions с примерами** -- отъедают контекст, лучше держать описание в 1-2 предложения и полагаться на качество модели
+- **Tool calls без validation на клиенте** -- модель может вернуть invalid arguments (особенно на низком кванте). Всегда валидировать через pydantic / jsonschema перед выполнением
+- **Цикл без ограничения глубины** -- модель может зациклиться (вызвать tool, получить ошибку, вызвать тот же tool снова). Установить max_iterations
+- **Выполнять опасные tools без user confirmation** -- `delete_file`, `git push`, `send_email` всегда через approval gate
+
 ## Реализация: Python-обертка
 
 Универсальная обертка для function calling с llama-server.

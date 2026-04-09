@@ -6,6 +6,8 @@
 **Лицензия**: Apache 2.0
 **Статус на сервере**: скачана (30B-A3B Instruct Q4_K_M + mmproj F16)
 **Направления**: [vision](../vision.md)
+**Function calling**: native (Qwen `<tool_call>` формат, structured JSON output по schema)
+**Vision**: да (mmproj F16, ~1.08 GB)
 
 ## Обзор
 

@@ -70,17 +70,20 @@ Frontier-tier (235B+) для нашей платформы -- только че�
 
 ## Сравнительная таблица
 
-| Модель | Семейство | Параметры | mmproj | Контекст | Особенность |
-|--------|-----------|-----------|--------|----------|-------------|
-| Gemma 4 26B-A4B | [gemma4](families/gemma4.md) | 26B MoE / 3.8B | 1.2 GB | 256K | function calling, thinking |
-| Qwen3-VL 30B-A3B | [qwen3-vl](families/qwen3-vl.md#30b-a3b) | 30B MoE / 3B | 1.08 GB | 128K | OCR, document, video, structured output |
-| Qwen3-VL 235B-A22B | [qwen3-vl](families/qwen3-vl.md#235b-a22b) | 235B MoE / 22B | ~3 GB | 128K | флагман уровня Gemini-2.5/GPT-5 |
-| Qwen2.5-Omni 7B | [qwen25-omni](families/qwen25-omni.md) | 7B dense | ~1 GB | 128K | vision + audio + text |
-| Pixtral 12B | [pixtral](families/pixtral.md) | 12B dense | 463 MB | 128K | Apache 2.0, multi-image input |
-| Mistral Small 3.1 24B | [mistral-small-31](families/mistral-small-31.md) | 24B dense | ~1 GB | 128K | function calling, balanced |
-| InternVL3-14B | [internvl](families/internvl.md) | 14B dense | ~3 GB | 32K | math, charts, reasoning |
-| MiniCPM-o 2.6 | [minicpm-o](families/minicpm-o.md) | 8B dense | ~1 GB | 32K | omni: vision+video+audio |
-| SmolVLM2 2.2B | [smolvlm2](families/smolvlm2.md) | 2.2B dense | ~0.5 GB | 16K | edge, ~150 tok/s |
+| Модель | Семейство | Параметры | mmproj | Контекст | FC | Особенность |
+|--------|-----------|-----------|--------|----------|-----|-------------|
+| Gemma 4 26B-A4B | [gemma4](families/gemma4.md) | 26B MoE / 3.8B | 1.2 GB | 256K | **native** ⭐ | function calling, thinking |
+| Qwen3-VL 30B-A3B | [qwen3-vl](families/qwen3-vl.md#30b-a3b) | 30B MoE / 3B | 1.08 GB | 128K | native | OCR, document, video, structured output |
+| Qwen3-VL 235B-A22B | [qwen3-vl](families/qwen3-vl.md#235b-a22b) | 235B MoE / 22B | ~3 GB | 128K | native | флагман уровня Gemini-2.5/GPT-5 |
+| Qwen2.5-Omni 7B | [qwen25-omni](families/qwen25-omni.md) | 7B dense | ~1 GB | 128K | partial | vision + audio + text |
+| Pixtral 12B | [pixtral](families/pixtral.md) | 12B dense | 463 MB | 128K | partial | Apache 2.0, multi-image input |
+| Mistral Small 3.1 24B | [mistral-small-31](families/mistral-small-31.md) | 24B dense | ~1 GB | 128K | **native** | function calling, balanced |
+| InternVL3.5-38B | [internvl](families/internvl.md#3-5-38b) | 38B dense | ~3 GB | 32-64K | partial | лидер dense MMMU, reasoning |
+| InternVL3-14B | [internvl](families/internvl.md) | 14B dense | ~3 GB | 32K | partial | math, charts, reasoning |
+| MiniCPM-o 2.6 | [minicpm-o](families/minicpm-o.md) | 8B dense | ~1 GB | 32K | partial | omni: vision+video+audio |
+| SmolVLM2 2.2B | [smolvlm2](families/smolvlm2.md) | 2.2B dense | ~0.5 GB | 16K | нет | edge, ~150 tok/s |
+
+⭐ Лучшее сочетание FC + vision на платформе. Запуск с `--jinja` обязателен -- см. [llm-guide/function-calling.md](../llm-guide/function-calling.md#function-calling-на-платформе-2026).
 
 ## Выбор под задачу
 

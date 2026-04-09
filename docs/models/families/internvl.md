@@ -6,6 +6,8 @@
 **Лицензия**: Open (MIT-like)
 **Статус на сервере**: частично (3.5-38B на скачивании)
 **Направления**: [vision](../vision.md)
+**Function calling**: partial (работает через generic JSON output, не натренирована на agent loops -- основной фокус reasoning)
+**Vision**: да (~3 GB mmproj, InternViT-6B encoder)
 
 ## Обзор
 

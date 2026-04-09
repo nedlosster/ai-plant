@@ -4,8 +4,10 @@
 
 **Тип**: dense (24B)
 **Лицензия**: Apache 2.0
-**Статус на сервере**: не скачана
+**Статус на сервере**: скачана (Q4_K_M, ~14 GiB)
 **Направления**: [coding](../coding.md)
+**Function calling**: native (Mistral [TOOL_CALLS] формат, dense alternative для agent loops)
+**FIM**: да
 
 ## Обзор
 

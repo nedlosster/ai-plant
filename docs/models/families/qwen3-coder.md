@@ -15,6 +15,8 @@ Qwen3-Coder -- специализированная MoE-серия от Alibaba 
 
 Используется на платформе как основной бекенд для [opencode](../../ai-agents/agents/opencode.md), [Aider](../../ai-agents/agents/aider.md), [Cline](../../ai-agents/agents/cline.md) и других agent-style инструментов через 256K контекст.
 
+**Function calling**: native (лучший на платформе для agent-style кодинга, формат `<tool_call>...</tool_call>`). Запуск с `--jinja` обязателен -- см. [llm-guide/function-calling.md](../../llm-guide/function-calling.md#function-calling-на-платформе-2026).
+
 ## Варианты
 
 | Вариант | Параметры | Active | Контекст | VRAM Q4 | Статус | Hub |
