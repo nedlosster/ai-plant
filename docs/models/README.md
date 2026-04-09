@@ -66,7 +66,7 @@
 | dense | 330M | F5-TTS (RU) | *(скоро)* f5-tts | [tts](tts.md) | Эталон voice cloning, MIT, RU-форки |
 | MoE 14B | 14B | Wan 2.6/2.7 | *(скоро)* wan | [video](video.md) | Cinematic, multi-shot, native audio |
 | MoE 32B/1T | 1T | Kimi K2.5 | [kimi-k25](families/kimi-k25.md) | [llm](llm.md), [coding](coding.md), [vision](vision.md) | Open weights, **не помещается** (240+ GiB), используется через API после блокировки Anthropic |
-| dense | 38B | InternVL3.5-38B | [internvl](families/internvl.md#3-5-38b) | [vision](vision.md) | MMMU ~74, лидер dense на платформе, math/charts/reasoning, на скачивании |
+| dense | 38B | InternVL3-38B Instruct | [internvl](families/internvl.md#3-5-38b) | [vision](vision.md) | MMMU 72.2, лидер dense GGUF на платформе, math/charts/reasoning, на скачивании (3.5 пока без GGUF) |
 
 ## Где брать модели
 

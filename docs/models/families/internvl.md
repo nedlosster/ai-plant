@@ -22,16 +22,19 @@ InternVL3.5 (релиз август 2025, продолжение в 2026) -- н
 | InternVL3-2B | 2B dense | ~2 GiB | ~3 GiB | -- | не скачана | [bartowski/InternVL3-2B-GGUF](https://huggingface.co/bartowski/InternVL3-2B-GGUF) |
 | InternVL3-14B | 14B dense | ~8 GiB | ~3 GiB | -- | не скачана | [bartowski/InternVL3-14B-GGUF](https://huggingface.co/bartowski/InternVL3-14B-GGUF) |
 | InternVL3-78B | 78B dense | ~50 GiB | ~3 GiB | 72.2 | не скачана | [bartowski/InternVL3-78B-GGUF](https://huggingface.co/bartowski/InternVL3-78B-GGUF) |
-| **InternVL3.5-38B** | 38B dense | ~24 GiB | ~3 GiB | **~74** | **на скачивании** | [QuantStack/InternVL3_5-38B-gguf](https://huggingface.co/QuantStack/InternVL3_5-38B-gguf) |
+| InternVL3.5-38B (safetensors only) | 38B dense | -- | -- | **~74** | GGUF нет | [OpenGVLab/InternVL3_5-38B](https://huggingface.co/OpenGVLab/InternVL3_5-38B) |
+| **InternVL3-38B Instruct** | 38B dense | ~24 GiB | ~3 GiB | 72.2 | **на скачивании** | [unsloth/InternVL3-38B-Instruct-GGUF](https://huggingface.co/unsloth/InternVL3-38B-Instruct-GGUF) |
 | InternVL3.5-30B-A3B | 30B MoE / 3B | ~18 GiB | ~3 GiB | ~73 | не скачана | [bartowski/OpenGVLab_InternVL3_5-30B-A3B-GGUF](https://huggingface.co/bartowski/OpenGVLab_InternVL3_5-30B-A3B-GGUF) |
 | InternVL3.5-14B | 14B dense | ~9 GiB | ~3 GiB | ~70 | не скачана | [bartowski/OpenGVLab_InternVL3_5-14B-GGUF](https://huggingface.co/bartowski/OpenGVLab_InternVL3_5-14B-GGUF) |
 | InternVL3.5-241B-A28B | 241B MoE / 28B | ~145 GiB | ~3 GiB | **77.7** | не помещается | [HF: OpenGVLab](https://huggingface.co/OpenGVLab) |
 
-### InternVL3.5-38B {#3-5-38b}
+### InternVL3-38B Instruct {#3-5-38b}
 
-Топ dense-сегмента для нашей платформы по MMMU. ~24 GiB Q4_K_M + 3 GiB mmproj = 27 GiB -- комфортно помещается с большим запасом на контекст и параллельные сервера.
+Топ dense-сегмента для нашей платформы по MMMU из доступных в GGUF. ~24 GiB Q4_K_M + 3 GiB mmproj = 27 GiB -- помещается с запасом.
 
-- **MMMU ~74** -- лидер dense open-source среднего сегмента (выше Qwen3-VL 30B-A3B Instruct)
+**Важное замечание**: на момент апреля 2026 для **InternVL3.5-38B** (новое поколение, MMMU ~74) **GGUF-репо не существует** -- доступны только safetensors на HuggingFace. Для нашей платформы используется предыдущее поколение **InternVL3-38B Instruct** через [unsloth/InternVL3-38B-Instruct-GGUF](https://huggingface.co/unsloth/InternVL3-38B-Instruct-GGUF). Разница в качестве небольшая (MMMU 72.2 vs 74), но 3.5 версия в GGUF появится позже.
+
+- **MMMU 72.2** -- лидер dense open-source среднего сегмента в формате GGUF
 - **Скорость**: ~15 tok/s (dense 38B на bandwidth-limited платформе)
 - **Контекст**: 32-64K (зависит от конфига сервера)
 - **Сильные стороны**: reasoning, математика, научные диаграммы, multi-image сравнение
@@ -141,9 +144,9 @@ InternVL3.5 -- один из лучших на ChartQA benchmark в open-source.
 ## Загрузка
 
 ```bash
-# InternVL3.5-38B (рекомендуется для платформы) -- ~24 GiB модель + ~3 GiB mmproj
-./scripts/inference/download-model.sh QuantStack/InternVL3_5-38B-gguf \
-    --include '*Q4_K_M*' --include 'mmproj*'
+# InternVL3-38B Instruct (рекомендуется для платформы) -- ~24 GiB модель + ~3 GiB mmproj
+./scripts/inference/download-model.sh unsloth/InternVL3-38B-Instruct-GGUF \
+    --include '*Q4_K_M*' --include 'mmproj*F16*'
 
 # InternVL3-14B (компактный)
 ./scripts/inference/download-model.sh bartowski/InternVL3-14B-GGUF \
@@ -166,16 +169,18 @@ InternVL3.5 -- один из лучших на ChartQA benchmark в open-source.
 - [GitHub: OpenGVLab/InternVL](https://github.com/OpenGVLab/InternVL)
 - [InternVL3.5 paper (arXiv)](https://arxiv.org/abs/2508.18265)
 
-**GGUF-квантизации (3.5)**:
-- [QuantStack/InternVL3_5-38B-gguf](https://huggingface.co/QuantStack/InternVL3_5-38B-gguf) -- 38B + mmproj
-- [bartowski/OpenGVLab_InternVL3_5-30B-A3B-GGUF](https://huggingface.co/bartowski/OpenGVLab_InternVL3_5-30B-A3B-GGUF)
-- [bartowski/OpenGVLab_InternVL3_5-14B-GGUF](https://huggingface.co/bartowski/OpenGVLab_InternVL3_5-14B-GGUF)
-- [bartowski/OpenGVLab_InternVL3_5-8B-GGUF](https://huggingface.co/bartowski/OpenGVLab_InternVL3_5-8B-GGUF)
-- [bartowski/OpenGVLab_InternVL3_5-4B-GGUF](https://huggingface.co/bartowski/OpenGVLab_InternVL3_5-4B-GGUF)
-
-**GGUF-квантизации (3)**:
+**GGUF-квантизации (InternVL3, доступны)**:
+- [unsloth/InternVL3-38B-Instruct-GGUF](https://huggingface.co/unsloth/InternVL3-38B-Instruct-GGUF) -- 38B + mmproj F16
+- [unsloth/InternVL3-38B-GGUF](https://huggingface.co/unsloth/InternVL3-38B-GGUF) -- альтернатива
 - [bartowski/InternVL3-14B-GGUF](https://huggingface.co/bartowski/InternVL3-14B-GGUF)
 - [bartowski/InternVL3-78B-GGUF](https://huggingface.co/bartowski/InternVL3-78B-GGUF)
+- [unsloth/InternVL3-8B-GGUF](https://huggingface.co/unsloth/InternVL3-8B-GGUF)
+- [ggml-org/InternVL3-8B-Instruct-GGUF](https://huggingface.co/ggml-org/InternVL3-8B-Instruct-GGUF)
+
+**InternVL3.5 (только safetensors, GGUF на момент апреля 2026 нет)**:
+- [OpenGVLab/InternVL3_5-38B](https://huggingface.co/OpenGVLab/InternVL3_5-38B) -- safetensors
+- [OpenGVLab/InternVL3_5-8B](https://huggingface.co/OpenGVLab/InternVL3_5-8B) -- safetensors
+- [InternVL3.5 Collection](https://huggingface.co/collections/OpenGVLab/internvl35) -- все варианты
 
 ## Связано
 
