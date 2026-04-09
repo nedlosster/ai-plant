@@ -170,6 +170,7 @@ beam search, greedy decoding, seed.
 |--------|----------|
 | [Контекстное окно](context-window.md) | Размеры, KV-cache, VRAM, RoPE, truncation, sliding window |
 | [Архитектуры](architectures.md) | Dense vs MoE, GQA, sparse attention, практические рекомендации |
+| [Имена моделей и выбор варианта](naming-and-variants.md) | Декодирование `35B-A3B`, Active vs Total, разбор Qwen3.5, decision tree |
 | [Квантизация](quantization.md) | GGUF, GPTQ, AWQ, влияние на качество и скорость |
 | [Системные промпты](system-prompts.md) | Формат, шаблоны чатов, роль system message |
 | [Prompt engineering](prompt-engineering.md) | Техники: few-shot, chain-of-thought, structured output |

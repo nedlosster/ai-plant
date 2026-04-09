@@ -129,8 +129,18 @@ LoRA-дообучение на трассах рассуждений Claude 4.6 
 | 122B-A10B | 122B MoE | 22.2 | -- (MoE bonus) |
 | 27B dense | 27B | 12.6 | 77% |
 
+## Как выбрать вариант (27B vs 35B-A3B vs 122B-A10B)
+
+Подробный разбор с decision tree, расшифровкой обозначений (`A3B`, `A10B`) и практическими сценариями -- в статье **[«Имена моделей и выбор варианта»](../../llm-guide/naming-and-variants.md)**. Использует Qwen3.5 как сквозной пример.
+
+Кратко:
+- **27B dense** -- universal, экономия VRAM, ~12 tok/s
+- **35B-A3B (MoE)** -- быстрый отклик 80+ tok/s, баланс качество/скорость
+- **122B-A10B (MoE)** -- максимум знаний, 22 tok/s, флагман
+
 ## Связано
 
 - Направления: [llm](../llm.md), [vision](../vision.md), [russian-llm](../russian-llm.md)
 - Родственные семейства: [qwen3-coder](qwen3-coder.md) (специализированный кодинг), [qwen3-vl](qwen3-vl.md) (специализированный vision)
+- Теория: [architectures.md](../../llm-guide/architectures.md) (Dense vs MoE), [naming-and-variants.md](../../llm-guide/naming-and-variants.md) (выбор варианта)
 - Пресеты: `scripts/inference/vulkan/preset/qwen3.5-27b.sh`, `scripts/inference/vulkan/preset/qwen3.5-122b.sh`
