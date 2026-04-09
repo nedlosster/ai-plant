@@ -9,6 +9,7 @@
 ## Индекс по категориям
 
 ### LLM общего назначения
+- [qwen36](qwen36.md) -- Qwen3.6-Plus (API-only, ожидаются open weights)
 - [qwen35](qwen35.md) -- Qwen3.5 27B/35B-A3B/122B-A10B (скачаны 27B + 122B-A10B)
 - [llama](llama.md) -- Llama 3.1/3.3/4 Scout
 - [mixtral](mixtral.md) -- Mixtral 8x22B 141B MoE
@@ -18,6 +19,7 @@
 - [deepseek-distill](deepseek-distill.md) -- DeepSeek-R1-Distill 14B/32B
 
 ### Кодинг
+- [qwen36](qwen36.md) -- Qwen3.6-Plus (agentic coding, ожидается)
 - [qwen3-coder](qwen3-coder.md) -- Qwen3-Coder Next 80B-A3B + 30B-A3B (скачаны)
 - [qwen25-coder](qwen25-coder.md) -- Qwen2.5-Coder 1.5B/7B/32B FIM (скачана 1.5B)
 - [devstral](devstral.md) -- Devstral 2 24B
