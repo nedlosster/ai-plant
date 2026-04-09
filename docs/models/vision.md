@@ -36,7 +36,7 @@ llama-server -m model.gguf --mmproj mmproj-BF16.gguf -ngl 99 ...
 |---|--------|-----------|------|----------------|----------|----------------|
 | 1 | [Qwen3-VL 30B-A3B Instruct](families/qwen3-vl.md#30b-a3b) | 30B MoE / 3B | ~70 | 19.7 GiB | ~80 | Лучший OCR open-source, structured JSON, video, 30+ языков |
 | 2 | [Gemma 4 26B-A4B](families/gemma4.md) | 26B MoE / 3.8B | ~72 | 17 GiB | ~70 | Function calling, screenshot-to-code, 256K, thinking |
-| 3 | InternVL3.5-38B | 38B dense | ~74 | ~24 GiB | ~15 | Лидер dense MMMU, math/charts/диаграммы, reasoning |
+| 3 | [InternVL3.5-38B](families/internvl.md#3-5-38b) | 38B dense | ~74 | ~24 GiB | ~15 | Лидер dense MMMU, math/charts/диаграммы, reasoning |
 | 4 | [Qwen3-VL 30B-A3B Thinking](families/qwen3-vl.md#30b-a3b) | 30B MoE / 3B | ~73 | 19.7 GiB | ~50 | Reasoning-режим над визуальными задачами |
 | 5 | [Mistral Small 3.1 24B](families/mistral-small-31.md) | 24B dense | 64 | ~16 GiB | ~22 | Function calling, balanced, Apache 2.0 |
 | 6 | [Pixtral 12B](families/pixtral.md) | 12B dense | 52 | ~8.5 GiB | ~35 | Multi-image input, Apache 2.0, instruction following |
