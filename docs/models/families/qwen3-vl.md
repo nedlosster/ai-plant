@@ -160,7 +160,16 @@ Qwen3-VL -- специализированная vision-серия от Alibaba 
     --include '*Q4_K_M*' --include '*mmproj*F16*'
 ```
 
+## Запуск
+
+```bash
+./scripts/inference/vulkan/preset/qwen3-vl.sh -d
+```
+
+Пресет: 30B-A3B Instruct + mmproj F16, контекст 128K, 4 слота, --jinja для function calling.
+
 ## Связано
 
 - Направления: [vision](../vision.md)
 - Альтернативы: [gemma4](gemma4.md) (function calling), [qwen25-omni](qwen25-omni.md) (vision+audio)
+- Пресет: `scripts/inference/vulkan/preset/qwen3-vl.sh`

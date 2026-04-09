@@ -54,6 +54,14 @@ Qwen2.5-Omni -- единственная в коллекции **omni-модел
     --include '*Q4_K_M*' --include '*mmproj*'
 ```
 
+## Запуск
+
+```bash
+./scripts/inference/vulkan/preset/qwen2.5-omni.sh -d
+```
+
+Пресет: 7B Q4_K_M + mmproj Q8_0, контекст 64K, 4 слота.
+
 ## Связано
 
 - Направления: [vision](../vision.md), [tts](../tts.md)
