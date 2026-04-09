@@ -13,7 +13,7 @@ Qwen3-Coder -- специализированная MoE-серия от Alibaba 
 
 Серия обучалась с large-scale reinforcement learning на agentic-задачах. По SWE-bench Verified обходит DeepSeek V3 при 10-20x меньшем числе активных параметров.
 
-Используется на платформе как основной бекенд для opencode, Aider, Cline и других agent-style инструментов через 256K контекст.
+Используется на платформе как основной бекенд для [opencode](../../ai-agents/agents/opencode.md), [Aider](../../ai-agents/agents/aider.md), [Cline](../../ai-agents/agents/cline.md) и других agent-style инструментов через 256K контекст.
 
 ## Варианты
 
@@ -65,8 +65,8 @@ Qwen3-Coder -- специализированная MoE-серия от Alibaba 
 
 ## Идеальные сценарии применения
 
-- **opencode** -- основной use case на платформе, через `vulkan/preset/qwen-coder-next.sh` на порту 8081
-- **Aider, SWE-agent, Cline, Roo Code** -- agent-style работа с кодом
+- **[opencode](../../ai-agents/agents/opencode.md)** -- основной use case на платформе, через `vulkan/preset/qwen-coder-next.sh` на порту 8081
+- **[Aider](../../ai-agents/agents/aider.md), SWE-agent, [Cline](../../ai-agents/agents/cline.md), [Roo Code](../../ai-agents/agents/roo-code.md)** -- agent-style работа с кодом
 - **"Изучи проект и предложи план рефакторинга"** -- сложные многошаговые задачи
 - **Анализ legacy-кодбейзов** с длинной историей коммитов
 - **Параллельный setup**: 30B-A3B как chat (быстрый отклик) + 1.5B FIM на втором порту для IDE

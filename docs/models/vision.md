@@ -107,6 +107,6 @@ Open WebUI автоматически определяет vision-возможн
 ## Связанные направления
 
 - [llm.md](llm.md) -- общие LLM (Qwen3.5, Gemma 4 -- мультимодальные тоже)
-- [coding.md](coding.md) -- скриншоты ошибок в opencode
+- [coding.md](coding.md) -- скриншоты ошибок в [opencode](../ai-agents/agents/opencode.md)
 - [tts.md](tts.md) -- Qwen2.5-Omni для голос+картинки
 - [images.md](images.md) -- генерация изображений (diffusion, не vision-LLM)

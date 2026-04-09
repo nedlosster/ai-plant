@@ -41,7 +41,7 @@ MoE-модели (Qwen3-Coder) даюt высокую скорость гене�
 [Codestral 25.08](families/codestral.md) -- лидер LMsys copilot arena по FIM, 80+ языков, 256K контекст.
 [Qwen2.5-Coder 1.5B](families/qwen25-coder.md#1-5b) -- если нужна минимальная латентность (120 tok/s).
 
-### Agent-style (opencode, Aider, Cline, SWE-agent)
+### Agent-style ([opencode](../ai-agents/agents/opencode.md), [Aider](../ai-agents/agents/aider.md), [Cline](../ai-agents/agents/cline.md), SWE-agent)
 
 [Qwen3-Coder Next](families/qwen3-coder.md#next-80b-a3b) -- лидер MoE efficiency (70.6% SWE-V при 3B active), 256K контекст. Используется на платформе через `vulkan/preset/qwen-coder-next.sh`.
 [Devstral 2 24B](families/devstral.md) -- лидер dense (72.2% SWE-V), FIM+agent в одной модели.
@@ -83,17 +83,17 @@ FIM (1.5B Q8, ~2 GB) + Chat (Qwen3-Coder-Next, ~45 GB) = ~47 GB. Остаётс�
 
 | Инструмент | Рекомендуемая модель | Порт |
 |-----------|----------------------|------|
-| Continue.dev autocomplete | [Codestral](families/codestral.md) / [Qwen2.5-Coder 1.5B](families/qwen25-coder.md#1-5b) | 8080 (/infill) |
-| Continue.dev chat | [Qwen3-Coder 30B-A3B](families/qwen3-coder.md#30b-a3b) / [Devstral 2](families/devstral.md) | 8081 |
-| Aider | [Qwen3-Coder Next](families/qwen3-coder.md#next-80b-a3b) | 8081 |
-| Cline / Roo Code | [Qwen3-Coder Next](families/qwen3-coder.md#next-80b-a3b) | 8081 |
+| [Continue.dev](../ai-agents/agents/continue-dev.md) autocomplete | [Codestral](families/codestral.md) / [Qwen2.5-Coder 1.5B](families/qwen25-coder.md#1-5b) | 8080 (/infill) |
+| [Continue.dev](../ai-agents/agents/continue-dev.md) chat | [Qwen3-Coder 30B-A3B](families/qwen3-coder.md#30b-a3b) / [Devstral 2](families/devstral.md) | 8081 |
+| [Aider](../ai-agents/agents/aider.md) | [Qwen3-Coder Next](families/qwen3-coder.md#next-80b-a3b) | 8081 |
+| [Cline](../ai-agents/agents/cline.md) / [Roo Code](../ai-agents/agents/roo-code.md) | [Qwen3-Coder Next](families/qwen3-coder.md#next-80b-a3b) | 8081 |
 | SWE-agent | [Qwen3-Coder Next](families/qwen3-coder.md#next-80b-a3b) | 8081 |
-| opencode | [Qwen3-Coder Next](families/qwen3-coder.md#next-80b-a3b) (256K) | 8081 |
+| [opencode](../ai-agents/agents/opencode.md) | [Qwen3-Coder Next](families/qwen3-coder.md#next-80b-a3b) (256K) | 8081 |
 
 ## Связанные направления
 
 - [llm.md](llm.md) -- общие LLM
-- [vision.md](vision.md) -- multimodal (в т.ч. для скриншотов в opencode)
+- [vision.md](vision.md) -- multimodal (в т.ч. для скриншотов в [opencode](../ai-agents/agents/opencode.md))
 - [tts.md](tts.md) -- voice cloning
 
 ## Ожидается open weights

@@ -33,7 +33,7 @@ Codestral от Mistral -- специализированная модель дл
 
 ## Идеальные сценарии
 
-- **IDE FIM на максимальном качестве** -- Continue.dev, llama.vscode
+- **IDE FIM на максимальном качестве** -- [Continue.dev](../../ai-agents/agents/continue-dev.md), llama.vscode
 - **Многоязычные проекты** -- 80+ языков, лучший выбор для polyglot
 - **Repository-level completion** -- понимание всего проекта
 

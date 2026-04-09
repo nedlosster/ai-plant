@@ -49,16 +49,16 @@ FIM повышенного качества. Хороший компромисс
 ## Архитектура и особенности
 
 - **Dense-архитектура** -- проверенная стабильность, без сюрпризов MoE-роутинга
-- **FIM из коробки** -- эталонная имплементация для Continue.dev, llama.vscode, Aider
+- **FIM из коробки** -- эталонная имплементация для [Continue.dev](../../ai-agents/agents/continue-dev.md), llama.vscode, [Aider](../../ai-agents/agents/aider.md)
 - **Контекст 128K** -- достаточно для большинства репозиториев
 - **Линейка размеров** -- 0.5B/1.5B/3B/7B/14B/32B (на платформе используются 1.5B/7B/32B как самые ходовые)
 - **Apache 2.0** -- никаких ограничений
 
 ## Сильные кейсы
 
-- **FIM эталон** -- инструменты типа Continue.dev оптимизированы именно под Qwen Coder format
+- **FIM эталон** -- инструменты типа [Continue.dev](../../ai-agents/agents/continue-dev.md) оптимизированы именно под Qwen Coder format
 - **HumanEval 92.7% (32B)** -- лучший среди open-source dense моделей
-- **Зрелая экосистема** -- интеграции в Continue.dev, llama.vscode, Aider, SWE-agent
+- **Зрелая экосистема** -- интеграции в [Continue.dev](../../ai-agents/agents/continue-dev.md), llama.vscode, [Aider](../../ai-agents/agents/aider.md), SWE-agent
 - **Линейка размеров** -- 1.5B для FIM-сервера, 32B для chat+FIM в одной модели максимального качества
 - **Q8 32B на 120 GiB** -- можно держать максимум качества + параллельный 1.5B FIM
 
@@ -73,7 +73,7 @@ FIM повышенного качества. Хороший компромисс
 - **1.5B Q8 (~2 GiB)** -- FIM-сервер для IDE, 120 tok/s, низкая латентность
 - **7B Q4 (~5 GiB)** -- FIM повышенного качества, баланс
 - **32B Q4/Q8** -- chat + FIM в одной модели максимального качества
-- IDE-плагины: **Continue.dev**, **llama.vscode**, **Codecompanion**
+- IDE-плагины: **[Continue.dev](../../ai-agents/agents/continue-dev.md)**, **llama.vscode**, **Codecompanion**
 
 ## Загрузка
 

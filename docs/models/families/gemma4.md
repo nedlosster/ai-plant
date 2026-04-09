@@ -63,7 +63,7 @@ Gemma 4 26B-A4B -- multimodal MoE-модель от Google нового поко
 
 ## Идеальные сценарии применения
 
-- **"Опиши скриншот ошибки и предложи фикс"** в opencode
+- **"Опиши скриншот ошибки и предложи фикс"** в [opencode](../../ai-agents/agents/opencode.md)
 - **Анализ UI-макета** → tool calls для генерации компонентов
 - **Reasoning-задачи** по фото с длинным контекстом инструкций
 - **Universal multimodal assistant** -- одна модель на text+vision вместо двух

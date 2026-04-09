@@ -119,7 +119,7 @@ LoRA-дообучение на трассах рассуждений Claude 4.6 
 
 - **Hub**: [Jackrong/Qwen3.5-35B-A3B-Claude-4.6-Opus-Reasoning-Distilled](https://huggingface.co/Jackrong/Qwen3.5-35B-A3B-Claude-4.6-Opus-Reasoning-Distilled)
 - **GGUF**: [mradermacher GGUF](https://huggingface.co/mradermacher/Qwen3.5-35B-A3B-Claude-4.6-Opus-Reasoning-Distilled-GGUF)
-- Контекст 8K (мало для opencode)
+- Контекст 8K (мало для [opencode](../../ai-agents/agents/opencode.md))
 - Подходит для standalone reasoning-задач (математика, алгоритмы)
 
 ## Бенчмарки
