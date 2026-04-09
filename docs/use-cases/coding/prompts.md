@@ -233,5 +233,5 @@
 
 - [Сценарии](scenarios.md)
 - [AI-агенты](agents.md)
-- [OpenCode: стратегии](opencode/strategies.md)
+- [opencode (per-agent страница)](../../ai-agents/agents/opencode.md)
 - [Модели для кодинга](../../models/coding.md)

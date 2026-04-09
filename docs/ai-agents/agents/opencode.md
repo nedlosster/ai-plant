@@ -142,7 +142,7 @@ opencode run "fix the bug in auth.ts"
 }
 ```
 
-Подробности про configuration, customization, MCP, strategies -- см. ранее существовавшие микро-доки в `docs/use-cases/coding/opencode/` (теперь консолидированы здесь).
+Подробности про configuration, customization, MCP, strategies консолидированы выше в этом файле.
 
 ## Бенчмарки
 
