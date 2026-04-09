@@ -1,402 +1,129 @@
-# Русскоязычный вокал с музыкой: обзор моделей и практический опыт
+# Русский вокал через AI
 
-Платформа: Radeon 8060S (120 GiB GPU-доступной памяти), ROCm экспериментальный. Задача: генерация полных песен с русским вокалом из текстового описания.
+Платформа: Radeon 8060S (gfx1151, 120 GiB GPU-памяти), PyTorch + ROCm 7.2.1.
 
-## Сводка
+Полные описания моделей -- в `families/`. Эта страница: применение моделей к русскоязычным песням, форматы промптов, советы.
 
-| Модель | Русский вокал | Полная песня | Качество | VRAM | Статус на платформе |
-|--------|--------------|-------------|----------|------|-------------------|
-| **ACE-Step 1.5** | да (топ-10 языков) | да | Suno v4--v4.5 | <4 GiB | работает (ROCm) |
-| Bark | да (нестабильно) | нет (до 15 сек) | низкое--среднее | ~8 GiB | экспериментально |
-| DiffSinger + LUNAI | да (voicebank) | нет (только вокал) | высокое | ~4 GiB | требует OpenUtau |
-| YuE | нет | да | среднее | 8-24 GiB | не подходит |
-| MusicGen | нет вокала | инструментал | высокое | 8-16 GiB | экспериментально |
-| Stable Audio Open | нет вокала | инструментал | среднее | ~24 GiB | экспериментально |
+## Подходы
 
-**ACE-Step 1.5 -- единственная open-source модель, генерирующая полные песни с русским вокалом из текста.**
+| Подход | Семейство модели | Качество | Сложность | Лицензия |
+|--------|------------------|----------|-----------|----------|
+| ACE-Step 1.5 (рекомендуется) | [ace-step](families/ace-step.md) | хорошее | низкая | Apache 2.0 |
+| YuE | [yue](families/yue.md) | хорошее | средняя | Apache 2.0 |
+| Bark | [bark](families/bark.md) | базовое | низкая | MIT |
+| MusicGen + TTS | [musicgen](families/musicgen.md) + [tts](tts.md) | среднее | высокая | MIT |
+| DiffSinger + LUNAI | -- | хорошее (ручной контроль) | очень высокая | -- |
 
-## ACE-Step 1.5 -- основной инструмент
+## Скачано на платформе
 
-### Почему ACE-Step
+[ACE-Step 1.5](families/ace-step.md) -- единственная music-модель с явной поддержкой AMD ROCm. Уже на платформе через `scripts/music/ace-step/start.sh`.
 
-- Русский в топ-10 поддерживаемых языков
-- Полная песня (вокал + инструменты) за одну генерацию
-- Менее 4 GiB VRAM -- легко помещается на данной платформе
-- Явная поддержка AMD ROCm (`requirements-rocm.txt`)
-- Apache 2.0 лицензия
-- Качество сопоставимо с Suno v4--v4.5 по слепым A/B тестам
-
-### Установка
-
-```bash
-git clone https://github.com/ace-step/ACE-Step-1.5.git
-cd ACE-Step-1.5
-
-python3 -m venv venv
-source venv/bin/activate
-
-# AMD ROCm
-export HSA_OVERRIDE_GFX_VERSION=11.5.0
-pip install -r requirements-rocm.txt
-
-# Веса загружаются автоматически при первом запуске с HuggingFace
-# Или вручную:
-huggingface-cli download ACE-Step/Ace-Step1.5 --local-dir ./models/
-```
+## ACE-Step для русского -- основной workflow
 
 ### Формат промпта
 
-ACE-Step принимает два входа:
-1. **Tags** -- жанр, настроение, инструменты (через запятую)
-2. **Lyrics** -- текст песни с разметкой структуры
-
-#### Теги (tags)
-
 ```
-russian pop, female vocals, emotional, piano, strings, 120 bpm
-```
-
-Поддерживаемые атрибуты:
-- Жанр: `pop`, `rock`, `electronic`, `folk`, `hip-hop`, `r&b`, `jazz`, `classical`
-- Язык: `russian`, `russian folk`, `russian pop`
-- Вокал: `female vocals`, `male vocals`, `choir`, `duet`
-- Настроение: `emotional`, `upbeat`, `melancholic`, `energetic`, `calm`
-- Инструменты: `piano`, `guitar`, `strings`, `synth`, `drums`, `bass`
-- Темп: `80 bpm`, `120 bpm`, `140 bpm`
-
-#### Lyrics (текст песни)
-
-```
-[Verse 1]
-Снова ночь, и город спит в тиши,
-Только ветер шепчет мне слова.
-Я иду по улицам пустым,
-Вспоминая всё, что было у нас.
-
-[Chorus]
-Не уходи, останься рядом,
-Мне без тебя так холодно одной.
-Не уходи, мне больше ничего не надо,
-Только быть с тобой.
-
-[Verse 2]
-Капли дождя стучат в окно,
-И каждая -- как слёзы по щеке.
-Я знаю, что ушёл ты далеко,
-Но сердце всё ещё стучит к тебе.
-
-[Chorus]
-Не уходи, останься рядом,
-Мне без тебя так холодно одной.
-Не уходи, мне больше ничего не надо,
-Только быть с тобой.
-
-[Bridge]
-И пусть весь мир замрёт на миг,
-Пусть тишина нас обнимет.
-Я верю -- ты услышишь крик
-Моей души, что помнит имя.
-
-[Outro]
-Не уходи...
-```
-
-Поддерживаемые теги структуры: `[Verse]`, `[Chorus]`, `[Bridge]`, `[Intro]`, `[Outro]`, `[Instrumental]`, `[Rap]`.
-
-### Примеры промптов
-
-#### Русский поп (женский вокал)
-
-Tags:
-```
-russian pop, female vocals, emotional, piano, strings, 110 bpm, ballad
-```
-
-#### Русский рок (мужской вокал)
-
-Tags:
-```
-russian rock, male vocals, energetic, electric guitar, drums, bass, 140 bpm
-```
-
+Tags: <стиль>, <инструменты>, <темп>, <вокал>
 Lyrics:
-```
 [Verse 1]
-Город в огнях, асфальт горит,
-Мотор ревёт, душа летит.
-Ни тормозов, ни поворотов,
-Вперёд, где небо и свобода.
-
+<текст>
 [Chorus]
-Мы -- дети ночи, мы -- ветер,
-Нас не поймать, не удержать.
-Мы верим только в этот вечер,
-И нам не надо отступать.
+<припев>
 ```
 
-#### Русский фолк
+Подробное описание архитектуры и установки -- в [families/ace-step.md](families/ace-step.md).
 
-Tags:
+### Примеры по жанрам
+
+#### Поп
+
 ```
-russian folk, female vocals, acoustic, balalaika, accordion, traditional, 100 bpm
+Tags: russian pop, female vocals, upbeat, synth, drums, 120bpm
+Lyrics:
+[Verse 1]
+Солнце светит за окном
+Я иду по улице легко
+[Chorus]
+Это утро для меня
+Это новый день моя
 ```
 
-#### Электронная музыка с русским вокалом
+#### Рок
 
-Tags:
 ```
-electronic, russian, female vocals, synthwave, retro, synth, drum machine, 128 bpm
+Tags: russian rock, male vocals, electric guitar, drums, energetic, 140bpm
+Lyrics:
+[Verse 1]
+Город спит, а я не сплю
+Жду рассвета, жду тебя
+[Chorus]
+Мы будем петь до утра
+Мы будем жить навсегда
+```
+
+#### Фолк
+
+```
+Tags: russian folk, female vocals, acoustic guitar, slow, 80bpm
+Lyrics:
+[Verse 1]
+Берёзы шепчут на ветру
+Звезда упала вдаль
+```
+
+#### Электро
+
+```
+Tags: russian electronic, female vocals, synth, edm, 128bpm
 ```
 
 #### Рэп
 
-Tags:
 ```
-russian hip-hop, male vocals, rap, trap, 808 bass, hi-hats, 90 bpm
-```
-
-Lyrics:
-```
-[Verse 1]
-Бетонные джунгли, серый рассвет,
-Тут каждый второй ищет свой ответ.
-Кварталы не спят, фонари горят,
-А мысли мои, как пули, летят.
-
-[Chorus]
-Это мой район, это мой язык,
-Каждый здесь к суровой правде привык.
+Tags: russian hip-hop, male vocals, trap beat, 90bpm, dark
 ```
 
-### Запуск
+## Параметры генерации (ACE-Step)
 
-```bash
-export HSA_OVERRIDE_GFX_VERSION=11.5.0
+| Параметр | Назначение |
+|----------|-----------|
+| `--duration` | Длительность в секундах (60-240) |
+| `--steps` | Diffusion steps (8 для turbo) |
+| `--cfg_scale` | Соответствие промпту (7-12) |
+| `--guidance_scale` | Сила vocal guidance |
 
-# Gradio-интерфейс (веб)
-python app.py
-# Открыть http://localhost:7860
+## Советы для качества русского
 
-# CLI-генерация
-python generate.py \
-    --tags "russian pop, female vocals, emotional, piano, 110 bpm" \
-    --lyrics_file lyrics.txt \
-    --duration 120 \
-    --output output.wav
-```
-
-### Параметры генерации
-
-| Параметр | Значение | Описание |
-|----------|---------|----------|
-| duration | 60-180 | Длительность в секундах |
-| guidance_scale | 5-15 | Соответствие промпту (выше = точнее, но менее естественно) |
-| num_inference_steps | 60-100 | Число шагов (больше = качественнее, медленнее) |
-| seed | число | Фиксация для воспроизводимости |
-
-Рекомендуемые значения для русского вокала:
-- `guidance_scale: 10` -- баланс точности и естественности
-- `num_inference_steps: 80` -- хорошее качество
-- `duration: 120` -- стандартная длительность песни
-
-### Качество русского вокала
-
-По результатам тестирования и отзывам пользователей:
-
-**Сильные стороны:**
-- Разборчивое произношение русских слов
-- Естественная интонация в медленных жанрах (поп-баллады, фолк)
-- Хорошая работа с женским вокалом
-- Соблюдение ритмической структуры
-
-**Слабые стороны:**
-- В быстрых жанрах (рэп, панк) произношение может смазываться
-- Ударения иногда расставляются неправильно
-- Мужской вокал менее стабилен по качеству
-- Иногда "проглатывает" окончания слов
-
-**Советы для улучшения качества:**
-- Использовать простые, ритмичные тексты
-- Избегать сложных слов с нагромождением согласных
-- Для баллад качество выше, чем для быстрых жанров
-- Генерировать несколько вариантов (разные seed) и выбирать лучший
-- Указывать язык явно в тегах: `russian`
-
-## Bark -- экспериментальный вокал
-
-Bark (от Suno) -- генеративная модель для речи с возможностью пения. Поддерживает русский.
-
-### Ограничения
-
-- Генерирует клипы до 15 секунд
-- Качество непредсказуемо: от разборчивого пения до шума
-- Не создает инструментальную часть -- только вокал
-- Требует PyTorch + ROCm (нестабильно на gfx1151)
-
-### Использование
-
-```python
-from bark import generate_audio, preload_models, SAMPLE_RATE
-import scipy
-
-preload_models()
-
-# Русский текст -- speaker v2/ru_speaker_0..9
-text = "[music] Снова ночь и город спит [music]"
-audio = generate_audio(text, history_prompt="v2/ru_speaker_3")
-
-scipy.io.wavfile.write("bark_output.wav", rate=SAMPLE_RATE, data=audio)
-```
-
-Нотация `[music]` вокруг текста активирует режим пения. Результат нестабилен -- требуется несколько попыток.
-
-### Комбинация Bark + MusicGen
-
-Можно генерировать вокал через Bark и инструментал через MusicGen, затем микшировать:
-
-```bash
-# 1. Генерация вокала (Bark)
-python bark_vocal.py --text lyrics.txt --output vocal.wav
-
-# 2. Генерация инструментала (MusicGen)
-python musicgen_instrumental.py --prompt "pop instrumental, piano" --output instrumental.wav
-
-# 3. Микширование (ffmpeg)
-ffmpeg -i vocal.wav -i instrumental.wav \
-    -filter_complex "[0:a]volume=1.2[v];[1:a]volume=0.8[i];[v][i]amix=inputs=2:duration=longest" \
-    mixed.wav
-```
-
-Этот пайплайн сложнее и менее стабилен, чем ACE-Step.
-
-## DiffSinger + LUNAI -- ручной контроль
-
-DiffSinger -- модель синтеза певческого голоса из нотной партитуры. Проект LUNAI создает русскоязычные voicebank для DiffSinger.
-
-### Подход
-
-1. Написать нотную партитуру в OpenUtau
-2. Разметить слоги и ноты вручную
-3. DiffSinger синтезирует вокал по нотам
-4. Инструментал генерируется отдельно (ACE-Step instrumental mode или MusicGen)
-
-### Плюсы
-- Высокое качество русского вокала
-- Полный контроль над мелодией, ритмом, динамикой
-- Русские voicebank от LUNAI
-
-### Минусы
-- Требует музыкальных знаний (нотная грамота)
-- Ручная разметка каждого слога
-- Не генерирует из текстового описания -- нужна партитура
-- Долгий процесс: часы на одну песню
-
-### Ресурсы
-- OpenUtau: github.com/stakira/OpenUtau
-- LUNAI voicebanks: lunaiproject.github.io
-- DiffSinger: github.com/openvpi/DiffSinger
-
-## Сравнение подходов
-
-| Критерий | ACE-Step 1.5 | Bark + MusicGen | DiffSinger + LUNAI |
-|----------|-------------|----------------|-------------------|
-| Вход | теги + lyrics | текст + промпт | нотная партитура |
-| Результат | полная песня | вокал + инструментал раздельно | только вокал |
-| Время | 1-2 минуты | 5-10 минут | часы |
-| Качество русского | хорошее | нестабильное | высокое |
-| Контроль | средний (теги) | низкий | полный |
-| Сложность | низкая | средняя | высокая |
-| Музыкальные знания | не требуются | не требуются | требуются |
-| VRAM | <4 GiB | ~24 GiB | ~4 GiB |
-| AMD ROCm | поддержан | экспериментально | CPU |
-
-### Рекомендация
-
-1. **Быстрая генерация** -- ACE-Step 1.5. Минимальный порог входа, полная песня за минуты.
-2. **Максимальное качество вокала** -- DiffSinger + LUNAI. Для тех, кто готов тратить время на разметку.
-3. **Эксперименты** -- Bark + MusicGen. Для исследования возможностей, не для продакшена.
+1. **Простые рифмы** -- ACE-Step лучше понимает регулярные структуры
+2. **Короткие строки** -- 6-10 слов
+3. **Чёткая структура** -- `[Verse]`, `[Chorus]`, `[Bridge]` маркеры
+4. **Описание стиля на английском** в Tags -- модель лучше реагирует
+5. **Lyrics на русском** -- использует кириллицу как есть
 
 ## Постобработка
 
-### RVC (Retrieval-based Voice Conversion)
+### Разделение вокала и инструментов
 
-Конвертация тембра голоса в сгенерированной песне. Позволяет заменить "синтетический" голос на клон реального.
-
-```bash
-git clone https://github.com/RVC-Project/Retrieval-based-Voice-Conversion-WebUI.git
-cd Retrieval-based-Voice-Conversion-WebUI
-
-pip install -r requirements-amd.txt
-export HSA_OVERRIDE_GFX_VERSION=11.5.0
-
-python infer-web.py
-```
-
-Пайплайн: ACE-Step (генерация) -> разделение вокала (Demucs) -> RVC (конвертация тембра) -> микширование.
-
-### Demucs (разделение вокала и инструментов)
+Использовать **Demucs** (Facebook) -- top open-source для voice separation.
 
 ```bash
 pip install demucs
-
-# Разделение на stems
-demucs song.wav --out separated/
-# separated/htdemucs/song/vocals.wav
-# separated/htdemucs/song/drums.wav
-# separated/htdemucs/song/bass.wav
-# separated/htdemucs/song/other.wav
+demucs --two-stems=vocals input.wav
+# Результат: separated/htdemucs/input/vocals.wav, no_vocals.wav
 ```
 
-Полезно для:
-- Извлечения вокала для RVC-конвертации
-- Замены отдельных инструментов
-- Ремикширования
+### Voice cloning через RVC
 
-## Демо и примеры
+После генерации в ACE-Step можно применить **RVC** (Retrieval-based Voice Conversion) для замены голоса на конкретного исполнителя.
 
-### ACE-Step 1.5
-- Официальные демо: ace-step.github.io/ace-step-v1.5.github.io/
-- HuggingFace Space: huggingface.co/spaces/ACE-Step/ACE-Step-v1-5
-- Обзор на русском: neural-networked.ru/ace-step-1-5/
+GitHub: [RVC-Project/Retrieval-based-Voice-Conversion-WebUI](https://github.com/RVC-Project/Retrieval-based-Voice-Conversion-WebUI)
 
-### Bark
-- GitHub: github.com/suno-ai/bark
-- Примеры: suno-ai.notion.site/Bark-Examples
+## Связанные направления
 
-### DiffSinger + LUNAI
-- LUNAI: lunaiproject.github.io
-- OpenUtau: github.com/stakira/OpenUtau
-
-## Практические советы
-
-### Текст для ACE-Step
-
-- Писать ритмичные строки одинаковой длины
-- Рифмовать -- модель лучше обрабатывает рифмованный текст
-- Простые слова предпочтительнее сложных
-- 4-8 строк на куплет, 4 строки на припев
-- Повторяющийся припев -- стабильнее по качеству
-
-### Итерационный процесс
-
-1. Написать текст и теги
-2. Сгенерировать 3-5 вариантов (разные seed)
-3. Выбрать лучший по вокалу
-4. При необходимости -- обработка через RVC
-5. Мастеринг (нормализация громкости, EQ)
-
-### Типичные проблемы с русским
-
-| Проблема | Решение |
-|----------|---------|
-| Невнятное произношение | Упростить текст, избегать скоплений согласных |
-| Неправильные ударения | Переформулировать строку |
-| Вокал заглушен инструментами | Увеличить guidance_scale |
-| Текст не совпадает с мелодией | Уменьшить длину строк, добавить паузы (`[Instrumental]`) |
-| Однообразная мелодия | Добавить контрастные секции (verse vs chorus vs bridge) |
+- [music.md](music.md) -- общая страница про музыку
+- [tts.md](tts.md) -- TTS с клонированием голоса
+- [russian-llm.md](russian-llm.md) -- LLM для генерации лирики
 
 ## Связанные статьи
 
-- [Модели для музыки](music.md)
-- [ACE-Step: промпты](../use-cases/music/prompting.md)
-- [ACE-Step: продвинутое](../use-cases/music/advanced.md)
+- [ACE-Step: быстрый старт](../use-cases/music/quickstart.md)
