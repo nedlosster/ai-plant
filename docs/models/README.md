@@ -38,6 +38,14 @@
 | encoder | -- | T5-XXL | [flux](families/flux.md) | [images](images.md) | `comfyui/start.sh` | ~5 GiB |
 | diffusion audio | 1.5B | ACE-Step 1.5 | [ace-step](families/ace-step.md) | [music](music.md), [russian-vocals](russian-vocals.md) | `music/ace-step/start.sh` | <4 GiB |
 
+## Ожидается open weights
+
+Модели уровня флагмана, которые сейчас доступны только через API, но ожидается публикация open-вариантов.
+
+| Тип | Модель | Семейство | Направления | Статус |
+|-----|--------|-----------|-------------|--------|
+| -- | Qwen3.6-Plus | [qwen36](families/qwen36.md) | [coding](coding.md), [llm](llm.md), [vision](vision.md) | API-only (Alibaba), open ожидается |
+
 ## Стоит обратить внимание
 
 Приоритетные модели для скачивания. По мере наполнения семейств таблица будет расти.

@@ -96,6 +96,10 @@ FIM (1.5B Q8, ~2 GB) + Chat (Qwen3-Coder-Next, ~45 GB) = ~47 GB. Остаётс�
 - [vision.md](vision.md) -- multimodal (в т.ч. для скриншотов в opencode)
 - [tts.md](tts.md) -- voice cloning
 
+## Ожидается open weights
+
+[Qwen3.6-Plus](families/qwen36.md) -- свежий флагман от Alibaba (2 апреля 2026), agentic coding "в одном классе с Claude 4.5 Opus". Контекст 1M токенов, native function calling, multimodal. Сейчас API-only через Alibaba Cloud, open-варианты обещаны "в developer-friendly размерах".
+
 ## Не помещаются на платформе
 
 - GLM-5 (744B) -- лидер open-source по SWE-bench Verified (77.8%), не помещается даже в Q4 (~440 GB)

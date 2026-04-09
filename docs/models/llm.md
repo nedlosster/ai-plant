@@ -98,6 +98,10 @@
 
 См. также [russian-llm.md](russian-llm.md) -- finetune'ы под русский.
 
+## Ожидается open weights
+
+[Qwen3.6-Plus](families/qwen36.md) -- свежий флагман Alibaba (апрель 2026). Контекст **1M токенов**, native function calling, multimodal, always-on chain-of-thought. Сейчас API-only через Alibaba Cloud Model Studio, open-варианты обещаны "в developer-friendly размерах". По аналогии с Qwen3.5 -- ждать 30-122B диапазон.
+
 ## Не помещаются на платформе (для справки)
 
 - GLM-5 / GLM-5.1 (744B) -- 440 GB Q4
