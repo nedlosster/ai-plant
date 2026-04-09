@@ -31,8 +31,10 @@
 | MoE 3B/30B | 30B A3B | Qwen3-Coder-30B-A3B | [qwen3-coder](families/qwen3-coder.md#30b-a3b) | [coding](coding.md) | `vulkan/preset/qwen3-coder-30b.sh` | 18 GiB |
 | dense | 1.5B Q8 | Qwen2.5-Coder-1.5B | [qwen25-coder](families/qwen25-coder.md#1-5b) | [coding](coding.md) | `vulkan/preset/qwen2.5-coder-1.5b.sh` | 2 GiB |
 | MoE 10B/122B | 122B A10B | Qwen3.5-122B-A10B | [qwen35](families/qwen35.md#122b-a10b) | [llm](llm.md), [vision](vision.md) | `vulkan/preset/qwen3.5-122b.sh` | 71 GiB |
-| MoE 4B/26B | 26B A4B | Gemma 4 26B-A4B | [gemma4](families/gemma4.md) | [llm](llm.md), [vision](vision.md) | `vulkan/preset/gemma4.sh` | 22 GiB + 1.2 mmproj |
+| MoE 4B/26B | 26B A4B | Gemma 4 26B-A4B | [gemma4](families/gemma4.md) | [llm](llm.md), [vision](vision.md) ⚠️ | `vulkan/preset/gemma4.sh` | 22 GiB (mmproj отсутствует -- vision сломан) |
 | MoE 3B/30B | 30B A3B | Qwen3-VL 30B-A3B | [qwen3-vl](families/qwen3-vl.md#30b-a3b) | [vision](vision.md) | `vulkan/preset/qwen3-vl.sh` | 18 GiB + 1 mmproj |
+| dense | 24B | Devstral 2 24B Q4_K_M | [devstral](families/devstral.md) | [coding](coding.md) | -- (нет пресета) | 14 GiB |
+| MoE 3B/35B | 35B A3B | Qwen3.5-35B-A3B Q4_K_M | [qwen35](families/qwen35.md#35b-a3b) | [llm](llm.md), [vision](vision.md) | -- (нет пресета) | 21 GiB |
 | diffusion | 12B | FLUX.1-schnell Q4_K_S | [flux](families/flux.md#schnell) | [images](images.md) | `comfyui/start.sh` | ~7 GiB |
 | encoder | -- | T5-XXL Q8_0 | [flux](families/flux.md) | [images](images.md) | `comfyui/start.sh` | ~5 GiB |
 | encoder | -- | CLIP-L | [flux](families/flux.md) | [images](images.md) | `comfyui/start.sh` | 0.25 GiB |
@@ -52,7 +54,6 @@
 
 | Тип | Параметры | Модель | Семейство | Направления | Почему |
 |-----|-----------|--------|-----------|-------------|--------|
-| dense | 24B | Devstral 2 | *(скоро)* devstral | [coding](coding.md) | 72.2% SWE-V, FIM+agent в одной модели |
 | dense | 22B | Codestral 25.08 | *(скоро)* codestral | [coding](coding.md) | Лидер LMsys copilot arena по FIM |
 | MoE 39B/141B | 141B | Mixtral 8x22B | *(скоро)* mixtral | [llm](llm.md) | Быстрый большой MoE, 64K контекст |
 | dense | 111B | Command A | *(скоро)* command-a | [llm](llm.md) | RAG, tool use, 256K |

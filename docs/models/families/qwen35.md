@@ -4,7 +4,7 @@
 
 **Тип**: dense + MoE
 **Лицензия**: Apache 2.0
-**Статус на сервере**: скачана (122B-A10B MoE; 27B был удалён -- перекрывается флагманом)
+**Статус на сервере**: скачана (122B-A10B MoE + 35B-A3B Q4_K_M; 27B был удалён -- перекрывается флагманом)
 **Направления**: [llm](../llm.md), [vision](../vision.md), [russian-llm](../russian-llm.md)
 
 ## Обзор
@@ -18,7 +18,7 @@ Qwen3.5 -- новое (февраль-март 2026) поколение унив
 | Вариант | Параметры | Active | VRAM Q4 | tg tok/s | Статус | Hub |
 |---------|-----------|--------|---------|----------|--------|-----|
 | 122B-A10B | 122B MoE | 10B | ~71 GiB | 22.2 | скачана | [unsloth/Qwen3.5-122B-A10B-GGUF](https://huggingface.co/unsloth/Qwen3.5-122B-A10B-GGUF) |
-| 35B-A3B | 35B MoE | 3B | ~22 GiB | -- | не скачана | [unsloth/Qwen3.5-35B-A3B-GGUF](https://huggingface.co/unsloth/Qwen3.5-35B-A3B-GGUF) |
+| 35B-A3B | 35B MoE | 3B | ~21 GiB | -- | **скачана (Q4_K_M)** | [unsloth/Qwen3.5-35B-A3B-GGUF](https://huggingface.co/unsloth/Qwen3.5-35B-A3B-GGUF) |
 | 27B | 27B dense | 27B | ~17 GiB | 12.6 | не скачана (был, удалён) | [unsloth/Qwen3.5-27B-GGUF](https://huggingface.co/unsloth/Qwen3.5-27B-GGUF) |
 | 9B | 9B dense | 9B | ~6 GiB | -- | не скачана | [unsloth/Qwen3.5-9B-GGUF](https://huggingface.co/unsloth/Qwen3.5-9B-GGUF) |
 | 4B | 4B dense | 4B | ~3 GiB | -- | не скачана | -- |
