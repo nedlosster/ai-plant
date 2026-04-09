@@ -46,6 +46,13 @@ SVD от Stability AI -- модель **только image-to-video** (нет te
 hf download stabilityai/stable-video-diffusion-img2vid-xt --local-dir ~/models/svd-xt
 ```
 
+## Ссылки
+
+**Официально**:
+- [HuggingFace: stabilityai/stable-video-diffusion-img2vid-xt](https://huggingface.co/stabilityai/stable-video-diffusion-img2vid-xt)
+- [HuggingFace: stabilityai](https://huggingface.co/stabilityai)
+- [GitHub: Stability-AI/generative-models](https://github.com/Stability-AI/generative-models)
+
 ## Связано
 
 - Направления: [video](../video.md)

@@ -49,6 +49,13 @@ GitHub: [Lightricks/LTX-Video](https://github.com/Lightricks/LTX-Video)
 hf download Lightricks/LTX-Video --local-dir ~/models/ltx-video-2.3
 ```
 
+## Ссылки
+
+**Официально**:
+- [HuggingFace: Lightricks/LTX-Video](https://huggingface.co/Lightricks/LTX-Video)
+- [HuggingFace: Lightricks](https://huggingface.co/Lightricks) -- организация
+- [GitHub: Lightricks/LTX-Video](https://github.com/Lightricks/LTX-Video)
+
 ## Связано
 
 - Направления: [video](../video.md)

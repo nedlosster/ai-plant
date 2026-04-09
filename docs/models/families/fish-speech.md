@@ -48,6 +48,13 @@ hf download fishaudio/fish-speech-1.5 --local-dir ~/models/fish-speech-1.5
 git clone https://github.com/fishaudio/fish-speech ~/projects/fish-speech
 ```
 
+## Ссылки
+
+**Официально**:
+- [HuggingFace: fishaudio/fish-speech-1.5](https://huggingface.co/fishaudio/fish-speech-1.5)
+- [HuggingFace: fishaudio](https://huggingface.co/fishaudio) -- организация
+- [GitHub: fishaudio/fish-speech](https://github.com/fishaudio/fish-speech)
+
 ## Связано
 
 - Направления: [tts](../tts.md)

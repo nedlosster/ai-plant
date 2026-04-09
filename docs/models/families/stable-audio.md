@@ -43,6 +43,13 @@ pip install stable-audio-tools
 hf download stabilityai/stable-audio-open-1.0 --local-dir ~/models/stable-audio-open
 ```
 
+## Ссылки
+
+**Официально**:
+- [HuggingFace: stabilityai/stable-audio-open-1.0](https://huggingface.co/stabilityai/stable-audio-open-1.0)
+- [HuggingFace: stabilityai](https://huggingface.co/stabilityai) -- организация
+- [GitHub: Stability-AI/stable-audio-tools](https://github.com/Stability-AI/stable-audio-tools)
+
 ## Связано
 
 - Направления: [music](../music.md)

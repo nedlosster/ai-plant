@@ -53,6 +53,13 @@ hf download coqui/XTTS-v2 --local-dir ~/models/XTTS-v2
 git clone https://github.com/idiap/coqui-ai-TTS ~/projects/coqui-tts
 ```
 
+## Ссылки
+
+**Официально**:
+- [HuggingFace: coqui/XTTS-v2](https://huggingface.co/coqui/XTTS-v2) -- основная модель
+- [GitHub: coqui-ai/TTS](https://github.com/coqui-ai/TTS) -- архивный (Coqui закрыт)
+- [GitHub: idiap/coqui-ai-TTS](https://github.com/idiap/coqui-ai-TTS) -- community fork
+
 ## Связано
 
 - Направления: [tts](../tts.md)

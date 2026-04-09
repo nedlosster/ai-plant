@@ -44,6 +44,16 @@ Command A от Cohere -- 111B dense-модель, оптимизированна
 ./scripts/inference/download-model.sh bartowski/command-a-111b-GGUF --include "*Q4_K_M*"
 ```
 
+## Ссылки
+
+**Официально**:
+- [HuggingFace: CohereForAI](https://huggingface.co/CohereForAI) -- организация
+- [HuggingFace: CohereForAI/c4ai-command-a-03-2025](https://huggingface.co/CohereForAI/c4ai-command-a-03-2025) -- основная модель
+
+**GGUF-квантизации**:
+- [bartowski/command-a-111b-GGUF](https://huggingface.co/bartowski/command-a-111b-GGUF)
+- [mradermacher/c4ai-command-a-03-2025-GGUF](https://huggingface.co/mradermacher/c4ai-command-a-03-2025-GGUF)
+
 ## Связано
 
 - Направления: [llm](../llm.md)

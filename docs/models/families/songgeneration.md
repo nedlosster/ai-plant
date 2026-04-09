@@ -32,6 +32,12 @@ SongGeneration v2 -- 4B-модель от Tencent для генерации по
 - **Только исследования и эксперименты**
 - Сравнение качества с [ace-step](ace-step.md) для академических работ
 
+## Ссылки
+
+**Официально**:
+- [HuggingFace: Tencent-Hunyuan](https://huggingface.co/Tencent-Hunyuan) -- организация Tencent
+- [GitHub: tencent-ailab](https://github.com/tencent-ailab) -- репозитории
+
 ## Связано
 
 - Направления: [music](../music.md)

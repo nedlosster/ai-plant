@@ -43,6 +43,13 @@ HiDream-I1 Full -- 17B diffusion-модель от HiDream-AI. Apache 2.0 -- п�
 huggingface-cli download city96/HiDream-I1-Full-gguf --include "*Q8_0*" --local-dir ComfyUI/models/diffusion_models/
 ```
 
+## Ссылки
+
+**Официально**:
+- [HuggingFace: HiDream-ai/HiDream-I1-Full](https://huggingface.co/HiDream-ai/HiDream-I1-Full)
+- [HuggingFace: HiDream-ai](https://huggingface.co/HiDream-ai) -- организация
+- [HuggingFace: city96/HiDream-I1-Full-gguf](https://huggingface.co/city96/HiDream-I1-Full-gguf) -- GGUF
+
 ## Связано
 
 - Направления: [images](../images.md)

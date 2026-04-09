@@ -47,6 +47,13 @@ GitHub: [Tencent-Hunyuan/HunyuanVideo](https://github.com/Tencent-Hunyuan/Hunyua
 hf download tencent/HunyuanVideo --local-dir ~/models/hunyuan-video-1.5
 ```
 
+## Ссылки
+
+**Официально**:
+- [HuggingFace: tencent/HunyuanVideo](https://huggingface.co/tencent/HunyuanVideo)
+- [HuggingFace: tencent](https://huggingface.co/tencent) -- организация Tencent
+- [GitHub: Tencent-Hunyuan/HunyuanVideo](https://github.com/Tencent-Hunyuan/HunyuanVideo)
+
 ## Связано
 
 - Направления: [video](../video.md)

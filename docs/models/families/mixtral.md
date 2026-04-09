@@ -43,6 +43,16 @@ Mixtral 8x22B -- проверенный MoE от Mistral. 141B параметр�
 ./scripts/inference/download-model.sh bartowski/Mixtral-8x22B-Instruct-v0.1-GGUF --include "*Q4_K_M*"
 ```
 
+## Ссылки
+
+**Официально**:
+- [HuggingFace: mistralai/Mixtral-8x22B-Instruct-v0.1](https://huggingface.co/mistralai/Mixtral-8x22B-Instruct-v0.1) -- основная
+- [HuggingFace: mistralai](https://huggingface.co/mistralai) -- организация
+
+**GGUF-квантизации**:
+- [bartowski/Mixtral-8x22B-Instruct-v0.1-GGUF](https://huggingface.co/bartowski/Mixtral-8x22B-Instruct-v0.1-GGUF)
+- [mradermacher/Mixtral-8x22B-Instruct-v0.1-GGUF](https://huggingface.co/mradermacher/Mixtral-8x22B-Instruct-v0.1-GGUF)
+
 ## Связано
 
 - Направления: [llm](../llm.md)

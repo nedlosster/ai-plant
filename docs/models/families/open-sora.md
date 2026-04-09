@@ -45,6 +45,13 @@ GitHub: [hpcaitech/Open-Sora](https://github.com/hpcaitech/Open-Sora)
 hf download hpcai-tech/Open-Sora --local-dir ~/models/open-sora-2.0
 ```
 
+## Ссылки
+
+**Официально**:
+- [HuggingFace: hpcai-tech/Open-Sora](https://huggingface.co/hpcai-tech/Open-Sora)
+- [HuggingFace: hpcai-tech](https://huggingface.co/hpcai-tech) -- организация
+- [GitHub: hpcaitech/Open-Sora](https://github.com/hpcaitech/Open-Sora)
+
 ## Связано
 
 - Направления: [video](../video.md)

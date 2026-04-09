@@ -42,6 +42,12 @@ git clone https://github.com/multimodal-art-projection/YuE.git ~/projects/YuE
 cd ~/projects/YuE && pip install -r requirements.txt
 ```
 
+## Ссылки
+
+**Официально**:
+- [GitHub: multimodal-art-projection/YuE](https://github.com/multimodal-art-projection/YuE)
+- [HuggingFace: m-a-p](https://huggingface.co/m-a-p) -- организация
+
 ## Связано
 
 - Направления: [music](../music.md)

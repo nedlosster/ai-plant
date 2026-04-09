@@ -36,6 +36,13 @@ pip install bark
 # Модели подгрузятся автоматически
 ```
 
+## Ссылки
+
+**Официально**:
+- [GitHub: suno-ai/bark](https://github.com/suno-ai/bark) -- основной репозиторий
+- [HuggingFace: suno/bark](https://huggingface.co/suno/bark) -- основная модель
+- [HuggingFace: suno/bark-small](https://huggingface.co/suno/bark-small) -- быстрый вариант
+
 ## Связано
 
 - Направления: [music](../music.md), [russian-vocals](../russian-vocals.md)

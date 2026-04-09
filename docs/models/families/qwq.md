@@ -44,6 +44,16 @@ QwQ-32B -- специализированная reasoning-модель от Alib
 ./scripts/inference/download-model.sh bartowski/QwQ-32B-Preview-GGUF --include "*Q4_K_M*"
 ```
 
+## Ссылки
+
+**Официально**:
+- [HuggingFace: Qwen/QwQ-32B-Preview](https://huggingface.co/Qwen/QwQ-32B-Preview) -- основная
+- [HuggingFace: Qwen](https://huggingface.co/Qwen) -- организация
+
+**GGUF-квантизации**:
+- [bartowski/QwQ-32B-Preview-GGUF](https://huggingface.co/bartowski/QwQ-32B-Preview-GGUF)
+- [unsloth/QwQ-32B-Preview-GGUF](https://huggingface.co/unsloth/QwQ-32B-Preview-GGUF)
+
 ## Связано
 
 - Направления: [llm](../llm.md)

@@ -44,6 +44,16 @@ Mistral Small 3.1 24B -- multimodal модель Mistral с vision-encoder Pixtr
     --include '*Q4_K_M*' --include '*mmproj*'
 ```
 
+## Ссылки
+
+**Официально**:
+- [HuggingFace: mistralai/Mistral-Small-3.1-24B-Instruct-2503](https://huggingface.co/mistralai/Mistral-Small-3.1-24B-Instruct-2503)
+- [HuggingFace: mistralai](https://huggingface.co/mistralai) -- организация
+
+**GGUF-квантизации**:
+- [ggml-org/Mistral-Small-3.1-24B-Instruct-2503-GGUF](https://huggingface.co/ggml-org/Mistral-Small-3.1-24B-Instruct-2503-GGUF)
+- [bartowski/Mistral-Small-3.1-24B-Instruct-2503-GGUF](https://huggingface.co/bartowski/Mistral-Small-3.1-24B-Instruct-2503-GGUF)
+
 ## Связано
 
 - Направления: [vision](../vision.md), [llm](../llm.md)

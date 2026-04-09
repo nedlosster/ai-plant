@@ -51,6 +51,14 @@ pip install audiocraft
 python -c "from audiocraft.models import MusicGen; MusicGen.get_pretrained('facebook/musicgen-large')"
 ```
 
+## Ссылки
+
+**Официально**:
+- [HuggingFace: facebook/musicgen-large](https://huggingface.co/facebook/musicgen-large)
+- [HuggingFace: facebook/musicgen-medium](https://huggingface.co/facebook/musicgen-medium)
+- [HuggingFace: facebook/musicgen-melody](https://huggingface.co/facebook/musicgen-melody)
+- [GitHub: facebookresearch/audiocraft](https://github.com/facebookresearch/audiocraft)
+
 ## Связано
 
 - Направления: [music](../music.md)

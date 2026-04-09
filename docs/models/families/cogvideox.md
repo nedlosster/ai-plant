@@ -47,6 +47,14 @@ GitHub: [THUDM/CogVideo](https://github.com/THUDM/CogVideo)
 hf download THUDM/CogVideoX1.5-5B --local-dir ~/models/cogvideox-1.5-5b
 ```
 
+## Ссылки
+
+**Официально**:
+- [HuggingFace: THUDM/CogVideoX1.5-5B](https://huggingface.co/THUDM/CogVideoX1.5-5B)
+- [HuggingFace: THUDM](https://huggingface.co/THUDM) -- Tsinghua / Zhipu AI
+- [GitHub: THUDM/CogVideo](https://github.com/THUDM/CogVideo)
+- [GitHub: kijai/ComfyUI-CogVideoXWrapper](https://github.com/kijai/ComfyUI-CogVideoXWrapper) -- ComfyUI плагин
+
 ## Связано
 
 - Направления: [video](../video.md)

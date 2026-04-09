@@ -46,6 +46,15 @@ Pixtral 12B от Mistral -- multimodal модель с custom Pixtral vision enc
     --include '*Q4_K_M*' --include 'mmproj*Q8_0*'
 ```
 
+## Ссылки
+
+**Официально**:
+- [HuggingFace: mistralai/Pixtral-12B-2409](https://huggingface.co/mistralai/Pixtral-12B-2409) -- основная модель
+- [HuggingFace: mistralai](https://huggingface.co/mistralai) -- организация
+
+**GGUF-квантизации**:
+- [ggml-org/pixtral-12b-GGUF](https://huggingface.co/ggml-org/pixtral-12b-GGUF) -- официальный llama.cpp конвертер
+
 ## Связано
 
 - Направления: [vision](../vision.md)

@@ -43,6 +43,16 @@ Codestral от Mistral -- специализированная модель дл
 ./scripts/inference/download-model.sh bartowski/Codestral-25.08-GGUF --include "*Q4_K_M*"
 ```
 
+## Ссылки
+
+**Официально**:
+- [HuggingFace: mistralai](https://huggingface.co/mistralai) -- организация Mistral
+- [Блог релиза Codestral 25.08](https://mistral.ai/news/codestral-25-08/)
+
+**GGUF-квантизации**:
+- [bartowski/Codestral-25.08-GGUF](https://huggingface.co/bartowski/Codestral-25.08-GGUF)
+- [unsloth/Codestral-22B-v0.1-GGUF](https://huggingface.co/unsloth/Codestral-22B-v0.1-GGUF) -- предыдущая версия
+
 ## Связано
 
 - Направления: [coding](../coding.md)

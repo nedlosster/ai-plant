@@ -48,6 +48,13 @@ hf download Qwen/Qwen3-TTS --local-dir ~/models/Qwen3-TTS
 git clone https://github.com/QwenLM/Qwen3-TTS ~/projects/Qwen3-TTS
 ```
 
+## Ссылки
+
+**Официально**:
+- [HuggingFace: Qwen/Qwen3-TTS](https://huggingface.co/Qwen/Qwen3-TTS) -- основная модель
+- [HuggingFace: Qwen](https://huggingface.co/Qwen) -- организация
+- [GitHub: QwenLM/Qwen3-TTS](https://github.com/QwenLM/Qwen3-TTS) -- исходники
+
 ## Связано
 
 - Направления: [tts](../tts.md)

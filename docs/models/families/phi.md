@@ -43,6 +43,17 @@ Phi-серия от Microsoft -- модели обученные на качес
 ./scripts/inference/download-model.sh bartowski/phi-4-GGUF --include "*Q4_K_M*"
 ```
 
+## Ссылки
+
+**Официально**:
+- [HuggingFace: microsoft/phi-4](https://huggingface.co/microsoft/phi-4) -- основная модель
+- [HuggingFace: microsoft](https://huggingface.co/microsoft) -- организация Microsoft
+
+**GGUF-квантизации**:
+- [bartowski/phi-4-GGUF](https://huggingface.co/bartowski/phi-4-GGUF)
+- [unsloth/phi-4-GGUF](https://huggingface.co/unsloth/phi-4-GGUF)
+- [microsoft/phi-4-gguf](https://huggingface.co/microsoft/phi-4-gguf) -- официальный
+
 ## Связано
 
 - Направления: [llm](../llm.md)

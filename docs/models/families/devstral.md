@@ -51,6 +51,16 @@ Devstral 2 от Mistral AI (декабрь 2025) -- 24B dense-модель сп�
 |------|----------|
 | SWE-bench Verified | **72.2%** |
 
+## Ссылки
+
+**Официально**:
+- [HuggingFace: mistralai](https://huggingface.co/mistralai) -- организация Mistral
+- [HuggingFace: mistralai/Devstral-Small-2-24B](https://huggingface.co/mistralai/Devstral-Small-2-24B-Instruct-2512) -- основная модель
+
+**GGUF-квантизации**:
+- [unsloth/Devstral-Small-2-24B-Instruct-2512-GGUF](https://huggingface.co/unsloth/Devstral-Small-2-24B-Instruct-2512-GGUF)
+- [bartowski/Devstral-Small-2-24B-Instruct-2512-GGUF](https://huggingface.co/bartowski/Devstral-Small-2-24B-Instruct-2512-GGUF)
+
 ## Связано
 
 - Направления: [coding](../coding.md)

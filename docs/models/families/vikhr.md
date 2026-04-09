@@ -42,6 +42,13 @@ Vikhr -- российская community-LLM на базе Mistral 7B. Apache 2.0
 ./scripts/inference/download-model.sh Vikhrmodels/Vikhr-7B-instruct_0.5 --include "*Q4_K_M*"
 ```
 
+## Ссылки
+
+**Официально**:
+- [HuggingFace: Vikhrmodels](https://huggingface.co/Vikhrmodels) -- организация
+- [HuggingFace: Vikhrmodels/Vikhr-7B-instruct_0.5](https://huggingface.co/Vikhrmodels/Vikhr-7B-instruct_0.5)
+- [GitHub: VikhrModels](https://github.com/VikhrModels)
+
 ## Связано
 
 - Направления: [russian-llm](../russian-llm.md), [llm](../llm.md)

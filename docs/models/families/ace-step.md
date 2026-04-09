@@ -126,6 +126,16 @@ We are the dreamers
 
 Подробнее с примерами для разных жанров и русским языком -- в [русский вокал](../russian-vocals.md).
 
+## Ссылки
+
+**Официально**:
+- [GitHub: ACE-Step/ACE-Step-1.5](https://github.com/ACE-Step/ACE-Step-1.5) -- основной репозиторий
+- [HuggingFace: ACE-Step](https://huggingface.co/ACE-Step) -- модели и checkpoint'ы
+
+**Связанное**:
+- [Карточка на HuggingFace](https://huggingface.co/ACE-Step/ACE-Step-v1-3.5B)
+- Документация моделей загружается через `acestep.model_downloader` (см. install.sh)
+
 ## Связано
 
 - Направления: [music](../music.md), [russian-vocals](../russian-vocals.md)
