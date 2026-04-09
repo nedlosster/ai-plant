@@ -47,6 +47,14 @@ MiniCPM-o 2.6 -- compact omni-модель (vision + video + audio + text) в 8B
     --include '*Q4_K_M*' --include 'mmproj*'
 ```
 
+## Ссылки
+
+**Официально**:
+- [HuggingFace: openbmb/MiniCPM-o-2_6](https://huggingface.co/openbmb/MiniCPM-o-2_6)
+- [HuggingFace: openbmb/MiniCPM-o-2_6-gguf](https://huggingface.co/openbmb/MiniCPM-o-2_6-gguf)
+- [HuggingFace: openbmb](https://huggingface.co/openbmb)
+- [GitHub: OpenBMB/MiniCPM-o](https://github.com/OpenBMB/MiniCPM-o)
+
 ## Связано
 
 - Направления: [vision](../vision.md)
