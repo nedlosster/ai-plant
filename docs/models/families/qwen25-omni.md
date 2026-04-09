@@ -4,7 +4,7 @@
 
 **Тип**: dense (7B)
 **Лицензия**: Apache 2.0
-**Статус на сервере**: скачана (7B Q4_K_M + mmproj Q8_0 + mmproj F16)
+**Статус на сервере**: не скачана (была удалена -- нишевый use case, vision уступает Qwen3-VL, audio уступает специализированным TTS)
 **Направления**: [vision](../vision.md), [tts](../tts.md)
 
 ## Обзор
@@ -15,7 +15,7 @@ Qwen2.5-Omni -- единственная в коллекции **omni-модел
 
 | Вариант | Параметры | VRAM Q4 | mmproj | Статус | Hub |
 |---------|-----------|---------|--------|--------|-----|
-| 7B | 7B dense | ~5 GiB | ~1 GiB | **скачана** | [ggml-org/Qwen2.5-Omni-7B-GGUF](https://huggingface.co/ggml-org/Qwen2.5-Omni-7B-GGUF) |
+| 7B | 7B dense | ~5 GiB | ~1 GiB | не скачана | [ggml-org/Qwen2.5-Omni-7B-GGUF](https://huggingface.co/ggml-org/Qwen2.5-Omni-7B-GGUF) |
 | 3B | 3B dense | ~2 GiB | ~0.5 GiB | не скачана | [ggml-org/Qwen2.5-Omni-3B-GGUF](https://huggingface.co/ggml-org/Qwen2.5-Omni-3B-GGUF) |
 
 ## Архитектура
@@ -56,11 +56,16 @@ Qwen2.5-Omni -- единственная в коллекции **omni-модел
 
 ## Запуск
 
-```bash
-./scripts/inference/vulkan/preset/qwen2.5-omni.sh -d
-```
+После загрузки можно создать пресет `scripts/inference/vulkan/preset/qwen2.5-omni.sh` (был удалён вместе с моделью).
 
-Пресет: 7B Q4_K_M + mmproj Q8_0, контекст 64K, 4 слота.
+Минимальный запуск:
+```bash
+~/projects/llama.cpp/build/bin/llama-server \
+    -m ~/models/Qwen2.5-Omni-7B-Q4_K_M.gguf \
+    --mmproj ~/models/mmproj-Qwen2.5-Omni-7B-Q8_0.gguf \
+    -ngl 99 -c 65536 --port 8081 --host 0.0.0.0 \
+    --jinja --parallel 4
+```
 
 ## Связано
 

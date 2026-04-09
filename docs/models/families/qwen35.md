@@ -4,7 +4,7 @@
 
 **Тип**: dense + MoE
 **Лицензия**: Apache 2.0
-**Статус на сервере**: скачаны (27B dense, 122B-A10B MoE)
+**Статус на сервере**: скачана (122B-A10B MoE; 27B был удалён -- перекрывается флагманом)
 **Направления**: [llm](../llm.md), [vision](../vision.md), [russian-llm](../russian-llm.md)
 
 ## Обзор
@@ -19,7 +19,7 @@ Qwen3.5 -- новое (февраль-март 2026) поколение унив
 |---------|-----------|--------|---------|----------|--------|-----|
 | 122B-A10B | 122B MoE | 10B | ~71 GiB | 22.2 | скачана | [unsloth/Qwen3.5-122B-A10B-GGUF](https://huggingface.co/unsloth/Qwen3.5-122B-A10B-GGUF) |
 | 35B-A3B | 35B MoE | 3B | ~22 GiB | -- | не скачана | [unsloth/Qwen3.5-35B-A3B-GGUF](https://huggingface.co/unsloth/Qwen3.5-35B-A3B-GGUF) |
-| 27B | 27B dense | 27B | ~17 GiB | 12.6 | скачана | [unsloth/Qwen3.5-27B-GGUF](https://huggingface.co/unsloth/Qwen3.5-27B-GGUF) |
+| 27B | 27B dense | 27B | ~17 GiB | 12.6 | не скачана (был, удалён) | [unsloth/Qwen3.5-27B-GGUF](https://huggingface.co/unsloth/Qwen3.5-27B-GGUF) |
 | 9B | 9B dense | 9B | ~6 GiB | -- | не скачана | [unsloth/Qwen3.5-9B-GGUF](https://huggingface.co/unsloth/Qwen3.5-9B-GGUF) |
 | 4B | 4B dense | 4B | ~3 GiB | -- | не скачана | -- |
 
@@ -143,4 +143,4 @@ LoRA-дообучение на трассах рассуждений Claude 4.6 
 - Направления: [llm](../llm.md), [vision](../vision.md), [russian-llm](../russian-llm.md)
 - Родственные семейства: [qwen3-coder](qwen3-coder.md) (специализированный кодинг), [qwen3-vl](qwen3-vl.md) (специализированный vision)
 - Теория: [architectures.md](../../llm-guide/architectures.md) (Dense vs MoE), [naming-and-variants.md](../../llm-guide/naming-and-variants.md) (выбор варианта)
-- Пресеты: `scripts/inference/vulkan/preset/qwen3.5-27b.sh`, `scripts/inference/vulkan/preset/qwen3.5-122b.sh`
+- Пресеты: `scripts/inference/vulkan/preset/qwen3.5-122b.sh`
