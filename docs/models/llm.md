@@ -1,363 +1,124 @@
 # LLM общего назначения
 
-Платформа: Radeon 8060S (120 GiB GPU-доступной памяти), llama-server + Vulkan. Только модели, помещающиеся на платформе.
+Платформа: Radeon 8060S (120 GiB GPU-доступной памяти), llama-server + Vulkan.
 
-## Рекомендуемый набор моделей
+Полные описания моделей -- в `families/`. Эта страница: сравнительные таблицы и выбор под задачу.
 
-Минимальный набор для покрытия основных задач:
+## Скачано на платформе
 
-| Модель | VRAM (Q4) | tg tok/s | Назначение |
-|--------|-----------|----------|-----------|
-| **Qwen3.5-27B** | ~17 GiB | ~12.6 | Основная рабочая: русский, chat, vision |
-| **Qwen3.5-35B-A3B** (MoE) | ~22 GiB | -- | Быстрая MoE, мультимодальная |
-| **QwQ-32B** | ~19 GiB | -- | Reasoning, математика, аналитика |
-| **Qwen2.5-Coder-1.5B-Instruct** | ~2 GiB (Q8) | ~120.6 | FIM-автодополнение в IDE |
-| **Llama-3.1-8B-Instruct** | ~5 GiB | -- | Тесты, RAG, английский |
+| Модель | Семейство | Параметры | Пресет |
+|--------|-----------|-----------|--------|
+| Qwen3.5-27B | [qwen35](families/qwen35.md#27b) | 27B dense | `vulkan/preset/qwen3.5-27b.sh` |
+| Qwen3.5-122B-A10B | [qwen35](families/qwen35.md#122b-a10b) | 122B MoE / 10B active | `vulkan/preset/qwen3.5-122b.sh` |
+| Gemma 4 26B-A4B | [gemma4](families/gemma4.md) | 26B MoE / 3.8B active | `vulkan/preset/gemma4.sh` |
 
-Расширенный набор (доступен благодаря 120 GiB):
+## Сравнительная таблица
 
-| Модель | VRAM | tg tok/s | Назначение |
-|--------|------|----------|-----------|
-| **Qwen3.5-122B-A10B** (MoE) | ~71 GiB Q4 | ~22.2 | Максимальное качество, мультимодальная |
-| **Qwen3-Coder-Next** (MoE) | ~45 GiB Q4 | ~53.2 | Кодинг нового поколения |
-| **Llama-3.3-70B** | ~74 GiB Q8 | -- | Максимальный английский, лучшее качество в Q8 |
-| **Mixtral 8x22B** (MoE) | ~82 GiB Q4 | -- | Быстрая MoE 141B, длинный контекст 64k |
-| **Command A 111B** | ~65 GiB Q4 | -- | RAG, tool use, enterprise |
-| **Llama 4 Scout** (MoE) | ~67 GiB Q4 | -- | Контекст 10M, vision |
-| **DeepSeek-R1-Distill-32B** | ~19 GiB Q4 | -- | Reasoning (MATH-500 94.3%) |
-| **Phi-4** | ~9 GiB Q4 | -- | Reasoning при малом VRAM |
+| Модель | Семейство | Параметры | Active | Контекст | VRAM Q4 | Русский |
+|--------|-----------|-----------|--------|----------|---------|---------|
+| Qwen3.5-122B-A10B | [qwen35](families/qwen35.md#122b-a10b) | 122B MoE | 10B | 128K | ~71 GiB | отличный |
+| Qwen3.5-35B-A3B | [qwen35](families/qwen35.md) | 35B MoE | 3B | 128K | ~22 GiB | отличный |
+| Qwen3.5-27B | [qwen35](families/qwen35.md#27b) | 27B dense | 27B | 128K | ~17 GiB | отличный |
+| Gemma 4 26B-A4B | [gemma4](families/gemma4.md) | 26B MoE | 3.8B | **256K** | ~17 GiB + mmproj | хороший |
+| Mixtral 8x22B | [mixtral](families/mixtral.md) | 141B MoE | 39B | 64K | ~82 GiB | средний |
+| Command A | [command-a](families/command-a.md) | 111B dense | 111B | 256K | ~65 GiB | средний |
+| Llama-3.3-70B | [llama](families/llama.md#3-3-70b) | 70B dense | 70B | 128K | ~42 GiB / Q8 ~74 GiB | базовый |
+| Llama 4 Scout | [llama](families/llama.md#4-scout) | 109B MoE | 17B | **10M** | ~67 GiB | средний |
+| QwQ-32B | [qwq](families/qwq.md) | 32B dense | 32B | 32K | ~19 GiB | хороший |
+| DeepSeek-R1-Distill-32B | [deepseek-distill](families/deepseek-distill.md) | 32B dense | 32B | 128K | ~19 GiB | средний |
+| Phi-4 | [phi](families/phi.md) | 14B dense | 14B | 16K | ~9 GiB | слабый |
+| Llama-3.1-8B | [llama](families/llama.md) | 8B dense | 8B | 128K | ~5 GiB | базовый |
 
 ## Что открывает 120 GiB (было недоступно при 96 GiB)
 
 | Категория | При 96 GiB | При 120 GiB |
 |-----------|-----------|-------------|
-| 70B dense в Q8_0 + ctx 32k | на пределе (~90 GiB), нестабильно | комфортно (~94 GiB), запас 26 GiB |
-| Mixtral 8x22B Q4_K_M | ~82 GiB, без контекста | + ctx 32k, запас ~20 GiB |
+| 70B dense в Q8_0 + ctx 32K | ~90 GiB, нестабильно | ~94 GiB, запас 26 GiB |
+| Mixtral 8x22B Q4_K_M | ~82 GiB, без контекста | + ctx 32K, запас ~20 GiB |
 | Command A 111B Q5_K_M | не помещается (~78 GiB) | помещается |
 | 122B MoE + параллельный FIM | ~73 GiB, мало запаса | ~73 GiB, запас 47 GiB |
 
-## Загрузка всех моделей
+## Выбор под задачу
 
-Запуск на AI-сервере (`cd ~/projects/ai-plant`):
+### Универсальный русскоязычный chat
 
-### Минимальный набор (~65 GiB)
+[Qwen3.5-27B](families/qwen35.md#27b) -- основная рабочая модель платформы. Лучший русский в среднем сегменте.
 
-```bash
-# Основная рабочая (русский, chat, vision) -- ~17 GiB
-./scripts/inference/download-model.sh unsloth/Qwen3.5-27B-GGUF --include "*Q4_K_M*"
+### Максимум качества для сложных задач
 
-# Быстрая MoE (мультимодальная) -- ~22 GiB
-./scripts/inference/download-model.sh unsloth/Qwen3.5-35B-A3B-GGUF --include "*Q4_K_M*"
+[Qwen3.5-122B-A10B](families/qwen35.md#122b-a10b) -- 10B active, multimodal, флагман на платформе.
+[Llama-3.3-70B Q8](families/llama.md#3-3-70b) -- максимум dense, помещается с запасом 26 GiB.
 
-# Reasoning -- ~19 GiB
-./scripts/inference/download-model.sh bartowski/QwQ-32B-GGUF --include "*Q4_K_M*"
+### Multimodal (text + images)
 
-# FIM для IDE (автодополнение) -- ~2 GiB
-./scripts/inference/download-model.sh bartowski/Qwen2.5-Coder-1.5B-Instruct-GGUF --include "*Q8_0*"
+[Gemma 4 26B-A4B](families/gemma4.md) -- function calling, 256K контекст, на платформе через пресет.
+[Qwen3.5-27B](families/qwen35.md#27b) или [122B](families/qwen35.md#122b-a10b) -- мультимодальные из коробки.
 
-# Тесты, RAG -- ~5 GiB
-./scripts/inference/download-model.sh bartowski/Llama-3.1-8B-Instruct-GGUF --include "*Q4_K_M*"
-```
+### Длинный контекст
 
-### Расширенный набор (дополнительно ~400 GiB диска)
+[Llama 4 Scout](families/llama.md#4-scout) -- 10M токенов (уникально для open-source).
+[Gemma 4 26B-A4B](families/gemma4.md) -- 256K с native function calling.
 
-```bash
-# Максимальное качество (MoE, мультимодальная) -- ~71 GiB
-./scripts/inference/download-model.sh unsloth/Qwen3.5-122B-A10B-GGUF --include "*Q4_K_M*"
+### Reasoning (математика, логика)
 
-# Кодинг нового поколения -- ~45 GiB
-./scripts/inference/download-model.sh Qwen/Qwen3-Coder-Next-GGUF --include "*Q4_K_M*"
+[QwQ-32B](families/qwq.md) -- chain-of-thought, MATH-500 95.2, Apache 2.0.
+[DeepSeek-R1-Distill-32B](families/deepseek-distill.md) -- MATH-500 94.3, MIT.
+[Phi-4](families/phi.md) -- reasoning при минимальном VRAM (9 GiB Q4).
 
-# Llama 70B в Q8 (максимальное качество dense) -- ~74 GiB
-./scripts/inference/download-model.sh bartowski/Llama-3.3-70B-Instruct-GGUF --include "*Q8_0*"
+### RAG, function calling, tool use
 
-# Mixtral 8x22B (MoE, 141B) -- ~82 GiB
-./scripts/inference/download-model.sh bartowski/Mixtral-8x22B-Instruct-v0.1-GGUF --include "*Q4_K_M*"
+[Command A 111B](families/command-a.md) -- специализирована (CC-BY-NC).
+[Gemma 4 26B-A4B](families/gemma4.md) -- function calling из коробки, Apache.
 
-# Command A 111B (RAG, tool use) -- ~65 GiB
-./scripts/inference/download-model.sh bartowski/command-a-111b-GGUF --include "*Q4_K_M*"
+### Английский (максимальное качество)
 
-# Длинный контекст 10M (MoE) -- ~67 GiB
-./scripts/inference/download-model.sh bartowski/Llama-4-Scout-17B-16E-Instruct-GGUF --include "*Q4_K_M*"
-
-# Reasoning (DeepSeek) -- ~19 GiB
-./scripts/inference/download-model.sh bartowski/DeepSeek-R1-Distill-Qwen-32B-GGUF --include "*Q4_K_M*"
-
-# Reasoning при малом VRAM -- ~9 GiB
-./scripts/inference/download-model.sh bartowski/phi-4-GGUF --include "*Q4_K_M*"
-```
-
-## Сводная таблица
-
-| Модель | Параметры | Архитектура | Русский | Лицензия | Q4_K_M | Q8_0 |
-|--------|-----------|------------|---------|----------|--------|------|
-| **Qwen3.5-122B-A10B** | 122B MoE (10B active) | MoE | отличный | Apache 2.0 | ~71 GiB | -- |
-| **Mixtral 8x22B** | 141B MoE (39B active) | MoE | средний | Apache 2.0 | ~82 GiB | -- |
-| **Command A** | 111B dense | dense | средний | CC-BY-NC | ~65 GiB | -- |
-| **Qwen3-Coder-Next** | 80B MoE (3B active) | MoE | хороший | Apache 2.0 | ~45 GiB | -- |
-| **Llama 4 Scout** | 109B MoE (17B active) | MoE | средний | Llama CL | ~67 GiB | -- |
-| **Llama-3.3-70B** | 70B dense | dense | базовый | Llama CL | ~42 GiB | ~74 GiB |
-| **Qwen2.5-72B** | 72B dense | dense | отличный | Apache 2.0 | ~44 GiB | ~78 GiB |
-| **Qwen3.5-35B-A3B** | 35B MoE (3B active) | MoE | отличный | Apache 2.0 | ~22 GiB | -- |
-| **Qwen3.5-27B** | 27B dense | dense | отличный | Apache 2.0 | ~17 GiB | -- |
-| **DeepSeek-R1-Distill-32B** | 32B dense | dense | средний | MIT | ~19 GiB | -- |
-| **QwQ-32B** | 32B dense | dense | хороший | Apache 2.0 | ~19 GiB | -- |
-| **Phi-4** | 14B dense | dense | слабый | MIT | ~9 GiB | -- |
-| **Qwen3.5-9B** | 9B dense | dense | отличный | Apache 2.0 | ~6 GiB | -- |
-| **Llama-3.1-8B** | 8B dense | dense | базовый | Llama CL | ~5 GiB | -- |
-| **Qwen2.5-Coder-1.5B** | 1.5B dense | dense | -- | Apache 2.0 | ~1 GiB | ~2 GiB |
-
-Все модели Qwen3.5 -- мультимодальные (текст + изображения).
-
----
-
-## Qwen3.5 (Alibaba, февраль-март 2026)
-
-Новейшее поколение. Все модели -- мультимодальные (image-text-to-text).
-
-**Назначение**: универсальные мультимодальные модели. Лучший русский среди open-source.
-
-**Сильные стороны**:
-- Мультимодальность из коробки (текст + изображения)
-- Линейка от 0.8B до 397B (dense + MoE)
-- Лучший русский язык среди open-source
-- Apache 2.0 -- без ограничений
-- MoE-варианты: высокое качество при быстром отклике (3B/10B/17B active)
-- GGUF от unsloth -- широкий выбор квантизаций
-
-**Слабые стороны**:
-- Свежий релиз -- community-экосистема растет
-- 397B MoE не помещается на платформе (~230 GiB Q4)
-
-**Применение**:
-- Русскоязычный chat, суммаризация, перевод
-- Анализ изображений, OCR, visual QA
-- Замена отдельных text + vision моделей одной
-
-| Модель | Тип | Active | VRAM (Q4) | tg tok/s (замер) |
-|--------|-----|--------|-----------|------------------|
-| Qwen3.5-122B-A10B | MoE | 10B | ~71 GiB | 22.2 |
-| Qwen3.5-35B-A3B | MoE | 3B | ~22 GiB | -- |
-| Qwen3.5-27B | dense | 27B | ~17 GiB | 12.6 |
-| Qwen3.5-9B | dense | 9B | ~6 GiB | -- |
-| Qwen3.5-4B | dense | 4B | ~3 GiB | -- |
-
----
-
-## Mixtral 8x22B (Mistral, апрель 2024)
-
-**Назначение**: быстрая MoE-модель 141B с 39B активных параметров.
-
-**Сильные стороны**:
-- 39B активных -- больше, чем у Qwen MoE (3-10B), потенциально выше качество на сложных задачах
-- Контекст 64K
-- Apache 2.0
-- Проверенная экосистема
-
-**При 120 GiB**: Q4_K_M (~82 GiB) + ctx 32k (~15 GiB) = ~97 GiB -- помещается. При 96 GiB это было невозможно.
-
----
-
-## Command A (Cohere, март 2025)
-
-**Назначение**: RAG, tool use, enterprise. 111B dense.
-
-**Сильные стороны**:
-- Оптимизирована для RAG и function calling
-- Контекст 256K
-- 111B параметров -- мощная dense-модель
-
-**При 120 GiB**: Q4_K_M (~65 GiB) с запасом, Q5_K_M (~78 GiB) тоже помещается.
-
----
-
-## Qwen3 -- специализированные
-
-### Qwen3-Coder-Next (кодинг)
-
-80B MoE (3B active). GGUF доступны (официальные от Qwen). SWE-bench Pro 44.3%.
-
-```bash
-./scripts/inference/download-model.sh Qwen/Qwen3-Coder-Next-GGUF --include "*Q4_K_M*"
-```
-
-### QwQ-32B (reasoning)
-
-32B dense. AIME24 79.5, MATH-500 95.2. Chain-of-thought. Apache 2.0.
-
-```bash
-./scripts/inference/download-model.sh bartowski/QwQ-32B-GGUF --include "*Q4_K_M*"
-```
-
-### Qwen2.5-Coder (FIM)
-
-Для автодополнения в IDE. 1.5B (FIM, Q8) -- рекомендуемая FIM-модель.
-
-```bash
-./scripts/inference/download-model.sh bartowski/Qwen2.5-Coder-1.5B-Instruct-GGUF --include "*Q8_0*"
-```
-
----
-
-## DeepSeek R1-Distill
-
-**Назначение**: reasoning в компактных моделях. Дистилляция из DeepSeek-R1 (671B).
-
-**Сильные стороны**: R1-Distill-32B: MATH-500 94.3% при ~19 GiB. MIT-лицензия.
-
-**Слабые стороны**: длинные chain-of-thought, русский нестабильный.
-
-| Модель | MATH-500 | VRAM (Q4) |
-|--------|----------|-----------|
-| R1-Distill-32B (Qwen) | 94.3 | ~19 GiB |
-| R1-Distill-14B (Qwen) | 93.9 | ~8.5 GiB |
-
----
-
-## Llama (Meta)
-
-**Назначение**: эталон open-source. Максимальная экосистема.
-
-| Модель | Q4_K_M | Q8_0 | Особенность |
-|--------|--------|------|------------|
-| Llama-3.3-70B | ~42 GiB | ~74 GiB | Лучший английский. Q8 при 120 GiB -- максимум качества |
-| Llama 4 Scout | ~67 GiB | -- | Контекст 10M, MoE 109B, vision |
-| Llama-3.1-8B | ~5 GiB | -- | Стандарт для тестирования |
-
-При 120 GiB: Llama-3.3-70B в **Q8_0** (~74 GiB) + ctx 32k (~20 GiB) = ~94 GiB -- помещается с запасом. При 96 GiB это было на пределе.
-
----
-
-## Phi-4 (Microsoft)
-
-14B dense. MMLU 84.8 (уровень 70B). MIT. Контекст 16K (короткий). Русский слабый.
-
----
+[Llama-3.3-70B Q8](families/llama.md#3-3-70b) -- эталон open-source dense.
 
 ## Что помещается в 120 GiB
 
 | VRAM | Модели (Q4_K_M) |
 |------|-----------------|
-| <10 GiB | Qwen3.5-9B/4B/2B, Llama-3.1-8B, Phi-4, R1-Distill-14B, Coder-1.5B |
-| 10-25 GiB | Qwen3.5-27B, Qwen3.5-35B-A3B, QwQ-32B, R1-Distill-32B |
-| 25-50 GiB | Qwen3-Coder-Next (~45), Llama-3.3-70B Q4 (~42), Qwen2.5-72B Q4 (~44) |
+| <10 GiB | Qwen3.5-9B, Llama-3.1-8B, Phi-4, R1-Distill-14B |
+| 10-25 GiB | Qwen3.5-27B, Qwen3.5-35B-A3B, QwQ-32B, R1-Distill-32B, Gemma 4 26B |
+| 25-50 GiB | Llama-3.3-70B Q4 (~42), Qwen2.5-72B Q4 (~44) |
 | 50-85 GiB | Qwen3.5-122B-A10B (~71), Llama 4 Scout (~67), Command A (~65), Mixtral 8x22B (~82) |
-| 85-120 GiB | Llama-3.3-70B Q8 (~74) + ctx 32k, Qwen2.5-72B Q8 (~78) + ctx 16k |
+| 85-120 GiB | Llama-3.3-70B Q8 (~74) + ctx 32K, Qwen2.5-72B Q8 (~78) + ctx 16K |
 
-Два сервера: Coder 1.5B Q8 (~2 GiB) + Qwen3.5-27B Q4 (~17 GiB) = ~19 GiB. Остается ~101 GiB.
-
-## Что не помещается
-
-| Модель | Q4_K_M | Причина |
-|--------|--------|---------|
-| DeepSeek-V3 / R1 (671B MoE) | ~390 GiB | Серверная модель, multi-GPU |
-| DeepSeek-Coder-V2 (236B MoE) | ~135 GiB | Превышает 120 GiB |
-| Llama 4 Maverick (400B MoE) | ~240 GiB | Серверная модель |
-| Qwen3.5-397B MoE | ~230 GiB | Серверная модель |
+Два сервера одновременно: Coder 1.5B Q8 (~2 GiB) + Qwen3.5-27B Q4 (~17 GiB) = ~19 GiB. Остаётся ~101 GiB.
 
 ## Русский язык (рейтинг)
 
-1. **Qwen3.5-122B-A10B** -- лучший (MoE, мультимодальная)
-2. **Qwen2.5-72B Q8** -- отличный dense, максимум качества при 120 GiB
-3. **Qwen3.5-27B / 35B-A3B** -- отличный
-4. **QwQ-32B** -- хороший + reasoning
-5. **Qwen3.5-9B / 4B** -- хороший, быстрые
-6. **Mixtral 8x22B** -- средний, но быстрый MoE
-7. **DeepSeek-R1-Distill-32B** -- средний, отличный reasoning
-8. **Llama-3.3-70B / Llama 4** -- базовый
-9. **Phi-4** -- слабый
+1. [Qwen3.5-122B-A10B](families/qwen35.md#122b-a10b) -- лучший
+2. [Qwen3.5-27B / 35B-A3B](families/qwen35.md) -- отличный
+3. [QwQ-32B](families/qwq.md) -- хороший + reasoning
+4. [Mixtral 8x22B](families/mixtral.md) -- средний, быстрый MoE
+5. [DeepSeek-R1-Distill-32B](families/deepseek-distill.md) -- средний, отличный reasoning
+6. [Llama-3.3-70B / Llama 4](families/llama.md) -- базовый
+7. [Phi-4](families/phi.md) -- слабый
 
-## Лицензии
+См. также [russian-llm.md](russian-llm.md) -- finetune'ы под русский.
 
-| Лицензия | Модели |
-|----------|--------|
-| Apache 2.0 (без ограничений) | Qwen3.5, QwQ, Qwen3-Coder, Qwen2.5-Coder, Mixtral 8x22B |
-| MIT (без ограничений) | DeepSeek-R1-Distill, Phi-4 |
-| Llama CL (ограничение 700M MAU) | Llama 3.1/3.3/4 |
-| CC-BY-NC | Command A |
+## Не помещаются на платформе (для справки)
 
----
+- GLM-5 / GLM-5.1 (744B) -- 440 GB Q4
+- MiniMax M2.5 -- 150 GB Q4
+- DeepSeek V3.2 (671B MoE) -- 390 GB Q4
+- DeepSeek-Coder-V2 (236B MoE) -- 135 GB Q4
+- Llama 4 Maverick (400B MoE) -- 240 GB Q4
+- Qwen3.5-397B MoE -- 230 GB Q4
+- Trinity-Large-Thinking (399B)
 
-## Новинки 2026 (мониторинг трендов)
+В каталог не включены, см. описание в README.md.
 
-### Gemma 4 26B-A4B (Google, multimodal MoE)
+## Связанные направления
 
-- **Параметры**: 25.2B total / 3.8B active (8/128 экспертов)
-- **Hub**: [unsloth/gemma-4-26B-A4B-it-GGUF](https://huggingface.co/unsloth/gemma-4-26B-A4B-it-GGUF)
-- **Размер**: 16.9 GB Q4_K_M, 22.9 GB Q6_K, 26.9 GB Q8_0 + 1.19 GB mmproj
-- **Контекст**: **256K**
-- **Бенчмарки**: LiveCodeBench v6 = 77.1%, Codeforces ELO 1718, AIME 2026 = 88.3%
-
-**Что умеет**: native function calling, multimodal (text+images), thinking-режим, скорость как у 4B-модели (за счёт MoE A4B). Используется на платформе как замена Qwen3-Coder-Next (см. [vision.md](vision.md), пресет `vulkan/preset/gemma4.sh`).
-
-```bash
-./scripts/inference/download-model.sh unsloth/gemma-4-26B-A4B-it-GGUF \
-    --include '*Q6_K_XL*' --include 'mmproj-BF16.gguf'
-```
-
-### Qwen3.5-35B-A3B-APEX (mudler, smart quantization)
-
-Та же базовая Qwen3.5-35B-A3B MoE, но с **APEX-квантизацией** -- умное распределение точности между слоями экспертов. Достигает Q8_0-качества при 38% меньшем размере.
-
-- **Параметры**: 35B / 3B active (256 экспертов)
-- **Hub**: [mudler/Qwen3.5-35B-A3B-APEX-GGUF](https://huggingface.co/mudler/Qwen3.5-35B-A3B-APEX-GGUF)
-- **Варианты**:
-  - **APEX Quality** (21.3 GB) -- PPL 6.527 (лучше F16!)
-  - **APEX Balanced** (23.6 GB) -- общего назначения
-  - **APEX Compact** (16.1 GB) -- для consumer 24GB
-  - **APEX Mini** (12.2 GB) -- для 16 GB VRAM
-- **Скорость**: 62-74 tok/s
-- **Особенность**: edges Q6_K, middle Q5/IQ4, shared experts Q8_0 (всегда активны)
-
-```bash
-./scripts/inference/download-model.sh mudler/Qwen3.5-35B-A3B-APEX-GGUF \
-    --include 'Qwen3.5-35B-A3B-APEX-Quality.gguf'
-```
-
-### Qwen3.5-35B-A3B-Claude-4.6-Opus-Reasoning-Distilled
-
-LoRA-дообучение Qwen3.5-35B-A3B на трассах рассуждений Claude 4.6 Opus. Структурированное планирование в `<think>` блоках, без избыточных рассуждений на простых вопросах.
-
-- **Параметры**: 35B / 3B active
-- **Hub**: [Jackrong/Qwen3.5-35B-A3B-Claude-4.6-Opus-Reasoning-Distilled](https://huggingface.co/Jackrong/Qwen3.5-35B-A3B-Claude-4.6-Opus-Reasoning-Distilled)
-- **GGUF**: [mradermacher GGUF](https://huggingface.co/mradermacher/Qwen3.5-35B-A3B-Claude-4.6-Opus-Reasoning-Distilled-GGUF)
-- **Размеры**: Q4_K_M 21.3 GB, Q6_K 28.6 GB, Q8_0 37.0 GB
-- **Контекст**: 8K (мало для opencode)
-
-**Что умеет**: reasoning Claude Opus в открытой модели. Подходит для standalone CLI-задач (математика, алгоритмы, аналитика), не для длинных RAG/проектов.
-
-```bash
-./scripts/inference/download-model.sh mradermacher/Qwen3.5-35B-A3B-Claude-4.6-Opus-Reasoning-Distilled-GGUF \
-    --include '*Q6_K*'
-```
-
-### GLM-5.1 (zai-org, серверная)
-
-Флагман от Zhipu AI, Январь 2026. **94.6% от Claude Opus 4.6 на коде**, обучена полностью на Huawei чипах.
-
-- **Параметры**: 754B
-- **Hub**: [zai-org/GLM-5.1](https://huggingface.co/zai-org/GLM-5.1), [unsloth/GLM-5.1-GGUF](https://huggingface.co/unsloth/GLM-5.1-GGUF)
-- **Размер Q4**: ~440 GB -- **не помещается на платформе**
-
-Только для справки и отслеживания трендов. Для запуска нужен multi-GPU сервер.
-
-### Trinity-Large-Thinking (arcee-ai)
-
-- **Параметры**: 399B
-- **Hub**: [arcee-ai/Trinity-Large-Thinking](https://huggingface.co/arcee-ai/Trinity-Large-Thinking)
-- **Размер**: не помещается на платформе
-
-Тренд: thinking-модели большого размера от arcee. Для справки.
-
----
+- [coding.md](coding.md) -- специализированные модели для кода
+- [vision.md](vision.md) -- multimodal (text + images)
+- [russian-llm.md](russian-llm.md) -- finetune'ы под русский
 
 ## Связанные статьи
 
 - [Анатомия LLM](../llm-guide/model-anatomy.md)
 - [Квантизация](../llm-guide/quantization.md)
 - [HuggingFace](../llm-guide/huggingface.md)
-- [Модели для кодинга](coding.md)
-- [Vision LLM](vision.md)
-- [TTS с клонированием голоса](tts.md)
-- [Российские LLM](russian-llm.md)
 - [Бенчмарки](../inference/benchmarking.md)

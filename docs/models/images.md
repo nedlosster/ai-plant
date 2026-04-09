@@ -1,135 +1,82 @@
 # Модели для генерации изображений
 
-Платформа: Radeon 8060S (120 GiB GPU-доступной памяти), Vulkan 1.4.318, ROCm экспериментальный.
+Платформа: Radeon 8060S (120 GiB GPU-доступной памяти), Vulkan + ROCm.
+
+Полные описания моделей -- в `families/`. Эта страница: сравнительные таблицы и выбор под задачу.
 
 ## Статус на платформе
 
 Diffusion-модели работают через:
 - **ComfyUI + ComfyUI-GGUF** -- GGUF-квантизации через Vulkan/CPU, без ROCm
-- **ComfyUI + PyTorch ROCm** -- нативные safetensors, требует ROCm (экспериментально)
+- **ComfyUI + PyTorch ROCm** -- нативные safetensors
 
-GGUF-формат позволяет запускать diffusion-модели без ROCm -- через llama.cpp backend в ComfyUI.
+GGUF позволяет запускать diffusion без ROCm.
 
-## Рейтинг моделей
+## Скачано на платформе
 
-| Модель | Параметры | GGUF Q8 | GGUF Q4 | Качество | Лицензия |
-|--------|-----------|---------|---------|----------|----------|
-| **FLUX.1 Dev** | 12B | 12.6 GiB | 6.7 GiB | отличное | FLUX-1-dev |
-| **FLUX.1 Schnell** | 12B | 12.6 GiB | 6.7 GiB | хорошее (быстрый) | Apache 2.0 |
-| **HiDream-I1 Full** | 17B | 18 GiB | 11.5 GiB | отличное | Apache 2.0 |
-| **SD 3.5 Large** | 8B | ~12 GiB | ~7 GiB | высокое | Stability AI |
-| **SD 3.5 Medium** | 2.6B | ~4 GiB | ~2.5 GiB | хорошее | Stability AI |
+| Модель | Семейство | Параметры | Запуск |
+|--------|-----------|-----------|--------|
+| FLUX.1-schnell | [flux](families/flux.md#schnell) | 12B Q4 | ComfyUI |
+| FLUX.1-dev | [flux](families/flux.md#dev) | 12B Q8 | ComfyUI |
+| T5-XXL encoder | [flux](families/flux.md) | -- Q8 | ComfyUI |
 
-### Что выбрать для 120 GiB GPU-памяти
+## Сравнительная таблица
 
-| Задача | Модель | Квантизация | VRAM |
-|--------|--------|------------|------|
-| Лучшее качество | FLUX.1 Dev | Q8_0 | ~13 GiB |
-| Быстрая генерация | FLUX.1 Schnell | Q4_K | ~7 GiB |
-| Open-source (Apache) | HiDream-I1 Full | Q8_0 | ~18 GiB |
-| Минимальный VRAM | SD 3.5 Medium | Q8_0 | ~4 GiB |
-| Баланс | SD 3.5 Large | Q4_K | ~7 GiB |
+| Модель | Семейство | Параметры | GGUF Q8 | GGUF Q4 | Лицензия |
+|--------|-----------|-----------|---------|---------|----------|
+| FLUX.1-dev | [flux](families/flux.md#dev) | 12B | 12.6 GiB | 6.7 GiB | FLUX-1-dev (некоммерч.) |
+| FLUX.1-schnell | [flux](families/flux.md#schnell) | 12B | 12.6 GiB | 6.7 GiB | Apache 2.0 |
+| HiDream-I1 Full | [hidream](families/hidream.md) | 17B | 18 GiB | 11.5 GiB | Apache 2.0 |
+| SD 3.5 Large | [sd35](families/sd35.md) | 8B | ~12 GiB | ~7 GiB | Stability CL |
+| SD 3.5 Medium | [sd35](families/sd35.md) | 2.6B | ~4 GiB | ~2.5 GiB | Stability CL |
 
-120 GiB позволяет загружать любую модель в Q8 без ограничений и держать несколько моделей одновременно.
+## Выбор под задачу
+
+### Максимальное качество photo-realistic
+
+[FLUX.1-dev](families/flux.md#dev) -- эталон open-source.
+
+### Коммерческое использование (Apache 2.0)
+
+[FLUX.1-schnell](families/flux.md#schnell) -- быстрая (4 шага), Apache 2.0.
+[HiDream-I1 Full](families/hidream.md) -- 17B, Apache 2.0, конкурент FLUX dev.
+
+### Минимальный VRAM
+
+[SD 3.5 Medium](families/sd35.md) -- ~4 GiB Q8.
+
+### Длинные промпты, многоязычность
+
+[FLUX](families/flux.md) с T5-XXL encoder -- понимание длинных промптов на русском, китайском, японском.
+
+### Большая LoRA-экосистема
+
+[SD 3.5](families/sd35.md) -- максимум community-LoRA от SD-эпохи.
+
+## Что выбрать для 120 GiB
+
+| Задача | Модель | VRAM |
+|--------|--------|------|
+| Лучшее качество | [FLUX.1-dev Q8](families/flux.md#dev) | ~13 GiB |
+| Быстрая генерация | [FLUX.1-schnell Q4](families/flux.md#schnell) | ~7 GiB |
+| Apache 2.0 | [HiDream-I1 Q8](families/hidream.md) | ~18 GiB |
+| Минимум VRAM | [SD 3.5 Medium Q8](families/sd35.md) | ~4 GiB |
+
+120 GiB позволяет загружать любую модель в Q8 и держать несколько одновременно.
 
 ## ComfyUI -- основной инструмент
 
-Node-based интерфейс для генерации изображений. Поддерживает все основные diffusion-модели.
-
-### Установка ComfyUI
-
 ```bash
-git clone https://github.com/comfyanonymous/ComfyUI.git
-cd ComfyUI
+# Установка через готовый скрипт
+./scripts/comfyui/install.sh
+./scripts/comfyui/download-models.sh   # FLUX schnell + dev + T5-XXL + CLIP + VAE
 
-python3 -m venv venv
-source venv/bin/activate
-
-# Для AMD ROCm (если работает)
-pip install torch torchvision --index-url https://download.pytorch.org/whl/rocm6.2
-pip install -r requirements.txt
-
-# Или CPU-only (медленно, но стабильно)
-pip install torch torchvision --index-url https://download.pytorch.org/whl/cpu
-pip install -r requirements.txt
+# Запуск
+./scripts/comfyui/start.sh
+# Web UI: http://localhost:8188
 ```
 
-### Установка ComfyUI-GGUF plugin
-
-Позволяет загружать GGUF-квантизации diffusion-моделей. Работает без ROCm.
-
-```bash
-cd ComfyUI/custom_nodes
-git clone https://github.com/city96/ComfyUI-GGUF.git
-cd ComfyUI-GGUF
-pip install -r requirements.txt
-```
-
-### Запуск
-
-```bash
-cd ComfyUI
-
-# С ROCm
-HSA_OVERRIDE_GFX_VERSION=11.5.0 python main.py --listen 0.0.0.0 --port 8188
-
-# CPU-only
-python main.py --listen 0.0.0.0 --port 8188 --cpu
-```
-
-Web-интерфейс: `http://localhost:8188`
-
-## Загрузка моделей
-
-### GGUF-квантизации (city96 на HuggingFace)
-
-```bash
-# FLUX.1 Dev (Q8_0, 12.6 GiB)
-huggingface-cli download city96/FLUX.1-dev-gguf \
-    --include "flux1-dev-Q8_0.gguf" \
-    --local-dir ComfyUI/models/diffusion_models/
-
-# FLUX.1 Schnell (Q4_K, 6.7 GiB)
-huggingface-cli download city96/FLUX.1-schnell-gguf \
-    --include "flux1-schnell-Q4_K.gguf" \
-    --local-dir ComfyUI/models/diffusion_models/
-
-# HiDream-I1 Full (Q8_0, 18 GiB)
-huggingface-cli download city96/HiDream-I1-Full-gguf \
-    --include "*Q8_0*" \
-    --local-dir ComfyUI/models/diffusion_models/
-
-# SD 3.5 Large (Q4_K, 7 GiB)
-huggingface-cli download city96/sd3.5-large-gguf \
-    --include "*Q4_K*" \
-    --local-dir ComfyUI/models/diffusion_models/
-```
-
-### Text Encoder (CLIP)
-
-Для FLUX и SD 3.5 нужны text encoder модели:
-
-```bash
-# CLIP для FLUX
-huggingface-cli download comfyanonymous/flux_text_encoders \
-    --local-dir ComfyUI/models/text_encoders/
-
-# T5-XXL (для FLUX, ~10 GiB)
-huggingface-cli download city96/t5-v1_1-xxl-encoder-gguf \
-    --include "*Q8_0*" \
-    --local-dir ComfyUI/models/text_encoders/
-```
-
-### VAE
-
-```bash
-# FLUX VAE
-huggingface-cli download black-forest-labs/FLUX.1-dev \
-    --include "ae.safetensors" \
-    --local-dir ComfyUI/models/vae/
-```
-
-### Структура файлов ComfyUI
+## Структура файлов ComfyUI
 
 ```
 ComfyUI/models/
@@ -138,16 +85,14 @@ ComfyUI/models/
     flux1-schnell-Q4_K.gguf
   text_encoders/
     clip_l.safetensors
-    t5xxl_fp16.safetensors     # или GGUF
+    t5xxl_fp16.safetensors    # или GGUF
   vae/
     ae.safetensors
-  loras/                        # LoRA-адаптеры
-  controlnet/                   # ControlNet-модели
+  loras/                      # LoRA-адаптеры
+  controlnet/                 # ControlNet
 ```
 
 ## VRAM по разрешениям
-
-Потребление VRAM зависит от разрешения генерации:
 
 | Модель (Q8) | 512x512 | 1024x1024 | 1536x1536 | 2048x2048 |
 |-------------|---------|-----------|-----------|-----------|
@@ -156,43 +101,18 @@ ComfyUI/models/
 | FLUX.1 Dev | ~14 GiB | ~18 GiB | ~28 GiB | ~42 GiB |
 | HiDream-I1 | ~20 GiB | ~26 GiB | ~38 GiB | ~54 GiB |
 
-120 GiB GPU-памяти позволяет генерировать в высоком разрешении без tiling.
+120 GiB позволяет генерировать в 2K без tiling.
 
-## LoRA и дообучение
+## LoRA и ControlNet
 
-LoRA (Low-Rank Adaptation) -- легковесные адаптеры для изменения стиля или добавления концептов.
+LoRA -- легковесные адаптеры для стилей и концептов. Источник: [CivitAI](https://civitai.com/) и HuggingFace.
 
-### Источники LoRA
+ControlNet -- управление генерацией через дополнительные входы (Canny, Depth, OpenPose, Tile).
 
-- **CivitAI** (civitai.com) -- крупнейший источник LoRA для SD и FLUX
-- **HuggingFace** -- официальные и community LoRA
+## Связанные направления
 
-### Использование
-
-Скачать .safetensors файл LoRA в `ComfyUI/models/loras/`, затем добавить узел "Load LoRA" в workflow ComfyUI.
-
-## ControlNet
-
-Управление генерацией через дополнительные входы (поза, глубина, контуры).
-
-| Тип | Назначение |
-|-----|-----------|
-| Canny | Контуры объектов |
-| Depth | Карта глубины |
-| OpenPose | Поза человека |
-| Tile | Upscale с сохранением деталей |
-
-Модели ControlNet для FLUX/SD 3.5 -- на HuggingFace.
-
-## Источники моделей
-
-| Ресурс | Что искать |
-|--------|-----------|
-| [HuggingFace](https://huggingface.co/city96) | GGUF-квантизации FLUX, SD3, HiDream |
-| [HuggingFace](https://huggingface.co/black-forest-labs) | Оригинальные FLUX модели |
-| [HuggingFace](https://huggingface.co/stabilityai) | SD 3.5, Stable Audio |
-| civitai.com | LoRA, стили, дообученные checkpoint |
-| comfyanonymous/ComfyUI | Workflows, примеры, text encoders |
+- [video.md](video.md) -- генерация видео
+- [vision.md](vision.md) -- понимание изображений (не генерация)
 
 ## Связанные статьи
 
