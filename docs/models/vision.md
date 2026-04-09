@@ -100,6 +100,10 @@ llama-server -m model.gguf --mmproj mmproj-BF16.gguf -ngl 99 ...
 ./scripts/inference/vulkan/preset/gemma4.sh -d
 ```
 
+## Frontier multimodal через API (не помещается локально)
+
+[Kimi K2.5](families/kimi-k25.md) -- 1T MoE с native multimodal от Moonshot AI. MoonViT 400M интегрирован в претрейн (не post-hoc adapter). MMMU Pro 78.5% обходит GPT-5.2. Веса открыты, но 240+ GiB не помещаются на платформу -- доступ через API за $0.45/1M input.
+
 ## Использование из Open WebUI
 
 Open WebUI автоматически определяет vision-возможности модели через `/v1/models` и показывает кнопку attach image. Достаточно настроить `inference.env` (см. [scripts/webui/README.md](../../scripts/webui/README.md)).

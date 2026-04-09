@@ -65,6 +65,7 @@
 | dense | ~7B | Qwen3-TTS | *(скоро)* qwen3-tts | [tts](tts.md) | Нативный русский, voice cloning, free-form voice design |
 | dense | 330M | F5-TTS (RU) | *(скоро)* f5-tts | [tts](tts.md) | Эталон voice cloning, MIT, RU-форки |
 | MoE 14B | 14B | Wan 2.6/2.7 | *(скоро)* wan | [video](video.md) | Cinematic, multi-shot, native audio |
+| MoE 32B/1T | 1T | Kimi K2.5 | [kimi-k25](families/kimi-k25.md) | [llm](llm.md), [coding](coding.md), [vision](vision.md) | Open weights, **не помещается** (240+ GiB), используется через API после блокировки Anthropic |
 
 ## Где брать модели
 

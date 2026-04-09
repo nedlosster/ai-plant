@@ -102,6 +102,8 @@
 
 [Qwen3.6-Plus](families/qwen36.md) -- свежий флагман Alibaba (апрель 2026). Контекст **1M токенов**, native function calling, multimodal, always-on chain-of-thought. Сейчас API-only через Alibaba Cloud Model Studio, open-варианты обещаны "в developer-friendly размерах". По аналогии с Qwen3.5 -- ждать 30-122B диапазон.
 
+[Kimi K2.5](families/kimi-k25.md) -- open-weight 1T MoE / 32B active от Moonshot AI (январь 2026). Native multimodal, Agent Swarm, SWE-Bench Verified 76.8%, AIME 2025 96.1%. Веса открыты, но **не помещаются** на платформу даже в Dynamic 1.8-bit (240+ GiB). Используется через API ($0.45/1M input) после блокировки Anthropic Pro/Max в third-party tools апреля 2026.
+
 ## Не помещаются на платформе (для справки)
 
 - GLM-5 / GLM-5.1 (744B) -- 440 GB Q4

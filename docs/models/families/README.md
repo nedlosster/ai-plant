@@ -10,6 +10,7 @@
 
 ### LLM общего назначения
 - [qwen36](qwen36.md) -- Qwen3.6-Plus (API-only, ожидаются open weights)
+- [kimi-k25](kimi-k25.md) -- Kimi K2.5 1T MoE (open weights, не помещается локально, API)
 - [qwen35](qwen35.md) -- Qwen3.5 27B/35B-A3B/122B-A10B (скачаны 27B + 122B-A10B)
 - [llama](llama.md) -- Llama 3.1/3.3/4 Scout
 - [mixtral](mixtral.md) -- Mixtral 8x22B 141B MoE
@@ -20,6 +21,7 @@
 
 ### Кодинг
 - [qwen36](qwen36.md) -- Qwen3.6-Plus (agentic coding, ожидается)
+- [kimi-k25](kimi-k25.md) -- Kimi K2.5 (SWE-Bench 76.8%, лидер open-source agentic, через API)
 - [qwen3-coder](qwen3-coder.md) -- Qwen3-Coder Next 80B-A3B + 30B-A3B (скачаны)
 - [qwen25-coder](qwen25-coder.md) -- Qwen2.5-Coder 1.5B/7B/32B FIM (скачана 1.5B)
 - [devstral](devstral.md) -- Devstral 2 24B
@@ -82,6 +84,6 @@
 
 ## Статистика
 
-- **40 файлов семейств**
+- **41 файл семейств**
 - **6 моделей скачано на сервере**: qwen3-coder (Next + 30B-A3B), qwen25-coder (1.5B), qwen35 (27B + 122B-A10B), gemma4 (26B-A4B + mmproj), flux (schnell + dev + T5-XXL), ace-step
 - **~30 моделей в "watch"** -- приоритетные для скачивания
