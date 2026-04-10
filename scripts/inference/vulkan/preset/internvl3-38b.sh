@@ -8,7 +8,7 @@ source "${SCRIPT_DIR}/../../common/config.sh"
 
 MODEL="${MODELS_DIR}/InternVL3-38B-Instruct-Q4_K_M.gguf"
 MMPROJ="${MODELS_DIR}/mmproj-InternVL3-38B-Instruct-BF16.gguf"
-PORT=8084
+PORT=8081
 
 # --- llama-server параметры ---
 ARGS=(
