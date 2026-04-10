@@ -122,6 +122,19 @@ LoRA-дообучение на трассах рассуждений Claude 4.6 
 - Контекст 8K (мало для [opencode](../../ai-agents/agents/opencode.md))
 - Подходит для standalone reasoning-задач (математика, алгоритмы)
 
+### Qwen3-14B-Claude-4.5-Opus-High-Reasoning-Distill (TeichAI)
+
+Fine-tune Qwen3-14B на 250 reasoning-трассах Claude Opus 4.5 (high reasoning effort). Компактная dense-модель для standalone reasoning.
+
+- **Hub**: [TeichAI/Qwen3-14B-Claude-4.5-Opus-High-Reasoning-Distill](https://huggingface.co/TeichAI/Qwen3-14B-Claude-4.5-Opus-High-Reasoning-Distill)
+- **GGUF**: [TeichAI/Qwen3-14B-Claude-4.5-Opus-High-Reasoning-Distill-GGUF](https://huggingface.co/TeichAI/Qwen3-14B-Claude-4.5-Opus-High-Reasoning-Distill-GGUF)
+- 14B dense, Apache 2.0
+- VRAM: Q4_K_M ~9 GiB, Q8_0 ~15.7 GiB -- помещается с большим запасом
+- Обучающий датасет: [TeichAI/claude-4.5-opus-high-reasoning-250x](https://huggingface.co/datasets/TeichAI/claude-4.5-opus-high-reasoning-250x) -- 250 samples, 2.13M tokens, $52 training cost
+- **Caveat**: микро-датасет (250 samples) -- качество reasoning не подтверждено стандартными бенчмарками. Использовать как эксперимент, не как production-модель
+- Подходит для: standalone reasoning (математика, логика, алгоритмы), быстрые ответы (~25-30 tok/s dense 14B на платформе)
+- **Не подходит для**: agent-style кодинга (нет SWE-bench данных, нет tool use training), длинные контексты (контекст не расширен)
+
 ## Бенчмарки
 
 | Модель | Параметры | tg tok/s (Vulkan) | Эффективность от bandwidth |
