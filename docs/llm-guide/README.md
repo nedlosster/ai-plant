@@ -234,6 +234,7 @@ MLA, expert offloading, load balancing.
 |--------|----------|
 | [RAG](rag/README.md) | Retrieval-Augmented Generation: архитектура, embeddings, vector DB, retrieval, pipeline, evaluation |
 | [Function calling](function-calling.md) | Tool use, JSON schema, интеграция с внешними системами |
+| [Сколько знаний помещается в модель](model-information-density.md) | Парадокс сжатия, биты на параметр, MoE, scaling laws, практические выводы |
 | [Бенчмарки AI-моделей](benchmarks/README.md) | Классификация, топ бенчмарков, рейтинговые сайты, decision table |
 | -- [HumanEval](benchmarks/humaneval.md) | Методология, pass@k, критика, EvalPlus |
 | -- [SWE-bench](benchmarks/swe-bench.md) | Verified vs Pro, contamination, scaffolding |
