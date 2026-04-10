@@ -10,6 +10,8 @@
 |--------|------|
 | [HumanEval](humaneval.md) | Методология, pass@k, критика, EvalPlus, таблица моделей платформы |
 | [SWE-bench](swe-bench.md) | Методология, Verified vs Pro, contamination, scaffolding, таблица моделей |
+| [MMMU / MMMU-Pro](mmmu.md) | Vision multimodal reasoning, 30 дисциплин, 11.5K задач, MMMU-Pro усложнения |
+| [LiveCodeBench](livecodebench.md) | Contamination-free coding, LeetCode/AtCoder/CodeForces, temporal segmentation |
 
 ## Классификация бенчмарков
 
