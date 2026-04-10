@@ -1,14 +1,13 @@
 #!/bin/bash
-# ROCm/HIP: Qwen3.5 27B Q4_K_M (dense)
-# Модель 16 GiB + KV ~4 GiB = ~20 GiB, помещается в HIP-лимит ~30 GiB
+# Vulkan: Devstral 2 24B Instruct Q4_K_M (dense, SWE-bench 72.2%, FIM+agent)
 
 set -euo pipefail
-export AI_BACKEND=rocm
+export AI_BACKEND=vulkan
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "${SCRIPT_DIR}/../../common/config.sh"
 
-MODEL="${MODELS_DIR}/Qwen3.5-27B-Q4_K_M.gguf"
-PORT=8081
+MODEL="${MODELS_DIR}/Devstral-Small-2-24B-Instruct-2512-Q4_K_M.gguf"
+PORT=8083
 
 # --- llama-server параметры ---
 ARGS=(
@@ -16,11 +15,11 @@ ARGS=(
     --port "$PORT"
     --host 0.0.0.0
     -ngl 99                # все слои на GPU
-    -c 32768               # контекст 32K (HIP-лимит памяти)
+    -c 131072              # контекст 128K (dense 24B, 256K доступен но расход VRAM)
     -fa on                 # flash attention
-    --parallel 2           # 2 слота -- запас памяти
+    --parallel 2           # 2 слота (dense экономия VRAM)
     --cache-reuse 256      # KV-cache shifting
-    --jinja                # Jinja2 chat-template
+    --jinja                # Jinja2 chat-template для function calling
 )
 # ---------------------------------
 
