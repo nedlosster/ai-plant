@@ -1,9 +1,8 @@
 #!/bin/bash
 # ROCm/HIP: Qwen3-Coder-Next 80B-A3B
 #
-# ВНИМАНИЕ: модель ~45 GiB, HIP видит только ~30 GiB GPU-памяти
-# (KFD pool size). Возможен OOM на загрузке. Для этой модели
-# предпочтителен Vulkan-бекенд: ../../vulkan/preset/qwen-coder-next.sh
+# Модель ~45 GiB. С fix ttm.pages_limit=31457280 KFD видит 120 GiB.
+# ROCm 7.2.1, gfx1151 нативно (HSA_OVERRIDE_GFX_VERSION=11.5.1).
 
 set -euo pipefail
 export AI_BACKEND=rocm
