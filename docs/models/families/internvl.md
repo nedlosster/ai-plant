@@ -4,7 +4,7 @@
 
 **Тип**: dense (2B / 14B / 38B / 78B) + MoE (3.5-30B-A3B, 3.5-241B-A28B)
 **Лицензия**: Open (MIT-like)
-**Статус на сервере**: частично (3.5-38B на скачивании)
+**Статус на сервере**: скачана (InternVL3-38B Instruct Q4_K_M + mmproj BF16)
 **Направления**: [vision](../vision.md)
 **Function calling**: partial (работает через generic JSON output, не натренирована на agent loops -- основной фокус reasoning)
 **Vision**: да (~3 GB mmproj, InternViT-6B encoder)
@@ -23,7 +23,7 @@ InternVL3.5 (релиз август 2025, продолжение в 2026) -- н
 | InternVL3-14B | 14B dense | ~8 GiB | ~3 GiB | -- | не скачана | [bartowski/InternVL3-14B-GGUF](https://huggingface.co/bartowski/InternVL3-14B-GGUF) |
 | InternVL3-78B | 78B dense | ~50 GiB | ~3 GiB | 72.2 | не скачана | [bartowski/InternVL3-78B-GGUF](https://huggingface.co/bartowski/InternVL3-78B-GGUF) |
 | InternVL3.5-38B (safetensors only) | 38B dense | -- | -- | **~74** | GGUF нет | [OpenGVLab/InternVL3_5-38B](https://huggingface.co/OpenGVLab/InternVL3_5-38B) |
-| **InternVL3-38B Instruct** | 38B dense | ~24 GiB | ~3 GiB | 72.2 | **на скачивании** | [unsloth/InternVL3-38B-Instruct-GGUF](https://huggingface.co/unsloth/InternVL3-38B-Instruct-GGUF) |
+| **InternVL3-38B Instruct** | 38B dense | ~19 GiB | ~10.5 GiB | 72.2 | **скачана** | [unsloth/InternVL3-38B-Instruct-GGUF](https://huggingface.co/unsloth/InternVL3-38B-Instruct-GGUF) |
 | InternVL3.5-30B-A3B | 30B MoE / 3B | ~18 GiB | ~3 GiB | ~73 | не скачана | [bartowski/OpenGVLab_InternVL3_5-30B-A3B-GGUF](https://huggingface.co/bartowski/OpenGVLab_InternVL3_5-30B-A3B-GGUF) |
 | InternVL3.5-14B | 14B dense | ~9 GiB | ~3 GiB | ~70 | не скачана | [bartowski/OpenGVLab_InternVL3_5-14B-GGUF](https://huggingface.co/bartowski/OpenGVLab_InternVL3_5-14B-GGUF) |
 | InternVL3.5-241B-A28B | 241B MoE / 28B | ~145 GiB | ~3 GiB | **77.7** | не помещается | [HF: OpenGVLab](https://huggingface.co/OpenGVLab) |

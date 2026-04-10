@@ -85,5 +85,5 @@
 ## Статистика
 
 - **41 файл семейств**
-- **6 моделей скачано на сервере**: qwen3-coder (Next + 30B-A3B), qwen25-coder (1.5B), qwen35 (27B + 122B-A10B), gemma4 (26B-A4B + mmproj), flux (schnell + dev + T5-XXL), ace-step
+- **9 моделей скачано на сервере**: qwen3-coder (Next + 30B-A3B), qwen25-coder (1.5B), qwen35 (122B-A10B + 35B-A3B), gemma4 (26B-A4B + mmproj), qwen3-vl (30B-A3B + mmproj), internvl (38B + mmproj), devstral (24B), flux (schnell + T5-XXL), ace-step
 - **~30 моделей в "watch"** -- приоритетные для скачивания

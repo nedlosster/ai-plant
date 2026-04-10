@@ -4,10 +4,10 @@
 
 **Тип**: MoE (3.8B active / 25.2B total)
 **Лицензия**: Gemma Terms of Use
-**Статус на сервере**: частично (26B-A4B Q6_K_XL скачана, **mmproj-BF16 отсутствует -- vision сломан**)
+**Статус на сервере**: скачана (26B-A4B Q6_K_XL + mmproj-BF16)
 **Направления**: [llm](../llm.md), [vision](../vision.md)
 **Function calling**: native (лучшее сочетание FC + vision на платформе)
-**Vision**: **сейчас не работает** -- mmproj пропал, перекачать через `unsloth/gemma-4-26B-A4B-it-GGUF --include 'mmproj-BF16.gguf'`
+**Vision**: да (mmproj-BF16, 1.19 GB)
 
 ## Обзор
 
