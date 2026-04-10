@@ -93,6 +93,7 @@ tok/s (tg) ~ bandwidth / model_size_bytes
 | 8 | [troubleshooting.md](troubleshooting.md) | Типичные ошибки и решения | справочный |
 | 9 | [gpustack.md](gpustack.md) | GPUStack: Web UI, кластер, оркестрация | справочный |
 | 10 | [backends-comparison.md](backends-comparison.md) | Сравнение backend'ов: Vulkan, ROCm, CPU, NPU | справочный |
+| 11 | [acceleration-outlook.md](acceleration-outlook.md) | Перспективы ускорения: GPU/CPU/NPU, нерешённые вопросы, отслеживание | аналитический |
 
 ### Модели для специализированных задач ([models/](../models/README.md))
 
