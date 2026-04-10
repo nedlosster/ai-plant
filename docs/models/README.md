@@ -123,6 +123,56 @@ Diffusion-модели, LoRA, ControlNet, стили для FLUX/SD.
 Для LLM на платформе **GGUF предпочтителен**: работает через Vulkan без ROCm.
 Для diffusion и audio -- safetensors через ComfyUI/PyTorch ROCm.
 
+## Бенчмарки скачанных моделей
+
+Сводная таблица по основным бенчмаркам. Подробнее про каждый бенчмарк -- в [docs/llm-guide/benchmarks/](../llm-guide/benchmarks/README.md).
+
+### Coding-бенчмарки
+
+| Модель | [SWE-V](../llm-guide/benchmarks/swe-bench.md) | [HumanEval](../llm-guide/benchmarks/humaneval.md) | [LiveCodeBench](../llm-guide/benchmarks/livecodebench.md) | FIM | FC | tg tok/s (Vulkan) |
+|--------|-------|-----------|---------------|-----|-----|-------------------|
+| [Qwen3-Coder Next 80B-A3B](families/qwen3-coder.md#next-80b-a3b) | **70.6%** | -- | ~65-70% (est.) | нет | native | 53 |
+| [Devstral 2 24B](families/devstral.md) | **72.2%** | -- | ~55-60% (est.) | да | native | ~25 |
+| [Qwen3-Coder 30B-A3B](families/qwen3-coder.md#30b-a3b) | ~62% | -- | -- | нет | native | 86 |
+| [Qwen2.5-Coder 1.5B](families/qwen25-coder.md#1-5b) | -- | ~75% | -- | да | нет | 121 |
+
+### Vision-бенчмарки
+
+| Модель | [MMMU](../llm-guide/benchmarks/mmmu.md) | MMMU-Pro | Контекст | FC | tg tok/s (Vulkan) |
+|--------|------|----------|----------|-----|-------------------|
+| [Gemma 4 26B-A4B](families/gemma4.md) | ~72 | **76.9** | 256K | native | ~70 |
+| [InternVL3-38B Instruct](families/internvl.md#3-5-38b) | **72.2** | -- | 32-64K | partial | ~15 |
+| [Qwen3-VL 30B-A3B](families/qwen3-vl.md#30b-a3b) | ~70 | -- | 128K | native | ~80 |
+
+### Universal LLM
+
+| Модель | [LiveCodeBench](../llm-guide/benchmarks/livecodebench.md) | AIME 2026 | Codeforces ELO | tg tok/s (Vulkan) |
+|--------|---------------|-----------|----------------|-------------------|
+| [Gemma 4 26B-A4B](families/gemma4.md) | **77.1%** | 88.3% | 1718 | ~70 |
+| [Qwen3.5 122B-A10B](families/qwen35.md#122b-a10b) | -- | -- | -- | 22 |
+| [Qwen3.5 35B-A3B](families/qwen35.md#35b-a3b) | -- | -- | -- | ~80 |
+
+### Frontier closed-source (для сравнения)
+
+| Модель | [SWE-V](../llm-guide/benchmarks/swe-bench.md) | SWE-Pro | [LiveCodeBench](../llm-guide/benchmarks/livecodebench.md) | [MMMU](../llm-guide/benchmarks/mmmu.md) | $/1M input |
+|--------|-------|---------|---------------|------|-----------|
+| Claude Mythos Preview | **93.9%** | -- | -- | -- | preview |
+| GPT-5.3 Codex | 85.0% | ~57% | -- | -- | $10 |
+| Claude Opus 4.5 | 80.9% | 45.9% | -- | -- | $15 |
+| Gemini 3.1 Pro Preview | 78.8% | -- | -- | 80%+ | $1.25 |
+| Kimi K2.5 (1T MoE) | 76.8% | -- | -- | 78.5 (Pro) | $0.45 |
+| **Qwen3-Coder Next** ⭐ | **70.6%** | -- | ~65-70% | -- | **$0 (локально)** |
+| **Devstral 2 24B** ⭐ | **72.2%** | -- | ~55-60% | -- | **$0 (локально)** |
+| **Gemma 4 26B-A4B** ⭐ | -- | -- | **77.1%** | **76.9 (Pro)** | **$0 (локально)** |
+
+⭐ Скачаны на платформе. Отставание от frontier closed на 8-13 пунктов SWE-V при нулевой стоимости inference.
+
+**Замечания**:
+- SWE-bench Verified [частично загрязнён](../llm-guide/benchmarks/swe-bench.md#критика-и-ограничения) (OpenAI audit, февраль 2026). Цифры выше 85% -- с поправкой на contamination.
+- [HumanEval насыщен](../llm-guide/benchmarks/humaneval.md#критика-и-ограничения) (95%+ у frontier), для выбора coding-моделей предпочтителен SWE-bench + LiveCodeBench.
+- Qwen3-Coder и Devstral 2 не публикуют HumanEval -- оптимизированы под agentic (SWE-bench), не синтетические задачи.
+- `est.` -- оценочные значения по корреляции с другими бенчмарками, точные цифры не опубликованы.
+
 ## Связанные разделы
 
 - [`families/`](families/README.md) -- полный каталог семейств
