@@ -234,6 +234,7 @@ MLA, expert offloading, load balancing.
 |--------|----------|
 | [RAG](rag/README.md) | Retrieval-Augmented Generation: архитектура, embeddings, vector DB, retrieval, pipeline, evaluation |
 | [Function calling](function-calling.md) | Tool use, JSON schema, интеграция с внешними системами |
+| [HumanEval: анализ бенчмарка](humaneval.md) | Методология, pass@k, критика, EvalPlus, BigCodeBench, LiveCodeBench, SWE-bench |
 | [Multimodal](multimodal.md) | Vision, audio, объединение модальностей |
 | [Локальный запуск vs API](local-vs-api.md) | Сравнение подходов, стоимость, латентность, приватность |
 
