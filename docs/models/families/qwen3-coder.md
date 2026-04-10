@@ -95,11 +95,24 @@ Qwen3-Coder -- специализированная MoE-серия от Alibaba 
 
 ## Бенчмарки
 
+### Vulkan (основной backend)
+
 | Бенч | Next 80B-A3B | 30B-A3B |
 |------|--------------|---------|
 | SWE-bench Verified | **70.6%** | -- |
-| pp512 (Vulkan, платформа) | 590 tok/s | 1036 tok/s |
-| tg128 (Vulkan, платформа) | **53 tok/s** | **86 tok/s** |
+| pp512 (платформа) | 590 tok/s | 1036 tok/s |
+| tg128 (платформа) | **53 tok/s** | **86 tok/s** |
+
+### ROCm/HIP (тест 2026-04-09)
+
+| Модель | pp tok/s | tg tok/s | vs Vulkan |
+|--------|----------|----------|-----------|
+| 30B-A3B Q4_K_M | 441 | **63.5** | pp -57%, tg -26% |
+| Next 80B-A3B Q4_K_M | **OOM** | -- | `cudaMalloc failed` (45 GiB > лимит HIP-аллокатора) |
+
+ROCm/HIP видит 96 GiB carved-out VRAM, но `hipMalloc` не может выделить буфер >30-35 GiB единым блоком при текущей BIOS-конфигурации (96 GiB carved-out). Next (45 GiB) не загружается через HIP. 30B-A3B работает стабильно.
+
+Vulkan быстрее на 26-57%. **Рекомендация: Vulkan для inference**, ROCm для PyTorch/training. Подробнее: [docs/inference/rocm-setup.md](../../docs/inference/rocm-setup.md#статус-gfx1151-strix-halo).
 
 ## Связано
 

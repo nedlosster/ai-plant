@@ -180,9 +180,39 @@ PyTorch с ROCm определяет GPU и видит 120 GiB VRAM. Для gfx1
 Замечание: `uv run` пересинхронизирует зависимости и заменяет ROCm torch на CPU-версию.
 Использовать `.venv/bin/python` напрямую, не `uv run`.
 
+### HIP inference: ограничение по VRAM-аллокации (2026-04-09)
+
+При BIOS carved-out VRAM = 96 GiB HIP runtime не может выделить единый буфер >30-35 GiB для модели. `cudaMalloc failed: out of memory` при попытке загрузить Qwen3-Coder Next (45 GiB) даже при 95 GiB свободной VRAM.
+
+Причина: архитектура unified memory APU + большой carved-out сегмент конфликтуют с HIP runtime allocation model. [AMD рекомендует](https://rocm.docs.amd.com/en/latest/how-to/system-optimization/strixhalo.html) держать carved-out VRAM маленьким (0.5-4 GiB) и использовать shared TTM/GTT. На дискретных GPU этой проблемы нет.
+
+**Практический лимит для нашей платформы (BIOS carved-out 96 GiB)**:
+- Модели до ~30 GiB (Q4_K_M) -- загружаются через HIP
+- Модели 35+ GiB -- OOM при `hipMalloc`
+- Workaround: частичный offload (`-ngl 30-40`) -- работает, но медленно
+
+**Модели, протестированные на HIP**:
+
+| Модель | Размер Q4 | HIP | Результат |
+|--------|-----------|-----|-----------|
+| Qwen3-Coder 30B-A3B | 17 GiB | ok | 63.5 tok/s tg |
+| Qwen2.5-Coder 1.5B Q8 | 1.5 GiB | ok | ~105 tok/s tg |
+| Qwen3-Coder Next 80B-A3B | 45 GiB | **OOM** | cudaMalloc failed |
+
+### Бенчмарк ROCm vs Vulkan: Qwen3-Coder 30B-A3B (2026-04-09)
+
+llama-server, Q4_K_M, ctx 32K, parallel 1:
+
+| Метрика | Vulkan | ROCm (HIP) | Разница |
+|---------|--------|------------|---------|
+| prompt processing | 1036 tok/s | 441 tok/s | Vulkan 2.3x быстрее |
+| token generation | 86 tok/s | 63.5 tok/s | Vulkan 1.4x быстрее |
+
+Вывод: **Vulkan остаётся рекомендованным backend для inference** на Strix Halo. ROCm/HIP использовать для задач, требующих HIP-специфичные features (PyTorch, training, ACE-Step).
+
 ### Зафиксировано
 
-ROCm 7.2.1, HIP 7.2.53211, llama.cpp b8541, ядро 6.19.8. 2026-04-06.
+ROCm 7.2.1, HIP 7.2.53211, llama.cpp b8717, ядро 6.19.8. 2026-04-09.
 
 ### Отслеживание
 

@@ -56,7 +56,16 @@
 | Qwen3-Coder-30B-A3B Q4_K_M | 17.3 GiB | 1036 | **86.1** |
 | Qwen3-Coder-Next Q4_K_M | 45.1 GiB | 590 | **53.2** |
 
-MoE-модели (Qwen3-Coder) даюt высокую скорость генерации за счёт малой активации. Dense 32B при том же VRAM дал бы ~12 tok/s.
+MoE-модели (Qwen3-Coder) дают высокую скорость генерации за счёт малой активации. Dense 32B при том же VRAM дал бы ~12 tok/s.
+
+### ROCm/HIP (тест 2026-04-09)
+
+| Модель | Размер | pp tok/s | tg tok/s | vs Vulkan |
+|--------|--------|----------|----------|-----------|
+| Qwen3-Coder-30B-A3B Q4_K_M | 17.3 GiB | 441 | **63.5** | pp -57%, tg -26% |
+| Qwen3-Coder-Next Q4_K_M | 45.1 GiB | **OOM** | -- | `hipMalloc` не может выделить 45 GiB |
+
+Vulkan быстрее HIP во всех тестах. **Vulkan -- рекомендованный backend для inference на Strix Halo**. ROCm использовать для PyTorch-задач (ACE-Step, training). Подробнее: [docs/inference/rocm-setup.md](../inference/rocm-setup.md#hip-inference-ограничение-по-vram-аллокации-2026-04-09).
 
 ## Выбор под задачу
 
