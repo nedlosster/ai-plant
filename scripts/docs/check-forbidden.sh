@@ -15,9 +15,8 @@ DOCS_DIR="${PROJECT_ROOT}/docs"
 VIOLATIONS=0
 
 # Запрещенные слова (case-insensitive)
+# Claude и Anthropic разрешены в документации (описание продуктов), запрещены в коммитах (см. CLAUDE.md)
 FORBIDDEN_WORDS=(
-    "Claude"
-    "Anthropic"
     "Co-Authored-By"
 )
 

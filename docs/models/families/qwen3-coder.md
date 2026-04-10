@@ -112,7 +112,7 @@ Qwen3-Coder -- специализированная MoE-серия от Alibaba 
 
 ROCm/HIP видит 96 GiB carved-out VRAM, но `hipMalloc` не может выделить буфер >30-35 GiB единым блоком при текущей BIOS-конфигурации (96 GiB carved-out). Next (45 GiB) не загружается через HIP. 30B-A3B работает стабильно.
 
-Vulkan быстрее на 26-57%. **Рекомендация: Vulkan для inference**, ROCm для PyTorch/training. Подробнее: [docs/inference/rocm-setup.md](../../docs/inference/rocm-setup.md#статус-gfx1151-strix-halo).
+Vulkan быстрее на 26-57%. **Рекомендация: Vulkan для inference**, ROCm для PyTorch/training. Подробнее: [rocm-setup.md](../../inference/rocm-setup.md#статус-gfx1151-strix-halo).
 
 ## Связано
 
