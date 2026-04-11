@@ -58,9 +58,10 @@
 - [hidream](hidream.md) -- HiDream-I1 Full 17B (Apache 2.0)
 
 ### Видео
+- [ltx-2](ltx-2.md) -- LTX-2 19B (14B+5B dual-stream, sync audio+video в одном проходе, 4K 50fps, 20 сек)
 - [wan](wan.md) -- Wan 2.6/2.7 (cinematic, MoE)
 - [hunyuanvideo](hunyuanvideo.md) -- HunyuanVideo 1.5
-- [ltx-video](ltx-video.md) -- LTX-Video 2.3 (4K 50fps)
+- [ltx-video](ltx-video.md) -- LTX-Video 2.3 (4K 50fps, single-stream)
 - [cogvideox](cogvideox.md) -- CogVideoX 1.5-5B (ComfyUI-классика)
 - [open-sora](open-sora.md) -- Open-Sora 2.0 (длинные видео)
 - [svd](svd.md) -- Stable Video Diffusion (I2V классика)

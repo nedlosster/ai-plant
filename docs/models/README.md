@@ -71,6 +71,7 @@
 | dense | ~7B | Qwen3-TTS | *(скоро)* qwen3-tts | [tts](tts.md) | Нативный русский, voice cloning, free-form voice design |
 | dense | 330M | F5-TTS (RU) | *(скоро)* f5-tts | [tts](tts.md) | Эталон voice cloning, MIT, RU-форки |
 | MoE 14B | 14B | Wan 2.6/2.7 | *(скоро)* wan | [video](video.md) | Cinematic, multi-shot, native audio |
+| dual-stream DiT | 19B (14B+5B) | LTX-2 | [ltx-2](families/ltx-2.md) | [video](video.md) | **Первая** open-source с sync audio+video в one-pass, 4K 50fps, 20 сек |
 | dense | 14B | Qwen3-14B-Opus-4.5-Distill | [qwen35](families/qwen35.md) (community) | [llm](llm.md) | Reasoning distill из Claude Opus 4.5, 250 samples, ~9 GiB Q4 |
 | MoE 32B/1T | 1T | Kimi K2.5 | [kimi-k25](families/kimi-k25.md) | [llm](llm.md), [coding](coding.md), [vision](vision.md) | Open weights, **не помещается** (240+ GiB), используется через API после блокировки Anthropic |
 

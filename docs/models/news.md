@@ -32,7 +32,7 @@
 ### Mar 2026 -- LTX-Video 2.3, Wan 2.7
 
 Прорыв в **видеогенерации**:
-- **LTX-Video 2.3** -- 4K 50fps в реалтайме
+- **LTX-Video 2.3** -- 4K 50fps в реалтайме (single-stream, отдельная ветка от [LTX-2](families/ltx-2.md))
 - **Wan 2.7** -- 1080p с native audio sync, multi-shot, cinematic
 
 См. [video.md](video.md).
@@ -42,6 +42,17 @@
 Cursor выпустил проприетарную coding-модель **Composer 2**, построенную поверх **Moonshot AI Kimi K2.5** (1T MoE / 32B active). Continued pretraining + large-scale RL. Это первый крупный продакт-тейкап Kimi K2.5 как foundation. См. [kimi-k25](families/kimi-k25.md), [coding.md](coding.md).
 
 ## 2026-Q1
+
+### Jan 2026 -- LTX-2: первая truly open audio-video foundation-модель (Lightricks)
+
+**6 января 2026** -- [Lightricks](https://www.globenewswire.com/news-release/2026/01/06/3213304/0/en/Lightricks-Open-Sources-LTX-2-the-First-Production-Ready-Audio-and-Video-Generation-Model-With-Truly-Open-Weights.html) выпустили [LTX-2](families/ltx-2.md) -- новую foundation-модель с революционной архитектурой:
+- **19B параметров** в асимметричной dual-stream архитектуре: 14B video + 5B audio
+- **Синхронизированные audio+video в одном forward pass** через cross-attention между потоками -- первая open-source модель с этим
+- **4K 50fps native**, **до 20 секунд клипа** с sync audio (рекорд среди open-source)
+- **Truly open-source**: веса + training code + benchmarks (первая в сегменте)
+- Community-квантизации GGUF Q3_K_S...Q8_0 появились в день релиза
+
+Soft-launch был в октябре 2025 (limited access), полный open-source с весами -- 6 января 2026. NVFP4/NVFP8 quantizations для NVIDIA Blackwell доступны отдельно (на AMD бесполезны). См. [families/ltx-2.md](families/ltx-2.md).
 
 ### Q1 2026 -- Qwen3.5-397B-A17B (Alibaba)
 

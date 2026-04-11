@@ -2,6 +2,8 @@
 
 > Real-time видео с фокусом на скорость и итерации, 4K 50fps, native audio.
 
+**Внимание**: LTX-2 -- отдельная foundation-модель Lightricks с принципиально другой архитектурой (dual-stream 19B), а не новая версия LTX-Video. См. [ltx-2.md](ltx-2.md).
+
 **Тип**: ~13B
 **Лицензия**: LTX License (не Apache)
 **Статус на сервере**: не скачана
@@ -59,4 +61,5 @@ hf download Lightricks/LTX-Video --local-dir ~/models/ltx-video-2.3
 ## Связано
 
 - Направления: [video](../video.md)
+- Следующее поколение: [ltx-2](ltx-2.md) (dual-stream 19B, sync audio+video)
 - Альтернативы: [wan](wan.md) (cinematic), [hunyuanvideo](hunyuanvideo.md)
