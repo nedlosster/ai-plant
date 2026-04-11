@@ -488,7 +488,7 @@ ws     ::= [ \t\n]*
 | Продукт | Что это | Связь с llama.cpp |
 |---------|---------|--------------------|
 | **[LM Studio](lm-studio.md)** | Desktop GUI для local LLM | llama.cpp через feature-branch (дорабатывает Vulkan fixes, потом возвращает в upstream) |
-| **Ollama** | CLI + REST wrapper | llama.cpp компилируется как static library внутри `ollama` binary |
+| **[Ollama](ollama.md)** | CLI + REST wrapper, docker-стиль | llama.cpp как vendored snapshot + cgo bridge внутри Go-бинарника |
 | **KoboldCpp** | Форк с фокусом на roleplay и NPC | Классический fork, дивергирует с 2023 |
 | **llamafile** | One-binary distribution | llama.cpp + actually-portable-executable (APE) для single-file на любой ОС |
 | **text-generation-webui** | Gradio UI для multiple backends | llama-cpp-python loader (Python biding) |

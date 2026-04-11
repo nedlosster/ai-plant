@@ -136,6 +136,8 @@ print(response.choices[0].message.content)
 
 ## Связанные статьи
 
+- [llama.cpp (профиль проекта)](llama-cpp.md) -- inference-движок, на котором работает LM Studio
+- [Ollama (профиль проекта)](ollama.md) -- другая обёртка над llama.cpp (CLI-first)
 - [Выбор моделей](model-selection.md)
 - [llama.cpp + Vulkan](vulkan-llama-cpp.md)
 - [Диагностика](troubleshooting.md)

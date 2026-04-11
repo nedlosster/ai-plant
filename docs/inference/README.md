@@ -84,6 +84,7 @@ tok/s (tg) ~ bandwidth / model_size_bytes
 | N | Документ | Описание | Уровень |
 |---|----------|----------|---------|
 | 0 | [llama-cpp.md](llama-cpp.md) | llama.cpp: история, GGML, GGUF, квантизации, бэкенды, llama-server, speculative decoding, экосистема | обзор |
+| 0 | [ollama.md](ollama.md) | Ollama: архитектура, Modelfile, OCI-registry, content-addressed storage, auto VRAM offload, экосистема | обзор |
 | 1 | [model-selection.md](model-selection.md) | Форматы, квантизация, расчет VRAM, загрузка моделей | базовый |
 | 2 | [lm-studio.md](lm-studio.md) | LM Studio: настройка, модели, API-сервер | базовый |
 | 3 | [vulkan-llama-cpp.md](vulkan-llama-cpp.md) | Standalone llama.cpp с Vulkan: сборка, запуск, параметры | базовый |
