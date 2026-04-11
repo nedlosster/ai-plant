@@ -597,6 +597,7 @@ Ollama **имеет смысл** в двух сценариях:
 ## Связанные статьи
 
 - [llama.cpp (профиль проекта)](llama-cpp.md) -- inference-движок, на котором работает Ollama
+- [Lemonade (профиль проекта)](lemonade.md) -- альтернативный стек с поддержкой Ryzen AI NPU, в Generic mode использует Ollama как backend
 - [LM Studio](lm-studio.md) -- конкурирующая GUI-обёртка над llama.cpp
 - [vulkan-llama-cpp.md](vulkan-llama-cpp.md) -- как собрать llama-server на платформе вручную
 - [backends-comparison.md](backends-comparison.md) -- сравнение backend'ов на Strix Halo

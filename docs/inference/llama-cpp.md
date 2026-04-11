@@ -572,6 +572,8 @@ cmake --build build --config Release -j$(nproc)
 
 ## Связанные статьи
 
+- [Ollama (профиль проекта)](ollama.md) -- docker-стиль обёртка над тем же llama.cpp
+- [Lemonade (профиль проекта)](lemonade.md) -- альтернативный inference-стек с поддержкой Ryzen AI NPU
 - [vulkan-llama-cpp.md](vulkan-llama-cpp.md) -- сборка и запуск через Vulkan backend
 - [rocm-llama-cpp.md](rocm-llama-cpp.md) -- сборка и запуск через ROCm/HIP backend
 - [cpu-inference.md](cpu-inference.md) -- CPU-backend, AVX-512, BLAS

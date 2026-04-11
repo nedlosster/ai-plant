@@ -20,6 +20,7 @@ Inference-сервер на AMD Ryzen AI MAX+ 395 (Strix Halo, 96 GiB VRAM).
 | [Обзор](inference/README.md) | Бэкенды (Vulkan/ROCm/CPU), архитектура |
 | [llama.cpp (профиль проекта)](inference/llama-cpp.md) | История, GGML, GGUF, квантизации, бэкенды, llama-server, spec decoding |
 | [Ollama (профиль проекта)](inference/ollama.md) | Docker-подход, Modelfile, OCI-registry, content-addressed storage, экосистема |
+| [Lemonade (профиль проекта)](inference/lemonade.md) | NPU-ускорение для Ryzen AI, hybrid prefill/decode, ONNX RT GenAI, Quark/AWQ |
 | [Выбор моделей](inference/model-selection.md) | GGUF, safetensors, квантизация, VRAM |
 | [llama.cpp + Vulkan](inference/vulkan-llama-cpp.md) | Сборка, запуск, скрипты |
 | [Установка ROCm](inference/rocm-setup.md) | ROCm 6.4, HSA_OVERRIDE, скрипты |
