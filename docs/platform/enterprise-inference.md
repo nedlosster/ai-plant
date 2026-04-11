@@ -14,13 +14,15 @@
 
 ### NVIDIA (доминирует ~80% рынка inference)
 
-| GPU | VRAM | Bandwidth | FP16 TFLOPS | TDP | Цена (покупка) | Cloud $/hr |
+| GPU | VRAM | Bandwidth | FP16 TFLOPS | TDP | Цена (покупка) | Cloud $/hr (апр 2026) |
 |-----|------|-----------|-------------|-----|-----------------|------------|
-| **B200** | 192 GiB HBM3e | **8 TB/s** | 2250 | 1000W | ~$30-40K | $5-8 |
-| **H200** | 141 GiB HBM3e | 4.8 TB/s | 990 | 700W | ~$25-30K | $2.5-4 |
-| **H100 SXM** | 80 GiB HBM3 | 3.35 TB/s | 990 | 700W | ~$25K | $1.5-3 |
+| **B200** | 192 GiB HBM3e | **8 TB/s** | 2250 | 1000W | ~$30-40K | **$5.62** (avg, +15% YoY) |
+| **H200** | 141 GiB HBM3e | 4.8 TB/s | 990 | 700W | ~$25-30K | **$3.80** |
+| **H100 SXM** | 80 GiB HBM3 | 3.35 TB/s | 990 | 700W | ~$25K | $2.49-3 |
 | **A100 80G** | 80 GiB HBM2e | 2 TB/s | 312 | 400W | ~$10-15K | $1-1.5 |
 | **L40S** | 48 GiB GDDR6 | 864 GB/s | 366 | 350W | ~$8-10K | $1-2 |
+
+Источник цен: [getdeploying.com/gpus](https://getdeploying.com/gpus), [thundercompute.com](https://www.thundercompute.com/blog/nvidia-h200-pricing) (апрель 2026).
 
 **B200** -- текущий флагман. 8 TB/s bandwidth = **31x больше** чем Strix Halo (256 GB/s). NVLink 5.0 (1.8 TB/s) связывает до 576 GPU в один cluster. FP4/FP6 native -- квантизация без потерь на уровне hardware.
 

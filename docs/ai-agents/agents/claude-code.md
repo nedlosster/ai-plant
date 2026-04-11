@@ -1,12 +1,14 @@
 # Claude Code (Anthropic, 2024-2026)
 
-> Эталон CLI/IDE-агентов от Anthropic, 1M контекст, multi-agent, лучший frontend в индустрии.
+> Эталон CLI/IDE-агентов от Anthropic, 1M контекст, multi-agent, лучший frontend в индустрии. 41% профдевелоперов, $1B+ ARR.
 
 **Тип**: CLI + IDE расширения (VS Code, JetBrains) + web (claude.ai/code)
 **Лицензия**: Proprietary (Anthropic)
-**Backend**: Anthropic API (Claude Opus / Sonnet)
+**Backend**: Anthropic API (Claude Opus / Sonnet, Mythos Preview)
 **Совместим с локальным llama-server**: **нет** (привязан к Anthropic API)
 **Цена**: $20-200/мес или BYOK по токенам
+**Доля рынка**: 41% профдевелоперов (Pragmatic Engineer survey, февраль 2026), 46% "most loved"
+**ARR**: $1B+ (декабрь 2025)
 
 ## Обзор
 

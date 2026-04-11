@@ -47,6 +47,59 @@ curl http://localhost:8080/health
 | [Прикладные задачи](docs/use-cases/README.md) | Музыка, кодинг, картинки, видео |
 | [Глоссарий](docs/glossary.md) | Термины AI/ML |
 
+## Новости и состояние рынка
+
+Статьи, отражающие состояние рынка на конкретную дату. Обновляются регулярно через скилл `/refresh-news`.
+
+### Хроники и тренды
+
+| Документ | О чём |
+|----------|-------|
+| [docs/ai-agents/news.md](docs/ai-agents/news.md) | Хроника релизов AI-агентов и моделей по кварталам |
+| [docs/ai-agents/trends.md](docs/ai-agents/trends.md) | Долгосрочные тренды: multi-agent, bounded autonomy, context race, SWE-bench |
+
+### Рынок AI-агентов
+
+| Документ | О чём |
+|----------|-------|
+| [docs/ai-agents/commercial.md](docs/ai-agents/commercial.md) | Платные агенты: цены, доли рынка, бенчмарки |
+| [docs/ai-agents/open-source.md](docs/ai-agents/open-source.md) | Открытые агенты: индекс, статус |
+| [docs/ai-agents/comparison.md](docs/ai-agents/comparison.md) | Сводные таблицы и Faros.ai/SWE-bench |
+| [docs/ai-agents/agents/](docs/ai-agents/agents/) | Per-agent страницы (Claude Code, Cursor, Devin, Codex, ...) |
+
+### Рынок моделей
+
+| Документ | О чём |
+|----------|-------|
+| [docs/models/llm.md](docs/models/llm.md) | LLM общего назначения (Qwen3.5, Llama 4, GLM-5, Mistral Large 3) |
+| [docs/models/coding.md](docs/models/coding.md) | Coding LLM (Qwen3-Coder, Devstral, DeepSeek-Coder) |
+| [docs/models/vision.md](docs/models/vision.md) | Vision LLM (InternVL, Qwen3-VL, Pixtral) |
+| [docs/models/images.md](docs/models/images.md) | Image gen (FLUX, SD, HiDream) |
+| [docs/models/video.md](docs/models/video.md) | Video gen (Wan, LTX-Video, CogVideoX) |
+| [docs/models/music.md](docs/models/music.md) | Music gen (ACE-Step, MusicGen, YuE) |
+| [docs/models/russian-llm.md](docs/models/russian-llm.md) | Российские LLM (Saiga, T-Bank, Vikhr, GigaChat) |
+| [docs/models/russian-vocals.md](docs/models/russian-vocals.md) | Русский вокал |
+| [docs/models/tts.md](docs/models/tts.md) | TTS (XTTS, F5-TTS, IndexTTS) |
+
+### Hardware-рынок
+
+| Документ | О чём |
+|----------|-------|
+| [docs/platform/enterprise-inference.md](docs/platform/enterprise-inference.md) | Datacenter GPU: NVIDIA/AMD/Intel/Google -- VRAM, цены, cloud $/hr |
+| [docs/platform/hardware-alternatives.md](docs/platform/hardware-alternatives.md) | Consumer альтернативы: RTX 50xx, Mac M-серия, DGX Spark |
+| [docs/inference/acceleration-outlook.md](docs/inference/acceleration-outlook.md) | Прогнозы ROCm/Vulkan/NPU на платформе |
+
+### Бенчмарки (лидерборды)
+
+| Документ | О чём |
+|----------|-------|
+| [docs/llm-guide/benchmarks/swe-bench.md](docs/llm-guide/benchmarks/swe-bench.md) | SWE-bench Verified -- agentic coding |
+| [docs/llm-guide/benchmarks/livecodebench.md](docs/llm-guide/benchmarks/livecodebench.md) | LiveCodeBench -- competitive coding |
+| [docs/llm-guide/benchmarks/humaneval.md](docs/llm-guide/benchmarks/humaneval.md) | HumanEval -- function-level coding |
+| [docs/llm-guide/benchmarks/mmmu.md](docs/llm-guide/benchmarks/mmmu.md) | MMMU -- multimodal reasoning |
+
+Обновление: `/refresh-news <agents|models|hardware|benchmarks|news|all>` -- см. [.claude/skills/refresh-news/SKILL.md](.claude/skills/refresh-news/SKILL.md).
+
 ## Скрипты
 
 | Папка | Описание |

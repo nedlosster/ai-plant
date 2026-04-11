@@ -138,14 +138,17 @@ SWE-bench: набор из ~2,294 реальных GitHub issues для оцен
 Метрика: % задач, решённых агентом корректно (pass@1).
 
 ```
-Дата     | Лидер                | SWE-bench Verified
----------|----------------------|--------------------
-Q1 2024  | SWE-agent            | ~12%
-Q3 2024  | Claude 3.5 + tools   | ~33%
-Q1 2025  | OpenAI o1            | ~41%
-Q3 2025  | Claude 3.5 agentic   | ~50%
-Q1 2026  | Antigravity          | ~76%
-Q1 2026  | Codex                | ~68%
+Дата     | Лидер                  | SWE-bench Verified
+---------|------------------------|--------------------
+Q1 2024  | SWE-agent              | ~12%
+Q3 2024  | Claude 3.5 + tools     | ~33%
+Q1 2025  | OpenAI o1              | ~41%
+Q3 2025  | Claude 3.5 agentic     | ~50%
+Q1 2026  | Antigravity            | ~76%
+Q1 2026  | Codex                  | ~68%
+Apr 2026 | Claude Mythos Preview  | 93.9%
+Apr 2026 | GPT-5.3 Codex          | 85.0%
+Apr 2026 | Claude Opus 4.5        | 80.9%
 ```
 
 Критика SWE-bench:
@@ -230,11 +233,12 @@ Commercial выигрывает:
 ## 9. Прогнозы
 
 ### 2026 (текущее)
-- Multi-agent systems -- ранний production
+- Multi-agent systems -- mainstream production (Cursor 3, Claude Code agent team, Devin parallel)
 - Background agents -- mainstream
 - 1M контекст -- рабочий стандарт
-- SWE-bench > 75%
+- SWE-bench Verified > 90% (Apr 2026: Claude Mythos Preview 93.9%) -- бенчмарк приближается к насыщению
 - Enterprise rollout: top-100 companies
+- ARR-веха: GitHub Copilot, Claude Code, Anysphere -- все перешагнули $1B (Dec 2025)
 
 ### 2027 (ожидания)
 - Agent-as-teammate: агент = полноценный член команды (standup, PR review, on-call)

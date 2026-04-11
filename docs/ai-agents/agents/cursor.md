@@ -1,12 +1,13 @@
-# Cursor (Anysphere, 2023-2026)
+# Cursor 3 (Anysphere, 2023-2026)
 
-> Самый популярный AI IDE -- VS Code fork с глубокой AI-интеграцией, Composer, Background Agents.
+> Самый популярный AI IDE -- VS Code fork с глубокой AI-интеграцией, Composer 2, Background Agents, multi-agent workspace.
 
 **Тип**: IDE (VS Code fork)
 **Лицензия**: Proprietary
-**Backend**: Built-in (Anthropic / OpenAI / proprietary)
+**Backend**: Composer 2 (proprietary, Kimi K2.5 base) / Anthropic / OpenAI / BYOK
 **Совместим с локальным llama-server**: **частично** (через bring-your-own-key, но IDE проприетарная)
 **Цена**: Free Hobby / $20 Pro / $40 Team
+**ARR**: $500M (Q1 2026), вошёл в $1B+ ARR-клуб (декабрь 2025)
 
 ## Обзор
 
@@ -108,8 +109,10 @@ You are an expert React/TypeScript developer.
 
 ## Анонсы и открытия
 
-- **2026-Q2** -- расширенные Background Agents
+- **Apr 2026** -- релиз **Cursor 3**: unified workspace для управления командой агентов, multi-agent workflow с делегированием параллельных задач
+- **19 Mar 2026** -- релиз **Composer 2**: проприетарная coding-модель третьего поколения, построена поверх Moonshot AI Kimi K2.5 c continued pretraining и large-scale RL
 - **2026-Q1** -- интеграция с Claude Sonnet 4.5 как default
+- **Dec 2025** -- $1B+ ARR (одновременно с GitHub Copilot и Claude Code)
 - **2025-Q4** -- приобретение Supermaven (быстрый autocomplete)
 - **2025-Q3** -- Background Agents запущены
 - **2025** -- Composer как основной интерфейс агентов

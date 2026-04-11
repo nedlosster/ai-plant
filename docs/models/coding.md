@@ -24,6 +24,23 @@
 | 4 | [Qwen2.5-Coder 32B](families/qwen25-coder.md#32b) | -- | ~12 | HumanEval 92.7%, эталон FIM, 32B dense |
 | 5 | [Codestral 25.08](families/codestral.md) | -- | ~28 | Лидер LMSYS Copilot Arena по FIM, 80+ языков |
 
+### Не помещаются на платформе (для справки)
+
+- **Qwen3-Coder-480B-A35B-Instruct** (256K-1M контекст) -- флагман семейства, 480B total / 35B active. ~270 GB Q4.
+- **Kimi-Dev-72B** (Moonshot AI, 2026) -- 72B dense, конкурент Devstral 2 в dense-сегменте, ~42 GB Q4 -- помещается, но не интегрирован в пресеты.
+- **DeepSeek V3.2** (671B MoE, MIT license) -- consistently strong scores на всех бенчмарках, ~390 GB Q4.
+
+### Frontier (closed-source, для контекста)
+
+| Модель | SWE-bench Verified | Дата |
+|--------|-------------------|------|
+| Claude Mythos Preview (Anthropic) | **93.9%** | 10 апр 2026 |
+| GPT-5.3 Codex | 85.0% | апр 2026 |
+| Claude Opus 4.5 | 80.9% | апр 2026 |
+| Gemini 3.1 Pro Preview | 78.8% | 8 апр 2026 |
+
+Источник: [llm-stats.com](https://llm-stats.com/benchmarks/swe-bench-verified). Лучшая open-source модель в SWE-bench Verified -- Devstral 2 24B (72.2%).
+
 **#1 Qwen3-Coder Next** -- основной выбор для daily agentic-кодинга. 80B MoE с 3B активных параметров: качество как у 24B dense, скорость почти как у 3B. 256K контекст уверенно держит средний monorepo. Проигрывает Devstral 2 на dense-задачах с одним сложным файлом, выигрывает на multi-file orchestration и speed/quality.
 
 **#2 Devstral 2 24B** -- лидер dense-семейства с 72.2% SWE-V (рекорд для размера). Tool use дисциплина строже MoE-вариантов, итерации более последовательные. Минус -- 25 tok/s ощутимо медленнее MoE на той же платформе, на длинных сессиях opencode выматывает.

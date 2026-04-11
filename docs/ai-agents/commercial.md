@@ -7,10 +7,10 @@
 | Агент | Вендор | Тип | Цена/мес | Per-agent |
 |-------|--------|-----|----------|-----------|
 | Claude Code | Anthropic | CLI+IDE+Web+Channels | $20-200 | [agents/claude-code.md](agents/claude-code.md) |
-| Cursor | Anysphere | IDE (VS Code fork) | $20-40 | [agents/cursor.md](agents/cursor.md) |
-| OpenAI Codex | OpenAI | Cloud (ChatGPT) | $200 | -- |
+| Cursor 3 (Composer 2) | Anysphere | IDE (VS Code fork) | $20-40 | [agents/cursor.md](agents/cursor.md) |
+| OpenAI Codex 5.3 | OpenAI | Cloud (ChatGPT) | $200, unlimited промо | -- |
 | Windsurf | Codeium | IDE (40+ IDE) | $20-200 | -- |
-| Devin | Cognition | Cloud + Slack | $20 + ACU | -- |
+| Devin 2.0 | Cognition | Cloud + Slack | $20 + $2.25/ACU | -- |
 | Junie | JetBrains | JetBrains IDE + CLI | $100-300/год | -- |
 | GitHub Copilot | Microsoft | IDE + CLI | $10-39 | -- |
 | Amazon Q Developer | AWS | CLI + IDE | $0-19 | -- |
@@ -43,6 +43,23 @@
 | 5 | Cursor | 46.0% | 70.0% | 30.0% |
 
 Полные данные -- в [comparison.md](comparison.md#бенчмарки-farosai-март-2026).
+
+## SWE-bench Verified (апрель 2026)
+
+| # | Модель | SWE-bench Verified |
+|---|--------|--------------------|
+| 1 | Claude Mythos Preview (Anthropic) | 93.9% |
+| 2 | GPT-5.3 Codex | 85.0% |
+| 3 | Claude Opus 4.5 | 80.9% |
+
+Источник: [llm-stats.com/benchmarks/swe-bench-verified](https://llm-stats.com/benchmarks/swe-bench-verified), 10 апреля 2026.
+
+## Доля рынка (Q1 2026)
+
+- **Claude Code**: 41% профессиональных разработчиков (Pragmatic Engineer survey, n=15000, февраль 2026), 46% "most loved"
+- **GitHub Copilot**: 42% (data from JetBrains research, апрель 2026)
+- **Cursor**: 18% работающих разработчиков, $500M ARR
+- **$1B+ ARR threshold (декабрь 2025)**: GitHub Copilot, Claude Code, Anysphere -- одновременно перешагнули
 
 ## Связано
 

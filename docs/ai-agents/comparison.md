@@ -9,10 +9,10 @@
 | Агент | Тип | Интерфейс | Контекст | Backend | Local llama-server | Цена/мес |
 |-------|-----|-----------|----------|---------|--------------------|----------|
 | [Claude Code](agents/claude-code.md) | CLI+IDE+Web | Terminal, VS Code, JB, Channels | 1M | Anthropic API | нет | $20-200 |
-| [Cursor](agents/cursor.md) | IDE | VS Code fork | 128K | Multi (BYOK) | частично | $20-40 |
-| Codex | Cloud | Web (ChatGPT) | 128K | OpenAI proprietary | нет | $200 |
+| [Cursor 3](agents/cursor.md) | IDE | VS Code fork | 128K | Composer 2 (Kimi K2.5 base), Multi BYOK | частично | $20-40 |
+| Codex 5.3 | Cloud | Web (ChatGPT) | 128K | OpenAI proprietary | нет | $200, unlimited промо |
 | Windsurf | IDE | 40+ IDE | 128K | SWE-1, SWE-1.5 | нет | $20 |
-| Devin | Cloud | Web + Slack | N/A | Proprietary | нет | $20 + ACU |
+| Devin 2.0 | Cloud | Web + Slack | N/A | Proprietary | нет | $20 + $2.25/ACU |
 | Junie | IDE+CLI | JetBrains, CLI | 128K | Multi | нет | $100-300/год |
 | Copilot | IDE+CLI | VS Code, JB, vim | 64K | GPT-4o | нет | $10-19 |
 | Amazon Q | CLI+IDE | Terminal, VS Code, JB | 128K | Claude 3.7 | CLI: да | $0-19 |
