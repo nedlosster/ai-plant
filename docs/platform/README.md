@@ -104,6 +104,13 @@ ssh -A -p <SSH_PORT> <user>@<host>
 | [text-mode.md](text-mode.md) | Переключение GUI/текстовый режим: проблема с дисплеем в text mode, решение |
 | [amd-debug-tools.md](amd-debug-tools.md) | amd-debug-tools: amd-ttm, amd-bios, amd-pstate, amd-s2idle -- установка и использование |
 
+## Рынок hardware
+
+| Документ | Содержание |
+|----------|-----------|
+| [enterprise-inference.md](enterprise-inference.md) | Datacenter GPU: NVIDIA B200/H200/H100, AMD MI300X/MI325X/MI355X, cloud pricing $/hr |
+| [hardware-alternatives.md](hardware-alternatives.md) | Consumer-альтернативы для локального inference: RTX 5090, Mac M4/M5, DGX Spark, M3 Ultra |
+
 ## Inference-стек
 
 Руководства по настройке inference: [docs/inference/](../inference/README.md)

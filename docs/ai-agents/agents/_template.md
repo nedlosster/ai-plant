@@ -71,6 +71,6 @@ agent run "..."
 
 ## Связано
 
-- Альтернативы: [<agent>](<agent>.md)
+- Альтернативы: ссылки на альтернативные агенты в этом же разделе (`agent-name.md`)
 - Платформа: [coding.md](../../models/coding.md)
 - Концепты: [README.md](../README.md)
