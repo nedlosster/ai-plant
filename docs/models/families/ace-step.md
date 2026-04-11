@@ -6,6 +6,7 @@
 **Лицензия**: Apache 2.0
 **Статус на сервере**: скачана (1.5 turbo + LM 4B)
 **Направления**: [music](../music.md), [russian-vocals](../russian-vocals.md)
+**Софтверный профиль**: [docs/apps/ace-step/](../../apps/ace-step/README.md) -- Python package, Gradio UI, LoRA trainer, статус на платформе
 
 ## Обзор
 

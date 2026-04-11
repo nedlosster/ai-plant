@@ -2,6 +2,8 @@
 
 Описание основных workflows для генерации и обработки изображений. Все примеры -- для Radeon 8060S (96 GiB VRAM, ROCm).
 
+**См. также**: [профиль ComfyUI](../../apps/comfyui/README.md) -- архитектура движка и внутреннее устройство. [apps/comfyui/architecture.md](../../apps/comfyui/architecture.md) -- async graph execution, custom_nodes, workflow JSON.
+
 ## Структура ComfyUI
 
 ComfyUI строится из нод (узлов), соединенных связями. Каждая нода выполняет одну операцию.

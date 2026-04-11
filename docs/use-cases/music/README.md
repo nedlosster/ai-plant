@@ -2,6 +2,8 @@
 
 Open-source модель генерации полных песен (вокал + инструменты) из текстового описания. MIT-лицензия. Поддержка 50+ языков, включая русский.
 
+**См. также**: [профиль платформы ACE-Step](../../apps/ace-step/README.md) -- архитектура dual-component стека и внутреннее устройство. [apps/ace-step/architecture.md](../../apps/ace-step/architecture.md) -- sampling loop, VAE, LM conditioning.
+
 ## Почему ACE-Step
 
 - Полная песня за <10 секунд на GPU (turbo-режим)

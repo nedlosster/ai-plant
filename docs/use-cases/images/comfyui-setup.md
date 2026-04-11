@@ -2,6 +2,8 @@
 
 Платформа: Radeon 8060S (120 GiB GPU-доступной памяти), Vulkan через ComfyUI-GGUF.
 
+**См. также**: [профиль платформы ComfyUI](../../apps/comfyui/README.md) -- архитектура, философия, ecosystem.
+
 ## Архитектура
 
 ComfyUI -- node-based UI для генерации изображений. На Strix Halo (gfx1151) работает через ComfyUI-GGUF -- плагин, загружающий квантизированные diffusion-модели в формате GGUF. Compute выполняется через ggml Vulkan backend.

@@ -95,6 +95,17 @@ Inference-сервер на AMD Ryzen AI MAX+ 395 (Strix Halo, 96 GiB VRAM).
 | [Картинки](use-cases/images/README.md) | ComfyUI + FLUX/SD: workflows, LoRA |
 | [Видео](use-cases/video/README.md) | Wan2.1, CogVideoX: text-to-video |
 
+## Приложения ([apps/](apps/README.md))
+
+End-user приложения через которые пользователь работает с моделями. Отличие от use-cases: здесь профили **самих приложений** (архитектура, внутреннее устройство), не рецепты задач.
+
+| Приложение | Описание |
+|------------|----------|
+| [ComfyUI](apps/comfyui/README.md) | Node-based workflow engine: diffusion, видео, multi-modal (через ggml Vulkan и PyTorch ROCm) |
+| [Open WebUI](apps/open-webui/README.md) | RAG chat frontend поверх llama-server: Functions, Pipelines, multi-user |
+| [LobeChat](apps/lobe-chat/README.md) | Markdown chat с Plugin Market и Agents Market, Next.js SSR hybrid |
+| [ACE-Step](apps/ace-step/README.md) | Music generation studio: DiT + LM dual-component, Gradio UI, LoRA trainer |
+
 ## Скрипты
 
 | Папка | Описание |
