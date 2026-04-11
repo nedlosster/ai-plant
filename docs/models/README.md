@@ -23,6 +23,10 @@
 | [Видео](video.md) | text-to-video, image-to-video |
 | [Российские LLM](russian-llm.md) | finetune'ы под русский язык |
 
+## Хроника релизов
+
+- [news.md](news.md) -- релизы моделей по кварталам (LLM, coding, vision, image, video, music)
+
 ## Скачано на сервере
 
 | Тип | Параметры | Модель | Семейство | Направления | Пресет/инструмент | VRAM |

@@ -55,7 +55,8 @@ curl http://localhost:8080/health
 
 | Документ | О чём |
 |----------|-------|
-| [docs/ai-agents/news.md](docs/ai-agents/news.md) | Хроника релизов AI-агентов и моделей по кварталам |
+| [docs/ai-agents/news.md](docs/ai-agents/news.md) | Хроника релизов AI-агентов по кварталам (Cursor, Claude Code, Devin, Codex) |
+| [docs/models/news.md](docs/models/news.md) | Хроника релизов моделей по кварталам (LLM, coding, vision, image, video) |
 | [docs/ai-agents/trends.md](docs/ai-agents/trends.md) | Долгосрочные тренды: multi-agent, bounded autonomy, context race, SWE-bench |
 
 ### Рынок AI-агентов
