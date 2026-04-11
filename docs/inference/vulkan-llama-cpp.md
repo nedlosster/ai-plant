@@ -277,6 +277,7 @@ ggml_vulkan: 0 = AMD Radeon Graphics (RADV GFX1151) (radv)
 
 ## Связанные статьи
 
+- [llama.cpp (профиль проекта)](llama-cpp.md) -- история, GGML, GGUF, квантизации, экосистема
 - [Выбор моделей](model-selection.md)
 - [llama.cpp + ROCm](rocm-llama-cpp.md)
 - [CPU-инференс](cpu-inference.md)

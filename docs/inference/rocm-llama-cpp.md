@@ -112,6 +112,7 @@ Vulkan быстрее HIP во всех тестах. На dense-моделях 
 
 ## Связанные статьи
 
+- [llama.cpp (профиль проекта)](llama-cpp.md) -- история, GGML, GGUF, квантизации, экосистема
 - [Установка ROCm](rocm-setup.md)
 - [llama.cpp + Vulkan](vulkan-llama-cpp.md)
 - [Выбор моделей](model-selection.md)

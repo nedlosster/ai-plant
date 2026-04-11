@@ -587,6 +587,7 @@ llama-server \
 ## Связанные статьи
 
 - [Анатомия LLM](model-anatomy.md)
+- [llama.cpp (профиль проекта)](../inference/llama-cpp.md) -- K-quants и IQ-quants в контексте архитектуры GGML/GGUF
 - [Выбор моделей](../inference/model-selection.md)
 - [Локальный vs API](local-vs-api.md)
 - [Справочник LLM](../models/llm.md)
