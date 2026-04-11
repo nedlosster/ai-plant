@@ -66,6 +66,14 @@ VRAM-аппетиты у всех моделей умеренные (4-8 GiB).
 - [matatonic/openedai-speech](https://github.com/matatonic/openedai-speech) -- XTTS/Piper в OpenAI API
 - [Resemble Chatterbox](https://docs.openwebui.com/features/media-generation/audio/text-to-speech/chatterbox-tts-api-integration/) -- voice cloning, native гайд
 
+Детальное руководство по подключению: [../apps/open-webui/tts-integration.md](../apps/open-webui/tts-integration.md).
+
+### LobeChat -> Speech Provider
+
+LobeChat Settings -> Speech -> TTS/STT Provider = OpenAI (совместимый). Поддерживает те же backends что Open WebUI, а также **Web Speech API** (native browser), **Transformers.js** (in-browser Whisper), **plugin-based** TTS через Plugin Market.
+
+Детальное руководство: [../apps/lobe-chat/tts-integration.md](../apps/lobe-chat/tts-integration.md).
+
 ### AllTalk TTS v2
 
 - [erew123/alltalk_tts](https://github.com/erew123/alltalk_tts)

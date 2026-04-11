@@ -33,6 +33,7 @@
 | Chat с локальными моделями через браузер | [Open WebUI](open-webui/README.md) или [LobeChat](lobe-chat/README.md) |
 | Chat с RAG по локальным документам | [Open WebUI](open-webui/README.md) (нативная поддержка) |
 | Chat с plugins экосистемой и assistants | [LobeChat](lobe-chat/README.md) (Plugin Market) |
+| **Голосовой диалог с LLM (TTS+STT)** | [Open WebUI TTS](open-webui/tts-integration.md) или [LobeChat Voice Mode](lobe-chat/tts-integration.md) |
 | Генерация песен с вокалом | [ACE-Step](ace-step/README.md) |
 | Автоматизация diffusion-pipeline через API | [ComfyUI](comfyui/README.md) в API-mode |
 | Multi-user chat-deployment с SSO | [Open WebUI](open-webui/README.md) (Pipelines, RBAC) |

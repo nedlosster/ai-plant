@@ -25,6 +25,7 @@
 | [architecture.md](architecture.md) | SvelteKit frontend + FastAPI backend, SQLite/PostgreSQL, Redis, встроенный RAG, OpenAI-compat layer |
 | [simple-use-cases.md](simple-use-cases.md) | Базовый чат, подключение к llama-server, выбор модели, темы, history |
 | [advanced-use-cases.md](advanced-use-cases.md) | RAG pipeline, Functions, Pipelines, multi-user с RBAC, MCP servers, кастомные модели |
+| [tts-integration.md](tts-integration.md) | Подключение TTS backends (Kokoro, Chatterbox, XTTS), voice cloning, auto-play, streaming TTS, STT через Whisper, полный голосовой workflow |
 
 ## Статус на Strix Halo
 

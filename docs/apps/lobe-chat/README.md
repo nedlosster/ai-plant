@@ -25,6 +25,7 @@ Markdown-first AI chat с Plugin Market и Agents Market экосистемой.
 | [architecture.md](architecture.md) | Next.js SSR + React Router SPA hybrid, Edge Runtime API, Plugin Market SDK, Agents Market, self-hosted market server |
 | [simple-use-cases.md](simple-use-cases.md) | Базовый чат, выбор assistant, markdown форматирование, smooth streaming |
 | [advanced-use-cases.md](advanced-use-cases.md) | Plugin Market integration, custom assistants, voice mode, image gen plugins, background tasks |
+| [tts-integration.md](tts-integration.md) | Speech Provider layer, OpenAI-compat TTS/STT backends, Voice Mode full-duplex, Browser Web Speech API, plugin-based TTS, полный голосовой workflow |
 
 ## Статус на Strix Halo
 
