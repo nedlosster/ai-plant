@@ -14,7 +14,8 @@
 | Задача | Документ |
 |--------|----------|
 | [LLM общего назначения](llm.md) | универсальные текстовые LLM |
-| [Кодинг](coding.md) | код, FIM, agents |
+| [Кодинг (open-source)](coding.md) | код, FIM, agents -- локальные модели на платформе |
+| [Кодинг (closed-source)](closed-source-coding.md) | GPT-5.3 Codex, Claude Opus, Gemini Pro -- API pricing, gap analysis, decision matrix |
 | [Vision LLM](vision.md) | multimodal: текст + изображения |
 | [TTS с клонированием голоса](tts.md) | voice cloning по референсу |
 | [Музыка и вокал](music.md) | генерация музыки и песен |

@@ -41,6 +41,8 @@
 
 Источник: [llm-stats.com](https://llm-stats.com/benchmarks/swe-bench-verified). Лучшая open-source модель в SWE-bench Verified -- Devstral 2 24B (72.2%).
 
+Подробный обзор closed-source coding моделей (профили, API pricing, decision matrix "когда API vs локально", agent→model mapping): **[closed-source-coding.md](closed-source-coding.md)**.
+
 **#1 Qwen3-Coder Next** -- основной выбор для daily agentic-кодинга. 80B MoE с 3B активных параметров: качество как у 24B dense, скорость почти как у 3B. 256K контекст уверенно держит средний monorepo. Проигрывает Devstral 2 на dense-задачах с одним сложным файлом, выигрывает на multi-file orchestration и speed/quality.
 
 **#2 Devstral 2 24B** -- лидер dense-семейства с 72.2% SWE-V (рекорд для размера). Tool use дисциплина строже MoE-вариантов, итерации более последовательные. Минус -- 25 tok/s ощутимо медленнее MoE на той же платформе, на длинных сессиях opencode выматывает.
