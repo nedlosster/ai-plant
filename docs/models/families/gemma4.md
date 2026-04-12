@@ -1,13 +1,14 @@
-# Gemma 4 (Google, 2026)
+# Gemma 4 (Google, 2 апреля 2026)
 
-> Multimodal MoE с native function calling, 256K контекстом и thinking-режимом.
+> Multimodal MoE с native function calling, 256K контекстом, thinking-режимом, bounding box prediction, adaptive image tokens (70-1120). Четыре размера: E2B, E4B, 26B-A4B (MoE), 31B (dense).
 
-**Тип**: MoE (3.8B active / 25.2B total)
-**Лицензия**: Gemma Terms of Use
+**Тип**: MoE (3.8B active / 25.2B total) -- основной вариант; также 31B dense и edge E2B/E4B
+**Лицензия**: Apache 2.0 (E2B, E4B), Gemma Terms of Use (26B, 31B)
 **Статус на сервере**: скачана (26B-A4B Q6_K_XL + mmproj-BF16)
 **Направления**: [llm](../llm.md), [vision](../vision.md)
 **Function calling**: native (лучшее сочетание FC + vision на платформе)
-**Vision**: да (mmproj-BF16, 1.19 GB)
+**Vision**: да (SigLIP-style encoder, mmproj-BF16, 1.19 GB, adaptive 70-1120 tokens/image)
+**Audio**: только E2B и E4B (USM-style conformer encoder)
 
 ## Обзор
 
@@ -17,11 +18,28 @@ Gemma 4 26B-A4B -- multimodal MoE-модель от Google нового поко
 
 ## Варианты
 
-| Вариант | Параметры | Active | Контекст | VRAM | mmproj | Статус | Hub |
-|---------|-----------|--------|----------|------|--------|--------|-----|
-| 26B-A4B Q6_K_XL | 25.2B MoE | 3.8B | 256K | ~22 GiB | 1.19 GB | скачана | [unsloth/gemma-4-26B-A4B-it-GGUF](https://huggingface.co/unsloth/gemma-4-26B-A4B-it-GGUF) |
-| 26B-A4B Q4_K_M | 25.2B MoE | 3.8B | 256K | ~16.9 GiB | 1.19 GB | не скачана | то же |
-| 26B-A4B Q8_0 | 25.2B MoE | 3.8B | 256K | ~26.9 GiB | 1.19 GB | не скачана | то же |
+Семейство включает **четыре размера**, от edge до flagship:
+
+| Вариант | Параметры | Active | Контекст | Vision | Audio | VRAM Q4 | Статус | Лицензия |
+|---------|-----------|--------|----------|--------|-------|---------|--------|----------|
+| **E2B** | 2B dense | 2B | 32K | да | **да** | ~2 GiB | не скачана | Apache 2.0 |
+| **E4B** | 4B dense | 4B | 32K | да | **да** | ~3 GiB | не скачана | Apache 2.0 |
+| **26B-A4B** | 25.2B MoE | 3.8B | **256K** | да | нет | ~17 GiB | **скачана** (Q6_K_XL) | Gemma TOU |
+| **31B** | 31B dense | 31B | **256K** | да | нет | ~19 GiB | не скачана | Gemma TOU |
+
+**E2B и E4B** -- edge-варианты с **аудио-входом** (USM-style conformer encoder) помимо vision и text. Designed для мобильных устройств и embedded. На Strix Halo избыточны -- 26B-A4B качественнее при том же VRAM.
+
+**31B dense** -- flagship, все параметры активны. Даёт лучшее качество в бенчмарках чем 26B-A4B MoE, но медленнее (dense 31B vs 3.8B active). На Strix Halo: ~19 GiB Q4 помещается, но tg ~5 tok/s (memory-bound на 31B), что непрактично для интерактивного чата.
+
+**26B-A4B MoE** -- основной рабочий вариант на платформе. Баланс: 3.8B active = скорость dense 4B, качество большой 26B.
+
+### Квантизации скачанного варианта (26B-A4B)
+
+| Квант | VRAM | mmproj | Статус | Hub |
+|-------|------|--------|--------|-----|
+| **Q6_K_XL** | ~22 GiB | 1.19 GB | **скачана** | [unsloth/gemma-4-26B-A4B-it-GGUF](https://huggingface.co/unsloth/gemma-4-26B-A4B-it-GGUF) |
+| Q4_K_M | ~17 GiB | 1.19 GB | не скачана | то же |
+| Q8_0 | ~27 GiB | 1.19 GB | не скачана | то же |
 
 ### Варианты mmproj в репо
 
@@ -37,7 +55,79 @@ Gemma 4 26B-A4B -- multimodal MoE-модель от Google нового поко
 - **Native function calling** -- из коробки, без отдельного fine-tune
 - **Thinking-режим** через `<|think|>` token в начале system prompt
 - **Variable aspect ratio** изображений -- понимает портрет/панораму без принудительного crop
-- **Sliding window attention** -- эффективная работа с длинными контекстами, но чувствительна к OOM при больших контекстах (см. защиты в пресете)
+- **Sliding window attention** -- чередование local (512-1024 токенов) и global слоёв
+- **Bounding box prediction** -- нативный JSON output для координат объектов в кадре
+
+## Интересные технические детали
+
+### Адаптивные image tokens: 70 → 1120 на кадр
+
+SigLIP vision encoder в Gemma 4 **не фиксирует количество токенов на изображение**. Вместо этого используется **configurable token budget**: 70, 140, 280, 560 или 1120 vision-токенов на кадр.
+
+Это означает:
+- **70 токенов** (минимум) -- грубое понимание сцены, достаточно для "что на фото" и классификации. Минимальный VRAM, максимальная скорость
+- **280 токенов** (среднее) -- баланс для большинства задач (описание, OCR крупного текста)
+- **1120 токенов** (максимум) -- pixel-level детализация для OCR мелкого текста, bounding box prediction, chart analysis
+
+При загрузке 30 скриншотов в 256K контекст: `30 × 280 = 8400` vision-токенов -- менее 4% контекста. Если важна детализация: `30 × 1120 = 33600` -- ~13% контекста, всё ещё управляемо.
+
+На практике llama-server автоматически выбирает budget на основе разрешения входного изображения. Малые картинки (<384px) → 70 токенов, средние → 280, большие (>1024px) → 560-1120.
+
+### Чередование local и global attention
+
+Gemma 4 **не использует чисто global attention** на всех слоях (как в Llama/Qwen). Вместо этого чередуются:
+
+- **Local sliding-window слои** (window = 512 или 1024 токенов) -- видят только ближайший контекст. Быстрые, экономные по KV-cache
+- **Global full-context слои** -- видят все 256K токенов. Медленнее, дороже
+
+Чередование (упрощённо): local → local → global → local → local → global → ...
+
+Это **снижает KV-cache** (local слои не кэшируют дальние токены) и ускоряет inference, но создаёт **побочный эффект**: sliding window cache не переиспользуется между turn'ами (ctx-shift не работает), поэтому в multi-turn каждый запрос фактически пересчитывает весь prefix.
+
+### Per-Layer Embeddings (PLE) в E2B/E4B
+
+Маленькие варианты (E2B, E4B) используют **PLE** -- дополнительный параллельный канал рядом с основным residual stream:
+
+```
+Основной поток:    x → attention → FFN → x'
+PLE-поток:         e_token + e_context → маленький вектор на каждый layer
+```
+
+PLE даёт каждому слою **дополнительный conditioning signal**, который зависит:
+1. От **token identity** (какой токен) -- через lookup table
+2. От **контекста** (что вокруг) -- через mini-attention
+
+Результат: E2B с PLE даёт качество, которое без PLE потребовало бы ~3-4B параметров. Это key innovation для edge-deployment.
+
+### Аудио-encoder в E2B/E4B
+
+Малые варианты имеют **USM-style conformer audio encoder** (как в Gemma 3n):
+- Принимает аудио-вход (до 90 секунд)
+- Конвертирует в sequence of audio tokens
+- Токены объединяются с text и vision в общий input
+
+Это делает E2B и E4B **tri-modal**: text + images + audio. У 26B-A4B и 31B аудио-входа нет.
+
+Практический use case на edge: smart doorbell с Gemma 4 E4B -- видит камеру, слышит звук, отвечает текстом.
+
+### Bounding box prediction: native JSON
+
+Gemma 4 умеет возвращать координаты объектов прямо в JSON, без post-processing:
+
+Промпт: "Найди все кнопки на скриншоте, верни координаты"
+
+Ответ:
+```json
+[
+  {"label": "Submit", "bbox": [120, 340, 280, 380]},
+  {"label": "Cancel", "bbox": [300, 340, 420, 380]},
+  {"label": "Settings icon", "bbox": [780, 10, 820, 50]}
+]
+```
+
+Координаты `[x1, y1, x2, y2]` в пикселях исходного изображения. Это **нативная способность** модели, не требующая grammar constraints -- модель обучена возвращать bbox как часть ответа.
+
+Полезно для: UI testing automation, accessibility audit (где clickable area < 44px), visual regression detection (сравнение bbox между screenshots).
 
 ### Бенчмарки
 
@@ -191,6 +281,63 @@ Gemma 4 Q6_K_XL занимает 22 GiB + mmproj 1.2 GiB = ~23 GiB, оставл
 
 Альтернатива -- [Qwen3-VL](qwen3-vl.md#30b-a3b) даст лучше OCR, но без function calling придётся делать orchestration снаружи.
 
+### 9. Bounding box для UI-тестирования
+
+Скриншот веб-приложения → промпт: "Найди все интерактивные элементы и верни bounding boxes в JSON"
+
+Gemma 4 возвращает нативный JSON с координатами:
+```json
+[
+  {"label": "Login button", "bbox": [520, 400, 720, 450], "type": "button"},
+  {"label": "Email input", "bbox": [520, 280, 720, 320], "type": "input"},
+  {"label": "Hamburger menu", "bbox": [20, 10, 60, 50], "type": "icon"}
+]
+```
+
+Координаты -- в пикселях исходного скриншота, `[x1, y1, x2, y2]`. Это **нативная способность** (не grammar constraint), модель обучена возвращать bbox как часть structured output.
+
+Применения:
+- **Cypress/Playwright test generation**: bbox → координаты для `page.click(x, y)`
+- **Visual regression**: сравнить bbox между двумя скриншотами (до и после деплоя)
+- **Accessibility audit**: проверить что все clickable areas >= 44x44 px
+- **Auto-annotation**: разметить UI-элементы для ML-датасета
+
+### 10. Настройка image token budget для batch-обработки
+
+При batch-обработке большого количества изображений (1000+ скриншотов из e2e тестов) -- важна скорость. Gemma 4 позволяет **снизить token budget** до 70 токенов на кадр:
+
+- **70 tokens**: ~50 мс на кадр на Strix Halo. Достаточно для classification ("Pass/Fail"), detection грубых ошибок, тривиального OCR
+- **280 tokens** (default): ~150 мс на кадр. OCR среднего текста, описание сцены
+- **1120 tokens**: ~500 мс на кадр. Pixel-level детализация, мелкий текст
+
+Для batch в 1000 скриншотов разница: 50 сек (70 tokens) vs 8 мин (1120 tokens). Выбор token budget через prompt engineering: "Describe this screenshot very briefly" (модель выбирает меньше tokens) vs "Provide detailed OCR of all text visible" (модель выбирает больше).
+
+### 11. Multimodal RAG: изображения + документы в одном контексте
+
+256K контекст позволяет загрузить **одновременно** документ (20K токенов текста) + серию скриншотов (10 × 280 = 2800 vision tokens) + промпт. Всё в одном запросе, без RAG-пайплайна:
+
+Пример: "Вот техническое задание (PDF извлечённый в текст) и 10 скриншотов текущего UI. Какие требования из ТЗ не реализованы?"
+
+Gemma 4:
+1. Парсит текст ТЗ, извлекает требования
+2. Анализирует скриншоты, находит реализованное
+3. Cross-reference: требования vs визуальное состояние
+4. Выдаёт structured список несоответствий
+
+Это **multimodal RAG в одном запросе** -- без embedding модели, без vector store, без чанкинга. Работает пока всё влезает в 256K.
+
+### 12. Code review по скриншотам (before/after)
+
+Два скриншота: `before.png` (старый UI) и `after.png` (после PR). Промпт: "Сравни оба скриншота, опиши что изменилось визуально"
+
+Gemma 4:
+- Извлекает layout differences
+- Находит новые/удалённые элементы
+- Замечает color changes, font changes, spacing differences
+- Через function calling может сразу вызвать `create_issue` если найдена регрессия
+
+Use case: visual code review в CI pipeline -- автоматическая проверка что PR не сломал UI.
+
 ### Антипаттерны
 
 - **Не использовать Gemma 4 для чистого OCR мелкого текста** -- [Qwen3-VL](qwen3-vl.md) точнее на 10-15%
@@ -198,6 +345,7 @@ Gemma 4 Q6_K_XL занимает 22 GiB + mmproj 1.2 GiB = ~23 GiB, оставл
 - **Не запускать без `--parallel 1 --no-mmap`** -- sliding window cache схлопывается, OOM
 - **Не пытаться использовать `--cache-reuse` agressively** -- llama.cpp игнорирует для Gemma 4, prefix пересчитывается каждый turn (см. слабые стороны выше)
 - **Не использовать F32 mmproj** -- BF16 даёт идентичное качество при половинном размере
+- **Не загружать 31B dense для интерактивного чата** -- ~5 tok/s на Strix Halo, тяжёлый memory-bound. Лучше 26B-A4B (MoE, ~70 tok/s)
 
 ## Загрузка
 

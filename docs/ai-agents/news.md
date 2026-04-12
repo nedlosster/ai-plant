@@ -30,6 +30,10 @@ Cognition выпустила **Devin 2.0**:
 - **Devin Wiki** -- авто-документирование codebase
 - **Цена**: с $500/мес снижена до **$20/мес + $2.25 за ACU** (Agent Compute Unit) -- 25x дешевле для on-demand сценариев
 
+### Apr 2026 -- MCP: 97 млн установок, де-факто стандарт
+
+Model Context Protocol (MCP) от Anthropic пересёк **97 млн установок** (данные за март 2026). Каждый крупный AI-провайдер поставляет MCP-совместимые инструменты. MCP стал default-механизмом для подключения агентов к внешним data sources и инструментам. Поддерживается: Claude Code, [Open WebUI](../apps/open-webui/README.md), [Ollama](../inference/ollama.md), Cursor, Cline, Roo Code, Kilo Code и др.
+
 ### Apr 2026 -- "Война подписок": Anthropic vs OpenClaw
 
 **4 апреля 2026** -- [Anthropic заблокировал использование Claude Pro/Max подписок в third-party tools](https://www.axios.com/2026/04/06/anthropic-openclaw-subscription-openai). До этого пользователи [OpenClaw](agents/openclaw.md), [Cline](agents/cline.md) и других прокси-инструментов использовали $20/$100 подписку как "бесплатный" backend через web auth.

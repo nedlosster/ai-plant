@@ -37,6 +37,19 @@
 
 См. [video.md](video.md).
 
+### Apr 2026 -- Gemma 4: четыре размера, 256K context, Apache 2.0 (Google)
+
+**2 апреля 2026** -- Google DeepMind выпустил [Gemma 4](families/gemma4.md) в четырёх вариантах:
+
+| Вариант | Параметры | Контекст | Особенности |
+|---------|-----------|----------|-------------|
+| **E2B** | 2B | 32K | Edge/mobile inference |
+| **E4B** | 4B | 32K | Edge, энергоэффективность |
+| **26B-A4B** | 26B MoE / 3.8B active | 256K | Multimodal, function calling, Apache 2.0 |
+| **31B** | 31B dense | **256K** | Flagship, function calling, agentic workflows |
+
+31B -- максимальный по качеству вариант, 85 tok/s на consumer hardware, встроенный function calling для agentic-задач. Скачан на платформу (26B-A4B через `vulkan/preset/gemma4.sh`). См. [llm.md](llm.md), [vision.md](vision.md).
+
 ### Mar 2026 -- Cursor Composer 2 (Kimi K2.5 base)
 
 Cursor выпустил проприетарную coding-модель **Composer 2**, построенную поверх **Moonshot AI Kimi K2.5** (1T MoE / 32B active). Continued pretraining + large-scale RL. Это первый крупный продакт-тейкап Kimi K2.5 как foundation. См. [kimi-k25](families/kimi-k25.md), [coding.md](coding.md).
@@ -104,18 +117,6 @@ Llama 4 Scout помещается на платформу (~67 GiB Q4). См. [
 ### Q4 2025 -- DeepSeek V3.2 (DeepSeek)
 
 Релиз **DeepSeek V3.2** -- 671B MoE под лицензией **MIT**. Consistently strong scores на всех бенчмарках, S-tier среди open-source. Не помещается на платформу (~390 GB Q4). См. [llm.md](llm.md#не-помещаются-на-платформе-для-справки).
-
-### Q4 2025 -- Gemma 4 26B-A4B (Google)
-
-Релиз [Gemma 4](families/gemma4.md) -- новый MoE flagship Google:
-- 26B total / 3.8B active
-- 256K контекст
-- Native function calling
-- 85 tok/s на consumer hardware
-- Multimodal (text + images)
-- LiveCodeBench **77.1%**, MMMU-Pro **76.9** -- лидер на платформе
-
-Скачана, используется через `vulkan/preset/gemma4.sh`. См. [llm.md](llm.md), [vision.md](vision.md).
 
 ## 2025-Q3
 
