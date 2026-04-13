@@ -25,6 +25,9 @@ VRAM-аппетиты у всех моделей умеренные (4-8 GiB).
 | Fish Speech 1.5 | [fish-speech](families/fish-speech.md) | 8 | 10-30 сек | ~6 GiB | Apache 2.0 |
 | IndexTTS-2 | [indextts2](families/indextts2.md) | 5+ | 10 сек | ~8 GiB | Open |
 | XTTS v2 | [xtts](families/xtts.md) | 16 | **6 сек** | ~4 GiB | CPML |
+| **VoxCPM2** (new) | -- | multilingual | voice cloning | -- | Open (OpenBMB) |
+
+**VoxCPM2** (апрель 2026, OpenBMB) -- tokenizer-free TTS нового поколения. Устраняет этап токенизации из pipeline: вместо text → tokens → speech, работает text → continuous representation → speech. Multilingual, voice cloning, creative sound design. Детали на [OpenBMB GitHub](https://github.com/OpenBMB). См. [news.md](news.md).
 
 ## Выбор под задачу
 

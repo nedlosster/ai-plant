@@ -6,6 +6,22 @@
 
 ## 2026-Q2 (актуально)
 
+### Apr 2026 -- MiniMax M2.7 open-sourced (SWE-Pro 56.2%, Terminal-Bench 57.0%)
+
+MiniMax выпустил open-source модель **M2.7**: state-of-the-art на двух coding-бенчмарках:
+- **SWE-Pro**: 56.22% (рекорд среди open-source)
+- **Terminal-Bench 2**: 57.0%
+
+Веса на [HuggingFace](https://huggingface.co/MiniMaxAI), API через MiniMax Platform. Позиционируется как серьёзный конкурент Devstral 2 и Qwen3-Coder в open coding-сегменте.
+
+### Apr 2026 -- HappyHorse-1.0 (Alibaba) -- open-source видео #1 на Artificial Analysis
+
+Alibaba выпустила **HappyHorse-1.0** -- open-source видео-генерацию, занявшую **первое место** на лидерборде [Artificial Analysis](https://artificialanalysis.ai). Тихий релиз без промо -- модель обнаружена community на HuggingFace. Конкурент [Wan 2.7](families/wan.md) и [LTX-2](families/ltx-2.md). См. [video.md](video.md).
+
+### Apr 2026 -- VoxCPM2 (OpenBMB) -- tokenizer-free TTS
+
+**VoxCPM2** от OpenBMB -- TTS-модель нового подхода: **без токенизатора** в pipeline. Вместо text → tokens → speech, VoxCPM2 работает напрямую text → speech через continuous representation. Multilingual, voice cloning, creative sound design. См. [tts.md](tts.md).
+
 ### Apr 2026 -- Claude Mythos Preview лидирует на SWE-bench Verified
 
 **10 апреля 2026** -- лидерборд [SWE-bench Verified](../llm-guide/benchmarks/swe-bench.md):

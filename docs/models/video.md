@@ -28,6 +28,7 @@ ROCm 7.2.1 на gfx1151 стабилен. Запуск через `HSA_OVERRIDE_
 | Модель | Семейство | Параметры | T2V | I2V | Audio | Длительность | Разрешение | Лицензия |
 |--------|-----------|-----------|-----|-----|-------|--------------|------------|----------|
 | **LTX-2** | [ltx-2](families/ltx-2.md) | **19B (14B+5B)** | да | да | **sync single-pass** | **20 сек** | **4K 50fps** | open weights |
+| **HappyHorse-1.0** | -- | -- | да | да | -- | -- | -- | open (Alibaba) |
 | Wan 2.7 | [wan](families/wan.md) | 14B MoE | да | да | native | 15 сек | 1080p | Apache 2.0 |
 | Wan 2.6 | [wan](families/wan.md) | 14B MoE | да | да | native | 15 сек | 720p | Apache 2.0 |
 | HunyuanVideo 1.5 | [hunyuanvideo](families/hunyuanvideo.md) | 8.3B | да | да | нет | 5 сек | 720p | HunyuanVideo |
