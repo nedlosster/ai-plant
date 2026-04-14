@@ -11,6 +11,7 @@
 ### LLM общего назначения
 - [qwen36](qwen36.md) -- Qwen3.6-Plus (API-only, ожидаются open weights)
 - [kimi-k25](kimi-k25.md) -- Kimi K2.5 1T MoE (open weights, не помещается локально, API)
+- [glm](glm.md) -- GLM-4.5/5/5.1/5V-Turbo (Z.ai, 744B MoE, MIT, open-weight #1 на SWE-Pro, через API)
 - [qwen35](qwen35.md) -- Qwen3.5 27B/35B-A3B/122B-A10B (скачаны 27B + 122B-A10B)
 - [llama](llama.md) -- Llama 3.1/3.3/4 Scout
 - [mixtral](mixtral.md) -- Mixtral 8x22B 141B MoE

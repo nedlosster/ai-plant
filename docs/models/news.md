@@ -28,7 +28,7 @@
 
 Это **первая open-weight модель**, обогнавшая proprietary frontier на SWE-Bench Pro. Специализация -- agentic engineering и long-horizon software development. Может "переосмысливать" стратегию кодирования через сотни итераций.
 
-Не помещается на платформу (744B total / 40B active, ~440 GB Q4). Используется через API Z.ai или cloud-провайдеров. См. [llm.md](llm.md), [coding.md](coding.md).
+Не помещается на платформу (744B total / 44B active, ~440 GB Q4). Используется через API Z.ai или cloud-провайдеров. Полный профиль семейства: [families/glm.md](families/glm.md). См. также [llm.md](llm.md), [coding.md](coding.md).
 
 ### Apr 2026 -- GLM-5V-Turbo (Z.ai): multimodal vision
 

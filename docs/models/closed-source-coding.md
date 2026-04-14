@@ -146,7 +146,9 @@
 
 ### GLM-5.1 (Z.ai / Zhipu AI)
 
-**Тип**: 744B MoE / 40B active, **open weights** (MIT лицензия)
+Подробная карточка семейства -- [families/glm.md](families/glm.md).
+
+**Тип**: 744B MoE / 44B active, **open weights** (MIT лицензия)
 **Доступ**: API Z.ai; open weights доступны, но **не помещаются** (~440 GB Q4)
 **Контекст**: 128K
 **Дата релиза**: 7 апреля 2026
