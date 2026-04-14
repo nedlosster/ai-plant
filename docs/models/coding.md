@@ -29,16 +29,21 @@
 - **Qwen3-Coder-480B-A35B-Instruct** (256K-1M контекст) -- флагман семейства, 480B total / 35B active. ~270 GB Q4.
 - **Kimi-Dev-72B** (Moonshot AI, 2026) -- 72B dense, конкурент Devstral 2 в dense-сегменте, ~42 GB Q4 -- помещается, но не интегрирован в пресеты.
 - **DeepSeek V3.2** (671B MoE, MIT license) -- consistently strong scores на всех бенчмарках, ~390 GB Q4.
-- **MiniMax M2.7** (апрель 2026) -- open-source, SWE-Pro **56.2%** (рекорд open-source), Terminal-Bench 2 57.0%. Размер не раскрыт, предположительно >120 GiB. [HuggingFace](https://huggingface.co/MiniMaxAI). См. [news.md](news.md).
+- **MiniMax M2.7** (апрель 2026) -- open-source, SWE-Pro **56.2%** (был рекорд open-source до GLM-5.1), Terminal-Bench 2 57.0%. Размер не раскрыт, предположительно >120 GiB. [HuggingFace](https://huggingface.co/MiniMaxAI). См. [news.md](news.md).
+- **GLM-5.1** (Z.ai, 7 апреля 2026) -- 744B MoE / 40B active, MIT, **SWE-Pro 58.4%** (первый open-weight в топе лидерборда, обогнал GPT-5.4 и Claude Opus 4.6). ~440 GB Q4, используется через API. См. [closed-source-coding.md](closed-source-coding.md).
 
 ### Frontier (closed-source, для контекста)
 
-| Модель | SWE-bench Verified | Дата |
-|--------|-------------------|------|
-| Claude Mythos Preview (Anthropic) | **93.9%** | 10 апр 2026 |
-| GPT-5.3 Codex | 85.0% | апр 2026 |
-| Claude Opus 4.5 | 80.9% | апр 2026 |
-| Gemini 3.1 Pro Preview | 78.8% | 8 апр 2026 |
+| Модель | SWE-bench Verified | SWE-Bench Pro | Дата |
+|--------|-------------------|---------------|------|
+| Claude Mythos Preview (Anthropic) | **93.9%** | -- | 10 апр 2026 |
+| GPT-6 (OpenAI) | -- | -- | 14 апр 2026 |
+| GPT-5.3 Codex | 85.0% | -- | апр 2026 |
+| Claude Opus 4.5 | 80.9% | -- | апр 2026 |
+| GPT-5.4 | -- | 57.7% | апр 2026 |
+| Claude Opus 4.6 | -- | 57.3% | апр 2026 |
+| Gemini 3.1 Pro Preview | 78.8% | -- | 8 апр 2026 |
+| **GLM-5.1 (open-weight, MIT)** | -- | **58.4%** ⭐ | 7 апр 2026 |
 
 Источник: [llm-stats.com](https://llm-stats.com/benchmarks/swe-bench-verified). Лучшая open-source модель в SWE-bench Verified -- Devstral 2 24B (72.2%).
 

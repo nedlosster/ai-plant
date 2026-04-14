@@ -6,6 +6,43 @@
 
 ## 2026-Q2 (актуально)
 
+### Apr 2026 -- GPT-6 (OpenAI): 2M context, новая frontier
+
+**14 апреля 2026** -- релиз [GPT-6](https://openai.com/) от OpenAI:
+- **Контекст 2M токенов** -- рекорд среди proprietary моделей
+- **Proprietary license**, API-only
+- **Pricing**: $2.50/1M input, $12/1M output (в 4x дешевле GPT-5.3 Codex по input)
+- Позиционируется как новое поколение general-purpose frontier
+
+См. [closed-source-coding.md](closed-source-coding.md) для роли в coding.
+
+### Apr 2026 -- GLM-5.1 (Z.ai): open-weight #1 на SWE-Bench Pro
+
+**7 апреля 2026** -- [Z.ai](https://z.ai) (ex-Zhipu AI) выпустила **GLM-5.1** под MIT лицензией:
+
+| Модель | SWE-Bench Pro |
+|--------|---------------|
+| **GLM-5.1 (open-weight, MIT)** | **58.4%** |
+| GPT-5.4 | 57.7% |
+| Claude Opus 4.6 | 57.3% |
+
+Это **первая open-weight модель**, обогнавшая proprietary frontier на SWE-Bench Pro. Специализация -- agentic engineering и long-horizon software development. Может "переосмысливать" стратегию кодирования через сотни итераций.
+
+Не помещается на платформу (744B total / 40B active, ~440 GB Q4). Используется через API Z.ai или cloud-провайдеров. См. [llm.md](llm.md), [coding.md](coding.md).
+
+### Apr 2026 -- GLM-5V-Turbo (Z.ai): multimodal vision
+
+**1 апреля 2026** -- релиз **GLM-5V-Turbo** -- vision-language вариант GLM-5 семейства, оптимизирован под coding-задачи (screenshot-to-code, diagram understanding). Multimodal coding conversion, на уровне Claude Opus / Gemini Pro на vision-coding бенчмарках. Open-weight. См. [vision.md](vision.md).
+
+### Apr 2026 -- Microsoft MAI Models: speech, voice, image generation
+
+Первая неделя апреля 2026 -- Microsoft выпустила **MAI (Microsoft AI) Models** семейство. Включает модели для:
+- Генерации речи (TTS)
+- Voice cloning
+- Image generation
+
+Детали и лицензия пока ограничены. Watching: интеграция в Azure AI Foundry и Copilot Studio.
+
 ### Apr 2026 -- MiniMax M2.7 open-sourced (SWE-Pro 56.2%, Terminal-Bench 57.0%)
 
 MiniMax выпустил open-source модель **M2.7**: state-of-the-art на двух coding-бенчмарках:

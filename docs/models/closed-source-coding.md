@@ -125,6 +125,48 @@
 - Code quality на backend-задачах ниже чем Codex/Claude
 - Grounding иногда вмешивается когда не нужно
 
+### GPT-6 (OpenAI)
+
+**Тип**: проприетарная (архитектура не раскрыта)
+**Доступ**: API only ($2.50/1M input, $12/1M output)
+**Контекст**: **2M токенов** -- рекорд среди proprietary моделей
+**Дата релиза**: 14 апреля 2026
+
+Новое поколение OpenAI general-purpose модели. Позиционируется как преемник GPT-5 series, не как специализированный coding (GPT-5.3 Codex остаётся флагманом именно для coding).
+
+**Ключевые особенности**:
+- **2M контекст** -- больше чем у Claude 4.6 и Gemini Pro (обе 1M)
+- **В 4x дешевле по input** чем GPT-5.3 Codex ($2.50 vs $10) -- агрессивное ценообразование против конкурентов
+- **General-purpose**: хорошие результаты на всех категориях (reasoning, coding, knowledge) без узкой специализации
+- **Не Codex-замена**: OpenAI продолжает развивать Codex-серию (GPT-5.3 Codex, Spark) как отдельную линейку для agentic coding
+
+**Для coding** GPT-6 может использоваться в general-purpose агентах (ChatGPT plugins, кастомные интеграции), но для профессионального coding лучше GPT-5.3 Codex.
+
+**Что НЕ раскрыто**: размер, архитектура, training data, есть ли reasoning-модификация.
+
+### GLM-5.1 (Z.ai / Zhipu AI)
+
+**Тип**: 744B MoE / 40B active, **open weights** (MIT лицензия)
+**Доступ**: API Z.ai; open weights доступны, но **не помещаются** (~440 GB Q4)
+**Контекст**: 128K
+**Дата релиза**: 7 апреля 2026
+
+Z.ai (ex-Zhipu AI) выпустила **первый open-weight модель, обогнавшую proprietary frontier** на SWE-Bench Pro:
+
+| Модель | SWE-Bench Pro |
+|--------|---------------|
+| **GLM-5.1 (MIT)** | **58.4%** |
+| GPT-5.4 | 57.7% |
+| Claude Opus 4.6 | 57.3% |
+
+**Ключевые особенности**:
+- **MIT лицензия** -- самая свободная в индустрии, включая коммерческое использование
+- **Iterative strategy refinement**: модель может "переосмысливать" coding-стратегию через сотни итераций -- уникальная способность для agentic engineering
+- **Long-horizon software development**: специализирована под задачи, требующие многочасовой работы (refactors, архитектурные изменения)
+- **GLM-5V-Turbo**: отдельный vision-language вариант (релиз 1 апреля), оптимизирован под screenshot-to-code
+
+**Для нашей платформы**: 744B MoE не помещается (требуется ~440 GB). Доступ через Z.ai API или HuggingFace Spaces.
+
 ### Kimi K2.5 (Moonshot AI)
 
 **Тип**: 1T MoE / 32B active, **open weights** (Apache 2.0)
@@ -167,9 +209,13 @@
 | Модель | SWE-bench V | SWE-Pro | Faros Overall | $/1M in | $/1M out | Context | Self-hosted | Agent |
 |--------|-------------|---------|---------------|---------|----------|---------|-------------|-------|
 | **Claude Mythos Preview** | **93.9%** | -- | -- | invitation | -- | -- | нет | -- |
-| **GPT-5.3 Codex** | 85.0% | **#1** | 67.7% | $10 | $30 | 256K | нет | Codex |
+| **GPT-6** | -- | -- | -- | $2.50 | $12 | **2M** | нет | -- (new Apr 14) |
+| **GPT-5.3 Codex** | 85.0% | **topN** | 67.7% | $10 | $30 | 256K | нет | Codex |
 | **Claude Opus 4.5** | 80.9% | 45.9% | 55.5% | $5 | $25 | 200K-1M | нет | Claude Code |
 | **Gemini 3.1 Pro** | 78.8% | -- | -- | **$1.25** | $5 | **1M** | нет | Gemini CLI |
+| **GLM-5.1** (open MIT) | -- | **58.4%** ⭐ | -- | via Z.ai API | -- | 128K | не помещается (440 GB) | -- |
+| **GPT-5.4** | -- | 57.7% | -- | -- | -- | -- | нет | -- |
+| **Claude Opus 4.6** | -- | 57.3% | -- | $5 | $25 | **1M** | нет | Claude Code |
 | **Kimi K2.5** | 76.8% | -- | -- | **$0.45** | $1.35 | 128K | нет (240+ GB) | Cursor |
 | **Claude Sonnet 4.5** | ~75% est. | -- | -- | $3 | $15 | 200K-1M | нет | Claude Code |
 | **Gemini 3.1 Flash** | ~65% est. | -- | -- | **$0** (free tier) | $0 | **1M** | нет | Gemini CLI |
