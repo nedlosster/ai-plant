@@ -2,6 +2,8 @@
 
 Хроника последних релизов, событий и трендов в категории AI coding agents. Дополняет [trends.md](trends.md) (долгосрочные прогнозы), [models/news.md](../models/news.md) (релизы моделей) и per-agent страницы в [agents/](agents/).
 
+**Детальная хроника фич Claude Code** (со всеми Skills, Hooks, MCP, Agent Teams, Channels, Remote Control): [agents/claude-code-news.md](agents/claude-code-news.md).
+
 ## 2026-Q2 (актуально)
 
 ### Apr 2026 -- Claude Mythos Preview лидирует на SWE-bench Verified (93.9%)

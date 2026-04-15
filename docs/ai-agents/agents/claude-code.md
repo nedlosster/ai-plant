@@ -10,6 +10,8 @@
 **Доля рынка**: 41% профдевелоперов (Pragmatic Engineer survey, февраль 2026), 46% "most loved"
 **ARR**: $1B+ (декабрь 2025)
 
+**Хроника фич и анализ нововведений**: [claude-code-news.md](claude-code-news.md) -- Skills, Subagents, Hooks, MCP, Plugins, Agent Teams, Channels, Remote Control, Dispatch, Auto Mode, AutoDream. Что включить в workflow.
+
 ## Обзор
 
 Claude Code -- агент от Anthropic для работы с кодовыми базами через CLI, IDE или веб. Установил стандарт для современных coding-агентов: 1M контекст, sub-agents, MCP, hooks, agentic search. Был и остаётся бенчмарком, на который равняются open-source альтернативы (opencode, qwen-code, kilo-code).
