@@ -1,6 +1,6 @@
 # Claude Code: хроника обновлений и анализ нововведений
 
-Хронология фич, релизов и архитектурных изменений Claude Code от Anthropic. Дополняет [claude-code.md](claude-code.md) (профиль продукта) детальной динамикой. Источник: [официальный changelog](https://code.claude.com/docs/en/changelog), анализы community.
+Хронология фич, релизов и архитектурных изменений Claude Code от Anthropic. Дополняет [README.md](README.md) (профиль продукта) детальной динамикой. Источник: [официальный changelog](https://code.claude.com/docs/en/changelog), анализы community.
 
 Эта страница -- для разработчика, следящего за эволюцией инструмента: что появилось нового, какие паттерны использования изменились, что стоит включить в свой workflow.
 
@@ -134,7 +134,7 @@ Computer Use существовал с 2024, но в Q1 2026 получил ря
 - Коммитить (если permission позволяет)
 - Создавать PR
 
-Но **НЕ** будет: push в main, drop database tables, удаление файлов без backup -- эти операции всё равно require explicit approval, даже в auto mode. Это bounded autonomy (см. [../trends.md](../trends.md#2-bounded-autonomy)).
+Но **НЕ** будет: push в main, drop database tables, удаление файлов без backup -- эти операции всё равно require explicit approval, даже в auto mode. Это bounded autonomy (см. [../../trends.md](../../trends.md#2-bounded-autonomy)).
 
 ### Q1 2026 -- AutoDream
 
@@ -180,7 +180,7 @@ Hooks существовали как internal механизм, в сентяб
 
 ### Q3 2025 -- MCP экспоненциальный рост
 
-Начало взрывного роста MCP. К апрелю 2026 -- **97 миллионов установок** MCP-серверов в мире (см. [ai-agents/news.md](../news.md#apr-2026----mcp-97-млн-установок-де-факто-стандарт)).
+Начало взрывного роста MCP. К апрелю 2026 -- **97 миллионов установок** MCP-серверов в мире (см. [ai-agents/news.md](../../news.md#apr-2026----mcp-97-млн-установок-де-факто-стандарт)).
 
 ## 2025-Q2 и ранее
 
@@ -247,9 +247,9 @@ Hooks существовали как internal механизм, в сентяб
 
 ## Связано
 
-- [claude-code.md](claude-code.md) -- профиль продукта (фичи, цены, сравнение)
-- [../news.md](../news.md) -- общая хроника AI-агентов
-- [../trends.md](../trends.md) -- долгосрочные тренды (bounded autonomy, multi-agent, context race)
-- [../commercial.md](../commercial.md) -- Claude Code в ряду платных агентов
-- [../comparison.md](../comparison.md) -- сравнительная таблица
-- [../../models/closed-source-coding.md](../../models/closed-source-coding.md) -- Claude Opus/Sonnet/Mythos как модели под Claude Code
+- [README.md](README.md) -- профиль продукта (фичи, цены, сравнение)
+- [../../news.md](../../news.md) -- общая хроника AI-агентов
+- [../../trends.md](../../trends.md) -- долгосрочные тренды (bounded autonomy, multi-agent, context race)
+- [../../commercial.md](../../commercial.md) -- Claude Code в ряду платных агентов
+- [../../comparison.md](../../comparison.md) -- сравнительная таблица
+- [../../../models/closed-source-coding.md](../../../models/closed-source-coding.md) -- Claude Opus/Sonnet/Mythos как модели под Claude Code

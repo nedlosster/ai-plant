@@ -890,7 +890,7 @@ print(r["choices"][0]["message"]["tool_calls"])
 
 **Где работает MCP на платформе**:
 - [opencode](../ai-agents/agents/opencode.md) -- через `mcp` секцию в `~/.config/opencode/opencode.json`
-- [Claude Code](../ai-agents/agents/claude-code.md) -- родная экосистема (Anthropic создатели стандарта)
+- [Claude Code](../ai-agents/agents/claude-code/README.md) -- родная экосистема (Anthropic создатели стандарта)
 - [Cline](../ai-agents/agents/cline.md), [Roo Code](../ai-agents/agents/roo-code.md), [Continue.dev](../ai-agents/agents/continue-dev.md) -- через настройки расширений
 
 Пример конфига MCP в opencode:

@@ -308,7 +308,7 @@ SWE-bench Verified (апрель 2026):
 
 | Agent | Default модель | Альтернативы | API / Local |
 |-------|----------------|--------------|-------------|
-| [Claude Code](../ai-agents/agents/claude-code.md) | Sonnet 4.5 / Opus 4.6 (Max) | -- | API only |
+| [Claude Code](../ai-agents/agents/claude-code/README.md) | Sonnet 4.5 / Opus 4.6 (Max) | -- | API only |
 | [Cursor](../ai-agents/agents/cursor.md) | **Composer 2** (Kimi K2.5 base) | Claude/GPT через BYOK | API (built-in) + BYOK |
 | Codex | **codex-1** (GPT-5.3 Codex) | -- | Cloud sandbox |
 | Copilot | GPT-4o | -- | API only |

@@ -130,6 +130,6 @@ Plugin Marketplace → искать "Kilo Code" → Install.
 ## Связано
 
 - **Альтернативы**: [cline](cline.md), [roo-code](roo-code.md), [continue-dev](continue-dev.md)
-- **Лучшие модели для пары**: [qwen3-coder](../../models/families/qwen3-coder.md), [claude-code](claude-code.md) для платных моделей
+- **Лучшие модели для пары**: [qwen3-coder](../../models/families/qwen3-coder.md), [claude-code](claude-code/README.md) для платных моделей
 - **Платформа**: [coding.md](../../models/coding.md)
 - **Концепты**: [../README.md](../README.md)

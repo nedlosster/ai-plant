@@ -6,7 +6,7 @@
 
 | Агент | Вендор | Тип | Цена/мес | Per-agent |
 |-------|--------|-----|----------|-----------|
-| Claude Code | Anthropic | CLI+IDE+Web+Channels | $20-200 | [agents/claude-code.md](agents/claude-code.md) |
+| Claude Code | Anthropic | CLI+IDE+Web+Channels | $20-200 | [agents/claude-code/README.md](agents/claude-code/README.md) |
 | Cursor 3 (Composer 2) | Anysphere | IDE (VS Code fork) | $20-40 | [agents/cursor.md](agents/cursor.md) |
 | OpenAI Codex 5.3 | OpenAI | Cloud (ChatGPT) | $200, unlimited промо | -- |
 | Windsurf | Codeium | IDE (40+ IDE) | $20-200 | -- |

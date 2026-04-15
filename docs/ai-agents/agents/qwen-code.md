@@ -122,7 +122,7 @@ qwen-code
 
 ## Связано
 
-- **Альтернативы**: [opencode](opencode.md), [claude-code](claude-code.md), [cline](cline.md)
+- **Альтернативы**: [opencode](opencode.md), [claude-code](claude-code/README.md), [cline](cline.md)
 - **Лучшие модели для пары**: [qwen3-coder](../../models/families/qwen3-coder.md), [qwen36](../../models/families/qwen36.md)
 - **Платформа**: [coding.md](../../models/coding.md)
 - **Концепты**: [../README.md](../README.md)

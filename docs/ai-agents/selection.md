@@ -18,9 +18,9 @@ START
  │    └── НЕТ → дальше
  │
  ├── Нужен максимум качества и не жалко $200/мес?
- │    ├── Frontend-heavy → [Claude Code](agents/claude-code.md) (95% Faros frontend)
+ │    ├── Frontend-heavy → [Claude Code](agents/claude-code/README.md) (95% Faros frontend)
  │    ├── Backend-heavy → Codex Pro (58.5% Faros backend)
- │    └── Баланс → Junie или [Claude Code](agents/claude-code.md)
+ │    └── Баланс → Junie или [Claude Code](agents/claude-code/README.md)
  │
  ├── Нужен IDE с минимальной кривой обучения?
  │    ├── VS Code-привычка → [Cursor](agents/cursor.md) ($20)
@@ -28,7 +28,7 @@ START
  │    └── Power user → [Roo Code](agents/roo-code.md) или [Kilo Code](agents/kilo-code.md)
  │
  └── Нужен multi-agent orchestration?
-      ├── Из коробки → [Claude Code](agents/claude-code.md) (sub-agents) или [Kilo Code](agents/kilo-code.md) (Orchestrator)
+      ├── Из коробки → [Claude Code](agents/claude-code/README.md) (sub-agents) или [Kilo Code](agents/kilo-code.md) (Orchestrator)
       └── Через custom modes → [Roo Code](agents/roo-code.md) или [opencode](agents/opencode.md)
 ```
 
@@ -36,16 +36,16 @@ START
 
 | Задача | Рекомендация | Почему |
 |--------|--------------|--------|
-| Frontend (React/Vue/UI) | [Claude Code](agents/claude-code.md) | 95% Faros frontend, лучший в индустрии |
+| Frontend (React/Vue/UI) | [Claude Code](agents/claude-code/README.md) | 95% Faros frontend, лучший в индустрии |
 | Backend (API, БД, бизнес-логика) | Codex Pro или Junie | 58.5% и 54.3% Faros backend |
-| Refactor крупного monorepo | [Claude Code](agents/claude-code.md) (1M контекст) или [Aider](agents/aider.md) (repo map) |
+| Refactor крупного monorepo | [Claude Code](agents/claude-code/README.md) (1M контекст) или [Aider](agents/aider.md) (repo map) |
 | Bugfix через git workflow | [Aider](agents/aider.md) | Auto-commit каждой правки |
-| Code review PR | [Claude Code](agents/claude-code.md) `claude review` | Agentic search |
+| Code review PR | [Claude Code](agents/claude-code/README.md) `claude review` | Agentic search |
 | Generate tests | Любой -- разница невелика | Простая задача |
-| Multi-repo migration | [Claude Code](agents/claude-code.md) | 1M context + sub-agents |
+| Multi-repo migration | [Claude Code](agents/claude-code/README.md) | 1M context + sub-agents |
 | FIM autocomplete | [Continue.dev](agents/continue-dev.md) | Лучшая поддержка local llama-server |
 | Inline-промпты в комментариях | [Aider](agents/aider.md) watch mode | `# ai!` синтаксис |
-| Long-running background задачи | [Cursor](agents/cursor.md) Background Agents или [Claude Code](agents/claude-code.md) | Параллельные агенты |
+| Long-running background задачи | [Cursor](agents/cursor.md) Background Agents или [Claude Code](agents/claude-code/README.md) | Параллельные агенты |
 
 ## По бюджету
 
@@ -55,9 +55,9 @@ START
 | **$0** -- free cloud | [Qwen Code](agents/qwen-code.md) + Qwen OAuth | Gemini CLI |
 | **$10** | Copilot | -- |
 | **$20** | [Cursor](agents/cursor.md) Pro | Windsurf, Devin starter |
-| **$100** | [Claude Code](agents/claude-code.md) Pro или Junie ($100/год) | -- |
-| **$200** | [Claude Code](agents/claude-code.md) Max (Opus 4.6, 1M) | Codex Pro |
-| **$300+** | [Claude Code](agents/claude-code.md) Max + Codex (комбо) | -- |
+| **$100** | [Claude Code](agents/claude-code/README.md) Pro или Junie ($100/год) | -- |
+| **$200** | [Claude Code](agents/claude-code/README.md) Max (Opus 4.6, 1M) | Codex Pro |
+| **$300+** | [Claude Code](agents/claude-code/README.md) Max + Codex (комбо) | -- |
 
 ## По интерфейсу
 
@@ -68,7 +68,7 @@ START
 | JetBrains IDE | [Continue.dev](agents/continue-dev.md), [Kilo Code](agents/kilo-code.md), Junie |
 | Vim/Emacs | Copilot, [Aider](agents/aider.md) (CLI external) |
 | Web/cloud | Codex (ChatGPT), Devin, OpenHands |
-| Telegram/Discord | [Claude Code](agents/claude-code.md) Channels, Hermes |
+| Telegram/Discord | [Claude Code](agents/claude-code/README.md) Channels, Hermes |
 
 ## Сценарии нашей платформы
 

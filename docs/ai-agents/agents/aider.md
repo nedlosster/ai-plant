@@ -137,8 +137,8 @@ Aider публикует [собственный leaderboard](https://aider.chat
 
 ## Связано
 
-- **Альтернативы (CLI)**: [opencode](opencode.md), [qwen-code](qwen-code.md), [claude-code](claude-code.md) для commercial
+- **Альтернативы (CLI)**: [opencode](opencode.md), [qwen-code](qwen-code.md), [claude-code](claude-code/README.md) для commercial
 - **Альтернативы (IDE)**: [cline](cline.md), [continue-dev](continue-dev.md)
-- **Лучшие модели для пары**: [qwen3-coder](../../models/families/qwen3-coder.md), [claude-code](claude-code.md) для architect mode
+- **Лучшие модели для пары**: [qwen3-coder](../../models/families/qwen3-coder.md), [claude-code](claude-code/README.md) для architect mode
 - **Платформа**: [coding.md](../../models/coding.md)
 - **Концепты**: [../README.md](../README.md)

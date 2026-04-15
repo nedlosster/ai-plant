@@ -30,7 +30,7 @@ Qwen3.6-Plus -- свежий релиз от Alibaba (2 апреля 2026). Фл
 - **Native function calling**
 - **Multimodal** -- text + vision
 - **Screenshot-to-code** -- генерация фронтенда из скриншотов и дизайн-макетов
-- **Anthropic API protocol** -- работает с [Claude Code](../../ai-agents/agents/claude-code.md) и совместимыми клиентами
+- **Anthropic API protocol** -- работает с [Claude Code](../../ai-agents/agents/claude-code/README.md) и совместимыми клиентами
 
 ## Сильные кейсы
 
@@ -38,7 +38,7 @@ Qwen3.6-Plus -- свежий релиз от Alibaba (2 апреля 2026). Фл
 - **Контекст 1M** -- весь репозиторий + история обсуждений + документация в одном запросе
 - **UI-to-code** -- генерация фронтенда из скриншотов и Figma-макетов
 - **Document understanding** + multimodal reasoning
-- **Сложные workflow** в agent-инструментах ([Claude Code](../../ai-agents/agents/claude-code.md), [opencode](../../ai-agents/agents/opencode.md), [Aider](../../ai-agents/agents/aider.md), [Cline](../../ai-agents/agents/cline.md))
+- **Сложные workflow** в agent-инструментах ([Claude Code](../../ai-agents/agents/claude-code/README.md), [opencode](../../ai-agents/agents/opencode.md), [Aider](../../ai-agents/agents/aider.md), [Cline](../../ai-agents/agents/cline.md))
 
 ## Слабые стороны / ограничения
 
@@ -49,7 +49,7 @@ Qwen3.6-Plus -- свежий релиз от Alibaba (2 апреля 2026). Фл
 
 ## Идеальные сценарии применения (когда появятся open weights)
 
-- **[opencode](../../ai-agents/agents/opencode.md) / [Claude Code](../../ai-agents/agents/claude-code.md) / [Aider](../../ai-agents/agents/aider.md) / [Cline](../../ai-agents/agents/cline.md)** -- бэкенд для agent-style кодинга
+- **[opencode](../../ai-agents/agents/opencode.md) / [Claude Code](../../ai-agents/agents/claude-code/README.md) / [Aider](../../ai-agents/agents/aider.md) / [Cline](../../ai-agents/agents/cline.md)** -- бэкенд для agent-style кодинга
 - **Long-context RAG** на больших корпусах документов
 - **Screenshot-to-code** -- генерация UI компонентов из дизайнов
 - **Multimodal agents** -- задачи с visual вводом + tool use
@@ -61,7 +61,7 @@ Qwen3.6-Plus -- свежий релиз от Alibaba (2 апреля 2026). Фл
 # Документация: https://www.alibabacloud.com/product/modelstudio
 
 # Совместимые клиенты:
-# - Claude Code (через Anthropic API protocol) -- ../../ai-agents/agents/claude-code.md
+# - Claude Code (через Anthropic API protocol) -- ../../ai-agents/agents/claude-code/README.md
 # - opencode (через OpenAI-compatible endpoint) -- ../../ai-agents/agents/opencode.md
 # - Qwen Code, Kilo Code, Cline, OpenClaw -- см. ../../ai-agents/agents/
 ```

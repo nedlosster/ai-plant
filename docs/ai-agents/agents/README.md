@@ -19,8 +19,8 @@
 - [roo-code](roo-code.md) -- Cline fork с расширениями
 
 ### Commercial
-- [claude-code](claude-code.md) -- Anthropic, эталон CLI агентов
-- [claude-code-news](claude-code-news.md) -- детальная хроника фич Claude Code (Skills, Subagents, Hooks, MCP, Plugins, Agent Teams, Channels, Remote Control, анализ для разработчика)
+- [claude-code](claude-code/README.md) -- Anthropic, эталон CLI агентов
+- [claude-code-news](claude-code/news.md) -- детальная хроника фич Claude Code (Skills, Subagents, Hooks, MCP, Plugins, Agent Teams, Channels, Remote Control, анализ для разработчика)
 - [cursor](cursor.md) -- IDE, лучший Composer
 
 ## Как читать страницу агента

@@ -127,6 +127,6 @@ Model: qwen3-coder-next
 - **Forks**: [roo-code](roo-code.md), [kilo-code](kilo-code.md)
 - **Альтернативы (VS Code)**: [continue-dev](continue-dev.md), [kilo-code](kilo-code.md)
 - **Альтернативы (CLI)**: [opencode](opencode.md), [aider](aider.md), [qwen-code](qwen-code.md)
-- **Лучшие модели для пары**: [qwen3-coder](../../models/families/qwen3-coder.md), [claude-code](claude-code.md) для платных
+- **Лучшие модели для пары**: [qwen3-coder](../../models/families/qwen3-coder.md), [claude-code](claude-code/README.md) для платных
 - **Платформа**: [coding.md](../../models/coding.md)
 - **Концепты**: [../README.md](../README.md)

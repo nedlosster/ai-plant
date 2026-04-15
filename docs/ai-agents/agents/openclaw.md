@@ -106,7 +106,7 @@ xdg-open http://localhost:3000
 
 ## Связано
 
-- **Альтернативы**: [claude-code](claude-code.md) (узко-фокус на коде), [opencode](opencode.md) (CLI-only)
+- **Альтернативы**: [claude-code](claude-code/README.md) (узко-фокус на коде), [opencode](opencode.md) (CLI-only)
 - **Подходящие модели**: Kimi 2.5 (через cloud API), [qwen36](../../models/families/qwen36.md), [qwen3-coder](../../models/families/qwen3-coder.md)
 - **Тренды**: [../trends.md](../trends.md), [../news.md](../news.md)
 - **Концепты**: [../README.md](../README.md)

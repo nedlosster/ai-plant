@@ -128,6 +128,6 @@ You are an expert React/TypeScript developer.
 ## Связано
 
 - **Альтернативы (IDE с открытым кодом)**: [cline](cline.md), [kilo-code](kilo-code.md), [continue-dev](continue-dev.md)
-- **Альтернативы (CLI)**: [claude-code](claude-code.md), [opencode](opencode.md)
+- **Альтернативы (CLI)**: [claude-code](claude-code/README.md), [opencode](opencode.md)
 - **Платформа**: [coding.md](../../models/coding.md) -- если нужны локальные модели, лучше использовать VS Code + Cline/Continue
 - **Концепты**: [../README.md](../README.md)

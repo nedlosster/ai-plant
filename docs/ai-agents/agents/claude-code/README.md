@@ -10,7 +10,15 @@
 **Доля рынка**: 41% профдевелоперов (Pragmatic Engineer survey, февраль 2026), 46% "most loved"
 **ARR**: $1B+ (декабрь 2025)
 
-**Хроника фич и анализ нововведений**: [claude-code-news.md](claude-code-news.md) -- Skills, Subagents, Hooks, MCP, Plugins, Agent Teams, Channels, Remote Control, Dispatch, Auto Mode, AutoDream. Что включить в workflow.
+## Файлы раздела
+
+| Файл | О чём |
+|------|-------|
+| [news.md](news.md) | Хроника фич и анализ нововведений. Mental model "полного стека" из 6 механизмов: Skills, Subagents, Hooks, MCP, Plugins, Agent Teams |
+| [agent-teams.md](agent-teams.md) | Стратегия использования Agent Teams: когда включать, три паттерна, Code Kit v5.0 YAML, playbook, антипаттерны |
+| [skills-guide.md](skills-guide.md) | Как писать свои Skills: структура файла, паттерны, ecosystem, best practices, debugging |
+| [hooks-guide.md](hooks-guide.md) | Hooks для safety и автоматизации: git guardrails, auto-format, secret scanning, audit log |
+| [mcp-setup.md](mcp-setup.md) | Настройка MCP-серверов: filesystem, github, postgres, playwright, context7, разработка своего сервера |
 
 ## Обзор
 
@@ -140,8 +148,8 @@ claude "fix the bug in src/auth.ts"
 
 ## Связано
 
-- **Альтернативы (open)**: [opencode](opencode.md), [qwen-code](qwen-code.md), [openclaw](openclaw.md)
-- **Альтернативы (commercial)**: [cursor](cursor.md)
+- **Альтернативы (open)**: [opencode](../opencode.md), [qwen-code](../qwen-code.md), [openclaw](../openclaw.md)
+- **Альтернативы (commercial)**: [cursor](../cursor.md)
 - **Конкурент по протоколу**: Cline (также Anthropic API)
-- **Тренды**: [../trends.md](../trends.md), [../news.md](../news.md)
-- **Концепты**: [../README.md](../README.md)
+- **Тренды**: [../../trends.md](../../trends.md), [../../news.md](../../news.md)
+- **Концепты**: [../../README.md](../../README.md)
