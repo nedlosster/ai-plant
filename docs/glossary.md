@@ -7,6 +7,7 @@
 | Термин | Описание |
 |--------|----------|
 | **APU** | Accelerated Processing Unit -- чип, объединяющий CPU и GPU на одном кристалле |
+| **Ascend** | Семейство AI-ускорителей Huawei (910B, 910C, 910D). Используются для обучения GLM-5 и других китайских моделей через фреймворк MindSpore. Аналог NVIDIA H100/H200 для китайского рынка |
 | **BAR** | Base Address Register -- область адресного пространства PCI-устройства. BAR0 GPU определяет, какой объем VRAM доступен CPU напрямую |
 | **Bandwidth** | Пропускная способность памяти (GB/s). Для LPDDR5 8000MT/s x 256 bit = 256 GB/s |
 | **CCX** | Core Complex -- кластер ядер CPU с общим L3 кэшем. Ryzen AI MAX+ 395 имеет 2 CCX по 8 ядер |
@@ -67,9 +68,11 @@
 | **Context window** | Максимальное количество токенов, которые модель может обработать за один раз |
 | **Continuous batching** | Техника параллельной обработки нескольких запросов в одном batch inference-сервером. Впервые в vLLM, затем в llama.cpp. Повышает throughput в 3-5x для multi-user нагрузки |
 | **Cross-attention** | Attention между разными модальностями / потоками данных (text ↔ image в FLUX, video ↔ audio в LTX-2, video ↔ text в vision-моделях) |
+| **DSA** | Dynamically Sparse Attention -- механизм attention с динамическим отбором top-K ключей для каждого запроса. Используется в DeepSeek V3.2 и Mistral Next. Снижает compute и KV-cache при длинных контекстах |
 | **Embeddings** | Векторное представление текста/токена в n-мерном пространстве, где семантически близкие элементы имеют близкие векторы. Основа RAG и semantic search |
 | **Flash Attention** | Оптимизация attention через tiling и кооперативное использование SRAM/HBM. Снижает memory-bandwidth, ускоряет inference. Включается через `-fa` в llama-server |
 | **Function calling** | Способность LLM генерировать запросы к внешним инструментам через tool definitions в промпте. Синоним: tool use, tool calling |
+| **GLM** | Семейство открытых LLM от Zhipu AI / THUDM. GLM-5 (2026) -- MoE 744B total / 44B active под MIT-лицензией. Обучено на Huawei Ascend + MindSpore. Vision-вариант GLM-V использует CogViT |
 | **GPU offload (-ngl)** | Перенос слоев модели на GPU. -ngl 99 = все слои на GPU |
 | **Hybrid search** | Поиск, объединяющий lexical (BM25) и semantic (embeddings) -- часто через Reciprocal Rank Fusion. Улучшает recall в RAG |
 | **Inference** | Выполнение обученной нейросети для генерации ответов. Не меняет веса модели |
@@ -78,7 +81,9 @@
 | **MCP** | Model Context Protocol -- стандарт Anthropic 2024 для интеграции AI с внешними инструментами через MCP-серверы. Поддерживается Claude Code, Open WebUI, Ollama |
 | **Memory-bound** | Операция, ограниченная пропускной способностью памяти (не compute). LLM tg -- memory-bound |
 | **MLA** | Multi-head Latent Attention -- вариант attention в DeepSeek V2/V3, где K/V факторизуются через low-rank projection. Снижает размер KV-cache в 5-10x |
+| **MTP** | Multi-Token Prediction -- техника обучения, где модель одновременно предсказывает несколько следующих токенов. Ускоряет обучение и даёт "speculative" generation on-the-fly. Используется в DeepSeek V3 и Qwen3.5 |
 | **Partial offload** | Часть слоев на GPU, часть на CPU. Для моделей, не помещающихся в VRAM целиком |
+| **PLE** | Per-Layer Embeddings -- техника в Gemma 4, где каждый слой имеет собственные эмбеддинги, хранимые отдельно. Позволяет выгружать эмбеддинг-таблицу на CPU, экономя VRAM для активаций |
 | **pp** | Prompt processing -- фаза обработки входного контекста. Compute-bound |
 | **RAG** | Retrieval-Augmented Generation -- техника обогащения LLM-промпта релевантными документами из внешнего хранилища перед генерацией |
 | **Reranker** | Cross-encoder модель, переоценивающая top-K результатов retrieval для улучшения precision. Пример: `bge-reranker-v2-m3` |
@@ -120,7 +125,9 @@
 
 | Термин | Описание |
 |--------|----------|
+| **Agent Teams** | Экспериментальная возможность Claude Code (2026): главный агент координирует несколько sub-агентов, работающих параллельно над разными частями задачи. Подходит для refactor monorepo, multi-service migration, security audit. Включается через `CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=true` |
 | **Aider** | CLI-инструмент для рефакторинга кода через LLM |
+| **Code Kit** | YAML-формат описания Agent Teams в Claude Code (v5.0+). Определяет роли (planner, executor, reviewer), граф взаимодействия, разделение контекста |
 | **AVX-512** | Advanced Vector Extensions 512-bit -- набор SIMD-инструкций CPU. BF16, VNNI -- подмножества |
 | **ComfyUI** | Node-based workflow engine для diffusion-моделей (картинки, видео, multi-modal). Python+JS, custom_nodes экосистема. Профиль: [docs/apps/comfyui/](apps/comfyui/README.md) |
 | **ComfyUI-GGUF** | Custom node для ComfyUI от city96, добавляющий поддержку GGUF-квантизованных diffusion-моделей через ggml Vulkan backend |
@@ -133,6 +140,7 @@
 | **llama.cpp** | C/C++ runtime для инференса LLM. Поддерживает Vulkan, ROCm, CPU, CUDA, Metal. Профиль: [docs/inference/llama-cpp.md](inference/llama-cpp.md) |
 | **llama-server** | HTTP-сервер llama.cpp с OpenAI-совместимым API, continuous batching, speculative decoding |
 | **LM Studio** | GUI-приложение для локального запуска LLM. Встроенный llama.cpp |
+| **MindSpore** | Open-source ML-фреймворк Huawei (аналог PyTorch/TensorFlow). Оптимизирован под Ascend NPU. Используется для обучения GLM-5 и других моделей на китайском hardware-стеке |
 | **LobeChat** | Markdown-first chat frontend с Plugin Market и Agents Market. Next.js SSR+SPA hybrid. Профиль: [docs/apps/lobe-chat/](apps/lobe-chat/README.md) |
 | **Modelfile** | Dockerfile-style текстовый формат Ollama для описания кастомной модели (FROM, PARAMETER, TEMPLATE, SYSTEM) |
 | **OGA** | ONNX Runtime GenAI -- библиотека Microsoft для generative-inference поверх ONNX Runtime. Включает tokenizer, KV-cache, sampling. Используется Lemonade для NPU-пути |
@@ -157,6 +165,7 @@
 | **ControlNet** | Модуль управления генерацией изображений через дополнительные входы (контуры, глубина, поза) |
 | **Diffusion model** | Модель генерации через последовательное удаление шума из случайного сигнала |
 | **DiffSinger** | Модель синтеза певческого голоса из нотной партитуры |
+| **CogViT** | Vision Transformer encoder в Qwen3-VL / GLM-V (замена более раннего ViT-L/14 CLIP). Обрабатывает изображения в переменном разрешении через dynamic patches, подаёт токены в LLM-бэкбон |
 | **DiT** | Diffusion Transformer -- диффузионная модель на основе transformer-архитектуры (вместо U-Net). Используется в SD 3.5, FLUX, LTX-Video, LTX-2, Wan. Впервые предложен Peebles & Xie 2023 |
 | **Dual-stream DiT** | Архитектура LTX-2: два потока DiT (14B для видео + 5B для аудио) с cross-attention между ними. Генерируют синхронизированные audio+video в одном forward pass |
 | **FLUX** | Семейство text-to-image моделей от Black Forest Labs |
@@ -165,6 +174,7 @@
 | **Stable Diffusion** | Семейство text-to-image моделей от Stability AI |
 | **T5** | Text-to-Text Transfer Transformer -- text encoder, используемый в FLUX и SD3 |
 | **VAE** | Variational Autoencoder -- компонент diffusion-модели, преобразующий latent space в изображение (или аудио в ACE-Step) |
+| **USM conformer** | Universal Speech Model conformer -- audio encoder от Google, используемый как backbone в TTS и speech-LLM (Gemma 4 audio, VoxCPM2). Conformer = transformer + convolution для локальной зависимости |
 | **Vocoder** | Нейросеть, преобразующая mel-спектрограмму в raw waveform. Примеры: HiFi-GAN, BigVGAN. Используется в audio-диффузии (ACE-Step) и TTS |
 
 ## Distribution и storage

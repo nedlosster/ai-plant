@@ -14,7 +14,7 @@ echo "=== Валидация документации docs/ ==="
 echo ""
 
 # 1. Проверка ссылок
-echo "[1/3] Проверка markdown-ссылок..."
+echo "[1/4] Проверка markdown-ссылок..."
 if bash "${SCRIPT_DIR}/check-links.sh"; then
     :
 else
@@ -23,7 +23,7 @@ fi
 echo ""
 
 # 2. Проверка потерянных файлов
-echo "[2/3] Проверка потерянных файлов..."
+echo "[2/4] Проверка потерянных файлов..."
 if bash "${SCRIPT_DIR}/check-orphans.sh"; then
     :
 else
@@ -32,8 +32,17 @@ fi
 echo ""
 
 # 3. Проверка запрещенного контента
-echo "[3/3] Проверка запрещенного контента..."
+echo "[3/4] Проверка запрещенного контента..."
 if bash "${SCRIPT_DIR}/check-forbidden.sh"; then
+    :
+else
+    ((TOTAL_ERRORS++)) || true
+fi
+echo ""
+
+# 4. Проверка некликабельных plain-text упоминаний .md
+echo "[4/4] Проверка некликабельных упоминаний .md..."
+if bash "${SCRIPT_DIR}/check-plain-file-mentions.sh"; then
     :
 else
     ((TOTAL_ERRORS++)) || true
