@@ -73,7 +73,7 @@ pip install -r ComfyUI-GGUF/requirements.txt
 
 ### 3. Модели
 
-Модели хранятся в `~/models/` (общее хранилище с LLM):
+Модели хранятся в `~/models` (общее хранилище с LLM):
 
 ```bash
 mkdir -p ~/models/{diffusion,clip,vae,loras}
@@ -155,11 +155,11 @@ VAELoader (ae)              -> VAEDecode -> SaveImage
 
 | Команда | Назначение |
 |---------|------------|
-| `./scripts/comfyui/start.sh --daemon` | Запуск в фоне |
-| `./scripts/comfyui/stop.sh` | Остановка |
-| `./scripts/comfyui/status.sh` | Статус, модели, GPU |
-| `./scripts/comfyui/check.sh` | Диагностика |
-| `./scripts/status.sh` | Общий статус (inference + ComfyUI) |
+| [`./scripts/comfyui/start.sh`](../../../scripts/comfyui/start.sh) `--daemon` | Запуск в фоне |
+| [`./scripts/comfyui/stop.sh`](../../../scripts/comfyui/stop.sh) | Остановка |
+| [`./scripts/comfyui/status.sh`](../../../scripts/comfyui/status.sh) | Статус, модели, GPU |
+| [`./scripts/comfyui/check.sh`](../../../scripts/comfyui/check.sh) | Диагностика |
+| [`./scripts/status.sh`](../../../scripts/status.sh) | Общий статус (inference + ComfyUI) |
 
 ## Backend'ы
 

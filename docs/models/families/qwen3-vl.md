@@ -342,4 +342,4 @@ Qwen3-VL через mmproj работает в llama-server с одним энд
 
 - Направления: [vision](../vision.md)
 - Альтернативы: [gemma4](gemma4.md) (function calling), [qwen25-omni](qwen25-omni.md) (vision+audio)
-- Пресет: `scripts/inference/vulkan/preset/qwen3-vl.sh`
+- Пресет: [`scripts/inference/vulkan/preset/qwen3-vl.sh`](../../../scripts/inference/vulkan/preset/qwen3-vl.sh)

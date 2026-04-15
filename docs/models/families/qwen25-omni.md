@@ -56,7 +56,7 @@ Qwen2.5-Omni -- единственная в коллекции **omni-модел
 
 ## Запуск
 
-После загрузки можно создать пресет `scripts/inference/vulkan/preset/qwen2.5-omni.sh` (был удалён вместе с моделью).
+После загрузки можно создать пресет в [`scripts/inference/vulkan/preset/`](../../../scripts/inference/vulkan/preset/) (файл `qwen2.5-omni.sh`, был удалён вместе с моделью).
 
 Минимальный запуск:
 ```bash

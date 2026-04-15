@@ -2,7 +2,7 @@
 
 Платформа: Radeon 8060S (gfx1151, 120 GiB GPU-памяти), PyTorch + ROCm 7.2.1.
 
-Полные описания моделей -- в `families/`. Эта страница: применение моделей к русскоязычным песням, форматы промптов, советы.
+Полные описания моделей -- в [`families/`](families/README.md). Эта страница: применение моделей к русскоязычным песням, форматы промптов, советы.
 
 ## Подходы
 
@@ -16,7 +16,7 @@
 
 ## Скачано на платформе
 
-[ACE-Step 1.5](families/ace-step.md) -- единственная music-модель с явной поддержкой AMD ROCm. Уже на платформе через `scripts/music/ace-step/start.sh`.
+[ACE-Step 1.5](families/ace-step.md) -- единственная music-модель с явной поддержкой AMD ROCm. Уже на платформе через [`scripts/music/ace-step/start.sh`](../../scripts/music/ace-step/start.sh).
 
 ## ACE-Step для русского -- основной workflow
 

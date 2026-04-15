@@ -1,11 +1,11 @@
 # Open WebUI: простые сценарии
 
-Базовые сценарии использования Open WebUI на Strix Halo. Предполагается что установка выполнена через `scripts/webui/open-webui/install.sh` и сервер запущен.
+Базовые сценарии использования Open WebUI на Strix Halo. Предполагается что установка выполнена через [`scripts/webui/open-webui/install.sh`](../../../scripts/webui/open-webui/install.sh) и сервер запущен.
 
 ## Предусловия
 
-1. **Inference backend запущен**: llama-server слушает на `localhost:8081` (или другом порту согласно `scripts/inference/start-server.sh`)
-2. **Open WebUI контейнер запущен**: `scripts/webui/open-webui/start.sh`
+1. **Inference backend запущен**: llama-server слушает на `localhost:8081` (или другом порту согласно [`scripts/inference/start-server.sh`](../../../scripts/inference/start-server.sh))
+2. **Open WebUI контейнер запущен**: [`scripts/webui/open-webui/start.sh`](../../../scripts/webui/open-webui/start.sh)
 3. **Веб-UI доступен**: `http://<SERVER_IP>:3210`
 4. **Аккаунт создан**: при первом запуске регистрация admin-пользователя (local account)
 

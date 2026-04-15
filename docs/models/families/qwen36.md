@@ -74,7 +74,7 @@ Qwen3.6-Plus -- свежий релиз от Alibaba (2 апреля 2026). Фл
 - [https://github.com/QwenLM](https://github.com/QwenLM) -- анонсы
 - [https://qwen.ai/](https://qwen.ai/) -- официальный сайт
 
-После релиза создать пресет в `scripts/inference/vulkan/preset/qwen3.6-<variant>.sh` и обновить этот файл (заполнить таблицу вариантов, переключить статус на "не скачана").
+После релиза создать пресет в [`scripts/inference/vulkan/preset/`](../../../scripts/inference/vulkan/preset/) (файл `qwen3.6-<variant>.sh`) и обновить этот файл (заполнить таблицу вариантов, переключить статус на "не скачана").
 
 ## Бенчмарки
 
@@ -92,7 +92,7 @@ Qwen3.6-Plus -- свежий релиз от Alibaba (2 апреля 2026). Фл
 4. **GGUF-квантизации** -- bartowski, unsloth, mradermacher обычно публикуют в течение недели после релиза
 
 После релиза:
-- Создать пресет в `scripts/inference/vulkan/preset/qwen3.6-*.sh`
+- Создать пресет в [`scripts/inference/vulkan/preset/`](../../../scripts/inference/vulkan/preset/) (файл `qwen3.6-*.sh`)
 - Заполнить таблицу вариантов в этом файле
 - Запустить `/models-catalog sync-status`
 - Перенести запись в README из "Ожидается open weights" в "Стоит обратить внимание" или "Скачано"

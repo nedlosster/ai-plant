@@ -548,7 +548,7 @@ ws     ::= [ \t\n]*
 | `llama.cpp` + ROCm/HIP | Бенчмарки, проверка, некоторые модели которые не поддерживает Vulkan |
 | `llama.cpp` + CPU | Fallback, тесты, embedded-сценарии |
 
-Скрипты управления -- в `scripts/inference/`:
+Скрипты управления -- в [`scripts/inference/`](../../scripts/inference/README.md):
 - [`vulkan/`](../../scripts/inference/vulkan/README.md) -- сборка, проверка, пресеты моделей
 - [`rocm/`](../../scripts/inference/rocm/README.md) -- ROCm установка, сборка, HSA overrides
 - `start-server.sh` -- общий запуск llama-server с пресетами

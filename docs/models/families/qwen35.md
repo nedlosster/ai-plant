@@ -193,4 +193,4 @@ Fine-tune Qwen3-14B на 250 reasoning-трассах Claude Opus 4.5 (high reas
 - Направления: [llm](../llm.md), [vision](../vision.md), [russian-llm](../russian-llm.md)
 - Родственные семейства: [qwen3-coder](qwen3-coder.md) (специализированный кодинг), [qwen3-vl](qwen3-vl.md) (специализированный vision)
 - Теория: [architectures.md](../../llm-guide/architectures.md) (Dense vs MoE), [naming-and-variants.md](../../llm-guide/naming-and-variants.md) (выбор варианта)
-- Пресеты: `scripts/inference/vulkan/preset/qwen3.5-122b.sh`
+- Пресеты: [`scripts/inference/vulkan/preset/qwen3.5-122b.sh`](../../../scripts/inference/vulkan/preset/qwen3.5-122b.sh)

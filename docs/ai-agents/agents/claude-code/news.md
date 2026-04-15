@@ -62,7 +62,7 @@ Claude Code к 2026 году превратился из "CLI-чата с мод
 
 **Slack MCP**: compact `#channel` header с кликабельной ссылкой в сообщениях. Мелкая но полезная UX-правка -- проще навигироваться между Slack-беседами и Claude-результатами.
 
-**Stable skill naming**: skill с `"skills": ["./"]` в манифесте плагина теперь использует `name` из frontmatter для invocation, а не basename директории. Устраняет проблему когда plugin устанавливается в разные директории и slash-команды разъезжаются.
+**Stable skill naming**: skill, у которого в манифесте плагина указано поле `skills` со значением текущей директории, теперь использует `name` из frontmatter для invocation, а не basename директории. Устраняет проблему когда plugin устанавливается в разные директории и slash-команды разъезжаются.
 
 **Багфиксы**: исправлены Bedrock 403 с AWS_BEARER_TOKEN_BEDROCK, race condition в polling background agent tasks (task мог "зависать" если завершался между poll-циклами), `/btw` пропускал pasted text во время активного ответа, `--channels` bypass для Team/Enterprise.
 

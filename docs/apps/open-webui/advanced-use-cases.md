@@ -330,10 +330,12 @@ servers:
 
 Подключены MCP-серверы `filesystem` и `github`. Промпт:
 
-> "Проверь файл `/allowed/path/README.md` и создай issue на github `myorg/myrepo` если в нём есть TODO"
+```
+Проверь файл /allowed/path/README.md и создай issue на github myorg/myrepo если в нём есть TODO
+```
 
 LLM (например Qwen3-Coder Next или Claude через API):
-1. Вызывает `filesystem.read_file("/allowed/path/README.md")`
+1. Вызывает `filesystem.read_file` с путём к README.md внутри разрешённой директории
 2. Парсит текст, находит TODO
 3. Вызывает `github.create_issue(repo="myorg/myrepo", title="Implement TODO in README", body="Line 42: TODO: add installation section")`
 4. Отвечает пользователю с summary

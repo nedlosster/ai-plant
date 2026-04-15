@@ -1,54 +1,53 @@
 #!/bin/bash
 #
-# Проверяет что упоминания .md файлов в docs/ -- **кликабельные** markdown-ссылки,
-# а не plain text. То есть `[text](path.md)` или `path.md` в backticks,
-# а не голое `path.md` или `docs/foo/bar.md` в тексте.
+# Проверяет что упоминания файлов и папок в docs/ -- кликабельные markdown-ссылки.
+# Backticks НЕ являются заменой ссылке (они не кликабельны).
 #
 # Что детектирует (примеры плохого):
-#   "См. docs/models/families/glm.md"              <- plain text file mention
-#   "Смотри agents/claude-code/news.md"            <- plain text relative path
-#   "Подробности в README.md раздела"              <- plain text .md reference
+#   "См. docs/models/families/glm.md"              <- plain text .md
+#   "Расширен `docs/models/families/glm.md`"       <- backticks .md
+#   "Папка `docs/ai-agents/agents/claude-code/`"   <- backticks директория
+#   "Раздел docs/apps/"                            <- plain text директория
 #
-# Что разрешено (не детектирует):
+# Что разрешено:
 #   "[GLM](families/glm.md)"                        <- кликабельная ссылка
-#   "`docs/models/families/glm.md`"                 <- backticks (code-style)
-#   "```bash\ngrep docs/foo.md\n```"                <- внутри code-блока
+#   "[`docs/foo.md`](foo.md)"                       <- ссылка с code-style текстом
+#   "[папка apps/](apps/README.md)"                 <- ссылка на папку
+#   "```bash\nls docs/\n```"                        <- внутри code-блока
 #   "URL: https://github.com/.../foo.md"            <- URL
-#   frontmatter (начало файла до второго ---)
+#   "README.md / CLAUDE.md / SKILL.md"              <- голые имена-конвенции (без пути)
+#   ".claude/skills/foo/SKILL.md"                   <- gitignored путь
+#   frontmatter
+#
+# Алгоритм:
+#   1. awk извлекает кандидатов (.md или path/ ) из тела статьи
+#   2. bash проверяет существование candidate в PROJECT_ROOT (как файл/папка)
+#   3. если существует -- это реальный путь, должен быть кликабельным
 #
 # Exit: 0 -- чисто, 1 -- найдены некликабельные упоминания
 #
 
-set -euo pipefail
+set -uo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(cd "${SCRIPT_DIR}/../.." && pwd)"
 DOCS_DIR="${PROJECT_ROOT}/docs"
 
 VIOLATIONS=0
+TOTAL_BAD=0
 
-echo "Проверка plain-text упоминаний .md файлов в docs/"
+echo "Проверка некликабельных упоминаний файлов и папок в docs/"
 echo "---"
 
-# Обход каждого .md файла
-while IFS= read -r md_file; do
-    # Пропустить changelog -- там намеренно много упоминаний hash'ей и commit-тем
-    [[ "$md_file" == *"/changelog.md" ]] && continue
-
-    rel_file="${md_file#"${PROJECT_ROOT}/"}"
-
-    # Чтение файла с обработкой состояний:
-    # - in_code_block: мы внутри ``` ... ``` (пропускать)
-    # - in_frontmatter: мы внутри --- ... --- (пропускать)
-    awk -v file="$rel_file" '
+extract_candidates() {
+    # Принимает .md файл, печатает candidates в формате "lineno|matched|clean"
+    local md_file="$1"
+    awk '
         BEGIN {
             in_code_block = 0
             in_frontmatter = 0
             first_line = 1
-            violations = 0
         }
-
-        # Детектирование frontmatter (начинается и кончается ---)
         {
             if (first_line && $0 == "---") {
                 in_frontmatter = 1
@@ -61,77 +60,90 @@ while IFS= read -r md_file; do
                 next
             }
         }
-
-        # Детектирование code-блоков (начало/конец ```)
         /^```/ {
             in_code_block = !in_code_block
             next
         }
-
-        # Пропустить содержимое code-блоков
         in_code_block { next }
-
-        # Пропустить строки-заголовки таблиц (| -- | -- |)
-        /^\s*\|[-:| ]+\|\s*$/ { next }
-
-        # Искать упоминания .md файлов которые НЕ в markdown-ссылке и НЕ в backticks
+        /^[[:space:]]*\|[-:| ]+\|[[:space:]]*$/ { next }
         {
             line = $0
             lineno = NR
 
-            # Удалить все markdown-ссылки [...](...) -- их проверяет check-links.sh
+            # Удалить markdown-ссылки [text](path) -- кликабельны, OK
             gsub(/\[[^]]*\]\([^)]*\)/, "", line)
-
-            # Удалить всё содержимое backticks `...`
-            gsub(/`[^`]*`/, "", line)
-
-            # Удалить полные URL (http/https)
+            # Удалить URL (http/https)
             gsub(/https?:\/\/[^[:space:])]+/, "", line)
 
-            # После очистки -- ищем .md references
-            # Паттерн: любое имя-файла.md (возможно с путём типа foo/bar.md или docs/foo/bar.md)
-            # Которое не является просто именем в списке из README
-            # Проблема: match() возвращает только первое вхождение, для простоты сверяемся со всей строкой
-            while (match(line, /[[:alnum:]_-]+(\/[[:alnum:]_-]+)*\.md\b/)) {
+            # Поиск кандидатов:
+            #   1) `?path.md`?      -- любой .md
+            #   2) `?dir/sub/`?     -- путь оканчивающийся на /
+            while (match(line, /`?[[:alnum:]_.][[:alnum:]_./-]*(\.md|\/)`?/)) {
                 matched = substr(line, RSTART, RLENGTH)
-
-                # Убрать найденное из строки чтобы итерировать дальше
                 line = substr(line, 1, RSTART-1) " " substr(line, RSTART+RLENGTH)
 
-                # Отфильтровать очевидные не-ссылки:
-                # - README.md без пути (упоминание конвенции, не конкретного файла)
-                # Но только если до и после нет слэша (абсолютно one-word)
-                # Тут пропустим "README.md" как общее упоминание файла-индекса
-                if (matched == "README.md") continue
+                clean = matched
+                gsub(/`/, "", clean)
 
-                # - CLAUDE.md, AGENTS.md -- имена-конвенции, не конкретные пути
-                if (matched == "CLAUDE.md" || matched == "AGENTS.md") continue
+                # Whitelist: голые имена-конвенции (без пути)
+                if (clean == "README.md" || clean == "CLAUDE.md" || \
+                    clean == "AGENTS.md" || clean == "SKILL.md" || \
+                    clean == "MEMORY.md") continue
 
-                # - Упоминание в словах "файл settings.json", "в .gitignore" -- тут не md
+                # Whitelist: gitignored .claude/* (нельзя сделать кликабельным)
+                if (clean ~ /^\.claude\//) continue
 
-                # Выдать нарушение
-                printf("  %s:%d  некликабельное: %s\n", file, lineno, matched)
-                violations++
+                printf("%d|%s|%s\n", lineno, matched, clean)
             }
         }
+    ' "$md_file"
+}
 
-        END {
-            exit (violations > 0 ? 1 : 0)
-        }
-    ' "$md_file" && : || ((VIOLATIONS += $?))
+while IFS= read -r md_file; do
+    rel_file="${md_file#"${PROJECT_ROOT}/"}"
+    src_dir="$(dirname "$md_file")"
+    file_violations=""
+
+    while IFS='|' read -r lineno matched clean; do
+        [[ -z "${lineno:-}" ]] && continue
+
+        # Проверка существования: путь относительно PROJECT_ROOT, DOCS_DIR
+        # или относительно директории самого исходного файла (для ../, ./)
+        if [[ -e "${PROJECT_ROOT}/${clean}" ]] || \
+           [[ -e "${DOCS_DIR}/${clean}" ]] || \
+           [[ -e "${src_dir}/${clean}" ]]; then
+            file_violations+="  ${rel_file}:${lineno}  некликабельное: ${matched}"$'\n'
+        elif [[ "$clean" == *.md ]]; then
+            # .md mention которого нет в проекте -- вероятно опечатка ИЛИ placeholder
+            # Помечаем только если выглядит как попытка ссылки на проект (содержит /)
+            if [[ "$clean" == */* ]]; then
+                file_violations+="  ${rel_file}:${lineno}  некликабельное (битый путь?): ${matched}"$'\n'
+            fi
+        fi
+    done < <(extract_candidates "$md_file")
+
+    if [[ -n "$file_violations" ]]; then
+        printf "%s" "$file_violations"
+        ((VIOLATIONS++)) || true
+        bad=$(printf "%s" "$file_violations" | grep -c '^' || true)
+        ((TOTAL_BAD += bad)) || true
+    fi
 done < <(find "$DOCS_DIR" -name "*.md" -type f)
 
 echo "---"
 if [[ $VIOLATIONS -eq 0 ]]; then
-    echo "Plain-text упоминаний .md не найдено: чисто"
+    echo "Некликабельных упоминаний не найдено: чисто"
     exit 0
 else
-    echo "Найдено файлов с нарушениями: $VIOLATIONS"
+    echo "Файлов с нарушениями: ${VIOLATIONS}, всего нарушений: ${TOTAL_BAD}"
     echo ""
-    echo "Правило: все упоминания внутренних .md файлов должны быть оформлены как"
-    echo "  [text](path.md)     -- кликабельная ссылка"
-    echo "  \`path.md\`          -- backticks (code-style, если ссылка сейчас неуместна)"
+    echo "Правило: все упоминания внутренних файлов и папок проекта должны"
+    echo "быть оформлены как кликабельные markdown-ссылки:"
+    echo "  [text](path.md)              -- ссылка на файл"
+    echo "  [\`path.md\`](path.md)         -- ссылка с code-style текстом"
+    echo "  [папка apps/](apps/README.md) -- ссылка на папку (через её README)"
     echo ""
+    echo "Backticks БЕЗ ссылки -- НЕ являются заменой (они не кликабельны)."
     echo "См. .claude/skills/doc-lifecycle/SKILL.md, секция \"Ссылки\""
     exit 1
 fi

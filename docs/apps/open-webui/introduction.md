@@ -91,7 +91,7 @@ Open WebUI выделяется тем, что **одновременно**:
 - **Team access**: несколько пользователей с RBAC и quota
 - **Production-ready**: healthchecks, metrics, backup chat-history
 
-Установка на Strix Halo -- через Docker, см. `scripts/webui/open-webui/`:
+Установка на Strix Halo -- через Docker, см. [`scripts/webui/open-webui/`](../../../scripts/webui/open-webui/):
 
 ```bash
 ./scripts/webui/open-webui/install.sh

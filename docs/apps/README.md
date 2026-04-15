@@ -1,4 +1,4 @@
-# Приложения (apps/)
+# Приложения ([apps/](README.md))
 
 Профили end-user приложений через которые пользователь работает с моделями на платформе Strix Halo. В отличие от [моделей](../models/README.md) (веса), [inference-бэкендов](../inference/README.md) (движки) и [use-cases](../use-cases/README.md) (рецепты задач), этот раздел описывает **сами приложения** как продукты: архитектуру, внутреннее устройство, простые и сложные сценарии использования.
 
@@ -12,7 +12,7 @@
 | [`inference/`](../inference/README.md) | Backend-движки (llama.cpp, Ollama, Lemonade) |
 | [`models/families/`](../models/families/README.md) | Веса и архитектуры моделей |
 | [`use-cases/`](../use-cases/README.md) | Операционные задачи ("как сделать X") |
-| **`apps/` (этот раздел)** | **End-user приложения**: UI, workflow-движки, studios, chat-интерфейсы |
+| **[`apps/`](README.md) (этот раздел)** | **End-user приложения**: UI, workflow-движки, studios, chat-интерфейсы |
 
 Пример: [`docs/models/families/flux.md`](../models/families/flux.md) -- про веса FLUX.1. [`docs/use-cases/images/workflows.md`](../use-cases/images/workflows.md) -- про конкретный txt2img workflow. **Этот раздел** -- про ComfyUI как программу: node graph engine, execution model, ecosystem плагинов.
 
@@ -54,7 +54,7 @@
 
 ## Структура каждого подраздела
 
-Каждая папка `docs/apps/<name>/` содержит 5 обязательных файлов:
+Каждая папка внутри [`docs/apps/`](README.md) (например `<name>/`) содержит 5 обязательных файлов:
 
 - `README.md` -- индекс, краткая сводка, когда использовать, статус на платформе
 - `introduction.md` -- что это, история, философия, позиционирование

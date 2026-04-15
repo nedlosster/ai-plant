@@ -18,7 +18,7 @@ ACE-Step -- diffusion-модель для генерации полных пес
 
 Выдаёт WAV-файл готовой песни длиной до 2-4 минут.
 
-На платформе работает через PyTorch ROCm (HSA_OVERRIDE_GFX_VERSION=11.5.1) с собственным venv. Запуск -- через `scripts/music/ace-step/start.sh`.
+На платформе работает через PyTorch ROCm (HSA_OVERRIDE_GFX_VERSION=11.5.1) с собственным venv. Запуск -- через [`scripts/music/ace-step/start.sh`](../../../scripts/music/ace-step/start.sh).
 
 ## Варианты
 
@@ -41,7 +41,7 @@ Language model для генерации lyrics-aware тренда. Подклю
 
 - ~8 GiB VRAM
 - Делает вокал более согласованным с текстом
-- На платформе настроен в `scripts/music/ace-step/config.sh`:
+- На платформе настроен в [`scripts/music/ace-step/config.sh`](../../../scripts/music/ace-step/config.sh):
   ```bash
   export ACESTEP_LM_MODEL_PATH=acestep-5Hz-lm-4B
   export ACESTEP_LM_BACKEND=pt
@@ -141,5 +141,5 @@ We are the dreamers
 
 - Направления: [music](../music.md), [russian-vocals](../russian-vocals.md)
 - Родственные семейства: [musicgen](musicgen.md) (инструментальная), [yue](yue.md) (lyrics-to-song альтернатива)
-- Скрипты: `scripts/music/ace-step/{install,start,stop,status}.sh`
+- Скрипты: [`scripts/music/ace-step/`](../../../scripts/music/ace-step/) (`install.sh`, `start.sh`, `stop.sh`, `status.sh`)
 - Use cases: [`docs/use-cases/music/quickstart.md`](../../use-cases/music/quickstart.md)

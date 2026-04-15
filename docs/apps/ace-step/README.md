@@ -60,7 +60,7 @@ cd ~/projects/ai-plant
 
 У ACE-Step есть два угла зрения в документации:
 - [`docs/models/families/ace-step.md`](../../models/families/ace-step.md) -- **карточка модели**: параметры нейросети, архитектура diffusion, лицензия весов
-- **Этот раздел** (`docs/apps/ace-step/`) -- **софтверный профиль**: Python-пакет, Gradio UI, CLI, LoRA trainer, CPU/ROCm пути, ограничения платформы
+- **Этот раздел** ([`docs/apps/ace-step/`](README.md)) -- **софтверный профиль**: Python-пакет, Gradio UI, CLI, LoRA trainer, CPU/ROCm пути, ограничения платформы
 
 Оба дополняют друг друга. Карточка -- про веса, профиль -- про стек.
 

@@ -2,13 +2,13 @@
 
 Платформа: Radeon 8060S (120 GiB GPU-доступной памяти), ROCm 7.2.1.
 
-Полные описания моделей -- в `families/`. Эта страница: сравнительные таблицы и выбор под задачу.
+Полные описания моделей -- в [`families/`](families/README.md). Эта страница: сравнительные таблицы и выбор под задачу.
 
 ## Скачано на платформе
 
 | Модель | Семейство | Параметры | Бэкенд | Запуск |
 |--------|-----------|-----------|--------|--------|
-| ACE-Step 1.5 | [ace-step](families/ace-step.md) | <4 GiB DiT + 4B LM | PyTorch ROCm | `scripts/music/ace-step/start.sh` |
+| ACE-Step 1.5 | [ace-step](families/ace-step.md) | <4 GiB DiT + 4B LM | PyTorch ROCm | [`scripts/music/ace-step/start.sh`](../../scripts/music/ace-step/start.sh) |
 
 ## Сравнительная таблица
 

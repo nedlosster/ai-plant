@@ -132,7 +132,7 @@ sudo apt autoremove -y
 
 ## Скрипты автоматизации
 
-Готовые скрипты в `scripts/inference/rocm/`: [документация](../../scripts/inference/rocm/README.md)
+Готовые скрипты в [`scripts/inference/rocm/`](../../scripts/inference/rocm/README.md): [документация](../../scripts/inference/rocm/README.md)
 
 | Скрипт | Назначение |
 |--------|-----------|

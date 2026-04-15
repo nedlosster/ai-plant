@@ -118,4 +118,4 @@ Vulkan быстрее на 26-57%. **Рекомендация: Vulkan для inf
 
 - Направления: [coding](../coding.md), [llm](../llm.md)
 - Родственные семейства: [qwen25-coder](qwen25-coder.md) (FIM-линейка для inline-автодополнения), [qwen35](qwen35.md) (general-purpose Qwen той же эпохи)
-- Пресеты: `scripts/inference/vulkan/preset/qwen-coder-next.sh`, `scripts/inference/vulkan/preset/qwen3-coder-30b.sh`
+- Пресеты: [`scripts/inference/vulkan/preset/qwen-coder-next.sh`](../../../scripts/inference/vulkan/preset/qwen-coder-next.sh), [`scripts/inference/vulkan/preset/qwen3-coder-30b.sh`](../../../scripts/inference/vulkan/preset/qwen3-coder-30b.sh)

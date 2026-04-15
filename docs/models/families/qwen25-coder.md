@@ -114,4 +114,4 @@ FIM повышенного качества. Хороший компромисс
 
 - Направления: [coding](../coding.md)
 - Родственные семейства: [qwen3-coder](qwen3-coder.md) (новое поколение MoE для агентов, БЕЗ FIM), [codestral](codestral.md) (альтернативный FIM от Mistral)
-- Пресет: `scripts/inference/vulkan/preset/qwen2.5-coder-1.5b.sh`
+- Пресет: [`scripts/inference/vulkan/preset/qwen2.5-coder-1.5b.sh`](../../../scripts/inference/vulkan/preset/qwen2.5-coder-1.5b.sh)

@@ -2,7 +2,7 @@
 
 Стратегии работы с PDF, Word, Excel, сканами и изображениями документов на платформе Strix Halo. Локальный AI-стек: Vision-LLM (Qwen3-VL, InternVL3.5, Gemma 4) + классические парсеры (pdfplumber, python-docx, openpyxl, marker, MinerU).
 
-Полные описания моделей -- в [docs/models/families/](../../models/families/), запуск -- через пресеты в `scripts/inference/vulkan/preset/`.
+Полные описания моделей -- в [docs/models/families/](../../models/families/), запуск -- через пресеты в [`scripts/inference/vulkan/preset/`](../../../scripts/inference/vulkan/preset/).
 
 ## Что умеем
 
@@ -429,4 +429,4 @@ LLM-генерация  python-docx /
 - **Направление**: [docs/models/vision.md](../../models/vision.md)
 - **Платформы и клиенты**: [families/qwen3-vl.md#платформы-и-клиенты-для-работы-с-моделью](../../models/families/qwen3-vl.md)
 - **RAG для длинных документов**: [llm-guide/rag/](../../llm-guide/rag/)
-- **Запуск vision-сервера**: `scripts/inference/vulkan/preset/qwen3-vl.sh`, `gemma4.sh`, `internvl.sh`
+- **Запуск vision-сервера**: [`scripts/inference/vulkan/preset/qwen3-vl.sh`](../../../scripts/inference/vulkan/preset/qwen3-vl.sh), `gemma4.sh`, `internvl.sh`

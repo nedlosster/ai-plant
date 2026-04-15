@@ -4,7 +4,7 @@
 
 TTS с **voice cloning** -- модели, синтезирующие речь голосом конкретного человека по короткому референсному аудио (zero-shot, 6-30 сек).
 
-Полные описания моделей -- в `families/`. Эта страница: архитектура, сравнительные таблицы, выбор под задачу, веб-стеки.
+Полные описания моделей -- в [`families/`](families/README.md). Эта страница: архитектура, сравнительные таблицы, выбор под задачу, веб-стеки.
 
 ## Особенности платформы
 
@@ -58,7 +58,7 @@ VRAM-аппетиты у всех моделей умеренные (4-8 GiB).
 Один Gradio-интерфейс с поддержкой 20+ моделей: F5-TTS, XTTS v2, Fish Speech, ACE-Step, GPT-SoVITS, CosyVoice, Kokoro и др.
 
 - **GitHub**: [rsxdalv/TTS-WebUI](https://github.com/rsxdalv/TTS-WebUI)
-- На платформе: `./scripts/tts/install.sh && ./scripts/tts/start.sh -d`
+- На платформе: [`./scripts/tts/install.sh`](../../scripts/tts/install.sh) && [`./scripts/tts/start.sh`](../../scripts/tts/start.sh) `-d`
 - UI: http://localhost:7770
 
 ### Open WebUI -> Custom TTS Engine
@@ -85,7 +85,7 @@ LobeChat Settings -> Speech -> TTS/STT Provider = OpenAI (совместимый
 
 ### Standalone Gradio каждой модели
 
-Каждое семейство имеет встроенный UI, подробности в `families/<name>.md`.
+Каждое семейство имеет встроенный UI, подробности в [`families/`](families/README.md) (отдельный `.md` на каждую модель).
 
 ## Скрипты на платформе
 

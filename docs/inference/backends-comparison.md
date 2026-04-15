@@ -87,7 +87,7 @@ Dense-модели: Vulkan 74-81%, HIP 64-72% от теоретического 
 - Compute shaders менее гибкие, чем HIP/CUDA kernels
 
 Документация: [vulkan-llama-cpp.md](vulkan-llama-cpp.md)
-Скрипты: `scripts/inference/vulkan/`
+Скрипты: [`scripts/inference/vulkan/`](../../scripts/inference/vulkan/)
 
 ## ROCm/HIP: работает, медленнее Vulkan
 
@@ -101,11 +101,11 @@ Dense-модели: Vulkan 74-81%, HIP 64-72% от теоретического 
 
 **Зачем нужен ROCm:**
 - PyTorch, vLLM, transformers -- требуют ROCm для GPU
-- Необходим для training/fine-tuning на GPU
+- Необходим для [training](../training/README.md)/fine-tuning на GPU
 - Ollama: нативная поддержка gfx1151, ~40 tok/s на 30B Q8_0
 
 Документация: [rocm-setup.md](rocm-setup.md), [rocm-llama-cpp.md](rocm-llama-cpp.md)
-Скрипты: `scripts/inference/rocm/`
+Скрипты: [`scripts/inference/rocm/`](../../scripts/inference/rocm/)
 
 ## CPU (AVX-512 BF16): надёжный fallback
 

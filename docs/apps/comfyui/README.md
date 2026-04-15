@@ -30,14 +30,14 @@ Node-based workflow engine для diffusion-моделей (картинки, в
 
 | Компонент | Состояние |
 |-----------|-----------|
-| ComfyUI core | установлен через `scripts/comfyui/vulkan/install.sh` |
+| ComfyUI core | установлен через [`scripts/comfyui/vulkan/install.sh`](../../../scripts/comfyui/vulkan/install.sh) |
 | ComfyUI-Manager | установлен |
 | ComfyUI-GGUF | установлен (загрузка GGUF-моделей через ggml Vulkan) |
 | FLUX.1-schnell Q4_K_S | скачан (минимальный набор через `download-models.sh --minimal`) |
 | T5-XXL Q8_0 | скачан |
 | CLIP-L | скачан |
 | Vulkan backend | основной, работает стабильно |
-| ROCm backend | альтернативный, через `scripts/comfyui/rocm/` |
+| ROCm backend | альтернативный, через [`scripts/comfyui/rocm/`](../../../scripts/comfyui/rocm/) |
 
 ## Быстрый старт
 

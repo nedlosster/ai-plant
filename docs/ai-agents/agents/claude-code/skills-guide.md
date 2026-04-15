@@ -292,7 +292,7 @@ Slash-command автоматически совпадает с именем: `/g
 
 ### Documentation
 
-- **doc-lifecycle** -- управление docs/ (new, review, validate)
+- **doc-lifecycle** -- управление [`docs/`](../../../../docs/README.md) (new, review, validate)
 - **edit-article** -- правка статей с улучшением структуры
 - **write-a-prd** -- создание PRD через интервью пользователя
 - **knowledge-base** -- ведение wiki
@@ -311,11 +311,11 @@ Slash-command автоматически совпадает с именем: `/g
 | Skill | Scope | Что делает |
 |-------|-------|------------|
 | `/new-branch` | project | Создание feature-ветки с worktree |
-| `/diagram` | project | Mermaid-диаграммы в `docs/diagrams/` |
+| `/diagram` | project | Mermaid-диаграммы в [`docs/diagrams/`](../../../diagrams/) |
 | `/pdf` | project | Экспорт markdown в PDF |
-| `/doc-lifecycle` | project | Управление docs/ (создание, ревью, валидация) |
+| `/doc-lifecycle` | project | Управление [`docs/`](../../../README.md) (создание, ревью, валидация) |
 | `/llama-cpp` | project | Сборка/обновление llama.cpp на inference-сервере |
-| `/models-catalog` | project | Ведение `docs/models/families/` |
+| `/models-catalog` | project | Ведение [`docs/models/families/`](../../../models/families/README.md) |
 | `/refresh-news` | project | Обновление новостных статей через веб-поиск |
 
 Глобальные (отрывок):

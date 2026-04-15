@@ -6,7 +6,7 @@
 
 **ComfyUI** -- node-based интерфейс для работы с diffusion-моделями. На Strix Halo работает через **ComfyUI-GGUF** (city96) -- плагин для GGUF-квантизаций, compute через ggml Vulkan backend.
 
-Скрипты управления: `scripts/comfyui/` (install, start, stop, status, check, download-models).
+Скрипты управления: [`scripts/comfyui/`](../../../scripts/comfyui/README.md) (install, start, stop, status, check, download-models).
 
 ## Ключевые модели
 
@@ -40,8 +40,8 @@
 
 ## Рекомендуемый порядок чтения
 
-1. **quickstart.md** -- установка и запуск, первый результат
-2. **prompting.md** -- научиться формулировать запросы
-3. **workflows.md** -- освоить пайплайны ComfyUI
-4. **lora-guide.md** -- расширить возможности моделей
-5. **resources.md** -- где искать модели, LoRA, workflows
+1. **[quickstart.md](quickstart.md)** -- установка и запуск, первый результат
+2. **[prompting.md](prompting.md)** -- научиться формулировать запросы
+3. **[workflows.md](workflows.md)** -- освоить пайплайны ComfyUI
+4. **[lora-guide.md](lora-guide.md)** -- расширить возможности моделей
+5. **[resources.md](resources.md)** -- где искать модели, LoRA, workflows

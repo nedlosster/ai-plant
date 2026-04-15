@@ -129,7 +129,7 @@ End-user приложения через которые пользователь
 ## Быстрый старт
 
 1. Платформа настроена: ядро 6.19.8, BIOS оптимизирован, Vulkan + ROCm 6.4
-2. llama.cpp собран с Vulkan, модели в ~/models/
-3. Запуск: `./scripts/inference/start-server.sh model.gguf --daemon`
-4. Загрузка моделей: `./scripts/inference/download-model.sh repo --include "*Q4_K_M*"`
+2. llama.cpp собран с Vulkan, модели в `~/models`
+3. Запуск: [`./scripts/inference/start-server.sh`](../scripts/inference/start-server.sh) `model.gguf --daemon`
+4. Загрузка моделей: [`./scripts/inference/download-model.sh`](../scripts/inference/download-model.sh) `repo --include "*Q4_K_M*"`
 

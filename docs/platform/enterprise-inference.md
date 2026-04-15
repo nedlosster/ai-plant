@@ -211,7 +211,7 @@ vLLM #1   vLLM #2   vLLM #3    (каждый на H100/MI300X)
 | Требуется fine-tune >14B | Cloud GPU (A100+ для training) |
 | Uptime >99.5% критичен | Managed inference (Together, Replicate) |
 
-**Для нашей платформы**: масштабирование = гибридный подход. Daily-задачи на local Strix Halo ($0), frontier-задачи через API (Kimi K2.5 $0.45/1M, DeepSeek $0.14/1M). Cloud GPU -- только для training/fine-tune.
+**Для нашей платформы**: масштабирование = гибридный подход. Daily-задачи на local Strix Halo ($0), frontier-задачи через API (Kimi K2.5 $0.45/1M, DeepSeek $0.14/1M). Cloud GPU -- только для [training](../training/README.md)/fine-tune.
 
 ## Ссылки
 

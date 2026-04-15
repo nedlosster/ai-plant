@@ -31,7 +31,7 @@ Markdown-first AI chat с Plugin Market и Agents Market экосистемой.
 
 | Компонент | Состояние |
 |-----------|-----------|
-| LobeChat Docker | устанавливается через `scripts/webui/lobe-chat/install.sh` |
+| LobeChat Docker | устанавливается через [`scripts/webui/lobe-chat/install.sh`](../../../scripts/webui/lobe-chat/install.sh) |
 | Backend подключения | llama-server на :8081 через OpenAI-compat API |
 | Plugin Market | подключается по умолчанию к lobehub.com/market |
 | Assistants | доступны через Agents Market |

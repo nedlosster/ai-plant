@@ -50,7 +50,7 @@
 | [Анатомия LLM](model-anatomy.md) | Что внутри модели: параметры, слои, размерности, scaling laws |
 | [HuggingFace](huggingface.md) | Как найти, выбрать и загрузить модель. CLI, Spaces, Leaderboard |
 
-#### Что такое LLM (what-is-llm.md)
+#### Что такое LLM ([what-is-llm.md](what-is-llm.md))
 
 Стартовая статья раздела. Определяет LLM как нейросеть с миллиардами
 параметров, обученную на текстовых данных для предсказания следующего
@@ -65,7 +65,7 @@ Llama, Qwen, DeepSeek, Mistral, Gemma -- с характеристиками, л
 alignment, base model, instruct model, GGUF, VRAM.
 
 
-#### Transformer (transformer.md)
+#### Transformer ([transformer.md](transformer.md))
 
 Объясняет архитектуру Transformer для инженера без ML-бэкграунда.
 Начинает с проблемы (RNN были медленными для последовательностей)
@@ -90,7 +90,7 @@ feed-forward, SwiGLU, RMSNorm, residual connections, RoPE,
 encoder-decoder, decoder-only.
 
 
-#### Токенизация (tokenization.md)
+#### Токенизация ([tokenization.md](tokenization.md))
 
 Объясняет, как текст преобразуется в числа. Нейросеть работает
 с тензорами -- текст сначала разбивается на токены (подслова),
@@ -110,7 +110,7 @@ tiktoken) и llama-server API.
 byte-level BPE, chat template, FIM, специальные токены.
 
 
-#### Генерация текста (generation.md)
+#### Генерация текста ([generation.md](generation.md))
 
 Описывает процесс авторегрессивной генерации: каждый новый токен
 зависит от всех предыдущих. Разделяет inference на две фазы:
@@ -134,7 +134,7 @@ memory-bound, bandwidth, arithmetic intensity, KV-cache,
 speculative decoding, continuous batching, TTFT, tok/s.
 
 
-#### Сэмплирование (sampling.md)
+#### Сэмплирование ([sampling.md](sampling.md))
 
 Описывает, как модель выбирает следующий токен из распределения
 вероятностей. На каждом decode-шаге модель выдаёт вектор logits
@@ -175,7 +175,7 @@ beam search, greedy decoding, seed.
 | [Системные промпты](system-prompts.md) | Формат, шаблоны чатов, роль system message |
 | [Prompt engineering](prompt-engineering.md) | Техники: few-shot, chain-of-thought, structured output |
 
-#### Контекстное окно (context-window.md)
+#### Контекстное окно ([context-window.md](context-window.md))
 
 Контекстное окно -- максимум токенов (input + output), которые
 модель может обработать за один сеанс. Это главный ограничивающий
@@ -198,7 +198,7 @@ sliding window, RoPE scaling, prompt caching, context pruning,
 VRAM budget, "lost in the middle".
 
 
-#### Архитектуры (architectures.md)
+#### Архитектуры ([architectures.md](architectures.md))
 
 Сравнивает Dense и MoE (Mixture of Experts) -- две основные
 архитектуры современных LLM.
@@ -377,10 +377,10 @@ architectures        [v]   [v]     -    [v]   -    [v]   -
 
 | Статья LLM Guide | Связанные статьи inference |
 |-------------------|---------------------------|
-| generation.md | [benchmarking.md](../inference/benchmarking.md) -- замеры скорости |
-| generation.md, architectures.md | [vulkan-llama-cpp.md](../inference/vulkan-llama-cpp.md) -- настройка сервера |
-| what-is-llm.md, architectures.md | [model-selection.md](../inference/model-selection.md) -- выбор модели |
-| context-window.md | [troubleshooting.md](../inference/troubleshooting.md) -- проблемы с VRAM |
+| [generation.md](generation.md) | [benchmarking.md](../inference/benchmarking.md) -- замеры скорости |
+| [generation.md](generation.md), [architectures.md](architectures.md) | [vulkan-llama-cpp.md](../inference/vulkan-llama-cpp.md) -- настройка сервера |
+| [what-is-llm.md](what-is-llm.md), [architectures.md](architectures.md) | [model-selection.md](../inference/model-selection.md) -- выбор модели |
+| [context-window.md](context-window.md) | [troubleshooting.md](../inference/troubleshooting.md) -- проблемы с VRAM |
 
 
 ## Платформа для примеров

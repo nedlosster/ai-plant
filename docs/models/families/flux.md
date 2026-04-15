@@ -129,7 +129,7 @@ huggingface-cli download black-forest-labs/FLUX.1-dev \
     --local-dir ComfyUI/models/vae/
 ```
 
-Или через скрипт `scripts/comfyui/download-models.sh` (уже включает FLUX schnell + dev + T5-XXL + CLIP + VAE).
+Или через скрипт [`scripts/comfyui/download-models.sh`](../../../scripts/comfyui/download-models.sh) (уже включает FLUX schnell + dev + T5-XXL + CLIP + VAE).
 
 ## Запуск
 
@@ -161,4 +161,4 @@ huggingface-cli download black-forest-labs/FLUX.1-dev \
 
 - Направления: [images](../images.md)
 - Родственные семейства: [sd35](sd35.md) (Stable Diffusion 3.5 -- альтернатива), [hidream](hidream.md) (HiDream-I1 Full -- Apache 2.0 17B)
-- Скрипты: `scripts/comfyui/start.sh`, `scripts/comfyui/download-models.sh`
+- Скрипты: [`scripts/comfyui/start.sh`](../../../scripts/comfyui/start.sh), [`scripts/comfyui/download-models.sh`](../../../scripts/comfyui/download-models.sh)

@@ -58,7 +58,7 @@ LobeChat -- **Next.js application** с гибридной routing-моделью
 - `/` -- landing page (Next.js SSR)
 - `/login`, `/register` -- auth (SSR, чтобы форму можно было submit'ить без JS)
 - `/settings/*` -- настройки (SSR с server-side user data)
-- `/docs/*` -- встроенная документация
+- `/docs` (URL-префикс) -- встроенная документация
 
 Эти страницы рендерятся на сервере, передаются как HTML, гидрируются React'ом.
 

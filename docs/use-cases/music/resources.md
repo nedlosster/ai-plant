@@ -16,12 +16,12 @@
 
 | Файл | Содержание |
 |------|-----------|
-| docs/en/INSTALL.md | Установка (все платформы) |
-| docs/en/Tutorial.md | Пошаговый туториал |
-| docs/en/GRADIO_GUIDE.md | Руководство по Gradio UI |
-| docs/en/LoRA_Training_Tutorial.md | Обучение LoRA-адаптеров |
-| docs/en/ace_step_musicians_guide.md | Руководство для музыкантов |
-| docs/sidestep/Getting Started.md | Side-Step CLI |
+| [docs/en/INSTALL.md](https://github.com/ace-step/ACE-Step/blob/main/docs/en/INSTALL.md) | Установка (все платформы) |
+| [docs/en/Tutorial.md](https://github.com/ace-step/ACE-Step/blob/main/docs/en/Tutorial.md) | Пошаговый туториал |
+| [docs/en/GRADIO_GUIDE.md](https://github.com/ace-step/ACE-Step/blob/main/docs/en/GRADIO_GUIDE.md) | Руководство по Gradio UI |
+| [docs/en/LoRA_Training_Tutorial.md](https://github.com/ace-step/ACE-Step/blob/main/docs/en/LoRA_Training_Tutorial.md) | Обучение LoRA-адаптеров |
+| [docs/en/ace_step_musicians_guide.md](https://github.com/ace-step/ACE-Step/blob/main/docs/en/ace_step_musicians_guide.md) | Руководство для музыкантов |
+| [docs/sidestep/Getting Started.md](https://github.com/ace-step/ACE-Step/blob/main/docs/sidestep/Getting%20Started.md) | Side-Step CLI |
 
 ## Сообщество
 

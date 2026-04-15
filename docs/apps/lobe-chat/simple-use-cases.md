@@ -1,11 +1,11 @@
 # LobeChat: простые сценарии
 
-Базовые сценарии использования LobeChat на Strix Halo. Предполагается что LobeChat установлен через `scripts/webui/lobe-chat/install.sh` и запущен на `http://<SERVER_IP>:3211`.
+Базовые сценарии использования LobeChat на Strix Halo. Предполагается что LobeChat установлен через [`scripts/webui/lobe-chat/install.sh`](../../../scripts/webui/lobe-chat/install.sh) и запущен на `http://<SERVER_IP>:3211`.
 
 ## Предусловия
 
 1. **Inference backend запущен**: llama-server слушает на `localhost:8081` (или настроен через `~/.config/ai-plant/inference.env`)
-2. **LobeChat контейнер запущен**: `scripts/webui/lobe-chat/start.sh`
+2. **LobeChat контейнер запущен**: [`scripts/webui/lobe-chat/start.sh`](../../../scripts/webui/lobe-chat/start.sh)
 3. **Веб-UI доступен**: `http://<SERVER_IP>:3211`
 
 ## 1. Первый запуск: подключение к локальному llama-server

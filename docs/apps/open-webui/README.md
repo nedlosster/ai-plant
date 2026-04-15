@@ -31,9 +31,9 @@
 
 | Компонент | Состояние |
 |-----------|-----------|
-| Open WebUI Docker | устанавливается через `scripts/webui/open-webui/install.sh` |
+| Open WebUI Docker | устанавливается через [`scripts/webui/open-webui/install.sh`](../../../scripts/webui/open-webui/install.sh) |
 | Backend подключения | llama-server на :8081 через OpenAI-compat API |
-| Модели | любые GGUF, запущенные через `scripts/inference/start-server.sh` |
+| Модели | любые GGUF, запущенные через [`scripts/inference/start-server.sh`](../../../scripts/inference/start-server.sh) |
 | RAG | встроенный (Chroma/Qdrant в Docker) |
 | Функции | Python workspace в веб-UI |
 

@@ -373,10 +373,10 @@ Use case: visual code review в CI pipeline -- автоматическая пр
 - `--jinja` для function calling
 - `-c 65536` (64K -- меньше памяти на context checkpoints)
 
-Подробности про OOM-защиту -- в комментариях `scripts/inference/vulkan/preset/gemma4.sh`.
+Подробности про OOM-защиту -- в комментариях [`scripts/inference/vulkan/preset/gemma4.sh`](../../../scripts/inference/vulkan/preset/gemma4.sh).
 
 ## Связано
 
 - Направления: [llm](../llm.md), [vision](../vision.md)
 - Родственные семейства: альтернативы по vision -- [qwen3-vl](qwen3-vl.md) (лучше OCR), [qwen25-omni](qwen25-omni.md) (vision + audio)
-- Пресет: `scripts/inference/vulkan/preset/gemma4.sh`
+- Пресет: [`scripts/inference/vulkan/preset/gemma4.sh`](../../../scripts/inference/vulkan/preset/gemma4.sh)

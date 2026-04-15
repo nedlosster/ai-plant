@@ -99,7 +99,7 @@ hf download bartowski/Qwen2.5-Coder-1.5B-Instruct-GGUF \
     --local-dir ~/models/
 ```
 
-Модели сохраняются в `~/models/`. При использовании `--break-system-packages` (Ubuntu 24.04) скрипты устанавливаются в `~/.local/bin/` -- добавить в PATH:
+Модели сохраняются в `~/models`. При использовании `--break-system-packages` (Ubuntu 24.04) скрипты устанавливаются в `~/.local/bin/` -- добавить в PATH:
 
 ```bash
 echo 'export PATH=$HOME/.local/bin:$PATH' >> ~/.bashrc
@@ -226,14 +226,14 @@ watch -n 1 'cat /sys/class/drm/card1/device/gpu_busy_percent'
 
 ## Скрипты автоматизации
 
-Backend-специфичные скрипты в `scripts/inference/vulkan/`:
+Backend-специфичные скрипты в [`scripts/inference/vulkan/`](../../scripts/inference/vulkan/):
 
 | Скрипт | Назначение |
 |--------|-----------|
 | `check.sh` | Проверка окружения: Vulkan, GPU, группы, зависимости |
 | `build.sh` | Сборка/пересборка llama.cpp с GGML_VULKAN=ON |
 
-Общие скрипты в `scripts/inference/` (автодетект backend'а):
+Общие скрипты в [`scripts/inference/`](../../scripts/inference/README.md) (автодетект backend'а):
 
 | Скрипт | Назначение |
 |--------|-----------|

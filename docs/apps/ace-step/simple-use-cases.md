@@ -1,6 +1,6 @@
 # ACE-Step: простые сценарии
 
-Базовые use-cases для первого знакомства с ACE-Step как платформой. Предусловие: ACE-Step установлен через `scripts/music/ace-step/install.sh`, Gradio UI доступен на `http://<SERVER_IP>:7860`.
+Базовые use-cases для первого знакомства с ACE-Step как платформой. Предусловие: ACE-Step установлен через [`scripts/music/ace-step/install.sh`](../../../scripts/music/ace-step/install.sh), Gradio UI доступен на `http://<SERVER_IP>:7860`.
 
 Подробная установка и первый запуск -- в [../../use-cases/music/quickstart.md](../../use-cases/music/quickstart.md). Здесь фокус на **что делать** в уже запущенном UI.
 
