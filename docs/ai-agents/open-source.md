@@ -13,7 +13,7 @@
 | Kilo Code | Apache 2.0 | VS Code+JB+CLI | **да** | [agents/kilo-code.md](agents/kilo-code.md) |
 | Continue.dev | Apache 2.0 | VS Code+JB | **да** ⭐ | [agents/continue-dev.md](agents/continue-dev.md) |
 | Qwen Code | Apache 2.0 | CLI | **да** | [agents/qwen-code.md](agents/qwen-code.md) |
-| OpenClaw | Open source | Desktop/Multi | да | [agents/openclaw.md](agents/openclaw.md) |
+| OpenClaw | Open source | Desktop/Multi | да | [agents/openclaw/README.md](agents/openclaw/README.md) |
 | Hermes | Open source | CLI + Telegram/Discord/Slack | да | -- |
 | OpenHands | MIT | Web UI | да | -- |
 | SWE-agent | MIT | CLI (research) | да | -- |

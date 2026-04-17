@@ -13,7 +13,7 @@
 - [cline](cline.md) -- VS Code extension, plan/act mode, browser use
 - [qwen-code](qwen-code.md) -- CLI от Qwen team, multi-protocol, optimized для Qwen3-Coder
 - [kilo-code](kilo-code.md) -- VS Code/JetBrains/CLI, fork Roo Code, Orchestrator mode
-- [openclaw](openclaw.md) -- "Life OS" агент, model-agnostic
+- [openclaw](openclaw/README.md) -- "Life OS" агент, model-agnostic
 - [aider](aider.md) -- CLI с git-workflow, классика
 - [continue-dev](continue-dev.md) -- VS Code/JetBrains, FIM-фокус, лучший для local llama-server
 - [roo-code](roo-code.md) -- Cline fork с расширениями

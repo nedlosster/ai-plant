@@ -26,7 +26,7 @@
 | [Continue.dev](agents/continue-dev.md) | IDE | VS Code, JB | 128K* | Любая | **да** ⭐ | Free |
 | OpenHands | Web | Browser | 128K* | Любая | да | Free |
 | [Qwen Code](agents/qwen-code.md) | CLI | Terminal | 128K-1M | Multi-protocol | **да** | Free + Qwen OAuth |
-| [OpenClaw](agents/openclaw.md) | Desktop/Cloud | Multi | 128K* | Model agnostic | да | Free |
+| [OpenClaw](agents/openclaw/README.md) | Desktop/Cloud | Multi | 128K* | Model agnostic | да | Free |
 
 (*) Контекст зависит от выбранной модели. С Claude Opus / Qwen3.6 -- до 1M.
 (⭐) Использовано на нашей платформе.
@@ -76,7 +76,7 @@ Open-source агенты ([Cline](agents/cline.md), [opencode](agents/opencode.m
 |-----|--------|
 | Anthropic-привязанные | [Claude Code](agents/claude-code/README.md) |
 | OpenAI-compatible (любые модели) | [opencode](agents/opencode.md), [Aider](agents/aider.md), [Cline](agents/cline.md), [Kilo Code](agents/kilo-code.md), [Roo Code](agents/roo-code.md), [Continue.dev](agents/continue-dev.md), [Qwen Code](agents/qwen-code.md) |
-| Multi-protocol | [Qwen Code](agents/qwen-code.md), [OpenClaw](agents/openclaw.md), [Kilo Code](agents/kilo-code.md) |
+| Multi-protocol | [Qwen Code](agents/qwen-code.md), [OpenClaw](agents/openclaw/README.md), [Kilo Code](agents/kilo-code.md) |
 | Proprietary только | Codex, Devin, Cursor (только IDE), Windsurf |
 
 ### По интерфейсу
@@ -87,7 +87,7 @@ Open-source агенты ([Cline](agents/cline.md), [opencode](agents/opencode.m
 | **VS Code only** | [Cline](agents/cline.md), [Roo Code](agents/roo-code.md), Cursor (fork) |
 | **VS Code + JetBrains** | [Continue.dev](agents/continue-dev.md), [Kilo Code](agents/kilo-code.md), Junie |
 | **CLI + IDE + Web** | [Claude Code](agents/claude-code/README.md), Amazon Q |
-| **Desktop / Multi-app** | [OpenClaw](agents/openclaw.md) |
+| **Desktop / Multi-app** | [OpenClaw](agents/openclaw/README.md) |
 
 ### По multi-agent поддержке
 
@@ -103,7 +103,7 @@ Open-source агенты ([Cline](agents/cline.md), [opencode](agents/opencode.m
 | MCP | Агенты |
 |-----|--------|
 | **Зрелая экосистема** | [Claude Code](agents/claude-code/README.md) (создатели стандарта) |
-| **Поддержка** | [opencode](agents/opencode.md), [Cline](agents/cline.md), [Kilo Code](agents/kilo-code.md), [Roo Code](agents/roo-code.md), [Continue.dev](agents/continue-dev.md), [Qwen Code](agents/qwen-code.md), [OpenClaw](agents/openclaw.md) |
+| **Поддержка** | [opencode](agents/opencode.md), [Cline](agents/cline.md), [Kilo Code](agents/kilo-code.md), [Roo Code](agents/roo-code.md), [Continue.dev](agents/continue-dev.md), [Qwen Code](agents/qwen-code.md), [OpenClaw](agents/openclaw/README.md) |
 | **Нет** | [Aider](agents/aider.md) (на момент 2026), Cursor (частично) |
 
 ## Матрица выбора
@@ -117,7 +117,7 @@ Open-source агенты ([Cline](agents/cline.md), [opencode](agents/opencode.m
 | FIM autocomplete с local llama-server | [Continue.dev](agents/continue-dev.md) |
 | Multi-agent орчестрация без танцев | [Kilo Code](agents/kilo-code.md) Orchestrator или [Claude Code](agents/claude-code/README.md) |
 | Git-first workflow | [Aider](agents/aider.md) |
-| Lifestyle agent (не только код) | [OpenClaw](agents/openclaw.md) |
+| Lifestyle agent (не только код) | [OpenClaw](agents/openclaw/README.md) |
 | Native интеграция с Qwen-моделями | [Qwen Code](agents/qwen-code.md) |
 | Best frontend score | [Claude Code](agents/claude-code/README.md) (95%) |
 | Best backend score | Codex (58.5%) |

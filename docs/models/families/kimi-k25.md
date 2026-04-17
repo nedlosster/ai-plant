@@ -52,7 +52,7 @@ Kimi K2.5 -- релиз Moonshot AI в январе 2026, продолжение
 
 ## Идеальные сценарии применения
 
-- **API-режим через [opencode](../../ai-agents/agents/opencode.md), [Cline](../../ai-agents/agents/cline.md), [OpenClaw](../../ai-agents/agents/openclaw.md)** -- основной use case в 2026
+- **API-режим через [opencode](../../ai-agents/agents/opencode.md), [Cline](../../ai-agents/agents/cline.md), [OpenClaw](../../ai-agents/agents/openclaw/README.md)** -- основной use case в 2026
 - **Long-context multi-file refactoring** -- 256K + agentic loop для крупных monorepo
 - **Visual debugging** -- скриншоты ошибок + код в одном промпте
 - **Замена Claude Sonnet/Opus** при бюджетных ограничениях на frontier-tier
@@ -110,5 +110,5 @@ opencode --model kimi-k2.5
 
 - Направления: [llm.md](../llm.md), [coding.md](../coding.md), [vision.md](../vision.md)
 - Конкуренты по нише: [qwen36](qwen36.md) (API-only frontier), [qwen3-coder](qwen3-coder.md) (open, помещается), [deepseek-distill](deepseek-distill.md)
-- Использующие агенты: [opencode](../../ai-agents/agents/opencode.md), [Cline](../../ai-agents/agents/cline.md), [OpenClaw](../../ai-agents/agents/openclaw.md)
+- Использующие агенты: [opencode](../../ai-agents/agents/opencode.md), [Cline](../../ai-agents/agents/cline.md), [OpenClaw](../../ai-agents/agents/openclaw/README.md)
 - Контекст релиза: [../../ai-agents/news.md](../../ai-agents/news.md)
