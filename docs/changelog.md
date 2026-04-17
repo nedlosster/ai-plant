@@ -6,7 +6,31 @@
 
 ---
 
+## 2026-04-17
+
+**Dedicated папка OpenClaw (6 статей, 2218 строк) + усиление валидации ссылок**
+
+- Создана папка [docs/ai-agents/agents/openclaw/](ai-agents/agents/openclaw/README.md) с 6 статьями по аналогии с [claude-code/](ai-agents/agents/claude-code/README.md):
+  - [README.md](ai-agents/agents/openclaw/README.md) -- профиль + index + таблица "OpenClaw vs Claude Code" + decision tree
+  - [news.md](ai-agents/agents/openclaw/news.md) -- narrative arc: Clawdbot -> Moltbot -> OpenClaw, блокировка Anthropic, pivot на open models
+  - [computer-use-guide.md](ai-agents/agents/openclaw/computer-use-guide.md) -- Computer Use (xdotool + scrot), safety, CVE-2026-25253
+  - [integrations-guide.md](ai-agents/agents/openclaw/integrations-guide.md) -- 25+ каналов (WhatsApp, Slack, Telegram, GitHub, MCP)
+  - [models-providers.md](ai-agents/agents/openclaw/models-providers.md) -- провайдеры, миграция с Claude Code, fallback chains
+  - [deployment-guide.md](ai-agents/agents/openclaw/deployment-guide.md) -- Docker, security, production, ai-plant Strix Halo
+- Миграция через `git mv` -- история сохранена, 6 inbound-ссылок обновлены
+
 ## 2026-04-15
+
+**Changelog, валидация кликабельности ссылок, глоссарий**
+
+- Создан [`docs/changelog.md`](changelog.md) (курированная хроника 100+ коммитов)
+- Новый скрипт [`scripts/docs/check-plain-file-mentions.sh`](../scripts/docs/check-plain-file-mentions.sh):
+  - Детектирует plain-text и backtick-only упоминания файлов/папок (не кликабельны)
+  - Проверяет существование пути в filesystem
+  - Интегрирован в [`validate-all.sh`](../scripts/docs/validate-all.sh) как шаг [4/4]
+- Исправлено 109 нарушений кликабельности в 53 файлах (backtick-only ссылки -> markdown links)
+- [`docs/glossary.md`](glossary.md): +10 терминов (Agent Teams, Code Kit, GLM, DSA, MTP, PLE, Ascend, MindSpore, CogViT, USM conformer)
+- Коммиты: `92864cb`, `819fa19`, `7f14ec3`
 
 **Реорганизация документации Claude Code в dedicated папку**
 
@@ -188,21 +212,22 @@
 | 2026-04-11 | **Самый активный день**: раздел [docs/apps/](apps/README.md), inference profiles, глоссарий, refresh news |
 | 2026-04-12 | Closed-source coding статья, Gemma 4 расширение, MCP 97M |
 | 2026-04-14 | GLM семейство, GPT-6 релиз, GLM-5.1 #1 на SWE-Bench Pro |
-| 2026-04-15 | Dedicated папка для Claude Code (6 статей, 2460 строк) |
+| 2026-04-15 | Dedicated папка для Claude Code (6 статей, 2460 строк), changelog, валидация кликабельности |
+| 2026-04-17 | Dedicated папка для OpenClaw (6 статей, 2218 строк) -- второй agent с deep analysis |
 
 ---
 
 ## Статистика
 
 - **Первый коммит**: 2026-03-28
-- **Всего коммитов**: 100+ (актуально на апрель 2026)
-- **Размер документации**: ~15000+ строк
-- **Разделов [docs/](README.md)**: 8 ([platform](platform/README.md), [inference](inference/README.md), [models](models/README.md), [llm-guide](llm-guide/README.md), [training](training/README.md), [ai-agents](ai-agents/README.md), [use-cases](use-cases/README.md), [apps](apps/README.md))
+- **Всего коммитов**: 104
+- **Размер документации**: ~50000 строк
+- **Разделов [docs/](README.md)**: 10 ([platform](platform/README.md), [inference](inference/README.md), [models](models/README.md), [llm-guide](llm-guide/README.md), [training](training/README.md), [ai-agents](ai-agents/README.md), [use-cases](use-cases/README.md), [apps](apps/README.md), [diagrams](diagrams/), [pics](pics/))
 
 ---
 
-<!-- last-update: c8cbd5f -->
-<!-- last-date: 2026-04-15 -->
+<!-- last-update: 3b25b5a -->
+<!-- last-date: 2026-04-17 -->
 
 ## Как обновлять этот файл
 
