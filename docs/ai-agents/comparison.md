@@ -141,4 +141,3 @@ Open-source агенты ([Cline](agents/cline.md), [opencode](agents/opencode.m
 - [trends.md](trends.md) -- долгосрочные прогнозы
 - [agents/](agents/) -- per-agent страницы
 - [open-source.md](open-source.md) / [commercial.md](commercial.md) -- индексы по типу
-- [use-cases/coding/agents.md](../use-cases/coding/agents.md) -- операционные setup команды

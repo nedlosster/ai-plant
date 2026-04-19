@@ -101,7 +101,6 @@ Inference-сервер на AMD Ryzen AI MAX+ 395 (Strix Halo, 96 GiB VRAM).
 | Раздел | Описание |
 |--------|----------|
 | [Музыка](use-cases/music/README.md) | ACE-Step 1.5: генерация песен, промпты, LoRA |
-| [Кодинг](use-cases/coding/README.md) | AI-агенты, IDE, автодополнение |
 | [Картинки](use-cases/images/README.md) | ComfyUI + FLUX/SD: workflows, LoRA |
 | [Видео](use-cases/video/README.md) | Wan2.1, CogVideoX: text-to-video |
 

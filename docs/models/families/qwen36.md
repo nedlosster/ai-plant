@@ -1,6 +1,6 @@
 # Qwen3.6 (Alibaba, апрель 2026)
 
-> Флагман нового поколения Qwen для агентного кодинга и multimodal reasoning. Open weights ожидаются.
+> "First real agentic LLM" (Alibaba). Флагман нового поколения Qwen для агентного кодинга и multimodal reasoning. Open weights ожидаются.
 
 **Тип**: не раскрыто (предположительно MoE)
 **Лицензия**: API-only пока (open-варианты обещаны)
@@ -9,7 +9,9 @@
 
 ## Обзор
 
-Qwen3.6-Plus -- свежий релиз от Alibaba (2 апреля 2026). Флагман нового поколения, ориентированный на agentic coding и multimodal задачи. По заявлению Alibaba -- "в одном весовом классе с Claude 4.5 Opus" на agentic coding benchmarks.
+Qwen3.6-Plus -- релиз от Alibaba / Tongyi Lab (2 апреля 2026). Позиционируется как "first real agentic LLM" -- флагман нового поколения, ориентированный на agentic coding и multimodal задачи. По заявлению Alibaba -- "в одном весовом классе с Claude 4.5 Opus" на agentic coding benchmarks.
+
+Ключевое отличие от предшественников -- полный цикл автономной разработки: планирование, написание кода, тестирование и итеративная доработка без вмешательства пользователя. Модель способна работать на уровне репозитория (repository-level engineering) -- от декомпозиции задачи до финальной интеграции.
 
 **На момент апреля 2026 модель API-only** -- весов на HuggingFace ещё нет. Alibaba обещает: *"продолжим поддерживать open-source community с отдельными Qwen3.6 моделями в developer-friendly размерах"*.
 
@@ -19,7 +21,7 @@ Qwen3.6-Plus -- свежий релиз от Alibaba (2 апреля 2026). Фл
 
 | Вариант | Параметры | Контекст | Output | Статус | Доступ |
 |---------|-----------|----------|--------|--------|--------|
-| Qwen3.6-Plus | не раскрыто | **1M токенов** | 65K | API-only | [Alibaba Cloud Model Studio](https://www.alibabacloud.com/product/modelstudio) |
+| Qwen3.6-Plus | не раскрыто | **1M токенов** | 65K | API-only | [Alibaba Cloud Model Studio](https://www.alibabacloud.com/product/modelstudio), [OpenRouter](https://openrouter.ai/) (бесплатно в preview) |
 | Qwen3.6 (open variants) | -- | -- | -- | **ожидается** | -- |
 
 ## Архитектура и особенности
@@ -27,6 +29,7 @@ Qwen3.6-Plus -- свежий релиз от Alibaba (2 апреля 2026). Фл
 - **Контекст 1M токенов** по умолчанию (Qwen3.5 был 256K)
 - **Output до 65K токенов** -- длинные ответы без обрезаний
 - **Always-on chain-of-thought** -- thinking-режим включён по умолчанию
+- **Reasoning preservation** -- сохранение thinking context между сообщениями (reasoning chain не теряется при multi-turn)
 - **Native function calling**
 - **Multimodal** -- text + vision
 - **Screenshot-to-code** -- генерация фронтенда из скриншотов и дизайн-макетов
@@ -34,9 +37,10 @@ Qwen3.6-Plus -- свежий релиз от Alibaba (2 апреля 2026). Фл
 
 ## Сильные кейсы
 
-- **Agentic coding** -- разбивает сложные задачи, пишет, тестирует, итеративно дебажит
+- **Agentic coding** -- автономное планирование, написание, тестирование и итеративная доработка кода; production-ready решения
+- **Repository-level engineering** -- полный цикл от декомпозиции задачи до финальной интеграции
 - **Контекст 1M** -- весь репозиторий + история обсуждений + документация в одном запросе
-- **UI-to-code** -- генерация фронтенда из скриншотов и Figma-макетов
+- **Frontend development** -- интерпретация скриншотов UI, wireframes, прототипов и генерация функционального frontend-кода
 - **Document understanding** + multimodal reasoning
 - **Сложные workflow** в agent-инструментах ([Claude Code](../../ai-agents/agents/claude-code/README.md), [opencode](../../ai-agents/agents/opencode.md), [Aider](../../ai-agents/agents/aider.md), [Cline](../../ai-agents/agents/cline.md))
 
@@ -59,6 +63,9 @@ Qwen3.6-Plus -- свежий релиз от Alibaba (2 апреля 2026). Фл
 ```bash
 # Через Alibaba Cloud Model Studio
 # Документация: https://www.alibabacloud.com/product/modelstudio
+
+# Через OpenRouter (бесплатно в preview-период)
+# https://openrouter.ai/
 
 # Совместимые клиенты:
 # - Claude Code (через Anthropic API protocol) -- ../../ai-agents/agents/claude-code/README.md
@@ -99,6 +106,7 @@ Qwen3.6-Plus -- свежий релиз от Alibaba (2 апреля 2026). Фл
 
 ## Источники
 
+- [Qwen Blog: Qwen 3.6-Plus](https://qwen.ai/blog?id=qwen3.6)
 - [Qwen 3.6-Plus Review (BuildFastWithAI)](https://www.buildfastwithai.com/blogs/qwen-3-6-plus-preview-review)
 - [Constellation Research](https://www.constellationr.com/insights/news/alibabas-qwen-launches-new-flagship-llm-qwen-36-plus)
 - [Alibaba Cloud blog: Qwen3.6-Plus Towards Real World Agents](https://www.alibabacloud.com/blog/qwen3-6-plus-towards-real-world-agents_603005)

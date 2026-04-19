@@ -7,7 +7,6 @@
 | Раздел | Описание | Статус |
 |--------|----------|--------|
 | [Музыка и вокал](music/README.md) | ACE-Step 1.5: генерация песен с вокалом, промпты, LoRA | готов |
-| [Кодинг](coding/README.md) | IDE-интеграция, AI-агенты, автодополнение, рефакторинг | готов |
 | [Картинки](images/README.md) | ComfyUI + FLUX/SD: workflows, промпты, LoRA | готов |
 | [Видео](video/README.md) | AI-видеогенерация: Wan2.1, T2V, I2V, промпты, постобработка | готов |
 | [Документы](documents/README.md) | PDF/Word/Excel: парсинг, OCR, перевод, редактирование, Vision-LLM pipelines | готов |

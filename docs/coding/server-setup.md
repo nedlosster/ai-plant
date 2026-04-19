@@ -1,6 +1,6 @@
 # Настройка llama-server для кодинга
 
-Платформа: Radeon 8060S (96 GiB VRAM), llama-server + Vulkan. Предварительно: [vulkan-llama-cpp.md](../../inference/vulkan-llama-cpp.md).
+Платформа: Radeon 8060S (96 GiB VRAM), llama-server + Vulkan. Предварительно: [vulkan-llama-cpp.md](../inference/vulkan-llama-cpp.md).
 
 ## Сборка llama.cpp
 
@@ -183,6 +183,6 @@ curl http://localhost:8080/v1/chat/completions \
 
 ## Связанные статьи
 
-- [Модели для кодинга](models.md)
-- [IDE-интеграция](ide-integration.md)
-- [llama.cpp + Vulkan](../../inference/vulkan-llama-cpp.md)
+- [Модели для кодинга](../models/coding.md)
+- [IDE-интеграция](ide-setup.md)
+- [llama.cpp + Vulkan](../inference/vulkan-llama-cpp.md)

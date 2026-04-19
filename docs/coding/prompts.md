@@ -231,7 +231,7 @@
 
 ## Связанные статьи
 
-- [Сценарии](scenarios.md)
-- [AI-агенты](agents.md)
-- [opencode (per-agent страница)](../../ai-agents/agents/opencode.md)
-- [Модели для кодинга](../../models/coding.md)
+- [Workflow'ы](workflows.md)
+- [AI-агенты](../ai-agents/README.md)
+- [opencode (per-agent страница)](../ai-agents/agents/opencode.md)
+- [Модели для кодинга](../models/coding.md)

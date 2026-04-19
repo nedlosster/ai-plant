@@ -1425,5 +1425,5 @@ def coding_agent(task: str, runtime: ToolRuntime) -> str:
 
 - [Prompt engineering](prompt-engineering.md)
 - [Системные промпты](system-prompts.md)
-- [AI-агенты](../use-cases/coding/agents.md)
+- [AI-агенты](../ai-agents/comparison.md)
 - [RAG](rag/README.md)

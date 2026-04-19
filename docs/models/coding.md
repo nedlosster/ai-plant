@@ -101,7 +101,7 @@ Vulkan быстрее HIP во всех тестах. **Vulkan -- рекомен
 
 ### Agent-style ([opencode](../ai-agents/agents/opencode.md), [Aider](../ai-agents/agents/aider.md), [Cline](../ai-agents/agents/cline.md), SWE-agent)
 
-[Qwen3-Coder Next](families/qwen3-coder.md#next-80b-a3b) -- лидер MoE efficiency (70.6% SWE-V при 3B active), 256K контекст. Используется на платформе через `vulkan/preset/qwen-coder-next.sh`.
+[Qwen3-Coder Next](families/qwen3-coder.md#next-80b-a3b) -- лидер MoE efficiency (70.6% [SWE-bench Verified](../llm-guide/benchmarks/swe-bench.md) при 3B active), 256K контекст. Практические workflow'ы -- [coding/workflows.md](../coding/workflows.md#workflow-1-fim--cli-agent-основной).
 [Devstral 2 24B](families/devstral.md) -- лидер dense (72.2% SWE-V), FIM+agent в одной модели.
 
 ### Универсальный chat по коду

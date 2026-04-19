@@ -11,6 +11,9 @@
 | [news.md](news.md) | Хроника AI-кодинга: релизы моделей, обновления агентов, SWE-bench лидерборд, значимые блог-посты |
 | [workflows.md](workflows.md) | Практические workflow'ы на платформе: IDE FIM + CLI agent, multi-agent, code review, refactoring |
 | [resources.md](resources.md) | Курированные ресурсы: блоги, рассылки, YouTube, community, leaderboard-сайты |
+| [ide-setup.md](ide-setup.md) | Continue.dev, Cline, Roo Code: настройка IDE для автодополнения и inline edit |
+| [server-setup.md](server-setup.md) | llama-server: dual-instance config (FIM порт 8080 + Chat порт 8081) |
+| [prompts.md](prompts.md) | System prompts и prompt engineering для coding-задач |
 
 ## Текущий стек (апрель 2026)
 
@@ -18,8 +21,8 @@
 
 | Модель | Параметры | SWE-bench | VRAM Q4 | Роль |
 |--------|-----------|-----------|---------|------|
-| [Qwen3-Coder Next](../models/families/qwen3-coder.md) | 80B MoE (3B active) | ~48% | ~5 GiB | Primary agent (chat) |
-| [Devstral 2](../models/families/devstral.md) | 24B dense | ~47% | ~14 GiB | Agent alternative |
+| [Qwen3-Coder Next](../models/families/qwen3-coder.md) | 80B MoE (3B active) | 70.6% | ~5 GiB | Primary agent (chat) |
+| [Devstral 2](../models/families/devstral.md) | 24B dense | 72.2% | ~14 GiB | Agent alternative |
 | [Qwen3.5-122B-A10B](../models/families/qwen35.md) | 122B MoE (10B active) | -- | ~71 GiB | Heavy reasoning |
 | [Qwen3-Coder 30B-A3B](../models/families/qwen3-coder.md) | 30B MoE (3B active) | ~42% | ~18 GiB | FIM autocomplete |
 

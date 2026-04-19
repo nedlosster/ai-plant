@@ -200,6 +200,6 @@ Enterprise rollouts (Q1 2026)  | Goldman Sachs, Walmart, BMW
 
 ## Связанные разделы
 
-- [Локальные агенты с llama-server](../use-cases/coding/agents.md) -- Aider, OpenCode + свои модели
+- [Coding workflow'ы](../coding/workflows.md) -- Aider, OpenCode + свои модели
 - [LLM Guide: Function calling](../llm-guide/function-calling.md) -- как модели используют инструменты
 - [LLM Guide: RAG](../llm-guide/rag/README.md) -- retrieval для кодовой базы

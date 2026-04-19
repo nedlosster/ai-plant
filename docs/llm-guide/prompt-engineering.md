@@ -1027,7 +1027,7 @@ def get_users(db, ids):
 - [Системные промпты](./system-prompts.md) -- управление поведением модели
 - [Function calling](./function-calling.md) -- интеграция с инструментами
 - [RAG](./rag/README.md) -- расширение контекста документами
-- [Примеры для кода](../use-cases/coding/)
+- [Примеры для кода](../coding/README.md)
 - [Выбор модели](../inference/model-selection.md) -- влияние размера модели
   на prompt engineering
 
@@ -1036,4 +1036,4 @@ def get_users(db, ids):
 - [Системные промпты](system-prompts.md)
 - [RAG](rag/README.md)
 - [Function calling](function-calling.md)
-- [Промпты для кодинга](../use-cases/coding/prompts.md)
+- [Промпты для кодинга](../coding/prompts.md)

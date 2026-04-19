@@ -814,10 +814,10 @@ prompts/
 - [Function calling](./function-calling.md) -- специальные системные промпты
   для tool use
 - [RAG](./rag/README.md) -- системные промпты для retrieval-augmented generation
-- [Примеры промптов для кода](../use-cases/coding/prompts.md)
+- [Примеры промптов для кода](../coding/prompts.md)
 
 ## Связанные статьи
 
 - [Prompt engineering](prompt-engineering.md)
 - [Function calling](function-calling.md)
-- [Промпты для кодинга](../use-cases/coding/prompts.md)
+- [Промпты для кодинга](../coding/prompts.md)

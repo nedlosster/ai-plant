@@ -48,7 +48,7 @@
 | Architect режим (план + код) | [Aider](agents/aider.md) + Claude Opus / Qwen3-Coder Next |
 | VS Code agentic | [Cline](agents/cline.md) + Qwen3-Coder Next |
 
-Подробнее -- в [use-cases/coding/agents.md](../use-cases/coding/agents.md).
+Подробнее -- в [сравнении агентов](comparison.md).
 
 ## Связано
 
