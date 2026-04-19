@@ -86,6 +86,16 @@ Inference-сервер на AMD Ryzen AI MAX+ 395 (Strix Halo, 96 GiB VRAM).
 | [Сравнение](ai-agents/comparison.md) | Таблица, бенчмарки, матрица выбора |
 | [Тренды](ai-agents/trends.md) | Multi-agent, bounded autonomy, context race, прогнозы |
 
+## AI-кодинг ([coding/](coding/README.md))
+
+Центральный раздел для AI-assisted разработки: coding LLM, agents, workflow'ы, ресурсы community. Обновление: `/refresh-news coding`.
+
+| Статья | Описание |
+|--------|----------|
+| [Хроника](coding/news.md) | Релизы coding моделей, обновления агентов, SWE-bench лидерборд, блог-посты |
+| [Workflow'ы](coding/workflows.md) | FIM + CLI agent, multi-agent, code review, TDD с AI |
+| [Ресурсы](coding/resources.md) | Блоги, рассылки, YouTube, leaderboard-сайты, community |
+
 ## Прикладные задачи ([use-cases/](use-cases/README.md))
 
 | Раздел | Описание |
