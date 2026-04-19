@@ -16,7 +16,8 @@
 
 | GPU | VRAM | Bandwidth | FP16 TFLOPS | TDP | Цена (покупка) | Cloud $/hr (апр 2026) |
 |-----|------|-----------|-------------|-----|-----------------|------------|
-| **B200** | 192 GiB HBM3e | **8 TB/s** | 2250 | 1000W | ~$30-40K | **$5.62** (avg, +15% YoY) |
+| **B300** | 288 GiB HBM3e | **12 TB/s** | ~3000 | 1200W | ~$40-50K | **$4.50-5.80** (on-demand), $3.40 (reserved) |
+| **B200** | 192 GiB HBM3e | **8 TB/s** | 2250 | 1000W | ~$30-40K | **$2.65-5.62** (reserved-avg) |
 | **H200** | 141 GiB HBM3e | 4.8 TB/s | 990 | 700W | ~$25-30K | **$3.80** |
 | **H100 SXM** | 80 GiB HBM3 | 3.35 TB/s | 990 | 700W | ~$25K | $2.49-3 |
 | **A100 80G** | 80 GiB HBM2e | 2 TB/s | 312 | 400W | ~$10-15K | $1-1.5 |
@@ -24,7 +25,9 @@
 
 Источник цен: [getdeploying.com/gpus](https://getdeploying.com/gpus), [thundercompute.com](https://www.thundercompute.com/blog/nvidia-h200-pricing) (апрель 2026).
 
-**B200** -- текущий флагман. 8 TB/s bandwidth = **31x больше** чем Strix Halo (256 GB/s). NVLink 5.0 (1.8 TB/s) связывает до 576 GPU в один cluster. FP4/FP6 native -- квантизация без потерь на уровне hardware.
+**B300** -- следующее поколение Blackwell (апрель 2026). 288 GiB HBM3e, 12 TB/s bandwidth. Доступен в облаке (Scaleway 8x B300 HGX от $1.08/hr/GPU, Deep Infra, Verda). Rack-scale через NVLink 6.0.
+
+**B200** -- рабочий флагман 2026. 8 TB/s bandwidth = **31x больше** чем Strix Halo (256 GB/s). Cloud pricing падает: Lambda $3.49/hr, CoreWeave reserved $2.65/hr. NVLink 5.0 связывает до 576 GPU. FP4/FP6 native.
 
 **H100** -- рабочая лошадка inference 2024-2026. Cloud pricing упал с $12/hr (2023) до $1.5-3/hr (2026). На H100 крутятся большинство API-сервисов.
 
@@ -34,13 +37,18 @@
 
 | GPU | VRAM | Bandwidth | FP16 TFLOPS | TDP | Цена (покупка) | Cloud $/hr |
 |-----|------|-----------|-------------|-----|-----------------|------------|
+| **MI400** | rack-scale | -- | -- | -- | -- | H2 2026 (анонс) |
 | **MI355X** | 288 GiB HBM3e | 8 TB/s | ~2500 | 1000W | ~$20-25K | $3-5 |
 | **MI325X** | 256 GiB HBM3e | 6 TB/s | ~1300 | 1000W | ~$15-20K | $2.5-3 |
-| **MI300X** | 192 GiB HBM3 | 5.3 TB/s | 1300 | 750W | ~$12-15K | $2-2.5 |
+| **MI300X** | 192 GiB HBM3 | 5.3 TB/s | 1300 | 750W | ~$12-15K | $1.99-2.5 |
 
 **MI300X** -- основной конкурент H100 для inference. 192 GiB VRAM > 80 GiB H100 -- помещаются большие модели без model parallelism. ROCm стек менее зрелый, чем CUDA, но для vLLM/TGI inference работает.
 
+**MI400** -- rack-scale решение (H2 2026), конкурент NVIDIA GB200 NVL144. Подробности: [SemiAnalysis](https://newsletter.semianalysis.com/p/amd-advancing-ai-mi350x-and-mi400-ualoe72-mi500-ual256).
+
 **MI355X** -- ответ на B200. При масштабировании до 4 нод дает 3.4x throughput vs MI300X.
+
+**MI300X** -- commodity. AMD Developer Cloud: $1.99/hr/GPU. Основной конкурент H100 для inference. 192 GiB VRAM > 80 GiB H100.
 
 ### Другие вендоры
 

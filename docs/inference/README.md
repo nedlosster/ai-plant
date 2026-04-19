@@ -71,12 +71,11 @@ tok/s (tg) ~ bandwidth / model_size_bytes
 
 | Компонент | Статус |
 |-----------|--------|
-| Vulkan 1.3.275 (Mesa 26.0.0) | работает |
-| LM Studio (llama.cpp Vulkan) | установлен |
-| Модель Gemma 3 4B IT Q4_K_M | загружена |
-| ROCm | не установлен |
-| PyTorch | не установлен |
-| standalone llama.cpp | не установлен |
+| Vulkan 1.4.318 (Mesa 25.2.8) | работает |
+| standalone llama.cpp b8708 (Vulkan) | работает |
+| ROCm 7.2.1 (HIP) | работает |
+| PyTorch ROCm 2.7.1 | работает |
+| Ollama 0.9.x | установлен |
 | Docker | не установлен |
 
 ## Документация

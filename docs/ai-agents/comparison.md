@@ -9,9 +9,9 @@
 | Агент | Тип | Интерфейс | Контекст | Backend | Local llama-server | Цена/мес |
 |-------|-----|-----------|----------|---------|--------------------|----------|
 | [Claude Code](agents/claude-code/README.md) | CLI+IDE+Web | Terminal, VS Code, JB, Channels | 1M | Anthropic API | нет | $20-200 |
-| [Cursor 3](agents/cursor.md) | IDE | VS Code fork | 128K | Composer 2 (Kimi K2.5 base), Multi BYOK | частично | $20-40 |
+| [Cursor 3](agents/cursor.md) | IDE | VS Code fork | 128K | Composer 2 (Kimi K2.5 base), Multi BYOK | частично | $20-60 |
 | Codex 5.3 | Cloud | Web (ChatGPT) | 128K | OpenAI proprietary | нет | $200, unlimited промо |
-| Windsurf | IDE | 40+ IDE | 128K | SWE-1, SWE-1.5 | нет | $20 |
+| Windsurf | IDE | 40+ IDE | 128K | SWE-1, SWE-1.5 | нет | $15 |
 | Devin 2.0 | Cloud | Web + Slack | N/A | Proprietary | нет | $20 + $2.25/ACU |
 | Junie | IDE+CLI | JetBrains, CLI | 128K | Multi | нет | $100-300/год |
 | Copilot | IDE+CLI | VS Code, JB, vim | 64K | GPT-4o | нет | $10-19 |
@@ -130,7 +130,7 @@ Open-source агенты ([Cline](agents/cline.md), [opencode](agents/opencode.m
 |--------|-------------------|
 | **$0 (open-source + local)** | [opencode](agents/opencode.md) / [Cline](agents/cline.md) / [Continue.dev](agents/continue-dev.md) + Qwen3-Coder Next |
 | **$0 (free cloud)** | Gemini CLI или [Qwen Code](agents/qwen-code.md) + Qwen OAuth (1000 req/day) |
-| **$10-20/мес** | Copilot ($10) или [Cursor](agents/cursor.md) ($20) |
+| **$10-20/мес** | Copilot ($10), Windsurf ($15) или [Cursor](agents/cursor.md) ($20) |
 | **$100-200/мес** | [Claude Code](agents/claude-code/README.md) Max ($200) |
 | **$300+/мес** | [Claude Code](agents/claude-code/README.md) + Codex |
 

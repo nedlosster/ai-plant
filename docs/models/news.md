@@ -141,9 +141,13 @@ Mistral AI вернулась в MoE-сегмент после Mixtral: **675B t
 
 Релиз семейства Llama 4 -- первый Mixture-of-Experts от Meta:
 - **Llama 4 Scout** -- 109B total / 17B active, контекст **10M токенов** (уникально для open-source)
-- **Llama 4 Maverick** -- 400B total / 17B active, оптимизирован под качество
+- **Llama 4 Maverick** -- 400B total / 17B active, 128 экспертов, контекст 1M, **MMLU 85.5%** (рекорд среди open-моделей), HumanEval 86.4%
 
 Llama 4 Scout помещается на платформу (~67 GiB Q4). См. [llama](families/llama.md#4-scout), [llm.md](llm.md).
+
+### Mar 2026 -- Nemotron Cascade 2 30B-A3B (NVIDIA)
+
+**20 марта 2026** -- NVIDIA выпустила [Nemotron Cascade 2](https://research.nvidia.com/labs/nemotron/nemotron-cascade-2/) -- 30B MoE / 3B active, гибридная архитектура (Mamba-2 + Transformer), контекст 1M токенов. Обучена через Cascade RL + Multi-Domain On-Policy Distillation (MOPD). Вторая open-weight модель с gold-level на IMO, IOI, ICPC World Finals 2025. Превосходит Nemotron-3-Super 120B на coding и instruction-following при 20x меньше параметров. ~18 GiB Q4, помещается на одном RTX 4090. NVIDIA Open Model License. SWE-bench Verified ~50% -- слабо для agent-кодинга, но сильна на reasoning/math. См. [llm.md](llm.md).
 
 ### Jan 2026 -- Qwen3-VL 30B-A3B и 235B-A22B
 
@@ -167,9 +171,11 @@ Llama 4 Scout помещается на платформу (~67 GiB Q4). См. [
 
 [Devstral 2](families/devstral.md) -- лидер dense-сегмента по [SWE-bench Verified](../llm-guide/benchmarks/swe-bench.md): **72.2% при 24B параметров**. FIM + agent в одной модели. Помещается на одном RTX 4090 или Mac 32GB. На платформе используется без отдельного пресета, через `vulkan/preset/...`. См. [coding.md](coding.md).
 
-### Q4 2025 -- DeepSeek V3.2 (DeepSeek)
+### Q4 2025 -- DeepSeek V3.2 и V3.2-Speciale (DeepSeek)
 
-Релиз **DeepSeek V3.2** -- 671B MoE под лицензией **MIT**. Consistently strong scores на всех бенчмарках, S-tier среди open-source. Не помещается на платформу (~390 GB Q4). См. [llm.md](llm.md#не-помещаются-на-платформе-для-справки).
+**1 декабря 2025** -- релиз **DeepSeek V3.2** -- 671B MoE / 37B active под лицензией **MIT**. Consistently strong scores на всех бенчмарках, S-tier среди open-source. Не помещается на платформу (~390 GB Q4).
+
+Одновременно выпущен **DeepSeek-V3.2-Speciale** -- reasoning-вариант V3.2, усиленный DeepSeek-Math-V2. Результаты: AIME **96.0%** (vs GPT-5-High 94.6%, Gemini-3.0-Pro 95.0%), HMMT **99.2%** (vs Gemini 97.5%). Gold-level на IMO, CMO, ICPC World Finals, IOI 2025. Контекст 164K. Не поддерживает tool-calling, предназначен для deep reasoning. API-only, MIT. См. [llm.md](llm.md#не-помещаются-на-платформе-для-справки).
 
 ## 2025-Q3
 

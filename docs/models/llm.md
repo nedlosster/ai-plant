@@ -24,6 +24,7 @@
 | Command A | [command-a](families/command-a.md) | 111B dense | 111B | 256K | ~65 GiB | средний |
 | Llama-3.3-70B | [llama](families/llama.md#3-3-70b) | 70B dense | 70B | 128K | ~42 GiB / Q8 ~74 GiB | базовый |
 | Llama 4 Scout | [llama](families/llama.md#4-scout) | 109B MoE | 17B | **10M** | ~67 GiB | средний |
+| Nemotron Cascade 2 | -- | 30B MoE | 3B | **1M** | ~18 GiB | средний |
 | QwQ-32B | [qwq](families/qwq.md) | 32B dense | 32B | 32K | ~19 GiB | хороший |
 | DeepSeek-R1-Distill-32B | [deepseek-distill](families/deepseek-distill.md) | 32B dense | 32B | 128K | ~19 GiB | средний |
 | Phi-4 | [phi](families/phi.md) | 14B dense | 14B | 16K | ~9 GiB | слабый |
@@ -63,6 +64,7 @@
 
 [QwQ-32B](families/qwq.md) -- chain-of-thought, MATH-500 95.2, Apache 2.0.
 [DeepSeek-R1-Distill-32B](families/deepseek-distill.md) -- MATH-500 94.3, MIT.
+[Nemotron Cascade 2 30B-A3B](https://research.nvidia.com/labs/nemotron/nemotron-cascade-2/) -- 30B MoE / 3B active, гибрид Mamba-2 + Transformer, 1M контекст, gold-level IMO/IOI/ICPC. ~18 GiB Q4, помещается на платформу. NVIDIA Open Model License.
 [Phi-4](families/phi.md) -- reasoning при минимальном VRAM (9 GiB Q4).
 
 ### RAG, function calling, tool use
@@ -79,7 +81,7 @@
 | VRAM | Модели (Q4_K_M) |
 |------|-----------------|
 | <10 GiB | Qwen3.5-9B, Llama-3.1-8B, Phi-4, R1-Distill-14B |
-| 10-25 GiB | Qwen3.5-27B, Qwen3.5-35B-A3B, QwQ-32B, R1-Distill-32B, Gemma 4 26B |
+| 10-25 GiB | Qwen3.5-27B, Qwen3.5-35B-A3B, QwQ-32B, R1-Distill-32B, Gemma 4 26B, Nemotron Cascade 2 |
 | 25-50 GiB | Llama-3.3-70B Q4 (~42), Qwen2.5-72B Q4 (~44) |
 | 50-85 GiB | Qwen3.5-122B-A10B (~71), Llama 4 Scout (~67), Command A (~65), Mixtral 8x22B (~82) |
 | 85-120 GiB | Llama-3.3-70B Q8 (~74) + ctx 32K, Qwen2.5-72B Q8 (~78) + ctx 16K |
@@ -108,9 +110,10 @@
 
 - GLM-5 / GLM-5.1 (744B) -- 440 GB Q4
 - MiniMax M2.5 -- 150 GB Q4
-- DeepSeek V3.2 (671B MoE) -- 390 GB Q4
+- DeepSeek V3.2 (671B MoE / 37B active) -- 390 GB Q4
+- DeepSeek V3.2-Speciale -- reasoning-вариант V3.2, AIME 96.0%, HMMT 99.2%, gold IMO/IOI/ICPC. Без tool-calling, MIT
 - DeepSeek-Coder-V2 (236B MoE) -- 135 GB Q4
-- Llama 4 Maverick (400B MoE) -- 240 GB Q4
+- Llama 4 Maverick (400B MoE / 17B active) -- MMLU 85.5% (рекорд open-source), 1M контекст, 240 GB Q4
 - Qwen3.5-397B MoE -- 230 GB Q4
 - Trinity-Large-Thinking (399B)
 

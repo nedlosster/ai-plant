@@ -1,18 +1,18 @@
 # Inference через Vulkan: standalone llama.cpp
 
-Платформа: Radeon 8060S (gfx1151), Vulkan 1.4.318, Mesa 26.0.0, Ubuntu 24.04.4.
+Платформа: Radeon 8060S (gfx1151), Vulkan 1.4.318, Mesa 25.2.8, Ubuntu 24.04.4.
 
 ## Vulkan как GPU backend для LLM
 
 Vulkan -- кроссплатформенный графический API от Khronos Group (2016), наследник OpenGL. Изначально создан для игр и рендеринга, но благодаря поддержке compute shaders стал полноценным GPGPU backend'ом. В llama.cpp Vulkan backend реализован через SPIR-V compute shaders и работает на любом GPU с драйвером Vulkan 1.2+ -- AMD, NVIDIA, Intel, без привязки к проприетарным SDK.
 
-Для AMD GPU на Linux Vulkan работает через открытый драйвер Mesa (RADV). Это принципиальное отличие от ROCm: Mesa поддерживает новые GPU раньше, чем AMD добавляет их в матрицу ROCm. Radeon 8060S (gfx1151, Strix Halo) полностью поддерживается Mesa 26.0.0 с Vulkan 1.4.318 и cooperative matrix extensions (KHR_coopmat), что ускоряет матричные операции. В отличие от ROCm, Vulkan через Mesa видит всю unified memory (120 GiB GPU-доступных через ttm.pages_limit).
+Для AMD GPU на Linux Vulkan работает через открытый драйвер Mesa (RADV). Это принципиальное отличие от ROCm: Mesa поддерживает новые GPU раньше, чем AMD добавляет их в матрицу ROCm. Radeon 8060S (gfx1151, Strix Halo) полностью поддерживается Mesa 25.2.8 с Vulkan 1.4.318 и cooperative matrix extensions (KHR_coopmat), что ускоряет матричные операции. В отличие от ROCm, Vulkan через Mesa видит всю unified memory (120 GiB GPU-доступных через ttm.pages_limit).
 
 На практике Vulkan -- рекомендуемый backend для данной платформы: стабильная работа, полная видимость VRAM, отсутствие зависимости от ROCm. Производительность достаточна для интерактивной работы: 5230 tok/s prompt processing и 120 tok/s token generation на модели 1.5B Q8_0; 292 pp / 12.5 tg на модели 27B Q4_K_M. Подробное сравнение backend'ов: [backends-comparison.md](backends-comparison.md).
 
 ## Предварительные требования
 
-- Vulkan работает (Mesa 26.0.0+)
+- Vulkan работает (Mesa 25.2.8+)
 - Пользователь в группах `video` и `render` (доступ к /dev/dri/card1 и renderD128)
 - cmake >= 3.28, git, build-essential, libvulkan-dev, glslc
 

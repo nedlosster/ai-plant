@@ -16,15 +16,15 @@
 | Firmware | linux-firmware (март 2026) | gfx1151 blobs включены |
 | amdgpu driver | in-tree (ядро 6.19.8) | DCN 3.5.1, VCN, GFX, SDMA -- рабочие |
 | Mesa / RADV | 25.2.8 | Vulkan 1.4.318, основной backend |
-| ROCm | 6.4.0-47 | KFD видит 120 GiB, HIP segfault на gfx1151 |
-| llama.cpp | b5520 (апрель 2026) | Vulkan backend, GGUF v3 |
+| ROCm | 7.2.1 | KFD видит 120 GiB, HIP работает нативно gfx1151 |
+| llama.cpp | b8708 (апрель 2026) | Vulkan backend, GGUF v3 |
 | Ollama | 0.9.x | vendored llama.cpp |
 | XDNA / amdxdna | ядро 6.19+ | /dev/accel0, 50 TOPS INT8 |
-| PyTorch ROCm | 2.7.1+rocm6.2.4 | segfault на gfx1151 |
+| PyTorch ROCm | 2.7.1+rocm6.2.4 | работает с wheels gfx1151 |
 
 ### Критические проблемы
 
-**ROCm HIP segfault на gfx1151**: HIP-ядра llama.cpp падают с segfault при `HSA_OVERRIDE_GFX_VERSION=11.5.0`. KFD firmware table ограничивает carved-out VRAM до 15.5 GiB (обходится через `ttm.pages_limit=31457280`). Ожидается fix в будущих версиях ROCm.
+**ROCm HIP на gfx1151**: С ROCm 7.2.1 HIP-инференс работает стабильно, GPU определяется нативно как gfx1151. Ограничение: HIP runtime не может выделить единый буфер >30-35 GiB (модели >30 GiB Q4 вызывают OOM при `hipMalloc`). VRAM лимит KFD решён через `ttm.pages_limit=31457280` (120 GiB). Открытые issues на GitHub ROCm: GPU hang ([#5151](https://github.com/ROCm/ROCm/issues/5151)), page fault ([#5991](https://github.com/ROCm/ROCm/issues/5991)).
 
 **NPU (XDNA 2)**: драйвер amdxdna в mainline с 6.14+, устройство `/dev/accel0` видно, но inference-фреймворки (Lemonade, OGA) требуют доработки для production use.
 
@@ -32,12 +32,16 @@
 
 ## 2026-Q2
 
-### Апрель 2026 -- ядро 6.19.8
+### Апрель 2026 -- ядро 6.19.8, llama.cpp b8708
 
 - Обновление до ядра 6.19.8 (mainline)
 - Резервное ядро: 6.18.18
+- llama.cpp обновлён до b8708 (Vulkan backend)
 - Стабильная работа Vulkan backend
-- ROCm 6.4.0: KFD видит 120 GiB, но HIP segfault сохраняется
+- ROCm 7.2.1: HIP inference работает нативно, Vulkan остаётся быстрее
+- HIP VRAM allocation limit: модели >30 GiB вызывают OOM при hipMalloc
+- Открытые issues gfx1151: GPU hang ([#5151](https://github.com/ROCm/ROCm/issues/5151)), page fault ([#5991](https://github.com/ROCm/ROCm/issues/5991))
+- Mesa 26.0 (ожидается): RADV transfer queue support на GFX9+
 
 ---
 
@@ -57,7 +61,7 @@
 - Сборка mainline ядра 6.18.x с поддержкой gfx1151
 - Настройка GRUB параметров (amdgpu.gttsize, ttm.pages_limit)
 - Первая сборка llama.cpp с Vulkan backend
-- Установка ROCm 6.4.0
+- Установка ROCm 6.4.0 (позже обновлён до 7.2.1)
 - BIOS: UMA 96 GiB, C-states отключены, Resizable BAR
 
 ---

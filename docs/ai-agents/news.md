@@ -19,7 +19,7 @@
 
 Cursor выпустил [**Cursor 3**](agents/cursor.md) -- unified workspace для управления командой агентов: пользователь делегирует параллельные задачи нескольким AI-агентам, ревьюит результаты в одном окне.
 
-**19 марта 2026** -- релиз **Cursor Composer 2**, проприетарной coding-модели третьего поколения. Построена поверх Moonshot AI Kimi K2.5 c обширным continued pretraining и large-scale RL.
+**19 марта 2026** -- релиз **Cursor Composer 2**, проприетарной coding-модели третьего поколения. Построена поверх Moonshot AI Kimi K2.5 c обширным continued pretraining и large-scale RL. Бенчмарки: 61.3 CursorBench, 73.7% SWE-bench Multilingual.
 
 ### Apr 2026 -- OpenAI Codex 5.3
 
