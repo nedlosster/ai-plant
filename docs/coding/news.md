@@ -8,18 +8,19 @@
 
 ## SWE-bench Verified лидерборд (апрель 2026)
 
-| # | Модель | Результат | Вендор | Доступ |
-|---|--------|-----------|--------|--------|
-| 1 | Claude Mythos Preview | 93.9% | Anthropic | preview |
-| 2 | GPT-5.3 Codex | 85.0% | OpenAI | API |
-| 3 | Claude Opus 4.5 | 80.9% | Anthropic | API |
-| 4 | Gemini 3.1 Pro | 78.8% | Google | API |
-| 5 | Claude Opus 4.6 Thinking | 78.2% | Anthropic | API |
-| 6 | GLM-5 | 77.8% | Zhipu AI | open MIT |
-| 7 | GLM-5.1 | 58.4% | Zhipu AI | open MIT, SWE-Pro #1 |
-| 8 | Kimi K2.5 | ~75% | Moonshot | API |
-| 9 | Qwen3-Coder Next | ~48% | Alibaba | open, local |
-| 10 | Devstral 2 | ~47% | Mistral | open, local |
+| # | Модель | Verified | Pro | Вендор | Доступ |
+|---|--------|----------|-----|--------|--------|
+| 1 | Claude Mythos Preview | 93.9% | -- | Anthropic | preview |
+| 2 | Claude Opus 4.7 | 87.6% | 64.3% | Anthropic | API |
+| 3 | GPT-5.3 Codex | 85.0% | ~57% | OpenAI | API |
+| 4 | Claude Opus 4.5 | 80.9% | 45.9% | Anthropic | устарел (заменён 4.7) |
+| 5 | Gemini 3.1 Pro | 78.8% | 54.2% | Google | API |
+| 6 | GLM-5 | 77.8% | -- | Zhipu AI | open MIT |
+| 7 | GPT-5.4 | -- | 57.7% | OpenAI | API |
+| 8 | GLM-5.1 | 58.4% | 58.4% | Zhipu AI | open MIT, SWE-Pro |
+| 9 | Kimi K2.5 | ~75% | -- | Moonshot | API |
+| 10 | Qwen3-Coder Next | ~48% | -- | Alibaba | open, local |
+| 11 | Devstral 2 | ~47% | -- | Mistral | open, local |
 
 Источники: [swebench.com](http://www.swebench.com/), [llm-stats.com](https://llm-stats.com/benchmarks/swe-bench-verified)
 
@@ -30,6 +31,19 @@
 ## 2026-Q2
 
 ### Апрель 2026
+
+**Apr 16 -- Claude Opus 4.7 (Anthropic)**
+- Model ID: `claude-opus-4-7`, контекст 1M tokens, max output 128K
+- SWE-bench Verified 87.6% (Opus 4.6 было 80.8%), SWE-bench Pro 64.3% (было 53.4%)
+- Vision: 2,576px (3.75 MP), было 1,568px (1.15 MP)
+- Новый xhigh effort level (между high и max)
+- Task budgets (public beta) -- контроль расхода токенов на задачу
+- `/ultrareview` command в Claude Code
+- Rebuilt tokenizer
+- Цена без изменений: $5/$25 per M tokens
+- Claude Design (Anthropic Labs sub-brand) -- анонсирован на следующий день
+- Доступен: Claude Platform, Bedrock, Vertex AI, Microsoft Foundry
+- [anthropic.com/blog](https://www.anthropic.com/blog)
 
 **Apr 17 -- llama.cpp b8708**
 - ROCm 7.2.1: native gfx1151 в целевых GPU

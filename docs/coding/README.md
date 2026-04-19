@@ -27,7 +27,7 @@
 
 | Агент | Тип | Модель default | Лицензия |
 |-------|-----|----------------|----------|
-| [Claude Code](../ai-agents/agents/claude-code/README.md) | CLI | Claude Opus 4.6 | Proprietary ($20/мес) |
+| [Claude Code](../ai-agents/agents/claude-code/README.md) | CLI | Claude Opus 4.7 | Proprietary ($20/мес) |
 | [opencode](../ai-agents/agents/opencode.md) | CLI | любая (OpenAI-compat) | MIT |
 | [Cursor](../ai-agents/agents/cursor.md) | IDE | Claude/GPT/custom | Proprietary ($20/мес) |
 | [Cline](../ai-agents/agents/cline.md) | VS Code ext | любая | Apache 2.0 |
@@ -38,10 +38,11 @@
 | Модель | SWE-bench Verified | Провайдер |
 |--------|--------------------|-----------|
 | Claude Mythos Preview | 93.9% | Anthropic |
+| Claude Opus 4.7 | 87.6% | Anthropic |
 | GPT-5.3 Codex | 85.0% | OpenAI |
-| Claude Opus 4.5 | 80.9% | Anthropic |
 | Gemini 3.1 Pro | 78.8% | Google |
 | GLM-5 | 77.8% | Zhipu AI (open MIT) |
+| GPT-5.4 | -- (Pro 57.7%) | OpenAI |
 
 ## Зачем отдельный раздел
 
@@ -66,7 +67,7 @@
 ## Связанные статьи
 
 - [Модели для кодинга](../models/coding.md) -- каталог open LLM, бенчмарки на платформе
-- [Closed-source coding](../models/closed-source-coding.md) -- GPT-5.3, Opus, Gemini, Kimi
+- [Closed-source coding](../models/closed-source-coding.md) -- GPT-5.3, Opus 4.7, Gemini, Kimi
 - [AI-агенты](../ai-agents/README.md) -- полный обзор индустрии агентов
 - [Сравнение агентов](../ai-agents/comparison.md) -- сводные таблицы
 - [SWE-bench](../llm-guide/benchmarks/swe-bench.md) -- методология бенчмарка

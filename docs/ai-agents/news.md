@@ -6,12 +6,22 @@
 
 ## 2026-Q2 (актуально)
 
+### Apr 16 -- Claude Opus 4.7 (Anthropic)
+
+Релиз Claude Opus 4.7 (`claude-opus-4-7`):
+- **SWE-bench Verified 87.6%** (Opus 4.6 было 80.8%), **SWE-bench Pro 64.3%** (было 53.4%)
+- Контекст 1M tokens, max output 128K, vision 2,576px (3.75 MP)
+- Новый xhigh effort level, task budgets (public beta), `/ultrareview` в Claude Code
+- Rebuilt tokenizer, цена без изменений ($5/$25 per M tokens)
+- Claude Design -- Anthropic Labs sub-brand, анонсирован 17 апреля
+- Доступен: Claude Platform, Bedrock, Vertex AI, Microsoft Foundry
+
 ### Apr 2026 -- Claude Mythos Preview лидирует на SWE-bench Verified (93.9%)
 
 **10 апреля 2026** -- обновление лидерборда [SWE-bench Verified](../llm-guide/benchmarks/swe-bench.md):
 - **Claude Mythos Preview** -- 93.9% (Anthropic preview-модель)
+- **Claude Opus 4.7** -- 87.6%
 - **GPT-5.3 Codex** -- 85.0%
-- **Claude Opus 4.5** -- 80.9%
 
 Прирост за квартал: с ~76% (Q1 2026) до 93.9% (+18 п.п.). Бенчмарк приближается к насыщению, обсуждается переход на SWE-bench Pro и SWE-rebench как более сложные.
 
@@ -76,7 +86,7 @@ API-only пока, open-варианты обещаны Alibaba.
 
 ### Feb 2026 -- Claude Sonnet 4.5 / Opus 4.6 default в Claude Code
 
-Anthropic переключил [Claude Code](agents/claude-code/README.md) на новые модели. Sonnet 4.5 как default (быстрее, дешевле), Opus 4.6 для $200 Max plan с 1M контекстом.
+Anthropic переключил [Claude Code](agents/claude-code/README.md) на новые модели. Sonnet 4.5 как default (быстрее, дешевле), Opus 4.6 для $200 Max plan с 1M контекстом. В апреле 2026 заменён на Opus 4.7.
 
 ### Jan 2026 -- OpenClaw rebranded дважды
 

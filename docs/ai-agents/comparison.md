@@ -8,7 +8,7 @@
 
 | Агент | Тип | Интерфейс | Контекст | Backend | Local llama-server | Цена/мес |
 |-------|-----|-----------|----------|---------|--------------------|----------|
-| [Claude Code](agents/claude-code/README.md) | CLI+IDE+Web | Terminal, VS Code, JB, Channels | 1M | Anthropic API | нет | $20-200 |
+| [Claude Code](agents/claude-code/README.md) | CLI+IDE+Web | Terminal, VS Code, JB, Channels | 1M | Anthropic API (Opus 4.7) | нет | $20-200 |
 | [Cursor 3](agents/cursor.md) | IDE | VS Code fork | 128K | Composer 2 (Kimi K2.5 base), Multi BYOK | частично | $20-60 |
 | Codex 5.3 | Cloud | Web (ChatGPT) | 128K | OpenAI proprietary | нет | $200, unlimited промо |
 | Windsurf | IDE | 40+ IDE | 128K | SWE-1, SWE-1.5 | нет | $15 |
@@ -58,7 +58,7 @@ Open-source агенты ([Cline](agents/cline.md), [opencode](agents/opencode.m
 
 | Агент | Модель | Токены | Стоимость |
 |-------|--------|--------|-----------|
-| [Claude Code](agents/claude-code/README.md) | Opus 4.6 (Max) | 300-500K | $3-8 |
+| [Claude Code](agents/claude-code/README.md) | Opus 4.7 (Max) | 300-500K | $3-8 |
 | Codex | codex-1 (Pro) | 258K | ~$6 |
 | [Cursor](agents/cursor.md) | Claude 3.5 (Pro) | 100K | Включено в $20/мес |
 | Devin | Proprietary | N/A | $2.25-9 (1-4 ACU) |

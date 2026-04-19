@@ -4,7 +4,7 @@
 
 **Тип**: CLI + IDE расширения (VS Code, JetBrains) + web (claude.ai/code)
 **Лицензия**: Proprietary (Anthropic)
-**Backend**: Anthropic API (Claude Opus / Sonnet, Mythos Preview)
+**Backend**: Anthropic API (Claude Opus 4.7 / Sonnet, Mythos Preview)
 **Совместим с локальным llama-server**: **нет** (привязан к Anthropic API)
 **Цена**: $20-200/мес или BYOK по токенам
 **Доля рынка**: 41% профдевелоперов (Pragmatic Engineer survey, февраль 2026), 46% "most loved"
@@ -31,7 +31,7 @@ Claude Code -- агент от Anthropic для работы с кодовыми
 ## Возможности
 
 - **Agentic search** -- автоматически исследует кодбейз без ручного указания контекста
-- **1M токенов контекста** (Opus 4.6) -- полный monorepo в одном сеансе
+- **1M токенов контекста** (Opus 4.7) -- полный monorepo в одном сеансе
 - **Sub-agents** -- специализированные параллельные агенты
 - **Multi-agent (Claude Code agent team)** -- несколько агентов одновременно
 - **Hooks** -- pre/post-action триггеры для enforce стандартов
@@ -50,7 +50,7 @@ Claude Code -- агент от Anthropic для работы с кодовыми
 - **CLAUDE.md** -- проектные инструкции из коробки
 - **MCP экосистема** -- крупнейшая (Anthropic его создатели стандарта)
 - **Самая зрелая экосистема** -- skills, hooks, settings, sub-agents
-- **Sonnet 4.5 / Opus 4.6** доступны напрямую без интеграционной возни
+- **Sonnet 4.5 / Opus 4.7** доступны напрямую без интеграционной возни
 
 ## Слабые стороны / ограничения
 
@@ -102,7 +102,7 @@ claude "fix the bug in src/auth.ts"
 
 ```json
 {
-  "model": "claude-opus-4.6",
+  "model": "claude-opus-4-7",
   "context": "1m",
   "agents": {
     "build": {"tools": ["bash", "edit", "write"]},
@@ -128,10 +128,12 @@ claude "fix the bug in src/auth.ts"
 | Frontend | **95.0%** (лидер) |
 | Backend | 38.6% |
 | Overall | 55.5% |
-| SWE-bench Verified | 80%+ (с Opus 4.6) |
+| SWE-bench Verified | 87.6% (с Opus 4.7) |
 
 ## Анонсы и открытия
 
+- **2026-04-16** -- **Claude Opus 4.7** (87.6% SWE-bench, xhigh effort, task budgets, /ultrareview, rebuilt tokenizer, vision 2576px)
+- **2026-04-17** -- **Claude Design** (Anthropic Labs sub-brand)
 - **2026-04** -- **Claude Code Channels** релиз (Telegram/Discord интеграция, ответ на OpenClaw)
 - **2026-04-04** -- блокировка использования Claude Pro/Max в third-party tools (OpenClaw, Cline через прокси)
 - **2026-Q1** -- релиз Claude Sonnet 4.5 как default

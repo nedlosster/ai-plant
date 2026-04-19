@@ -46,6 +46,23 @@ Claude Code к 2026 году превратился из "CLI-чата с мод
 
 ## 2026-Q2 (актуально)
 
+### Apr 16 -- Claude Opus 4.7
+
+Релиз новой backend-модели для Claude Code. Ключевые изменения:
+
+- **Model ID**: `claude-opus-4-7`, контекст 1M tokens, max output 128K
+- **SWE-bench Verified**: 87.6% (Opus 4.6 было 80.8%, +6.8 п.п.), **SWE-bench Pro**: 64.3% (было 53.4%, +10.9 п.п.)
+- **Vision**: разрешение увеличено с 1,568px (1.15 MP) до 2,576px (3.75 MP) -- 3x больше пикселей, screenshot-to-code точнее
+- **xhigh effort level**: промежуточный уровень между high и max, даёт больше reasoning без полной стоимости max
+- **Task budgets (public beta)**: контроль расхода токенов на задачу, бюджетирование agentic-сессий
+- **`/ultrareview` command**: глубокий code review с reasoning на уровне xhigh
+- **Rebuilt tokenizer**: изменена токенизация (улучшение для code и non-Latin languages)
+- **Цена без изменений**: $5/$25 per M tokens (input/output)
+- **Claude Design**: Anthropic Labs sub-brand, анонсирован 17 апреля
+- **Доступ**: Claude Platform, Amazon Bedrock, Google Vertex AI, Microsoft Foundry
+
+Opus 4.7 заменяет Opus 4.5 как основную coding-модель в Claude Code Max plan. Opus 4.6 остаётся текущей моделью для 1M context сессий до обновления конфигурации.
+
 ### Apr 2026 -- версии 2.1.69 → 2.1.101 (30+ итераций за месяц)
 
 Апрель выдался очень активным -- **30+ версий** Claude Code CLI. Ключевые темы:

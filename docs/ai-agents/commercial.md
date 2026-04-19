@@ -22,7 +22,7 @@
 
 **Плюсы**:
 - Managed infrastructure -- ничего настраивать не нужно
-- Проприетарные модели последнего поколения (Opus 4.6, GPT-5, codex-1)
+- Проприетарные модели последнего поколения (Opus 4.7, GPT-5, codex-1)
 - Enterprise support, SLA, compliance
 - Зрелые продукты с большим community
 
@@ -46,13 +46,14 @@
 
 ## SWE-bench Verified (апрель 2026)
 
-| # | Модель | SWE-bench Verified |
-|---|--------|--------------------|
-| 1 | Claude Mythos Preview (Anthropic) | 93.9% |
-| 2 | GPT-5.3 Codex | 85.0% |
-| 3 | Claude Opus 4.5 | 80.9% |
+| # | Модель | SWE-bench Verified | SWE-bench Pro |
+|---|--------|--------------------|----|
+| 1 | Claude Mythos Preview (Anthropic) | 93.9% | -- |
+| 2 | Claude Opus 4.7 | 87.6% | 64.3% |
+| 3 | GPT-5.3 Codex | 85.0% | ~57% |
+| 4 | GPT-5.4 | -- | 57.7% |
 
-Источник: [llm-stats.com/benchmarks/swe-bench-verified](https://llm-stats.com/benchmarks/swe-bench-verified), 10 апреля 2026.
+Источник: [llm-stats.com/benchmarks/swe-bench-verified](https://llm-stats.com/benchmarks/swe-bench-verified), 16 апреля 2026.
 
 ## Доля рынка (Q1 2026)
 
