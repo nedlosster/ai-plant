@@ -91,6 +91,12 @@ Systemd default: `graphical.target` (GDM + Xorg, для инициализаци
 ssh -A -p <SSH_PORT> <user>@<host>
 ```
 
+## Хроника обновлений
+
+| Документ | Содержание |
+|----------|-----------|
+| [news.md](news.md) | Хроника обновлений стека: ядро, драйверы, ROCm, Mesa, llama.cpp, firmware. Актуализация: `/refresh-news platform` |
+
 ## Документация
 
 | Документ | Содержание |
