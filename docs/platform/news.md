@@ -24,13 +24,44 @@
 
 ### Критические проблемы
 
-**ROCm HIP на gfx1151**: С ROCm 7.2.1 HIP-инференс работает стабильно, GPU определяется нативно как gfx1151. Ограничение: HIP runtime не может выделить единый буфер >30-35 GiB (модели >30 GiB Q4 вызывают OOM при `hipMalloc`). VRAM лимит KFD решён через `ttm.pages_limit=31457280` (120 GiB). Открытые issues на GitHub ROCm: GPU hang ([#5151](https://github.com/ROCm/ROCm/issues/5151)), page fault ([#5991](https://github.com/ROCm/ROCm/issues/5991)).
+**ROCm HIP на gfx1151**: С ROCm 7.2.1 HIP-инференс работает стабильно, GPU определяется нативно как gfx1151. Ограничение: HIP runtime не может выделить единый буфер >30-35 GiB (модели >30 GiB Q4 вызывают OOM при `hipMalloc`). VRAM лимит KFD решён через `ttm.pages_limit=31457280` (120 GiB). Открытые issues на GitHub ROCm: GPU hang ([#5151](https://github.com/ROCm/ROCm/issues/5151)), page fault ([#5991](https://github.com/ROCm/ROCm/issues/5991)), hang при tensor finalization ([#6027](https://github.com/ROCm/ROCm/issues/6027), Qwen 3.5).
+
+**ROCm 7+ performance regression на gfx1151**: После обновления до ROCm 7+ наблюдается регресс производительности. Community-workaround -- дополнительный флаг компиляции `-mllvm --amdgpu-unroll-threshold-local=600`, даёт ~20% uplift на 122B после корректировки defaults под gfx1151. Issue в llama.cpp по inefficient defaults -- [#21284](https://github.com/ggml-org/llama.cpp/issues/21284).
+
+**linux-firmware-20251125 несовместим**: Пакет `linux-firmware` версии 20251125 ломает ROCm support на Strix Halo. Не апгрейдить, оставаться на версии марта 2026 или откатываться.
+
+**Ядра <6.18.4**: Содержат bug, ломающий стабильность на gfx1151. Рекомендация -- не использовать ядра старше 6.18.4, на сервере установлено 6.19.8.
 
 **NPU (XDNA 2)**: драйвер amdxdna в mainline с 6.14+, устройство `/dev/accel0` видно, но inference-фреймворки (Lemonade, OGA) требуют доработки для production use.
 
 ---
 
 ## 2026-Q2
+
+### Апрель 2026 -- SSH-верификация стека (22 апреля)
+
+- Ядро: 6.19.8-061908-generic
+- ROCm: 7.2.53211.70201-81 (hip 7.2.1)
+- llama.cpp: коммит `d9a12c82f` (сборка b8708)
+- Все компоненты совпадают с задокументированным состоянием таблицы
+
+### Апрель 2026 -- best practices сборки llama.cpp под gfx1151
+
+Рекомендуемые флаги CMake для HIP-сборки под Strix Halo:
+
+- `GPU_TARGETS=gfx1151` -- точная цель компиляции
+- `GGML_HIP_ROCWMMA_FATTN=ON` -- flash attention через rocWMMA, заметный прирост на больших контекстах
+- `GGML_HIP_NO_VMM=ON` -- обход проблем HIP Virtual Memory Manager, повышает стабильность
+
+Без `ROCWMMA_FATTN` flash attention падает на fallback-ядра, без `NO_VMM` возможны зависания при аллокациях крупных буферов.
+
+### Апрель 2026 -- known issues платформы
+
+- `linux-firmware-20251125` ломает ROCm support на Strix Halo -- не апгрейдить пакет `linux-firmware`, держать версию марта 2026
+- Ядра <6.18.4 содержат bug стабильности gfx1151 -- не использовать, минимум 6.18.4
+- ROCm 7+ даёт regression производительности, community-workaround: сборка с `-mllvm --amdgpu-unroll-threshold-local=600`, уплифт ~20% на моделях уровня 122B
+- Исправление дефолтов llama.cpp под gfx1151 отслеживается в issue [#21284](https://github.com/ggml-org/llama.cpp/issues/21284)
+- Hang при tensor finalization на Qwen 3.5 -- ROCm issue [#6027](https://github.com/ROCm/ROCm/issues/6027)
 
 ### Апрель 2026 -- ядро 6.19.8, llama.cpp b8708
 

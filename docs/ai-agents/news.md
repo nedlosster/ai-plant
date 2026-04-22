@@ -6,6 +6,24 @@
 
 ## 2026-Q2 (актуально)
 
+### Apr 20-22 -- Kimi K2.6 (Moonshot AI) с Agent Swarm
+
+Moonshot AI выпустила [Kimi K2.6](../models/families/kimi-k25.md) -- open-source 1T MoE нового поколения. Четыре варианта под разные сценарии: **Instant** (быстрый), **Thinking** (extended reasoning), **Agent** (single-agent workflow), **Agent Swarm** (multi-agent orchestration).
+
+Рекорды: **HLE 54.0%**, **SWE-Bench Pro 58.6%**, **SWE-bench Multilingual 76.7%** -- SOTA среди open-weight. Agent Swarm вариант -- native multi-agent orchestration из коробки, без внешнего оркестратора. Веса под Apache 2.0.
+
+### Apr 20 -- Shipper: AI-агент для web/mobile и Chrome extensions
+
+Запущен [**Shipper**](https://shipper.ai/) -- AI-агент, который проектирует, кодит и монетизирует web/mobile-приложения и Chrome-расширения в одном workflow. Позиционируется как end-to-end решение "от идеи до платящих пользователей".
+
+### Apr 2026 -- Cursor: $2B раунд при оценке $50B+
+
+[Cursor](agents/cursor.md) поднял **$2B** при оценке **$50B+** (Nvidia, Thrive Capital, a16z). Для контекста: 6 месяцев назад оценка была $29.3B -- рост на ~70% за полгода. Раунд отражает доминирование Cursor в IDE-сегменте AI-агентов после релиза Composer 2.
+
+### Apr 2026 -- Amazon +$5B в Anthropic, 5 GW compute
+
+Amazon увеличил инвестиции в Anthropic на **дополнительные $5B** (с опцией до **$20B**). В рамках сделки -- **5 GW compute** на AWS (Trainium-кластеры), **1 GW к концу 2026**. Крупнейшее compute-партнёрство в индустрии на данный момент.
+
 ### Apr 16 -- Claude Opus 4.7 (Anthropic)
 
 Релиз Claude Opus 4.7 (`claude-opus-4-7`):

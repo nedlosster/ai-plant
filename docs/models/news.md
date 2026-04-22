@@ -6,6 +6,28 @@
 
 ## 2026-Q2 (актуально)
 
+### Apr 20-22 -- Kimi K2.6 (Moonshot AI): 1T MoE, open-source, 4 варианта
+
+Moonshot AI выпустила **Kimi K2.6** -- open-source 1T MoE под Apache 2.0. Линейка из четырёх вариантов:
+
+| Вариант | Назначение |
+|---------|------------|
+| **Instant** | Низкая латентность, быстрые ответы |
+| **Thinking** | Extended reasoning с цепочкой рассуждений |
+| **Agent** | Single-agent workflow с tool use |
+| **Agent Swarm** | Native multi-agent orchestration из коробки |
+
+Бенчмарки:
+- **HLE (Humanity's Last Exam): 54.0%** -- SOTA
+- **SWE-Bench Pro: 58.6%** -- лидер open-weight (опережает GLM-5.1 58.4%)
+- **SWE-bench Multilingual: 76.7%**
+
+Веса не помещаются на платформу (1T MoE, 240+ GiB Q4). Используется через API или cloud-провайдеров. Карточка семейства: [families/kimi-k25.md](families/kimi-k25.md).
+
+### Apr 2026 -- Qwen3.6-Max-Preview (Alibaba): early preview следующего флагмана
+
+Alibaba выпустила **Qwen3.6-Max-Preview** -- ранний preview следующего flagship семейства Qwen. Улучшенный agentic coding (tool use, multi-step reasoning, long-horizon задачи). API-only через Alibaba Cloud Model Studio. Полноценный релиз ожидается в Q2-Q3 2026. См. [families/qwen36.md](families/qwen36.md).
+
 ### Apr 2026 -- GPT-6 (OpenAI): 2M context, новая frontier
 
 **14 апреля 2026** -- релиз [GPT-6](https://openai.com/) от OpenAI:

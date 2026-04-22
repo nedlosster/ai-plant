@@ -18,9 +18,10 @@
 | 6 | GLM-5 | 77.8% | -- | Zhipu AI | open MIT |
 | 7 | GPT-5.4 | -- | 57.7% | OpenAI | API |
 | 8 | GLM-5.1 | 58.4% | 58.4% | Zhipu AI | open MIT, SWE-Pro |
-| 9 | Kimi K2.5 | ~75% | -- | Moonshot | API |
-| 10 | Qwen3-Coder Next | ~48% | -- | Alibaba | open, local |
-| 11 | Devstral 2 | ~47% | -- | Mistral | open, local |
+| 9 | Kimi K2.6 | -- | **58.6%** | Moonshot | open Apache 2.0 (Apr 20-22) |
+| 10 | Kimi K2.5 | ~75% | -- | Moonshot | API |
+| 11 | Qwen3-Coder Next | ~48% | -- | Alibaba | open, local |
+| 12 | Devstral 2 | ~47% | -- | Mistral | open, local |
 
 Источники: [swebench.com](http://www.swebench.com/), [llm-stats.com](https://llm-stats.com/benchmarks/swe-bench-verified)
 
@@ -31,6 +32,18 @@
 ## 2026-Q2
 
 ### Апрель 2026
+
+**Apr 20-22 -- Kimi K2.6 (Moonshot AI)**
+- 1T MoE, open-source (Apache 2.0), четыре варианта: Instant / Thinking / Agent / Agent Swarm
+- **HLE 54.0%** (SOTA), **SWE-Bench Pro 58.6%** (лидер open-weight, опережает GLM-5.1), **SWE-bench Multilingual 76.7%**
+- Agent Swarm -- native multi-agent orchestration
+- Подробнее: [ai-agents/news.md](../ai-agents/news.md), [models/families/kimi-k25.md](../models/families/kimi-k25.md)
+
+**Apr 2026 -- Qwen3.6-Max-Preview (Alibaba)**
+- Early preview следующего flagship семейства Qwen
+- Улучшенный agentic coding: tool use, multi-step планирование, long-horizon задачи
+- API-only через Alibaba Cloud Model Studio
+- [qwenlm.github.io](https://qwenlm.github.io/)
 
 **Apr 16 -- Claude Opus 4.7 (Anthropic)**
 - Model ID: `claude-opus-4-7`, контекст 1M tokens, max output 128K
