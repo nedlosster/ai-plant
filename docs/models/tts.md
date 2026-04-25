@@ -26,8 +26,14 @@ VRAM-аппетиты у всех моделей умеренные (4-8 GiB).
 | IndexTTS-2 | [indextts2](families/indextts2.md) | 5+ | 10 сек | ~8 GiB | Open |
 | XTTS v2 | [xtts](families/xtts.md) | 16 | **6 сек** | ~4 GiB | CPML |
 | **VoxCPM2** (new) | -- | multilingual | voice cloning | -- | Open (OpenBMB) |
+| **Fish Speech S2 Pro** (new) | [fish-speech](families/fish-speech.md) | multilingual | voice cloning | -- | Apache 2.0 |
+| **OmniVoice** (new) | -- | 600+ | zero-shot cloning | -- | Apache 2.0 |
 
 **VoxCPM2** (апрель 2026, OpenBMB) -- tokenizer-free TTS нового поколения. Устраняет этап токенизации из pipeline: вместо text → tokens → speech, работает text → continuous representation → speech. Multilingual, voice cloning, creative sound design. Детали на [OpenBMB GitHub](https://github.com/OpenBMB). См. [news.md](news.md).
+
+**Fish Speech S2 Pro** (9 марта 2026) -- Dual Autoregressive (Dual-AR) архитектура: 4B-параметровый Slow AR для лингвистики/просодии и 400M-параметровый Fast AR для акустических деталей. На бенчмарке Seed-TTS Eval превосходит все оцененные модели включая closed-source системы Google и OpenAI. См. [fishaudio/fish-speech](https://github.com/fishaudio/fish-speech).
+
+**OmniVoice** (31 марта 2026, k2-fsa) -- Apache 2.0, поддерживает 600+ языков zero-shot, 40x real-time inference. За первые 3 недели после релиза набрал 3.7K звёзд на GitHub и 460K+ скачиваний на HuggingFace. См. [k2-fsa/omnivoice](https://github.com/k2-fsa).
 
 ## Выбор под задачу
 
