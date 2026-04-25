@@ -2,9 +2,9 @@
 
 > "First real agentic LLM" (Alibaba). Флагман нового поколения Qwen для агентного кодинга и multimodal reasoning. Open weights ожидаются.
 
-**Тип**: не раскрыто (предположительно MoE)
-**Лицензия**: API-only пока (open-варианты обещаны)
-**Статус на сервере**: **ожидается open-weights**
+**Тип**: смешанный -- API-only Plus / Max-Preview + open-weight 27B dense
+**Лицензия**: Plus/Max-Preview API-only; **27B dense -- Apache 2.0**
+**Статус на сервере**: 27B -- доступен GGUF (помещается на платформу), не скачан; Plus -- API
 **Направления**: [coding](../coding.md), [llm](../llm.md), [vision](../vision.md)
 
 ## Обзор
@@ -19,10 +19,43 @@ Qwen3.6-Plus -- релиз от Alibaba / Tongyi Lab (2 апреля 2026). По
 
 ## Варианты
 
-| Вариант | Параметры | Контекст | Output | Статус | Доступ |
-|---------|-----------|----------|--------|--------|--------|
-| Qwen3.6-Plus | не раскрыто | **1M токенов** | 65K | API-only | [Alibaba Cloud Model Studio](https://www.alibabacloud.com/product/modelstudio), [OpenRouter](https://openrouter.ai/) (бесплатно в preview) |
-| Qwen3.6 (open variants) | -- | -- | -- | **ожидается** | -- |
+| Вариант | Параметры | Контекст | Output | Лицензия | Статус | Доступ |
+|---------|-----------|----------|--------|----------|--------|--------|
+| Qwen3.6-Plus | не раскрыто | **1M токенов** | 65K | proprietary | API-only | [Alibaba Cloud Model Studio](https://www.alibabacloud.com/product/modelstudio), [OpenRouter](https://openrouter.ai/) (бесплатно в preview) |
+| Qwen3.6-Max-Preview | не раскрыто | -- | -- | proprietary | API-only preview | Alibaba Cloud Model Studio |
+| **Qwen 3.6-27B** | **27B dense, hybrid Gated DeltaNet** | 1M (предв.) | -- | **Apache 2.0** | open-weight, 23 апр 2026 | [HuggingFace](https://huggingface.co/Qwen) (unsloth/bartowski/mradermacher GGUF) |
+
+## 27B
+
+<a id="27b"></a>
+
+**Qwen 3.6-27B** (релиз 23 апреля 2026) -- первый open-weight вариант семейства Qwen3.6 под Apache 2.0. Dense 27B coding LLM на гибридной архитектуре **Gated DeltaNet** + multimodal (vision encoder).
+
+| Параметр | Значение |
+|----------|----------|
+| Параметры | 27B dense |
+| Архитектура | hybrid Gated DeltaNet |
+| Модальности | text + vision (multimodal screenshots) |
+| Контекст | 1M токенов (предварительно) |
+| Лицензия | Apache 2.0 |
+| **SWE-bench Verified** | **77.2%** -- #1 open-source local |
+| Q4_K_M | ~17 GiB -- помещается на платформу |
+| Скорость на платформе | оценка ~15 tok/s (memory-bound, 256 GB/s ÷ 17 GiB) |
+
+**Позиционирование**: лидер локального SWE-bench Verified -- превосходит [Devstral 2 24B](devstral.md) (72.2%) и [Qwen3-Coder Next 80B-A3B](qwen3-coder.md) (70.6%) среди моделей, помещающихся в 120 GiB unified memory платформы.
+
+**Trade-off vs MoE**: dense-архитектура memory-bound. Скорость генерации существенно ниже MoE-моделей семейства Qwen3-Coder (Next 53 tok/s, 30B-A3B 86 tok/s). Выбор когда важно качество SWE и multimodal над скоростью loop.
+
+**Multimodal**: vision encoder позволяет работать со скриншотами интерфейсов и диаграммами прямо в agent loop -- типичный сценарий для Cursor/Cline/opencode при отладке UI или чтении дизайн-макетов.
+
+**GGUF и интеграция**:
+- GGUF выпущен одновременно с релизом весов (типичный паттерн -- `unsloth/Qwen3.6-27B-GGUF`, также bartowski, mradermacher на HuggingFace)
+- llama.cpp интеграция через 48 часов после релиза
+- Для платформы рекомендуется Q4_K_M (~17 GiB) или Q5_K_M (~20 GiB)
+
+**Источники**:
+- [explore.n1n.ai: Qwen 3.6-27B GGUF llama.cpp local multimodal](https://explore.n1n.ai/blog/qwen-3-6-27b-gguf-llama-cpp-local-multimodal-2026-04-23)
+- [aimadetools: Best Ollama Models Coding 2026](https://www.aimadetools.com/blog/best-ollama-models-coding-2026/)
 
 ## Архитектура и особенности
 

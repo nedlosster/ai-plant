@@ -20,8 +20,9 @@
 | 8 | GLM-5.1 | 58.4% | 58.4% | Zhipu AI | open MIT, SWE-Pro |
 | 9 | Kimi K2.6 | **80.2%** | **58.6%** | Moonshot | open Apache 2.0 (Apr 20-22) |
 | 10 | Kimi K2.5 | ~75% | -- | Moonshot | API |
-| 11 | Qwen3-Coder Next | ~48% | -- | Alibaba | open, local |
-| 12 | Devstral 2 | ~47% | -- | Mistral | open, local |
+| 11 | **Qwen 3.6-27B** | **77.2%** | -- | Alibaba | open Apache 2.0, local (Apr 23) |
+| 12 | Qwen3-Coder Next | ~48% | -- | Alibaba | open, local |
+| 13 | Devstral 2 | ~47% | -- | Mistral | open, local |
 
 Источники: [swebench.com](http://www.swebench.com/), [llm-stats.com](https://llm-stats.com/benchmarks/swe-bench-verified)
 
@@ -32,6 +33,16 @@
 ## 2026-Q2
 
 ### Апрель 2026
+
+**Apr 23 -- Qwen 3.6-27B (Alibaba): новый лидер open-source local на SWE-bench Verified**
+- Dense 27B coding LLM, hybrid Gated DeltaNet, multimodal (vision encoder для скриншотов)
+- **SWE-bench Verified 77.2%** -- #1 среди open-source моделей, помещающихся на consumer-платформе
+- Превосходит Devstral 2 24B (72.2%) и Qwen3-Coder Next 80B-A3B (70.6%) на SWE-V
+- Apache 2.0, GGUF одновременно с релизом, llama.cpp интеграция через 48 часов
+- Помещается на платформу: Q4_K_M ~17 GiB; оценка скорости ~15 tok/s (memory-bound dense, 256 GB/s ÷ 17 GiB)
+- Trade-off vs MoE: выше качество SWE-V, но медленнее Qwen3-Coder Next (53 tok/s) из-за dense-архитектуры
+- Источники: [explore.n1n.ai](https://explore.n1n.ai/blog/qwen-3-6-27b-gguf-llama-cpp-local-multimodal-2026-04-23), [aimadetools](https://www.aimadetools.com/blog/best-ollama-models-coding-2026/)
+- Карточка: [models/families/qwen36.md](../models/families/qwen36.md#27b)
 
 **Apr 22 -- SpaceX $60B option на покупку Cursor**
 - [SpaceX подписал $60B option на Cursor](https://9to5mac.com/) (Anysphere)

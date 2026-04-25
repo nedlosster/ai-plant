@@ -6,6 +6,23 @@
 
 ## 2026-Q2 (актуально)
 
+### Apr 23 -- Qwen 3.6-27B (Alibaba): dense coding LLM, новый лидер open-source local SWE-V
+
+**23 апреля 2026** -- Alibaba выпустила **Qwen 3.6-27B** -- dense 27B coding LLM с hybrid Gated DeltaNet архитектурой и vision encoder.
+
+| Параметр | Значение |
+|----------|----------|
+| Архитектура | 27B dense, hybrid Gated DeltaNet |
+| Модальности | text + vision (multimodal screenshots) |
+| Лицензия | Apache 2.0 |
+| **SWE-bench Verified** | **77.2%** -- #1 open-source local |
+| Размер Q4_K_M | ~17 GiB |
+| Помещается на платформу | да |
+
+Превосходит [Devstral 2 24B](families/devstral.md) (72.2%) и [Qwen3-Coder Next 80B-A3B](families/qwen3-coder.md) (70.6%) на SWE-V среди моделей, влезающих в платформу. Trade-off: dense-архитектура memory-bound, оценка скорости ~15 tok/s (256 GB/s ÷ 17 GiB) -- ниже MoE-вариантов на платформе (Coder Next 53 tok/s, Coder 30B-A3B 86 tok/s).
+
+GGUF выпущен одновременно с релизом (типичный паттерн -- unsloth/Qwen3.6-27B-GGUF, bartowski, mradermacher), llama.cpp интеграция через 48 часов после релиза. Источники: [explore.n1n.ai](https://explore.n1n.ai/blog/qwen-3-6-27b-gguf-llama-cpp-local-multimodal-2026-04-23), [aimadetools](https://www.aimadetools.com/blog/best-ollama-models-coding-2026/). Карточка семейства: [families/qwen36.md](families/qwen36.md#27b).
+
 ### Apr 24 -- DeepSeek V4 (DeepSeek): 1.6T / 284B MoE, 1M контекст, open-source MIT
 
 **24 апреля 2026** -- [DeepSeek](https://api-docs.deepseek.com/news/news260424) выпустила preview семейства **DeepSeek V4** под MIT-лицензией. Два варианта:

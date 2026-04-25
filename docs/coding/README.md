@@ -21,8 +21,9 @@
 
 | Модель | Параметры | SWE-bench | VRAM Q4 | Роль |
 |--------|-----------|-----------|---------|------|
-| [Qwen3-Coder Next](../models/families/qwen3-coder.md) | 80B MoE (3B active) | 70.6% | ~5 GiB | Primary agent (chat) |
-| [Devstral 2](../models/families/devstral.md) | 24B dense | 72.2% | ~14 GiB | Agent alternative |
+| [Qwen 3.6-27B](../models/families/qwen36.md#27b) | 27B dense, hybrid Gated DeltaNet, vision | **77.2%** | ~17 GiB | Primary agent (качество SWE, multimodal) |
+| [Qwen3-Coder Next](../models/families/qwen3-coder.md) | 80B MoE (3B active) | 70.6% | ~5 GiB | Primary agent (скорость, daily-loop) |
+| [Devstral 2](../models/families/devstral.md) | 24B dense | 72.2% | ~14 GiB | Agent alternative (dense 24B) |
 | [Qwen3.5-122B-A10B](../models/families/qwen35.md) | 122B MoE (10B active) | -- | ~71 GiB | Heavy reasoning |
 | [Qwen3-Coder 30B-A3B](../models/families/qwen3-coder.md) | 30B MoE (3B active) | ~42% | ~18 GiB | FIM autocomplete |
 
