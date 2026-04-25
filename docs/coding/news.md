@@ -18,7 +18,7 @@
 | 6 | GLM-5 | 77.8% | -- | Zhipu AI | open MIT |
 | 7 | GPT-5.4 | -- | 57.7% | OpenAI | API |
 | 8 | GLM-5.1 | 58.4% | 58.4% | Zhipu AI | open MIT, SWE-Pro |
-| 9 | Kimi K2.6 | -- | **58.6%** | Moonshot | open Apache 2.0 (Apr 20-22) |
+| 9 | Kimi K2.6 | **80.2%** | **58.6%** | Moonshot | open Apache 2.0 (Apr 20-22) |
 | 10 | Kimi K2.5 | ~75% | -- | Moonshot | API |
 | 11 | Qwen3-Coder Next | ~48% | -- | Alibaba | open, local |
 | 12 | Devstral 2 | ~47% | -- | Mistral | open, local |
@@ -33,9 +33,24 @@
 
 ### Апрель 2026
 
+**Apr 22 -- SpaceX $60B option на покупку Cursor**
+- [SpaceX подписал $60B option на Cursor](https://9to5mac.com/) (Anysphere)
+- Joint AI coding на суперкомпьютере **Colossus**
+- Cursor сохраняет операционную независимость до исполнения опциона
+- Крупнейший M&A-анонс в AI-coding-сегменте 2026 года
+- Источники: [9to5Mac](https://9to5mac.com/), [The New Stack](https://thenewstack.io/)
+
+**Apr 2026 -- Cursor 3: cloud agents, /worktree, parallel Agent Tabs**
+- **Cloud agents** на изолированных VM (managed окружение для агентов)
+- **/worktree** команда для isolated branch changes -- агент работает в отдельном git-worktree
+- **Self-hosted agents** -- развёртывание агентов на собственной инфраструктуре
+- **Parallel Agent Tabs** -- несколько вкладок-агентов параллельно
+- Внутренняя метрика: **30% PR в самом Cursor сделаны агентами**
+- [cursor.com](https://www.cursor.com/)
+
 **Apr 20-22 -- Kimi K2.6 (Moonshot AI)**
 - 1T MoE, open-source (Apache 2.0), четыре варианта: Instant / Thinking / Agent / Agent Swarm
-- **HLE 54.0%** (SOTA), **SWE-Bench Pro 58.6%** (лидер open-weight, опережает GLM-5.1), **SWE-bench Multilingual 76.7%**
+- **HLE 54.0%** (SOTA), **SWE-bench Verified 80.2%** (близко к Opus 4.6 80.8%), **SWE-Bench Pro 58.6%** (лидер open-weight, опережает GLM-5.1), **SWE-bench Multilingual 76.7%**, **Quality Index 53.9** (live open-source лидер)
 - Agent Swarm -- native multi-agent orchestration
 - Подробнее: [ai-agents/news.md](../ai-agents/news.md), [models/families/kimi-k25.md](../models/families/kimi-k25.md)
 

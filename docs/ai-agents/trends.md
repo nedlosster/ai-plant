@@ -239,6 +239,7 @@ Commercial выигрывает:
 - SWE-bench Verified > 90% (Apr 2026: Claude Mythos Preview 93.9%) -- бенчмарк приближается к насыщению
 - Enterprise rollout: top-100 companies
 - ARR-веха: GitHub Copilot, Claude Code, Anysphere -- все перешагнули $1B (Dec 2025)
+- **Консолидация и M&A**: 22 апреля 2026 -- SpaceX подписал **$60B option** на покупку Cursor с совместной разработкой AI-coding на суперкомпьютере **Colossus** ([9to5Mac](https://9to5mac.com/), [The New Stack](https://thenewstack.io/)). Сигнал начала фазы крупных приобретений в AI-coding-сегменте
 
 ### 2027 (ожидания)
 - Agent-as-teammate: агент = полноценный член команды (standup, PR review, on-call)

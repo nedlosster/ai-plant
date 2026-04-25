@@ -6,23 +6,63 @@
 
 ## 2026-Q2 (актуально)
 
+### Apr 24 -- DeepSeek V4 (DeepSeek): 1.6T / 284B MoE, 1M контекст, open-source MIT
+
+**24 апреля 2026** -- [DeepSeek](https://api-docs.deepseek.com/news/news260424) выпустила preview семейства **DeepSeek V4** под MIT-лицензией. Два варианта:
+
+| Вариант | Параметры | Активных | Контекст | Pricing (input / output) |
+|---------|-----------|----------|----------|---------------------------|
+| **V4-Pro** | 1.6T MoE | 49B | **1M** | $1.74 / $3.48 за 1M |
+| **V4-Flash** | 284B MoE | 13B | **1M** | $0.14 / $0.28 за 1M |
+
+Архитектура -- гибридное внимание Compressed Sparse Attention (CSA) + Heavily Compressed Attention (HCA): на 1M контексте V4-Pro требует ~27% FLOPs и 10% KV-кеша от V3.2. Pre-train в FP4 + FP8 mixed precision (32T токенов). Hybrid reasoning / non-reasoning режимы, hybrid-режим V4-Pro-Max -- максимум reasoning effort.
+
+Бенчмарки:
+- **SWE-bench Verified: 80.6%** -- топ open-source, на уровне Claude Opus 4.6 (80.8%)
+- **Terminal-Bench 2.0: 67.9%** (vs Claude 65.4%)
+- **LiveCodeBench: 93.5%** (vs 88.8%)
+- **SWE-Bench Pro: 55.4%** (уступает Kimi K2.6 58.6%, GLM-5.1 58.4%)
+
+Веса опубликованы на [HuggingFace](https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro) и [V4-Flash](https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash). Не помещаются на платформу (V4-Pro ~960 GB Q4, V4-Flash ~165 GB Q4). Покрытие в обзорах: [Simon Willison](https://simonwillison.net/2026/Apr/24/deepseek-v4/), [VentureBeat](https://venturebeat.com/technology/deepseek-v4-arrives-with-near-state-of-the-art-intelligence-at-1-6th-the-cost-of-opus-4-7-gpt-5-5), [CNBC](https://www.cnbc.com/2026/04/24/deepseek-v4-llm-preview-open-source-ai-competition-china.html).
+
+### Apr 22 -- Xiaomi MiMo V2.5-Pro и V2.5: 1T MoE, agentic + multimodal
+
+**22 апреля 2026** -- Xiaomi выпустила **MiMo V2.5-Pro** и **MiMo V2.5** ([анонс](https://www.marktechpost.com/2026/04/22/xiaomi-releases-mimo-v2-5-pro-and-mimo-v2-5-matching-frontier-model-benchmarks-at-significantly-lower-token-cost/), [страница модели](https://mimo.xiaomi.com/mimo-v2-5-pro)).
+
+| Параметр | MiMo V2.5-Pro |
+|----------|---------------|
+| Архитектура | 1T MoE, **42B активных** |
+| Контекст | **1M токенов** |
+| Модальности | text + vision + audio (native) |
+| Лицензия | open-source "soon" (V2-Flash был MIT) |
+
+Бенчмарки:
+- **SWE-Bench Pro: 57.2%** -- выше Claude Opus 4.6 (53.4%), в 0.5 п.п. от GPT-5.4 (57.7%)
+- **Terminal-Bench 2.0: 86.7%** -- лидер на этом бенчмарке
+- **ClawEval Pass^3: 64%** при ~70K токенов на trajectory (на 40-60% меньше токенов чем у Opus 4.6 / Gemini 3.1 Pro / GPT-5.4 при сопоставимом качестве)
+- Реальная задача: SysY-компилятор на Rust за 4.3 часа / 672 tool calls, 233/233 hidden tests
+
+Веса не помещаются на платформу (1T MoE). Предшественник [MiMo-V2-Flash](https://github.com/xiaomimimo/MiMo-V2-Flash) (309B, MIT, декабрь 2025) -- ориентир по open-варианту.
+
 ### Apr 20-22 -- Kimi K2.6 (Moonshot AI): 1T MoE, open-source, 4 варианта
 
-Moonshot AI выпустила **Kimi K2.6** -- open-source 1T MoE под Apache 2.0. Линейка из четырёх вариантов:
+Moonshot AI выпустила **Kimi K2.6** -- open-source 1T MoE под Modified MIT License. Линейка из четырёх вариантов:
 
 | Вариант | Назначение |
 |---------|------------|
 | **Instant** | Низкая латентность, быстрые ответы |
 | **Thinking** | Extended reasoning с цепочкой рассуждений |
 | **Agent** | Single-agent workflow с tool use |
-| **Agent Swarm** | Native multi-agent orchestration из коробки |
+| **Agent Swarm** | Native multi-agent orchestration (до 300 агентов) |
 
 Бенчмарки:
-- **HLE (Humanity's Last Exam): 54.0%** -- SOTA
+- **SWE-bench Verified: 80.2%** -- в пределах 0.6 п.п. от Claude Opus 4.6 (80.8%) и Gemini 3.1 Pro (80.6%)
 - **SWE-Bench Pro: 58.6%** -- лидер open-weight (опережает GLM-5.1 58.4%)
+- **HLE (Humanity's Last Exam): 54.0%**
 - **SWE-bench Multilingual: 76.7%**
+- **Artificial Analysis Intelligence Index: 54** (#1 open-source)
 
-Веса не помещаются на платформу (1T MoE, 240+ GiB Q4). Используется через API или cloud-провайдеров. Карточка семейства: [families/kimi-k25.md](families/kimi-k25.md).
+Веса не помещаются на платформу (1T MoE, 240+ GiB Q4). Используется через API или cloud-провайдеров. Карточка семейства: [families/kimi-k25.md](families/kimi-k25.md). Источники: [llm-stats](https://llm-stats.com/models/kimi-k2.6), [Artificial Analysis](https://artificialanalysis.ai/models/kimi-k2-6), [HuggingFace](https://huggingface.co/moonshotai/Kimi-K2.6).
 
 ### Apr 2026 -- Qwen3.6-Max-Preview (Alibaba): early preview следующего флагмана
 

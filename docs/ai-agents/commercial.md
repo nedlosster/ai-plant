@@ -59,7 +59,7 @@
 
 - **Claude Code**: 41% профессиональных разработчиков (Pragmatic Engineer survey, n=15000, февраль 2026), 46% "most loved"
 - **GitHub Copilot**: 42% (data from JetBrains research, апрель 2026)
-- **Cursor**: 18% работающих разработчиков, $500M ARR; **апрель 2026 -- раунд $2B при оценке $50B+** (Nvidia, Thrive Capital, a16z); 6 месяцев назад оценка была $29.3B
+- **Cursor**: 18% работающих разработчиков, $500M ARR; **апрель 2026 -- раунд $2B при оценке $50B+** (Nvidia, Thrive Capital, a16z); 6 месяцев назад оценка была $29.3B; **22 апреля 2026 -- SpaceX подписал $60B option на покупку Cursor** с совместной разработкой AI-coding на Colossus supercomputer ([9to5Mac](https://9to5mac.com/), [The New Stack](https://thenewstack.io/))
 - **$1B+ ARR threshold (декабрь 2025)**: GitHub Copilot, Claude Code, Anysphere -- одновременно перешагнули
 
 ## Связано

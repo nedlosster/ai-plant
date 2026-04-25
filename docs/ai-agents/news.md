@@ -6,11 +6,24 @@
 
 ## 2026-Q2 (актуально)
 
+### Apr 22 -- SpaceX берёт $60B option на покупку Cursor
+
+**22 апреля 2026** -- [SpaceX подписал $60B option на покупку Cursor](https://9to5mac.com/) (Anysphere). Сделка предусматривает совместную разработку AI-coding на суперкомпьютере **Colossus**. Cursor пока сохраняет операционную независимость, переход в собственность SpaceX -- по решению опциона. Один из крупнейших M&A-анонсов 2026 года в AI-coding-сегменте. Источники: [9to5Mac](https://9to5mac.com/), [The New Stack](https://thenewstack.io/).
+
+### Apr 2026 -- Cursor 3 release: cloud agents, /worktree, parallel Agent Tabs
+
+[Cursor 3](agents/cursor.md) выпущен в апреле 2026 -- следующий шаг после Composer 2:
+- **Cloud agents** на изолированных VM -- запуск задач в managed-окружении без локальных ресурсов
+- **/worktree** команда для isolated branch changes -- агент работает в отдельном worktree, не трогая основное дерево
+- **Self-hosted agents** -- возможность поднимать агентов на собственной инфраструктуре
+- **Parallel Agent Tabs** -- несколько агентских вкладок параллельно, каждая со своим контекстом
+- Внутренняя метрика Cursor: **30% PR в самом Cursor** уже сделаны агентами
+
 ### Apr 20-22 -- Kimi K2.6 (Moonshot AI) с Agent Swarm
 
 Moonshot AI выпустила [Kimi K2.6](../models/families/kimi-k25.md) -- open-source 1T MoE нового поколения. Четыре варианта под разные сценарии: **Instant** (быстрый), **Thinking** (extended reasoning), **Agent** (single-agent workflow), **Agent Swarm** (multi-agent orchestration).
 
-Рекорды: **HLE 54.0%**, **SWE-Bench Pro 58.6%**, **SWE-bench Multilingual 76.7%** -- SOTA среди open-weight. Agent Swarm вариант -- native multi-agent orchestration из коробки, без внешнего оркестратора. Веса под Apache 2.0.
+Рекорды: **HLE 54.0%**, **SWE-bench Verified 80.2%** (близко к Opus 4.6 80.8%), **SWE-Bench Pro 58.6%**, **SWE-bench Multilingual 76.7%**, **Quality Index 53.9** (live open-source лидер) -- SOTA среди open-weight. Agent Swarm вариант -- native multi-agent orchestration из коробки, без внешнего оркестратора. Веса под Apache 2.0.
 
 ### Apr 20 -- Shipper: AI-агент для web/mobile и Chrome extensions
 

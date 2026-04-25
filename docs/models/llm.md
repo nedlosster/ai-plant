@@ -108,6 +108,9 @@
 
 ## Не помещаются на платформе (для справки)
 
+- DeepSeek V4-Pro (1.6T MoE / 49B active) -- 1M контекст, MIT, SWE-V 80.6%, Terminal-Bench 2.0 67.9%, ~960 GB Q4. Preview 24 апреля 2026
+- DeepSeek V4-Flash (284B MoE / 13B active) -- 1M контекст, MIT, ~165 GB Q4
+- Xiaomi MiMo V2.5-Pro (1T MoE / 42B active) -- 1M контекст, multimodal (text+vision+audio), SWE-Pro 57.2%, Terminal-Bench 2.0 86.7%. Open-source "soon" (предшественник MiMo-V2-Flash 309B, MIT)
 - GLM-5 / GLM-5.1 (744B) -- 440 GB Q4
 - MiniMax M2.5 -- 150 GB Q4
 - DeepSeek V3.2 (671B MoE / 37B active) -- 390 GB Q4

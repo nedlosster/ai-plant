@@ -23,6 +23,10 @@ Cursor от Anysphere -- лидер AI IDE категории. Это fork VS Co
 - **Tab** -- контекстное автодополнение с предсказанием следующего действия (Supermaven)
 - **Agent mode** -- автономное multi-file редактирование по описанию
 - **Background Agents** -- агент работает в фоне, пока разработчик занят другим
+- **Cloud agents (Cursor 3)** -- запуск задач на изолированных VM в managed-окружении
+- **Self-hosted agents (Cursor 3)** -- развёртывание агентов на собственной инфраструктуре
+- **Parallel Agent Tabs (Cursor 3)** -- несколько вкладок-агентов параллельно, каждая со своим контекстом
+- **/worktree (Cursor 3)** -- команда для isolated branch changes, агент работает в отдельном git-worktree
 - **Chat** -- классический чат с моделью + контекст файлов
 - **Cmd+K** -- inline edit прямо в коде
 - **@-references** -- быстро добавить файлы/папки/документы в контекст
@@ -109,7 +113,8 @@ You are an expert React/TypeScript developer.
 
 ## Анонсы и открытия
 
-- **Apr 2026** -- релиз **Cursor 3**: unified workspace для управления командой агентов, multi-agent workflow с делегированием параллельных задач
+- **22 Apr 2026** -- **SpaceX подписал $60B option** на покупку Cursor (Anysphere). Совместная разработка AI-coding на суперкомпьютере **Colossus**. Cursor пока сохраняет операционную независимость до исполнения опциона. Источники: [9to5Mac](https://9to5mac.com/), [The New Stack](https://thenewstack.io/)
+- **Apr 2026** -- релиз **Cursor 3**: unified workspace для управления командой агентов, **cloud agents** на изолированных VM, **/worktree** для isolated branch changes, **self-hosted agents**, **Parallel Agent Tabs**. Внутренняя метрика: **30% PR в самом Cursor сделаны агентами**
 - **19 Mar 2026** -- релиз **Composer 2**: проприетарная coding-модель третьего поколения, построена поверх Moonshot AI Kimi K2.5 c continued pretraining и large-scale RL
 - **2026-Q1** -- интеграция с Claude Sonnet 4.5 как default
 - **Dec 2025** -- $1B+ ARR (одновременно с GitHub Copilot и Claude Code)
