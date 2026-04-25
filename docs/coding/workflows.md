@@ -70,10 +70,12 @@ providers:
 |--------|-----------|--------|
 | Tab completion | Continue.dev FIM | Qwen3-Coder 30B (порт 8080) |
 | Быстрый inline edit | Continue.dev chat | Qwen3-Coder 30B |
-| Рефакторинг 1-3 файла | opencode | Qwen3-Coder Next (порт 8081) |
-| Рефакторинг 10+ файлов | Claude Code | Claude Opus 4.6 (cloud) |
-| Code review | opencode/Aider | Qwen3-Coder Next |
-| Debugging | Claude Code | Opus 4.6 (cloud) |
+| **Daily agent loop (default)** | opencode | **[Qwen 3.6-35B-A3B](../models/families/qwen36.md#35b-a3b)** (порт 8085, MoE+vision) |
+| Long-context рефакторинг (256K) | opencode | Qwen3-Coder Next (порт 8081) |
+| Сложные SWE-задачи (макс. качество локально) | opencode | [Qwen 3.6-27B](../models/families/qwen36.md#27b) (порт 8084) |
+| Рефакторинг 10+ файлов | Claude Code | Claude Opus 4.7 (cloud) |
+| Code review | opencode/Aider | Qwen 3.6-35B-A3B / Qwen3-Coder Next |
+| Debugging | Claude Code | Opus 4.7 (cloud) |
 
 ---
 
@@ -224,9 +226,11 @@ claude "/doc-lifecycle code-change"
 | Задача | Модель | VRAM | Почему |
 |--------|--------|------|--------|
 | FIM autocomplete | Qwen3-Coder 30B-A3B | ~18 GiB | Быстрый, FIM native |
-| Chat agent (local) | Qwen3-Coder Next | ~5 GiB | MoE, низкий VRAM |
+| **Daily agent (default)** | **[Qwen 3.6-35B-A3B](../models/families/qwen36.md#35b-a3b)** | ~20 GiB | MoE 3B-active + vision, ~80 tok/s (оценка), SWE-V 73.4% |
+| Heavy SWE (local) | [Qwen 3.6-27B](../models/families/qwen36.md#27b) | ~17 GiB | dense 77.2% SWE-V, multimodal, ~15 tok/s (оценка) |
+| Long-context agent (local) | Qwen3-Coder Next | ~5 GiB | MoE, 256K контекст, низкий VRAM |
 | Heavy reasoning (local) | Qwen3.5-122B-A10B | ~71 GiB | Большой контекст, качество |
-| Complex tasks (cloud) | Claude Opus 4.6 | -- | SWE-bench лидер |
+| Complex tasks (cloud) | Claude Opus 4.7 | -- | SWE-bench 87.6% |
 | Budget cloud | Claude Sonnet 4.5 | -- | 3x дешевле Opus |
 | Alternative cloud | GPT-5.3 Codex | -- | 85% SWE-bench |
 
@@ -234,9 +238,11 @@ claude "/doc-lifecycle code-change"
 
 | Конфигурация | Модели | Суммарный VRAM |
 |--------------|--------|----------------|
-| FIM + Chat | 30B + Next | ~23 GiB |
-| FIM + Heavy | 30B + 122B | ~89 GiB |
-| Chat only | Next | ~5 GiB |
+| FIM + Daily agent | 30B + 35B-A3B | ~38 GiB |
+| FIM + Long-context agent | 30B + Next | ~23 GiB |
+| FIM + Heavy SWE | 30B + 27B | ~35 GiB |
+| FIM + Heavy reasoning | 30B + 122B | ~89 GiB |
+| Daily agent only | 35B-A3B | ~20 GiB |
 | Maximum local | 122B-A10B | ~71 GiB |
 
 ---

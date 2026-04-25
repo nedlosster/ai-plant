@@ -2,9 +2,9 @@
 
 > "First real agentic LLM" (Alibaba). Флагман нового поколения Qwen для агентного кодинга и multimodal reasoning. Open weights ожидаются.
 
-**Тип**: смешанный -- API-only Plus / Max-Preview + open-weight 27B dense
-**Лицензия**: Plus/Max-Preview API-only; **27B dense -- Apache 2.0**
-**Статус на сервере**: 27B -- доступен GGUF (помещается на платформу), не скачан; Plus -- API
+**Тип**: смешанный -- API-only Plus / Max-Preview + open-weight 27B dense + open-weight 35B-A3B (MoE multimodal)
+**Лицензия**: Plus/Max-Preview API-only; **27B dense -- Apache 2.0**; **35B-A3B -- Apache 2.0**
+**Статус на сервере**: 27B / 35B-A3B -- GGUF доступен, помещается на платформу, не скачан; Plus -- API
 **Направления**: [coding](../coding.md), [llm](../llm.md), [vision](../vision.md)
 
 ## Обзор
@@ -24,6 +24,7 @@ Qwen3.6-Plus -- релиз от Alibaba / Tongyi Lab (2 апреля 2026). По
 | Qwen3.6-Plus | не раскрыто | **1M токенов** | 65K | proprietary | API-only | [Alibaba Cloud Model Studio](https://www.alibabacloud.com/product/modelstudio), [OpenRouter](https://openrouter.ai/) (бесплатно в preview) |
 | Qwen3.6-Max-Preview | не раскрыто | -- | -- | proprietary | API-only preview | Alibaba Cloud Model Studio |
 | **Qwen 3.6-27B** | **27B dense, hybrid Gated DeltaNet** | 1M (предв.) | -- | **Apache 2.0** | open-weight, 23 апр 2026 | [HuggingFace](https://huggingface.co/Qwen) (unsloth/bartowski/mradermacher GGUF) |
+| **Qwen 3.6-35B-A3B** | **35B MoE / 3B active, multimodal (vision)** | ~128K (оценка) | -- | **Apache 2.0** | open-weight, 16 апр 2026 | [HuggingFace](https://huggingface.co/Qwen/Qwen3.6-35B-A3B) |
 
 ## 27B
 
@@ -56,6 +57,66 @@ Qwen3.6-Plus -- релиз от Alibaba / Tongyi Lab (2 апреля 2026). По
 **Источники**:
 - [explore.n1n.ai: Qwen 3.6-27B GGUF llama.cpp local multimodal](https://explore.n1n.ai/blog/qwen-3-6-27b-gguf-llama-cpp-local-multimodal-2026-04-23)
 - [aimadetools: Best Ollama Models Coding 2026](https://www.aimadetools.com/blog/best-ollama-models-coding-2026/)
+
+## 35B-A3B
+
+<a id="35b-a3b"></a>
+
+**Qwen 3.6-35B-A3B** (релиз 16 апреля 2026) -- первый MoE-вариант семейства Qwen3.6 под Apache 2.0. Sparse Mixture-of-Experts vision-language модель: 35B total параметров, 3B активных на токен, встроенный vision encoder.
+
+| Параметр | Значение |
+|----------|----------|
+| Параметры | 35B total MoE, 3B active |
+| Архитектура | Sparse MoE + vision encoder |
+| Модальности | text + vision (multimodal) |
+| Контекст | ~128K (оценка, точные данные не раскрыты) |
+| Лицензия | Apache 2.0 |
+| **SWE-bench Verified** | **73.4%** |
+| **Terminal-Bench 2.0** | **51.5%** |
+| **QwenWebBench** | **1397** |
+| Q4_K_M | ~20 GiB total -- помещается на платформу |
+| Скорость на платформе | оценка ~80 tok/s tg (256 GB/s ÷ ~1.7 GiB активных Q4, с overhead) |
+| Prefill | оценка ~700-1000 tok/s |
+
+**Позиционирование**: новый рекомендуемый default для daily agentic-loop на платформе. MoE-архитектура с 3B active даёт скорость, близкую к [Qwen3-Coder 30B-A3B](qwen3-coder.md#30b-a3b) (86 tok/s) при качестве SWE-V между Devstral 2 (72.2%) и Qwen 3.6-27B dense (77.2%).
+
+**Сравнение с 27B dense**:
+
+| Метрика | 35B-A3B (MoE) | 27B (dense) | Δ |
+|---------|---------------|-------------|---|
+| SWE-bench Verified | 73.4% | 77.2% | -3.8 п.п. |
+| tg на платформе (оценка) | ~80 tok/s | ~15 tok/s | +5.3× |
+| Контекст | ~128K | 1M (предв.) | -8× |
+| Q4_K_M | ~20 GiB | ~17 GiB | +3 GiB |
+| Modality | text + vision | text + vision | -- |
+
+Trade-off: -3.8 п.п. SWE-V в обмен на 5× скорость генерации -- критично для agent loop, где итераций десятки. На задачах, где +3.8% SWE-V не определяет успех, MoE-вариант продуктивнее.
+
+**Multimodal**: vision encoder работает со скриншотами интерфейсов, диаграммами, дизайн-макетами -- стандартный сценарий для [opencode](../../ai-agents/agents/opencode.md), [Cline](../../ai-agents/agents/cline.md), [Aider](../../ai-agents/agents/aider.md) при отладке UI или чтении wireframes.
+
+**Когда брать MoE 35B-A3B** (новый default daily agent):
+- Daily agentic-loop ([opencode](../../ai-agents/agents/opencode.md), [Aider](../../ai-agents/agents/aider.md), [Cline](../../ai-agents/agents/cline.md))
+- Vision-задачи: скриншоты, UI-отладка, дизайн → код
+- Multi-file orchestration со многими итерациями
+- Quick code review
+
+**Когда переключаться на 27B dense**:
+- Сложный single-file refactor с приоритетом качества
+- Архитектурный дизайн алгоритма
+- Когда +3.8% SWE-V критичны для конкретной задачи
+- Время не критично, важно качество одного прохода
+
+**Когда оставаться на [Qwen3-Coder Next 80B-A3B](qwen3-coder.md#next-80b-a3b)**:
+- Нужен 256K контекст (35B-A3B оценочно ~128K)
+- Уже настроенные пресеты и привычные workflow
+
+**GGUF и интеграция**:
+- GGUF выпускается типичным паттерном через unsloth / bartowski / mradermacher на HuggingFace
+- llama.cpp: MoE-архитектура поддерживается, multimodal через mmproj-файл
+- Для платформы рекомендуется Q4_K_M (~20 GiB)
+
+**Источники**:
+- [HuggingFace: Qwen3.6-35B-A3B](https://huggingface.co/Qwen/Qwen3.6-35B-A3B)
 
 ## Архитектура и особенности
 
@@ -150,3 +211,4 @@ Qwen3.6-Plus -- релиз от Alibaba / Tongyi Lab (2 апреля 2026). По
 - Направления: [coding](../coding.md), [llm](../llm.md), [vision](../vision.md)
 - Предыдущее поколение: [qwen35](qwen35.md) (текущий лучший локальный general-purpose Qwen)
 - Альтернатива для agent-coding локально: [qwen3-coder](qwen3-coder.md) (Next 80B-A3B, 70.6% SWE-V)
+- Внутри семейства: [27B dense](#27b) (лидер качества SWE-V, ~15 tok/s) vs [35B-A3B MoE](#35b-a3b) (рекомендуемый default daily agent, ~80 tok/s)

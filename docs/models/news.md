@@ -6,6 +6,28 @@
 
 ## 2026-Q2 (актуально)
 
+### Apr 16 -- Qwen 3.6-35B-A3B (Alibaba): MoE vision-language, новый default daily agent на платформе
+
+**16 апреля 2026** -- Alibaba выпустила **Qwen 3.6-35B-A3B** -- sparse Mixture-of-Experts vision-language модель с встроенным vision encoder.
+
+| Параметр | Значение |
+|----------|----------|
+| Архитектура | 35B total MoE, 3B active |
+| Модальности | text + vision (multimodal) |
+| Лицензия | Apache 2.0 |
+| Контекст | ~128K (оценка) |
+| **SWE-bench Verified** | **73.4%** |
+| **Terminal-Bench 2.0** | **51.5%** |
+| **QwenWebBench** | **1397** |
+| Размер Q4_K_M | ~20 GiB |
+| Помещается на платформу | да |
+
+Trade-off vs dense [Qwen 3.6-27B](families/qwen36.md#27b) (77.2% SWE-V, ~15 tok/s): -3.8 п.п. SWE-V в обмен на ~5× скорость генерации (оценка ~80 tok/s tg на платформе при 3B active, 256 GB/s ÷ ~1.7 GiB Q4 active с overhead). Prefill -- оценка ~700-1000 tok/s.
+
+**Позиционирование на платформе** -- новый рекомендуемый default daily agent между 27B dense (лидер качества SWE-V) и [Qwen3-Coder 30B-A3B](families/qwen3-coder.md#30b-a3b) (86 tok/s, без vision). Vision encoder из коробки позволяет работать со скриншотами/UI/диаграммами в agent loop без отдельного mmproj-сервера. Контекст ~128K уступает [Qwen3-Coder Next](families/qwen3-coder.md#next-80b-a3b) (256K), но достаточен для большинства agentic-задач.
+
+Источник: [HuggingFace: Qwen3.6-35B-A3B](https://huggingface.co/Qwen/Qwen3.6-35B-A3B). Карточка семейства: [families/qwen36.md](families/qwen36.md#35b-a3b).
+
 ### Apr 23 -- Qwen 3.6-27B (Alibaba): dense coding LLM, новый лидер open-source local SWE-V
 
 **23 апреля 2026** -- Alibaba выпустила **Qwen 3.6-27B** -- dense 27B coding LLM с hybrid Gated DeltaNet архитектурой и vision encoder.

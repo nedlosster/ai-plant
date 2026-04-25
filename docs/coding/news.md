@@ -21,8 +21,9 @@
 | 9 | Kimi K2.6 | **80.2%** | **58.6%** | Moonshot | open Apache 2.0 (Apr 20-22) |
 | 10 | Kimi K2.5 | ~75% | -- | Moonshot | API |
 | 11 | **Qwen 3.6-27B** | **77.2%** | -- | Alibaba | open Apache 2.0, local (Apr 23) |
-| 12 | Qwen3-Coder Next | ~48% | -- | Alibaba | open, local |
-| 13 | Devstral 2 | ~47% | -- | Mistral | open, local |
+| 12 | **Qwen 3.6-35B-A3B** | **73.4%** | -- | Alibaba | open Apache 2.0, local MoE+vision (Apr 16) |
+| 13 | Qwen3-Coder Next | ~48% | -- | Alibaba | open, local |
+| 14 | Devstral 2 | ~47% | -- | Mistral | open, local |
 
 Источники: [swebench.com](http://www.swebench.com/), [llm-stats.com](https://llm-stats.com/benchmarks/swe-bench-verified)
 
@@ -70,6 +71,17 @@
 - Улучшенный agentic coding: tool use, multi-step планирование, long-horizon задачи
 - API-only через Alibaba Cloud Model Studio
 - [qwenlm.github.io](https://qwenlm.github.io/)
+
+**Apr 16 -- Qwen 3.6-35B-A3B (Alibaba): MoE multimodal vision-language coder**
+- Sparse MoE 35B total / 3B active с встроенным vision encoder, Apache 2.0
+- **SWE-bench Verified 73.4%**, **Terminal-Bench 2.0 51.5%**, **QwenWebBench 1397**
+- Сравнение с Qwen 3.6-27B dense: -3.8 п.п. SWE-V (73.4 vs 77.2) при ~5× скорости генерации
+- Помещается на платформу: Q4_K_M ~20 GiB; оценка скорости ~80 tok/s tg (3B active, 256 GB/s ÷ 1.7 GiB), prefill ~700-1000 tok/s
+- Контекст ~128K (точные данные не раскрыты), short of 256K Qwen3-Coder Next
+- Новый рекомендуемый default daily agent на платформе: между 27B dense (качество SWE-V) и Coder 30B-A3B (скорость) по балансу
+- Vision из коробки -- screenshots/UI/diagrams в agent loop без отдельного mmproj-сервера
+- Источник: [HuggingFace: Qwen3.6-35B-A3B](https://huggingface.co/Qwen/Qwen3.6-35B-A3B)
+- Карточка: [models/families/qwen36.md](../models/families/qwen36.md#35b-a3b)
 
 **Apr 16 -- Claude Opus 4.7 (Anthropic)**
 - Model ID: `claude-opus-4-7`, контекст 1M tokens, max output 128K
