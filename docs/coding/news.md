@@ -80,6 +80,7 @@
 - Контекст ~128K (точные данные не раскрыты), short of 256K Qwen3-Coder Next
 - Новый рекомендуемый default daily agent на платформе: между 27B dense (качество SWE-V) и Coder 30B-A3B (скорость) по балансу
 - Vision из коробки -- screenshots/UI/diagrams в agent loop без отдельного mmproj-сервера
+- **Apr 25 -- скачана на платформу**: `unsloth/Qwen3.6-35B-A3B-UD-Q4_K_M.gguf` (20.6 GiB) -- замеры скорости и реальный SWE-V на Strix Halo пока не сняты
 - Источник: [HuggingFace: Qwen3.6-35B-A3B](https://huggingface.co/Qwen/Qwen3.6-35B-A3B)
 - Карточка: [models/families/qwen36.md](../models/families/qwen36.md#35b-a3b)
 

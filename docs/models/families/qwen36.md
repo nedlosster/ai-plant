@@ -4,7 +4,7 @@
 
 **Тип**: смешанный -- API-only Plus / Max-Preview + open-weight 27B dense + open-weight 35B-A3B (MoE multimodal)
 **Лицензия**: Plus/Max-Preview API-only; **27B dense -- Apache 2.0**; **35B-A3B -- Apache 2.0**
-**Статус на сервере**: 27B / 35B-A3B -- GGUF доступен, помещается на платформу, не скачан; Plus -- API
+**Статус на сервере**: 35B-A3B -- **скачана** (Q4_K_M, 20.6 GiB, 25 апр 2026); 27B -- GGUF доступен, не скачан; Plus -- API
 **Направления**: [coding](../coding.md), [llm](../llm.md), [vision](../vision.md)
 
 ## Обзор
