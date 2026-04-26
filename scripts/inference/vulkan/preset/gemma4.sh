@@ -22,9 +22,9 @@ ARGS=(
     --port "$PORT"
     --host 0.0.0.0
     -ngl 99                # все слои на GPU
-    -c 65536               # контекст 64K
+    -c 250000              # контекст 250K (расширен с 64K, на платформе хватает unified memory)
     -fa on                 # flash attention
-    --parallel 1           # 1 слот -- защита от OOM
+    --parallel 4           # 4 слота для параллельных запросов
     --cache-reuse 256      # на Gemma 4 не работает (sliding window), но не ломает
     --jinja                # Jinja2 chat-template (function calling Gemma 4)
     --no-mmap              # модель сразу в RAM, без mmap-overhead
