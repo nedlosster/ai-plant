@@ -47,7 +47,8 @@ while [[ $# -gt 0 ]]; do
   $0 --exclude qwen-coder-next
   $0 --full --include qwen3.6-35b
 
-Требования: ~/.venvs/aider-bench с aider-chat. См. SKILL.md.
+Требования: ~/.venvs/aider-bench с editable aider + polyglot-benchmark dataset.
+См. SKILL.md ops-engineer и docs/llm-guide/benchmarks/runbooks/aider-polyglot.md
 HLP
             exit 0
             ;;

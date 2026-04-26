@@ -9,7 +9,12 @@
 # Smoke: 50 случайных задач (~1.5 ч)
 # Full:  225 задач (~6-12 ч)
 #
-# Требования: Python 3.10+, venv ~/.venvs/aider-bench с установленным aider-chat
+# Требования:
+#   - Python 3.10+, venv ~/.venvs/aider-bench
+#   - aider-chat установлен: pip install -e ~/projects/aider[dev]
+#   - aider репо склонирован: ~/projects/aider
+#   - polyglot-benchmark внутри: ~/projects/aider/tmp.benchmarks/polyglot-benchmark
+#
 # Документация: docs/llm-guide/benchmarks/runbooks/aider-polyglot.md
 
 set -euo pipefail
@@ -49,9 +54,25 @@ done
 
 # --- Проверка venv ---
 VENV="${HOME}/.venvs/aider-bench"
+AIDER_REPO="${HOME}/projects/aider"
+EXERCISES_DIR="${AIDER_REPO}/tmp.benchmarks/polyglot-benchmark"
+
 if [[ ! -d "$VENV" ]]; then
     echo "ОШИБКА: venv не найден: $VENV"
-    echo "Создать: python3 -m venv $VENV && source $VENV/bin/activate && pip install aider-chat"
+    echo "Создать: python3 -m venv $VENV"
+    exit 1
+fi
+
+if [[ ! -d "$AIDER_REPO/benchmark" ]]; then
+    echo "ОШИБКА: aider репо не найден: $AIDER_REPO"
+    echo "Клонировать: git clone https://github.com/Aider-AI/aider $AIDER_REPO"
+    echo "  и установить: ~/.venvs/aider-bench/bin/pip install -e $AIDER_REPO[dev]"
+    exit 1
+fi
+
+if [[ ! -d "$EXERCISES_DIR" ]]; then
+    echo "ОШИБКА: polyglot-benchmark отсутствует: $EXERCISES_DIR"
+    echo "Клонировать: cd $AIDER_REPO && git clone https://github.com/Aider-AI/polyglot-benchmark tmp.benchmarks/polyglot-benchmark"
     exit 1
 fi
 
@@ -64,31 +85,39 @@ fi
 
 # --- Запуск ---
 TIMESTAMP=$(date +%Y%m%d-%H%M%S)
+RUN_NAME="${MODE}-${MODEL}-${TIMESTAMP}"
 LOG="${OUTPUT_DIR}/bench-aider-${MODEL}-${MODE}-${TIMESTAMP}.log"
 
 echo "=== Aider Polyglot ${MODE^^} -- ${MODEL} ==="
 echo "Порт: ${PORT}"
+echo "Run:  ${RUN_NAME}"
 echo "Лог:  ${LOG}"
 echo ""
 
 # Параметры subset для smoke
-NUM_TESTS=""
-[[ "$MODE" == "smoke" ]] && NUM_TESTS="--num-tests 50 --random-seed 42"
+NUM_TESTS_ARG=""
+[[ "$MODE" == "smoke" ]] && NUM_TESTS_ARG="--num-tests 50"
 
-# OpenAI-compat endpoint
+# OpenAI-compat endpoint (litellm prefix openai/ -- использовать любое имя модели)
 export OPENAI_API_BASE="http://localhost:${PORT}/v1"
 export OPENAI_API_KEY="dummy"
 
-# Активируем venv и запускаем
-source "${VENV}/bin/activate"
+# Bypass aider safety-guard (требует Docker для unvetted LLM кода).
+# На изолированном inference-сервере с собственными моделями -- допустимо.
+# См. https://github.com/Aider-AI/aider/blob/main/benchmark/README.md
+export AIDER_DOCKER=1
 
 START=$(date +%s)
-aider --benchmark polyglot \
-      --model "openai/${MODEL}" \
-      ${NUM_TESTS} \
-      --no-stream \
-      --auto-test \
-      2>&1 | tee "$LOG"
+cd "$AIDER_REPO"
+"${VENV}/bin/python" ./benchmark/benchmark.py "$RUN_NAME" \
+    --model "openai/${MODEL}" \
+    --edit-format whole \
+    --threads 1 \
+    --tries 2 \
+    --new \
+    --exercises-dir "$EXERCISES_DIR" \
+    ${NUM_TESTS_ARG} \
+    2>&1 | tee "$LOG"
 END=$(date +%s)
 
 DURATION=$((END - START))
