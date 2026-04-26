@@ -10,7 +10,7 @@
 |--------|-----------|-----------|--------|
 | Qwen3-Coder-Next | [qwen3-coder](families/qwen3-coder.md#next-80b-a3b) | 80B MoE / 3B active | `vulkan/preset/qwen-coder-next.sh` |
 | Qwen3-Coder-30B-A3B | [qwen3-coder](families/qwen3-coder.md#30b-a3b) | 30B MoE / 3B active | `vulkan/preset/qwen3-coder-30b.sh` |
-| Qwen3.6-35B-A3B | [qwen36](families/qwen36.md#35b-a3b) | 35B MoE / 3B active (vision) | пресет TODO |
+| Qwen3.6-35B-A3B | [qwen36](families/qwen36.md#35b-a3b) | 35B MoE / 3B active (vision) | `vulkan/preset/qwen3.6-35b.sh` |
 | Qwen2.5-Coder-1.5B | [qwen25-coder](families/qwen25-coder.md#1-5b) | 1.5B dense Q8 | `vulkan/preset/qwen2.5-coder-1.5b.sh` |
 
 ## Топ open-моделей для платформы (апрель 2026)
