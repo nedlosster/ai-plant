@@ -148,6 +148,7 @@ if ! curl -fs "http://localhost:${PORT}/v1/models" >/dev/null 2>&1; then
 fi
 
 # --- Запуск ---
+mkdir -p "$OUTPUT_DIR"
 TIMESTAMP=$(date +%Y%m%d-%H%M%S)
 RUN_NAME="${MODE}-${MODEL}-${TIMESTAMP}"
 LOG="${OUTPUT_DIR}/bench-aider-${MODEL}-${MODE}-${TIMESTAMP}.log"
