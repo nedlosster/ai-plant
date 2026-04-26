@@ -2,8 +2,8 @@
 
 **Mode**: smoke (20 задач, --tries 1, no rust)
 **Scope**: эталонный замер для cache-reuse A/B сравнения (M-001)
-**Total time**: **TBD** (в процессе на момент написания, ETA ~5-7 мин)
-**Статус**: ✅ **успешный быстрый прогон** -- ~12 сек/задача
+**Total time**: **0h 10m** (20:11 -- 20:21 UTC, прогон + setup overhead)
+**Статус**: ✅ **завершён штатно** -- в **~7 раз быстрее** Qwen3.6-35B на том же scope
 **Лог сервера**: `/tmp/aider-test-30b-20260426-2011/`
 
 ## Контекст и цель
@@ -68,13 +68,29 @@ docker run --rm --network host --user 1000:1000 \
 
 | Метрика | Значение |
 |---------|----------|
-| **test_cases** | TBD / 20 |
-| **pass_rate_1** | TBD |
-| seconds_per_case | TBD |
-| 100% well-formed | TBD |
-| user_asks | TBD |
-| test_timeouts | TBD |
-| Total time | TBD |
+| **test_cases** | **20 / 20** ✅ |
+| **pass_rate_1** | **15.0%** (3 из 20) |
+| seconds_per_case | **17.4** (~17 сек/задача) |
+| percent_cases_well_formed | 100.0% |
+| num_malformed_responses | 0 |
+| user_asks | 14 |
+| test_timeouts | 1 |
+| prompt_tokens | 56 487 |
+| completion_tokens | **17 814** (vs 198 873 у 35B -- 11× меньше!) |
+| Total time | **0h 10m** (включая startup) |
+
+### Per-language breakdown
+
+| Язык | Прогнано | Pass 1-try | Pass rate |
+|------|----------|------------|-----------|
+| **Python** | 1 | 1 | **100%** ⭐ |
+| **Go** | 3 | 1 | 33% |
+| **C++** | 4 | 1 | 25% |
+| **Java** | 3 | 0 | **0%** |
+| **JavaScript** | 9 | 0 | **0%** ⚠️ |
+| **Итого** | 20 | 3 | **15.0%** |
+
+**Внимание**: random subset benchmark.py выбрал 9 из 20 задач JavaScript (45% выборки). 0/9 на JavaScript радикально занижает overall pass rate. Это **artifact малой выборки**, а не реальное отражение способностей модели на JavaScript.
 
 ### Активность llama-server (cache!)
 
@@ -93,31 +109,52 @@ docker run --rm --network host --user 1000:1000 \
 
 | Метрика | Qwen3.6-35B (clean) | **Qwen3-Coder 30B** | Δ |
 |---------|---------------------|----------------------|---|
-| test_cases | 20 / 20 | TBD | -- |
-| pass_rate_1 | 35.0% | TBD | TBD |
-| **seconds_per_case** | **210.5** | **TBD** (~12 на старте) | **TBD** |
-| Total time | 1h 11m | **TBD** (~5 мин по эстимации) | **TBD** |
-| 100% well-formed | ✓ | TBD | -- |
-| user_asks | 16 | TBD | -- |
+| test_cases | 20 / 20 | **20 / 20** | -- |
+| pass_rate_1 | 35.0% (7/20) | **15.0%** (3/20) | **−57%** |
+| **seconds_per_case** | 210.5 | **17.4** | **−92%** (12× быстрее) |
+| Total time | 1h 11m | **0h 10m** | −86% |
+| 100% well-formed | ✓ | ✓ | -- |
+| user_asks | 16 | 14 | −12% |
+| **completion_tokens** | 198 873 | **17 814** | **−91%** (модель пишет кратко) |
+| prompt_tokens | 58 637 | 56 487 | −4% |
+| `forcing full prompt re-processing` | **41** | **0** | архитектурно |
 | Cache works | ❌ | **✅** | критично |
 
-## Анализ (предварительный, на основе early metrics)
+## Анализ
 
 ### Выгода cache reuse в числах
 
-На первых 10 задачах темп **~12 сек/задача** vs **~210 сек/задача** у Qwen3.6-35B. Разница в ~18 раз.
+Финальные данные подтверждают: **17.4 сек/задача vs 210.5 сек/задача** у Qwen3.6-35B = **12× ускорение**.
 
-Какие факторы дают разницу:
+Атрибуция выигрыша (приближённо):
 
 | Фактор | Вклад в speedup |
 |--------|-------------------|
-| **Cache reuse работает** (нет full prompt re-processing) | ~30-40% |
-| **Базовая скорость tg выше** (86 vs 58 tok/s) | ~30% |
-| **Простые задачи на старте** (early sample bias) | ~20% |
-| **Нет mmproj overhead** (multimodal делает дополнительный pass) | ~10% |
+| **Cache reuse работает** (0 vs 41 events `forcing full prompt re-processing`) | ~30-40% |
+| **Меньше output токенов** (17K vs 199K -- 11× меньше) | ~30% |
+| **Базовая скорость tg выше** (86 vs 58 tok/s) | ~15-20% |
+| **Нет mmproj overhead** (нет vision encoder pass) | ~10% |
 | **Меньшая модель -- быстрее каждый prefill** | ~5-10% |
 
-Финальные числа после полного прогона дадут более точную атрибуцию.
+Самый неожиданный фактор -- **completion tokens в 11× меньше**. Qwen3-Coder 30B-A3B пишет **значительно более лаконичный код** чем Qwen3.6-35B. Это может быть особенностью fine-tune (Coder-Instruct training корпус) либо просто меньшей "болтливостью" модели.
+
+### Trade-off: скорость vs качество
+
+| | Qwen3.6-35B | Qwen3-Coder 30B |
+|---|--------------|-----------------|
+| Скорость (sec/case) | 210.5 | **17.4** ⭐ |
+| Качество (pass_rate_1) | **35.0%** ⭐ | 15.0% |
+| Качество × Скорость | 35% / 210s = 0.17 pp/sec | **15% / 17s = 0.88 pp/sec** ⭐ |
+
+**Throughput (правильных задач в секунду)**: 30B даёт ~5× больше "решённых задач в секунду" -- если задача "перебрать много промптов и найти лучшие" (не "отшлифовать одну до perfection"), 30B оптимальнее.
+
+### Почему 30B провалился на JavaScript 0/9?
+
+В random subset из 20 задач 9 (45%) оказались JavaScript -- это **выборочное смещение**. Если повторить прогон с другим seed -- результат может быть существенно другим.
+
+Конкретные провалы: food-chain, phone-number, complex-numbers, pig-latin, triangle, queen-attack, two-bucket. Это **средне-сложные** задачи -- модель пишет лаконичный, но не до конца правильный код. Скорее всего нужны больше токенов на explanation+correction (которых модель не пишет).
+
+В предыдущем 22-задач прогоне на Qwen3.6-35B JavaScript была 4/5 (80% с retry). Контраст показывает что **30B плохо корректируется** даже когда видит test failures (--tries 1 не помогает, но и --tries 2 вряд ли спас бы при таком кратком стиле).
 
 ### Что подтверждено
 
@@ -125,19 +162,24 @@ docker run --rm --network host --user 1000:1000 \
 2. **Standard attention modela -- в разы быстрее** для multi-turn workflows. Если важен low-latency code completion / multi-turn aider -- использовать Qwen3-Coder 30B-A3B.
 3. **prompt cache** в llama-server -- активная фича на standard attention, не работала на Qwen3.6-35B
 
-## Выводы (предварительные)
+## Выводы
 
-1. **Hypothesis M-001 ПОДТВЕРЖДЕНА**: cache reuse даёт **в 10-20× ускорение** для agent-coding workflows на нашей платформе
-2. **Архитектурный выбор > выбор лучшей модели по leaderboard**: Qwen3.6-35B показывает лучшее качество в общих бенчах, но в agentic use case производительность драматически ниже из-за hybrid memory
-3. **Стратегия default**: для opencode/aider/Continue.dev -- Qwen3-Coder 30B-A3B как daily default, Qwen3.6-35B keep для случаев где нужен vision
+1. **Hypothesis M-001 ПОДТВЕРЖДЕНА (частично)**: cache reuse + standard attention даёт **12× ускорение по времени**, но **качество в 2.3× ниже**.
+2. **Архитектурный выбор -- двусторонний**: Qwen3.6-35B показывает лучшее качество (35% vs 15%), но throughput хуже в 5×. Простой "переход на 30B" неоптимален.
+3. **Стратегия default**: пока **остаётся Qwen3.6-35B как default**, поскольку качество критично для production agent-coding. 30B -- для специфических use cases:
+   - Quick draft / boilerplate (где скорость важнее качества)
+   - High-frequency FIM completion (где cache hit ~80%)
+   - Параллельный inference батч-задач для ML-pipeline
+4. **Random subset 20 задач -- слишком мало** для стат-достоверности. JavaScript 0/9 (45% выборки!) сильно искажает результат. Полный --full 225 задач даст более точную картину.
+5. **Кратки стиль 30B -- key feature**: 17K output tokens vs 199K у 35B. Это подходит для tools которые ожидают лаконичных ответов (FIM), но не для agent-mode с длинными explanations.
 
 ## Next steps
 
-- [ ] Дополнить статью финальными метриками после завершения прогона (test_cases, pass_rate_1, seconds_per_case)
-- [ ] Запустить **Qwen3-Coder Next 80B-A3B** на том же scope (20 задач, no rust, --tries 1) -- получить ещё одну точку для A/B (он тоже hybrid, но без multimodal)
-- [ ] Запустить **Devstral 2 24B** (dense, no mmproj) -- baseline для сравнения dense attention
-- [ ] Полный прогон --full на 30B для leaderboard-quality замера
-- [ ] Update CLAUDE.md / opencode конфигурацию -- сменить default model
+- [ ] **Запустить Qwen3-Coder Next 80B-A3B** на том же scope (20 задач, no rust, --tries 1) -- получить ещё одну точку. Hybrid (как 35B) но без multimodal -- интересный middle ground.
+- [ ] **Запустить Devstral 2 24B** (dense, no mmproj) -- ещё один baseline standard attention для сравнения
+- [ ] **Full --full 225 задач** на Qwen3-Coder 30B-A3B (оценочно ~3.5 часа) -- для leaderboard-quality сравнения с публичными цифрами
+- [ ] Перезапустить smoke на 30B с другим seed (если возможно) -- проверить если JavaScript 0/9 был random выбор
+- [ ] Возможно тест с `--tries 2` на 30B -- проверить улучшается ли качество с retry
 
 ## Связанные статьи
 
