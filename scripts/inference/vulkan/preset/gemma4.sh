@@ -1,10 +1,13 @@
 #!/bin/bash
-# Vulkan: Gemma 4 26B-A4B (безопасные параметры)
+# Vulkan: Gemma 4 26B-A4B (multimodal, vision через mmproj)
 #
-# Защита от OOM (sliding window + checkpoints):
-# --parallel 1   -- один слот вместо 4
+# Sliding Window Attention (SWA) -- cache-reuse в llama.cpp не поддержан для
+# SWA-моделей. Любой `--cache-reuse N` молча игнорируется со строкой
+# "forcing full prompt re-processing due to lack of cache data" в логе.
+# Не указываем флаг чтобы не вводить в заблуждение.
+# Отслеживание: docs/inference/optimization-backlog.md (U-001), llama.cpp PR 13194.
+#
 # --no-mmap      -- модель сразу в RAM, без mmap-overhead
-# -c 65536       -- меньше памяти на context checkpoints
 
 set -euo pipefail
 export AI_BACKEND=vulkan
@@ -25,7 +28,6 @@ ARGS=(
     -c 250000              # контекст 250K (расширен с 64K, на платформе хватает unified memory)
     -fa on                 # flash attention
     --parallel 4           # 4 слота для параллельных запросов
-    --cache-reuse 256      # на Gemma 4 не работает (sliding window), но не ломает
     --jinja                # Jinja2 chat-template (function calling Gemma 4)
     --no-mmap              # модель сразу в RAM, без mmap-overhead
 )

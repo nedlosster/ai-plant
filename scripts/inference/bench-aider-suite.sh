@@ -2,12 +2,15 @@
 # Aider Polyglot Suite -- последовательный прогон по очереди agent-coding моделей.
 #
 # Использование:
-#   ./bench-aider-suite.sh                                            # smoke по 3 моделям default
+#   ./bench-aider-suite.sh                                            # smoke (20 задач/модель) на 3 default-пресетах
+#   ./bench-aider-suite.sh --quick                                    # quick (10 задач) на 3 default-пресетах
 #   ./bench-aider-suite.sh --full                                     # full 225 задач (6-12 ч/модель)
 #   ./bench-aider-suite.sh --include qwen3.6-35b,devstral             # конкретные пресеты
 #   ./bench-aider-suite.sh --exclude qwen-coder-next                  # все default кроме одного
+#   ./bench-aider-suite.sh --quick --languages python                 # 10 python задач/модель -- проверка пайплайна
 #
-# Между моделями автоматически stop/start llama-server.
+# Между моделями автоматически stop/start llama-server. Watchdog в bench-aider.sh
+# защищает от зависания (default 15 мин/задача, 6 ч на модель).
 # Идемпотентен: можно перезапускать.
 #
 # Документация:
@@ -25,29 +28,47 @@ DEFAULT_PRESETS=(qwen3.6-35b qwen-coder-next qwen3-coder-30b)
 MODE="smoke"
 INCLUDE=""
 EXCLUDE=""
+LANGUAGES=""
+TASK_TIMEOUT=""    # пусто = default из bench-aider.sh (900)
+TOTAL_TIMEOUT=""   # пусто = default из bench-aider.sh (21600)
 
 while [[ $# -gt 0 ]]; do
     case "$1" in
+        --quick) MODE="quick"; shift;;
         --smoke) MODE="smoke"; shift;;
         --full)  MODE="full"; shift;;
         --include) INCLUDE="$2"; shift 2;;
         --exclude) EXCLUDE="$2"; shift 2;;
+        --languages) LANGUAGES="$2"; shift 2;;
+        --task-timeout) TASK_TIMEOUT="$2"; shift 2;;
+        --total-timeout) TOTAL_TIMEOUT="$2"; shift 2;;
         -h|--help)
             cat <<HLP
-Использование: $0 [--smoke|--full] [--include p1,p2,...] [--exclude p]
+Использование: $0 [--quick|--smoke|--full] [--include p1,p2,...] [--exclude p] [--languages LST]
 
-  --smoke         50 случайных задач на модель (~1.5 ч/модель). По умолчанию.
-  --full          225 задач на модель (~6-12 ч/модель). На выходные.
+Режимы (передаются в bench-aider.sh):
+  --quick         10 задач/модель, --tries 1 (~30 мин/модель)  -- sanity check
+  --smoke         20 задач/модель, --tries 1 (~80 мин/модель)  -- по умолчанию
+  --full          225 задач/модель, --tries 2 (6-12 ч/модель)  -- leaderboard quality
+
+Очередь моделей:
   --include       список пресетов через запятую. По умолчанию: ${DEFAULT_PRESETS[*]}
   --exclude       исключить пресет из default-очереди
+  --languages     ограничить языки на каждом прогоне (cpp,go,java,javascript,python,rust)
+
+Watchdog (передаются в bench-aider.sh):
+  --task-timeout  максимум секунд между задачами (default 900 = 15 мин)
+  --total-timeout максимум секунд на модель (default 21600 = 6 ч)
 
 Примеры:
-  $0
+  $0                                                # smoke на 3 default моделях
+  $0 --quick --include qwen3.6-35b                  # 10 задач для проверки пайплайна
   $0 --include qwen3.6-35b,devstral
   $0 --exclude qwen-coder-next
   $0 --full --include qwen3.6-35b
+  $0 --quick --languages python --include qwen3.6-35b   # debug Python-задач
 
-Требования: ~/.venvs/aider-bench с editable aider + polyglot-benchmark dataset.
+Требования: Docker image aider-polyglot-bench:latest + polyglot-benchmark dataset.
 См. SKILL.md ops-engineer и docs/llm-guide/benchmarks/runbooks/aider-polyglot.md
 HLP
             exit 0
@@ -81,8 +102,13 @@ fi
 # --- Pre-flight checks ---
 log_ts() { echo "[$(date +%H:%M:%S)] $*"; }
 
-VENV="${HOME}/.venvs/aider-bench"
-[[ -d "$VENV" ]] || { echo "ОШИБКА: venv не найден: $VENV"; echo "  Создать: python3 -m venv $VENV && source $VENV/bin/activate && pip install aider-chat"; exit 1; }
+# Docker image (бенчмарк уходит в контейнер с полным toolchain)
+DOCKER_IMAGE="aider-polyglot-bench:latest"
+if ! docker image inspect "$DOCKER_IMAGE" >/dev/null 2>&1; then
+    echo "ОШИБКА: docker image отсутствует: $DOCKER_IMAGE"
+    echo "  Build: cd ~/projects/aider && docker build -f benchmark/Dockerfile -t $DOCKER_IMAGE ."
+    exit 1
+fi
 
 PRESET_DIR="${SCRIPT_DIR}/vulkan/preset"
 log_ts "Pre-flight check: пресеты и модели"
@@ -162,9 +188,16 @@ for preset in "${PRESETS[@]}"; do
 
     BENCH_START=$(date +%s)
     BENCH_LOG="${OUT}/${preset}.log"
-    log_ts "Запуск bench-aider --${MODE} --model ${preset} --port ${PORT}"
 
-    if "${SCRIPT_DIR}/bench-aider.sh" --"$MODE" --model "$preset" --port "$PORT" --output "$OUT" \
+    # Сборка аргументов для bench-aider.sh
+    BENCH_OPTS=(--"$MODE" --model "$preset" --port "$PORT" --output "$OUT")
+    [[ -n "$LANGUAGES" ]] && BENCH_OPTS+=(--languages "$LANGUAGES")
+    [[ -n "$TASK_TIMEOUT" ]] && BENCH_OPTS+=(--task-timeout "$TASK_TIMEOUT")
+    [[ -n "$TOTAL_TIMEOUT" ]] && BENCH_OPTS+=(--total-timeout "$TOTAL_TIMEOUT")
+
+    log_ts "Запуск bench-aider ${BENCH_OPTS[*]}"
+
+    if "${SCRIPT_DIR}/bench-aider.sh" "${BENCH_OPTS[@]}" \
         > >(tee -a "$BENCH_LOG") 2>&1; then
         BENCH_END=$(date +%s)
         DURATION=$((BENCH_END - BENCH_START))

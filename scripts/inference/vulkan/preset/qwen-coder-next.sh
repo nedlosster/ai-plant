@@ -1,5 +1,11 @@
 #!/bin/bash
 # Vulkan: Qwen3-Coder-Next 80B-A3B (стабильно с opencode)
+#
+# Hybrid-архитектура (Gated DeltaNet + full attention) -- recurrent state не
+# поддерживает cache-reuse в текущем llama.cpp. Любой `--cache-reuse N`
+# молча игнорируется со строкой "forcing full prompt re-processing due to
+# lack of cache data" в логе. Не указываем флаг чтобы не вводить в заблуждение.
+# Отслеживание: docs/inference/optimization-backlog.md (U-001), llama.cpp PR 13194.
 
 set -euo pipefail
 export AI_BACKEND=vulkan
@@ -18,7 +24,6 @@ ARGS=(
     -c 256000              # контекст 256K
     -fa on                 # flash attention
     --parallel 4           # 4 слота для параллельных запросов
-    --cache-reuse 256      # KV-cache shifting (multi-turn opencode)
     --jinja                # Jinja2 chat-template (function calling)
 )
 # ---------------------------------
