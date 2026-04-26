@@ -9,6 +9,7 @@
 | Файл | О чём |
 |------|-------|
 | [news.md](news.md) | Хроника AI-кодинга: релизы моделей, обновления агентов, SWE-bench лидерборд, значимые блог-посты |
+| [outlook.md](outlook.md) | Ожидания и тренды Q2-Q3 2026: почему модели "маленькие", что ждать, Qwen 4, DeepSeek V4-Flash, sparse MoE 50-100B |
 | [workflows.md](workflows.md) | Практические workflow'ы на платформе: IDE FIM + CLI agent, multi-agent, code review, refactoring |
 | [resources.md](resources.md) | Курированные ресурсы: блоги, рассылки, YouTube, community, leaderboard-сайты |
 | [ide-setup.md](ide-setup.md) | Continue.dev, Cline, Roo Code: настройка IDE для автодополнения и inline edit |
