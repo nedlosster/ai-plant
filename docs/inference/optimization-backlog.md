@@ -107,6 +107,20 @@ llama.cpp поддерживает `--draft-model` и `--draft-max`. Для Qwen
 
 Текущий smoke = 50 задач, реально 4-5 ч/модель. Снизить до 20 для quick smoke (~1.5 ч), оставить 50 опционально через `--full-smoke`.
 
+#### A-005: hard timeout per task в bench-aider.sh
+
+**Статус**: planned (новая запись из прогона Coder Next 2026-04-26)
+**Impact**: критический -- предотвращает потерю часов на retry-loop
+**Effort**: средний (правка benchmark.py wrapper, либо `timeout` обёртка)
+
+В прогоне Coder Next aider завис на 31-й задаче в `litellm.Timeout` retry-loop с exponential backoff (~30 сек cap). За **3 часа** не было ни прогресса ни ошибки -- aider бесконечно перезапрашивал. Suite пришлось убивать вручную.
+
+Корень: benchmark.py не имеет `--max-task-timeout`. litellm экспоненциально откатывается, но не помечает задачу как failed.
+
+Действие: добавить watchdog в [`scripts/inference/bench-aider.sh`](../../scripts/inference/bench-aider.sh) -- если test_cases счётчик не растёт >10 минут, kill docker container и переходить к следующей. Альтернатива -- patch benchmark.py с `--max-task-seconds N`.
+
+Особенно критично для hybrid моделей (Coder Next, Qwen 3.6-27B), где cache-reuse не работает и retry потенциально ещё медленнее.
+
 #### A-004: `--languages python,javascript` для quick валидации
 
 **Статус**: idea
@@ -251,6 +265,7 @@ Cargo создаёт `target/` для каждой задачи. Если исп
 
 | ID | Идея | Impact | Effort | Когда |
 |----|------|--------|--------|-------|
+| **A-005** | watchdog timeout per task | критический | средний | СРОЧНО (после Coder Next зависания) |
 | **A-001** | --tries 1 в smoke | высокий | тривиальный | следующая правка bench-aider |
 | **A-003** | --num-tests 20 default | высокий | тривиальный | следующая правка bench-aider |
 | **B-001** | убрать --cache-reuse из hybrid пресетов | косметика | тривиальный | следующая правка пресетов |
@@ -261,10 +276,11 @@ Cargo создаёт `target/` для каждой задачи. Если исп
 | **M-001** | Qwen3-Coder 30B-A3B как fallback | контекстный | малый | при сценарии cache-sensitive |
 | **I-003** | shared toolchain cache | малый | средний | если smoke станет регулярным |
 
-**Top-3 действия сейчас**:
-1. A-001 + A-003: правка `bench-aider.sh` -- snapshot smoke стал управляемым
-2. B-001: чистка пресетов от non-functional `--cache-reuse`
-3. U-001: подписка на PR 13194 в llama.cpp
+**Top-4 действия сейчас**:
+1. **A-005**: watchdog timeout -- предотвратить повторение 3-часового retry-loop из прогона Coder Next
+2. A-001 + A-003: правка `bench-aider.sh` -- snapshot smoke стал управляемым
+3. B-001: чистка пресетов от non-functional `--cache-reuse`
+4. U-001: подписка на PR 13194 в llama.cpp
 
 ## Workflow при новой идее
 
