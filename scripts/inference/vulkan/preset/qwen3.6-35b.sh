@@ -5,6 +5,13 @@
 # Sparse MoE 35B total / 3B active с встроенным vision encoder.
 # SWE-bench Verified 73.4%, оценка ~80 tok/s tg, ~700-1000 prefill.
 # mmproj F16 подключается отдельным флагом --mmproj.
+#
+# Cache-reuse не используется по двум причинам:
+#   1. Hybrid Gated DeltaNet (recurrent state) -- llama.cpp игнорирует
+#      `--cache-reuse N` со строкой "forcing full prompt re-processing".
+#   2. Multimodal -- llama.cpp явно отключает: "cache_reuse is not supported
+#      by multimodal, it will be disabled".
+# Отслеживание: docs/inference/optimization-backlog.md (U-001), llama.cpp PR 13194.
 
 set -euo pipefail
 export AI_BACKEND=vulkan
@@ -25,7 +32,6 @@ ARGS=(
     -c 131072              # контекст 128K
     -fa on                 # flash attention
     --parallel 4           # 4 слота (MoE A3B даёт скорость)
-    --cache-reuse 256      # KV-cache shifting (multi-turn opencode)
     --jinja                # Jinja2 chat-template (function calling)
 )
 # ---------------------------------

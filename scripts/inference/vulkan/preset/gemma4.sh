@@ -1,10 +1,11 @@
 #!/bin/bash
 # Vulkan: Gemma 4 26B-A4B (multimodal, vision через mmproj)
 #
-# Sliding Window Attention (SWA) -- cache-reuse в llama.cpp не поддержан для
-# SWA-моделей. Любой `--cache-reuse N` молча игнорируется со строкой
-# "forcing full prompt re-processing due to lack of cache data" в логе.
-# Не указываем флаг чтобы не вводить в заблуждение.
+# Cache-reuse не используется по двум причинам:
+#   1. Sliding Window Attention (SWA) -- llama.cpp игнорирует `--cache-reuse N`
+#      со строкой "forcing full prompt re-processing" в логе.
+#   2. Multimodal -- llama.cpp явно отключает: "cache_reuse is not supported
+#      by multimodal, it will be disabled".
 # Отслеживание: docs/inference/optimization-backlog.md (U-001), llama.cpp PR 13194.
 #
 # --no-mmap      -- модель сразу в RAM, без mmap-overhead
