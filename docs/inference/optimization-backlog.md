@@ -141,17 +141,60 @@ llama.cpp поддерживает `--draft-model` и `--draft-max`. Для Qwen
 
 ### Архитектурный выбор моделей
 
-#### M-001: Qwen3-Coder 30B-A3B как fallback для cache-sensitive workloads
+#### M-001: Qwen3-Coder 30B-A3B как baseline для cache-sensitive workloads
 
-**Статус**: observation
-**Impact**: cache-reuse работает (чистая attention MoE)
+**Статус**: **planned (следующий тест после Qwen3.6-35B smoke)**
+**Impact**: cache-reuse работает (чистая attention MoE), даёт **прямой A/B замер влияния hybrid memory ограничения на производительность**
 **Effort**: смена preset
 
-Qwen3-Coder 30B-A3B (без "Next") -- чистая attention MoE без Gated DeltaNet. cache-reuse 256 на нём действительно работает. Для long-running multi-turn workflow (например, agentic coding в opencode) даёт меньшую latency на повторных запросах.
+Qwen3-Coder 30B-A3B (без "Next") -- чистая attention MoE без Gated DeltaNet и без mmproj. **Единственная active-coder модель платформы где cache-reuse РАБОТАЕТ полностью**:
 
-Минус: меньше context understanding, отстаёт по сложным задачам.
+| Модель | Hybrid memory | Multimodal | Cache reuse |
+|--------|---------------|------------|-------------|
+| Qwen3-Coder Next 80B | да (Gated DeltaNet) | нет | ❌ |
+| Qwen3.6-35B-A3B | да (Gated DeltaNet) | да (mmproj) | ❌ |
+| Gemma 4 26B-A4B | да (SWA) | да (mmproj) | ❌ |
+| **Qwen3-Coder 30B-A3B** | **нет (full attention MoE)** | **нет** | ✅ |
 
-Использовать когда: high-frequency tool calls в одной сессии, FIM-completion с шарингом prefix.
+Минус: 30B vs 35B/80B по качеству ниже на ~5-10pp (по предварительным leaderboard данным). Плюс: ~86 tok/s vs ~58 у Qwen3.6 -- **в 1.5× быстрее tg**.
+
+**Use case**: high-frequency tool calls в одной сессии, FIM-completion с шарингом prefix, opencode/aider/Continue.dev multi-turn agentic coding.
+
+**Тест-план (после завершения текущего Qwen3.6-35B smoke)**:
+
+```bash
+# Pre-flight: остановить текущий сервер на 8085
+ssh -A -p 2277 nedlosster@79.164.89.150 \
+  'cd ~/projects/ai-plant && ./scripts/inference/stop-servers.sh'
+
+# Запустить qwen3-coder-30b на порту 8081
+ssh -A -p 2277 nedlosster@79.164.89.150 \
+  'cd ~/projects/ai-plant && ./scripts/inference/vulkan/preset/qwen3-coder-30b.sh -d'
+
+# Healthcheck (ожидаем ~10 сек)
+ssh -A -p 2277 nedlosster@79.164.89.150 \
+  'curl -fs http://localhost:8081/v1/models'
+
+# Smoke (тот же scope -- 20 задач, 5 языков без Rust, для прямого сравнения)
+ssh -A -p 2277 nedlosster@79.164.89.150 -t \
+  'cd ~/projects/ai-plant && \
+   tmux new-session -d -s aider-test \
+     "./scripts/inference/bench-aider.sh --smoke \
+        --languages cpp,go,java,javascript,python \
+        --model qwen3-coder-30b --port 8081 \
+        --output /tmp/aider-test-30b-$(date +%Y%m%d-%H%M)"'
+```
+
+**Ожидаемые показатели** (на основе теории):
+- seconds_per_case: ~150-180 сек (cache-reuse работает + tg выше → -30% по сравнению с Qwen3.6 ~275)
+- pass_rate_1: ~30-40% (немного ниже Qwen3.6 single-shot)
+- pass_rate_2: N/A (smoke = --tries 1)
+- В логе llama-server: **НЕ должно быть** строки "forcing full prompt re-processing" (cache reuse работает)
+
+**После теста сравнить с Qwen3.6-35B и Coder Next**:
+- Если seconds_per_case разница ≥30% -- **подтверждена гипотеза о существенном overhead hybrid memory**
+- Если разница меньше 10% -- cache reuse не главный фактор замедления, искать другие
+- В обоих случаях -- pass_rate baseline для full-attention модели на платформе
 
 #### M-002: Q4_K_M vs Q5_K_M trade-off
 

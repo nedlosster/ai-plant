@@ -1,5 +1,11 @@
 #!/bin/bash
 # Vulkan: Qwen3-Coder-30B-A3B Instruct Q4_K_M (MoE, специализирован на коде)
+#
+# Cache-reuse РАБОТАЕТ: standard MoE attention без Gated DeltaNet recurrent
+# state, без mmproj. Единственная active-coder модель платформы где
+# `--cache-reuse 256` действительно переиспользует префикс между запросами.
+# Эталонный baseline для A/B тестов влияния cache-reuse на agent-coding
+# производительность. См. docs/inference/optimization-backlog.md (M-001).
 
 set -euo pipefail
 export AI_BACKEND=vulkan
