@@ -76,7 +76,7 @@
 - Sparse MoE 35B total / 3B active с встроенным vision encoder, Apache 2.0
 - **SWE-bench Verified 73.4%**, **Terminal-Bench 2.0 51.5%**, **QwenWebBench 1397**
 - Сравнение с Qwen 3.6-27B dense: -3.8 п.п. SWE-V (73.4 vs 77.2) при ~5× скорости генерации
-- Помещается на платформу: Q4_K_M ~20 GiB; оценка скорости ~80 tok/s tg (3B active, 256 GB/s ÷ 1.7 GiB), prefill ~700-1000 tok/s
+- Помещается на платформу: Q4_K_M ~20 GiB; 58.7 tok/s (замер) tg (3B active, 256 GB/s ÷ 1.7 GiB), prefill ~700-1000 tok/s
 - Контекст ~128K (точные данные не раскрыты), short of 256K Qwen3-Coder Next
 - Новый рекомендуемый default daily agent на платформе: между 27B dense (качество SWE-V) и Coder 30B-A3B (скорость) по балансу
 - Vision из коробки -- screenshots/UI/diagrams в agent loop без отдельного mmproj-сервера

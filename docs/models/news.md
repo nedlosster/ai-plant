@@ -22,7 +22,7 @@
 | Размер Q4_K_M | ~20 GiB |
 | Помещается на платформу | да |
 
-Trade-off vs dense [Qwen 3.6-27B](families/qwen36.md#27b) (77.2% SWE-V, ~15 tok/s): -3.8 п.п. SWE-V в обмен на ~5× скорость генерации (оценка ~80 tok/s tg на платформе при 3B active, 256 GB/s ÷ ~1.7 GiB Q4 active с overhead). Prefill -- оценка ~700-1000 tok/s.
+Trade-off vs dense [Qwen 3.6-27B](families/qwen36.md#27b) (77.2% SWE-V, ~15 tok/s): -3.8 п.п. SWE-V в обмен на ~5× скорость генерации (58.7 tok/s (замер) tg на платформе при 3B active, 256 GB/s ÷ ~1.7 GiB Q4 active с overhead). Prefill -- оценка ~700-1000 tok/s.
 
 **Позиционирование на платформе** -- новый рекомендуемый default daily agent между 27B dense (лидер качества SWE-V) и [Qwen3-Coder 30B-A3B](families/qwen3-coder.md#30b-a3b) (86 tok/s, без vision). Vision encoder из коробки позволяет работать со скриншотами/UI/диаграммами в agent loop без отдельного mmproj-сервера. Контекст ~128K уступает [Qwen3-Coder Next](families/qwen3-coder.md#next-80b-a3b) (256K), но достаточен для большинства agentic-задач.
 

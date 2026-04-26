@@ -226,7 +226,7 @@ claude "/doc-lifecycle code-change"
 | Задача | Модель | VRAM | Почему |
 |--------|--------|------|--------|
 | FIM autocomplete | Qwen3-Coder 30B-A3B | ~18 GiB | Быстрый, FIM native |
-| **Daily agent (default)** | **[Qwen 3.6-35B-A3B](../models/families/qwen36.md#35b-a3b)** | ~20 GiB | MoE 3B-active + vision, ~80 tok/s (оценка), SWE-V 73.4% |
+| **Daily agent (default)** | **[Qwen 3.6-35B-A3B](../models/families/qwen36.md#35b-a3b)** | ~20 GiB | MoE 3B-active + vision, 58.7 tok/s (замер 2026-04-26), SWE-V 73.4% |
 | Heavy SWE (local) | [Qwen 3.6-27B](../models/families/qwen36.md#27b) | ~17 GiB | dense 77.2% SWE-V, multimodal, ~15 tok/s (оценка) |
 | Long-context agent (local) | Qwen3-Coder Next | ~5 GiB | MoE, 256K контекст, низкий VRAM |
 | Heavy reasoning (local) | Qwen3.5-122B-A10B | ~71 GiB | Большой контекст, качество |

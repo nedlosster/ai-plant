@@ -18,7 +18,7 @@
 
 | Модель | Total | Active | tg tok/s | Почему |
 |--------|-------|--------|----------|--------|
-| Qwen3.6-35B-A3B (MoE) | 35B | 3B | ~80 (оценка) | 1.7 GiB Q4 active -> 256/1.7 ≈ 150 max |
+| Qwen3.6-35B-A3B (MoE) | 35B | 3B | **58.7 (замер)** | 1.7 GiB Q4 active -> 256/1.7 ≈ 150 max, реально ~40% от theoretical |
 | Qwen 3.6-27B (dense) | 27B | 27B | ~15 | 17 GiB Q4 active -> 256/17 ≈ 15 max |
 | Qwen3-Coder Next (MoE) | 80B | 3B | 53 | 3B active, но larger router overhead |
 | Qwen3-Coder 30B-A3B (MoE) | 30B | 3B | 86 | минимальный router |
