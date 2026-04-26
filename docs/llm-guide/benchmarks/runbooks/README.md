@@ -52,7 +52,8 @@
 
 ## Где хранить результаты
 
-Все прогоны -- в [`results.md`](../results.md) в формате append-only. Шаблон записи в файле.
+- Краткий лидерборд + журнал записей -- в [`results.md`](../results.md), append-only с шаблоном записи в файле
+- Полные статьи отдельных прогонов (со средой, per-language breakdown, анализом, root cause) -- в [`runs/`](../runs/README.md). Создаются после каждого значимого прогона.
 
 ## Процесс работы
 
@@ -75,7 +76,8 @@
 ## Связанные статьи
 
 - [benchmarks/README.md](../README.md) -- классификация и теория бенчмарков
-- [results.md](../results.md) -- журнал результатов на платформе
+- [results.md](../results.md) -- журнал результатов на платформе (лидерборд)
+- [runs/](../runs/README.md) -- полные статьи отдельных прогонов
 - [coding/README.md](../../../coding/README.md) -- раздел AI-кодинга
 - [coding/outlook.md](../../../coding/outlook.md) -- прогнозы и тренды
 - [models/coding.md](../../../models/coding.md) -- каталог моделей
