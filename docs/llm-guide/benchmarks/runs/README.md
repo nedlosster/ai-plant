@@ -57,3 +57,4 @@
 - [results.md](../results.md) -- лидерборд и краткий журнал
 - [runbooks/](../runbooks/README.md) -- инструкции запуска бенчмарков
 - [README.md](../README.md) -- индекс бенчмарков
+- [inference/optimization-backlog.md](../../../inference/optimization-backlog.md) -- бэклог идей ускорения на базе наблюдений из прогонов

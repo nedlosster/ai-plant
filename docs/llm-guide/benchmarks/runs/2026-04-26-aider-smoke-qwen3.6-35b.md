@@ -217,8 +217,9 @@ docker run --rm --network host --user $(id -u):$(id -g) \
 ## Next steps
 
 - [ ] Обновить эстимацию времени в `.claude/skills/ops-engineer/SKILL.md` (раздел `bench-suite-aider`, таблица моделей)
-- [ ] Обновить [`scripts/inference/bench-aider-suite.sh`](../../../../scripts/inference/bench-aider-suite.sh): снизить default smoke до `--num-tests 20`, или ввести флаг `--quick` (10 задач) / `--smoke` (20) / `--full` (225)
-- [ ] Добавить опцию `--languages` в [`scripts/inference/bench-aider.sh`](../../../../scripts/inference/bench-aider.sh) для ограничения scope (полезно для quick-валидации после правок параметров)
+- [ ] **A-001**: применить `--tries 1` в smoke-режиме [`scripts/inference/bench-aider.sh`](../../../../scripts/inference/bench-aider.sh) -- см. [optimization-backlog.md](../../../inference/optimization-backlog.md#a-001-tries-1-вместо-2-для-smoke)
+- [ ] **A-003**: снизить default `--num-tests 50` до 20 в [`scripts/inference/bench-aider-suite.sh`](../../../../scripts/inference/bench-aider-suite.sh) или ввести флаг `--quick` -- см. [optimization-backlog.md](../../../inference/optimization-backlog.md#a-003-num-tests-cap-по-умолчанию)
+- [ ] **A-004**: добавить опцию `--languages` в bench-aider.sh для ограничения scope -- см. [optimization-backlog.md](../../../inference/optimization-backlog.md#a-004-languages-pythonjavascript-для-quick-валидации)
 - [ ] Запустить ПОЛНЫЙ smoke (50 задач) на Qwen3.6-35B-A3B на ночь -- получить статистически достоверный baseline
 - [ ] Сравнить с Qwen3-Coder Next и Qwen3-Coder 30B-A3B на той же выборке
 - [ ] Исследовать Rust 0/4 -- запустить отдельно `--languages rust --num-tests 8` и посмотреть failure modes (malformed Cargo.toml? borrow checker? logic?)
@@ -228,4 +229,5 @@ docker run --rm --network host --user $(id -u):$(id -g) \
 - [runbooks/aider-polyglot.md](../runbooks/aider-polyglot.md) -- runbook запуска
 - [results.md](../results.md) -- журнал прогонов и лидерборд платформы
 - [families/qwen36.md](../../../models/families/qwen36.md) -- описание модели
+- [inference/optimization-backlog.md](../../../inference/optimization-backlog.md) -- бэклог идей оптимизации (исходник для A-001/A-003/A-004)
 - [swe-bench.md](../swe-bench.md) -- родственный бенчмарк

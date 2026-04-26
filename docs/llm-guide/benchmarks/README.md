@@ -203,3 +203,4 @@
 - [docs/models/vision.md](../../models/vision.md) -- MMMU score в таблицах vision-моделей
 - [docs/ai-agents/comparison.md](../../ai-agents/comparison.md) -- бенчмарки Faros.ai для AI-агентов
 - [docs/models/coding.md](../../models/coding.md#open-vs-облачные-лидеры-апрель-2026) -- сравнение open vs closed SWE-bench
+- [docs/inference/optimization-backlog.md](../../inference/optimization-backlog.md) -- бэклог идей ускорения на базе наблюдений из прогонов

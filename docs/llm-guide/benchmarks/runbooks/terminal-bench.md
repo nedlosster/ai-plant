@@ -207,5 +207,7 @@ docker system prune -a  # очистить unused
 - [README.md](README.md) -- индекс runbooks
 - [aider-polyglot.md](aider-polyglot.md) -- альтернативная метрика (code edit-loop)
 - [results.md](../results.md) -- журнал результатов
+- [runs/](../runs/README.md) -- полные статьи прогонов
 - [coding/workflows.md](../../../coding/workflows.md) -- какие модели использовать
+- [inference/optimization-backlog.md](../../../inference/optimization-backlog.md) -- идеи оптимизации (A-NNN параметры benchmark, B-NNN параметры llama-server)
 - [Terminal-Bench home](https://www.terminal-bench.com) -- официальный сайт + leaderboard

@@ -96,6 +96,7 @@ tok/s (tg) ~ bandwidth / model_size_bytes
 | 9 | [gpustack.md](gpustack.md) | GPUStack: Web UI, кластер, оркестрация | справочный |
 | 10 | [backends-comparison.md](backends-comparison.md) | Сравнение backend'ов: Vulkan, ROCm, CPU, NPU | справочный |
 | 11 | [acceleration-outlook.md](acceleration-outlook.md) | Перспективы ускорения: GPU/CPU/NPU, нерешённые вопросы, отслеживание | аналитический |
+| 12 | [optimization-backlog.md](optimization-backlog.md) | Бэклог tactical-идей оптимизации (server params, benchmark params, upstream tracking) на базе бенчмарк-наблюдений | аналитический |
 
 ### Модели для специализированных задач ([models/](../models/README.md))
 

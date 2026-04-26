@@ -325,7 +325,9 @@ done
 - [README.md](README.md) -- индекс runbooks
 - [terminal-bench.md](terminal-bench.md) -- альтернативная метрика (tool use)
 - [results.md](../results.md) -- журнал результатов
+- [runs/](../runs/README.md) -- полные статьи прогонов
 - [swe-bench.md](../swe-bench.md) -- теория SWE-bench (для контекста публичных цифр)
 - [coding/workflows.md](../../../coding/workflows.md) -- какие модели использовать для какой задачи
+- [inference/optimization-backlog.md](../../../inference/optimization-backlog.md) -- идеи оптимизации (A-NNN параметры benchmark, B-NNN параметры llama-server)
 - [Aider home](https://aider.chat) -- официальный сайт
 - [Aider leaderboard](https://aider.chat/docs/leaderboards/) -- публичные результаты

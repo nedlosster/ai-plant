@@ -81,3 +81,4 @@
 - [coding/README.md](../../../coding/README.md) -- раздел AI-кодинга
 - [coding/outlook.md](../../../coding/outlook.md) -- прогнозы и тренды
 - [models/coding.md](../../../models/coding.md) -- каталог моделей
+- [inference/optimization-backlog.md](../../../inference/optimization-backlog.md) -- бэклог идей ускорения на базе бенчмарк-наблюдений
