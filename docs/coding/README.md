@@ -77,4 +77,6 @@
 - [AI-агенты](../ai-agents/README.md) -- полный обзор индустрии агентов
 - [Сравнение агентов](../ai-agents/comparison.md) -- сводные таблицы
 - [SWE-bench](../llm-guide/benchmarks/swe-bench.md) -- методология бенчмарка
+- [Запуск бенчмарков на платформе](../llm-guide/benchmarks/runbooks/README.md) -- runbooks для Aider Polyglot и Terminal-Bench
+- [Журнал результатов](../llm-guide/benchmarks/results.md) -- бенчмарки моделей на Strix Halo
 - [Inference стек](../inference/README.md) -- как запускать модели на платформе

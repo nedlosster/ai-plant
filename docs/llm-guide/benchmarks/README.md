@@ -12,6 +12,8 @@
 | [SWE-bench](swe-bench.md) | Методология, Verified vs Pro, contamination, scaffolding, таблица моделей |
 | [MMMU / MMMU-Pro](mmmu.md) | Vision multimodal reasoning, 30 дисциплин, 11.5K задач, MMMU-Pro усложнения |
 | [LiveCodeBench](livecodebench.md) | Contamination-free coding, LeetCode/AtCoder/CodeForces, temporal segmentation |
+| [runbooks/](runbooks/README.md) | **Practical guides** -- запуск Aider Polyglot и Terminal-Bench локально на платформе |
+| [results.md](results.md) | Журнал результатов бенчмарков на Strix Halo (append-only) |
 
 ## Классификация бенчмарков
 
@@ -81,7 +83,8 @@
 
 | Бенчмарк | Фокус | Ссылка |
 |----------|-------|--------|
-| [Aider Polyglot](https://aider.chat/docs/leaderboards/) | Multi-language code editing через Aider | Python, JS, TS, Java, C++, Go |
+| [Aider Polyglot](https://aider.chat/docs/leaderboards/) | Multi-language code editing через Aider | Python, JS, TS, Java, C++, Go. Runbook: [runbooks/aider-polyglot.md](runbooks/aider-polyglot.md) |
+| [Terminal-Bench 2.0](https://www.terminal-bench.com) | Agent tool use в shell-окружении | 56 задач: bash, git, debugging. Runbook: [runbooks/terminal-bench.md](runbooks/terminal-bench.md) |
 | [Faros.ai](https://faros.ai/) | Frontend vs backend по отдельности | Используется для сравнения AI-агентов |
 | [Codeforces ELO](https://codeforces.com/) | Competitive programming | Оценка алгоритмического мышления |
 
@@ -179,6 +182,20 @@
 6. **Не полагаться** на HumanEval для выбора frontier-моделей -- насыщен
 
 При добавлении новой модели в каталог (`/models-catalog add-family`) -- фиксировать score по SWE-bench Verified и HumanEval (как baseline) в таблице вариантов.
+
+## Запуск на платформе
+
+Для практического тестирования моделей на Strix Halo сервере подготовлены runbooks:
+
+| Бенчмарк | Задач | Время | Уровень | Runbook |
+|----------|-------|-------|---------|---------|
+| Aider Polyglot smoke | 50 | ~1.5 ч | быстрая проверка | [runbooks/aider-polyglot.md](runbooks/aider-polyglot.md) |
+| Aider Polyglot full | 225 | 6-12 ч | полный прогон | [runbooks/aider-polyglot.md](runbooks/aider-polyglot.md) |
+| Terminal-Bench 2.0 | 56 | 1-2 ч | tool use в shell | [runbooks/terminal-bench.md](runbooks/terminal-bench.md) |
+
+Стандартный порядок: smoke → full → tool-use. Результаты накапливаются в [results.md](results.md).
+
+Подробности и decision tree -- в [runbooks/README.md](runbooks/README.md).
 
 ## Связано
 
