@@ -204,10 +204,33 @@ docker system prune -a  # очистить unused
 
 ## Связанные статьи
 
+### Внутренние
+
 - [README.md](README.md) -- индекс runbooks
 - [aider-polyglot.md](aider-polyglot.md) -- альтернативная метрика (code edit-loop)
 - [results.md](../results.md) -- журнал результатов
 - [runs/](../runs/README.md) -- полные статьи прогонов
 - [coding/workflows.md](../../../coding/workflows.md) -- какие модели использовать
 - [inference/optimization-backlog.md](../../../inference/optimization-backlog.md) -- идеи оптимизации (A-NNN параметры benchmark, B-NNN параметры llama-server)
-- [Terminal-Bench home](https://www.terminal-bench.com) -- официальный сайт + leaderboard
+
+### Внешние ресурсы
+
+**Официальные**:
+- [Terminal-Bench home](https://www.terminal-bench.com) -- сайт проекта
+- [Terminal-Bench leaderboard](https://www.terminal-bench.com/leaderboard) -- публичные результаты frontier моделей
+- [Документация](https://www.terminal-bench.com/docs) -- использование, конфигурация, формат задач
+- [Анонс v2.0](https://www.terminal-bench.com/blog) -- блог с релизами
+
+**Исходники**:
+- [github.com/laude-institute/terminal-bench](https://github.com/laude-institute/terminal-bench) -- репозиторий benchmark harness
+- [Tasks директория](https://github.com/laude-institute/terminal-bench/tree/main/tasks) -- 56 задач v2.0 (bash, file ops, debugging, git)
+- [Adapter examples](https://github.com/laude-institute/terminal-bench/tree/main/agents) -- как интегрировать любого агента
+- [Терminal-Bench Paper / методология](https://arxiv.org/abs/2406.13608) -- препринт (если опубликован) с описанием подхода
+
+**Связанные проекты**:
+- [Laude Institute](https://www.laude.ai) -- организация-автор Terminal-Bench
+- [SWE-bench](https://www.swebench.com) -- родственный бенчмарк codebase-fixes (другая ниша)
+
+**Ресурсы сообщества**:
+- [r/LocalLLaMA: terminal-bench](https://www.reddit.com/r/LocalLLaMA/search/?q=terminal-bench) -- результаты community для open-source моделей
+- [Hacker News обсуждения](https://hn.algolia.com/?q=terminal-bench) -- релевантные threads

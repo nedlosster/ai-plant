@@ -322,6 +322,8 @@ done
 
 ## Связанные статьи
 
+### Внутренние
+
 - [README.md](README.md) -- индекс runbooks
 - [terminal-bench.md](terminal-bench.md) -- альтернативная метрика (tool use)
 - [results.md](../results.md) -- журнал результатов
@@ -329,5 +331,28 @@ done
 - [swe-bench.md](../swe-bench.md) -- теория SWE-bench (для контекста публичных цифр)
 - [coding/workflows.md](../../../coding/workflows.md) -- какие модели использовать для какой задачи
 - [inference/optimization-backlog.md](../../../inference/optimization-backlog.md) -- идеи оптимизации (A-NNN параметры benchmark, B-NNN параметры llama-server)
-- [Aider home](https://aider.chat) -- официальный сайт
-- [Aider leaderboard](https://aider.chat/docs/leaderboards/) -- публичные результаты
+
+### Внешние ресурсы
+
+**Официальные**:
+- [Aider home](https://aider.chat) -- сайт проекта
+- [Aider leaderboard](https://aider.chat/docs/leaderboards/) -- публичные результаты по моделям и edit-formats
+- [Polyglot leaderboard (отдельно)](https://aider.chat/docs/leaderboards/edit.html) -- топ моделей по polyglot benchmark
+- [Документация Aider](https://aider.chat/docs/) -- использование, конфигурация
+- [Aider blog](https://aider.chat/blog/) -- анонсы релизов и методологические заметки
+- [Введение в Polyglot benchmark](https://aider.chat/2024/12/21/polyglot.html) -- как и зачем сделан, методология
+
+**Исходники**:
+- [github.com/Aider-AI/aider](https://github.com/Aider-AI/aider) -- репозиторий Aider (в нём `benchmark/` директория)
+- [github.com/Aider-AI/polyglot-benchmark](https://github.com/Aider-AI/polyglot-benchmark) -- 225 задач из Exercism (Python, JS, Go, Rust, Java, C++)
+- [Aider benchmark.py](https://github.com/Aider-AI/aider/blob/main/benchmark/benchmark.py) -- точка входа CLI, флаги
+- [Aider benchmark Dockerfile](https://github.com/Aider-AI/aider/blob/main/benchmark/Dockerfile) -- образ с toolchain Python+Java+Rust+Go+Node+C++
+
+**Источник задач**:
+- [Exercism](https://exercism.org) -- основа Polyglot датасета (community coding challenges)
+- [Exercism polyglot tracks](https://exercism.org/tracks) -- список языков с задачами
+
+**Ресурсы сообщества**:
+- [Aider Discord](https://discord.gg/Tv2uQnR88V) -- канал общения, в т.ч. про benchmark
+- [Aider GitHub Discussions](https://github.com/Aider-AI/aider/discussions) -- обсуждение методологии
+- [r/LocalLLaMA: aider polyglot](https://www.reddit.com/r/LocalLLaMA/search/?q=aider+polyglot) -- результаты community для open-source моделей
