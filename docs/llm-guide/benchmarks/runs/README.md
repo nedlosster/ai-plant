@@ -50,6 +50,7 @@
 
 | Дата | Бенчмарк | Mode | Модель | Pass rate | Статья |
 |------|----------|------|--------|-----------|--------|
+| 2026-04-27 | Aider Polyglot | smoke 20 + --tries 2 | **Qwen3.6-35B-text** 🏆 | 30.0% / **70.0%** (рекорд) | [2026-04-27-aider-smoke-qwen3.6-35b-text-tries2](2026-04-27-aider-smoke-qwen3.6-35b-text-tries2.md) |
 | 2026-04-26 → 2026-04-27 | Aider Polyglot | **full** (no rust) | Qwen3-Coder 30B-A3B | 10.8% / **26.3%** на 194/195 ✅ | [2026-04-26-aider-full-qwen3-coder-30b](2026-04-26-aider-full-qwen3-coder-30b.md) |
 | 2026-04-26 | Aider Polyglot | smoke 20 (clean ✓, A/B) | Qwen3-Coder 30B-A3B | **15.0%** (3/20, **17 сек/задача!**) | [2026-04-26-aider-smoke-qwen3-coder-30b](2026-04-26-aider-smoke-qwen3-coder-30b.md) |
 | 2026-04-26 | Aider Polyglot | smoke 20 (clean ✓) | Qwen3.6-35B-A3B | **35.0%** (single-shot, 20/20) | [2026-04-26-aider-smoke-qwen3.6-35b-clean](2026-04-26-aider-smoke-qwen3.6-35b-clean.md) |
