@@ -61,15 +61,17 @@
 | **Qwen3.6-35B-A3B (text-only)** 🏆 | 21 GiB | Hybrid Gated DeltaNet, MoE 35B/3B | ❌ (hybrid) | **70.0%** pass_2 на smoke-20 | 248.8 | 🟡 smoke с --tries 2 | **Best quality, новый default**. Retry +40pp -- модель учится на ошибках. user_asks=0 (полная автономность). Нужен --full для leaderboard. |
 | Qwen3.6-35B-A3B (multimodal) | 21 GiB + mmproj 1.2 | Hybrid + multimodal | ❌❌ (hybrid+multimodal) | 35.0% pass_1 на smoke-20 (--tries 1) | 210.5 | 🟡 smoke clean | Замена есть -- text-only вариант на 8084. Этот пресет оставлен для vision tasks (когда нужны скриншоты в agent-mode). |
 | Qwen3-Coder 30B-A3B | 18 GiB | Standard MoE attention | ✅ | **26.3%** pass_2 на 194/195 | 47.7 | ✅ **full** | **Best throughput**, 5-10× быстрее 35B. Качество 60% relative weakness. Использовать для batch / throughput-sensitive workloads. |
-| Qwen3-Coder Next 80B-A3B | 45 GiB | Hybrid Gated DeltaNet | ❌ (hybrid) | 46.7% pass_2 на 30/50 | 243.5 | 🟡 smoke прерван (до фикса auto-resume) | Перепрогнать с auto-resume + --tries 2. **Ожидаем 50-65% pass_rate_2** -- проверим гипотезу что 80B размер компенсирует hybrid limitation. |
+| **Qwen3-Coder Next 80B-A3B** | 45 GiB | Hybrid Gated DeltaNet | ❌ (hybrid) | **~67-70%** pass_2 на 87+/195 (FULL в процессе) | ~95-100 | 🟡 full в процессе | Hybrid но без multimodal. На 87+ задач показывает 67.8% -- значимо лучше 30B-A3B (26.3% на 194). Размер 80B компенсирует hybrid limit. Текущий лидер по балансу качество/скорость. |
+| **Qwen3.6-27B (dense)** | 17 GiB | dense + hybrid Gated DeltaNet | ❌ (hybrid) | -- | -- | 🔴 **не скачана** ⭐ | **Лидер open-weight SWE-V (77.2%)** на момент апреля 2026. Превосходит Devstral 2 (72.2%) и Coder Next (70.6%). Memory-bound (dense), оценка ~15 tok/s. Сильный кандидат к скачиванию + smoke + --tries 2. |
 | Devstral 2 24B (dense) | 14 GiB | Standard dense attention | ✅ | -- | -- | 🔴 не тестировано | Кандидат для теста как coding-specialist на dense архитектуре. Эталонная "третья точка" для сравнения hybrid vs dense vs MoE. |
 
 ### Очередь следующих тестов (приоритет сверху)
 
-1. **Qwen3-Coder Next 80B-A3B -- full c auto-resume** (~5-7 ч, --tries 2). Hybrid Gated DeltaNet, без mmproj. **Ожидаем 50-65% pass_2** -- проверим гипотезу что размер компенсирует hybrid limitation.
+1. **Qwen3.6-27B (dense) -- скачать + smoke + --tries 2** ⭐ (~3-4 ч). Лидер open-weight SWE-V (77.2%) на момент апреля 2026. **Ожидаем 70-78% pass_2** на 20 задачах. Скачать через `download-model.sh unsloth/Qwen3.6-27B-GGUF --include "*Q4_K_M*"`, создать `qwen3.6-27b.sh` preset (с `-c 131072 --keep 1500 --batch-size 4096 --ubatch-size 4096 --no-mmap`).
 2. **Qwen3.6-35B-text -- full** (195 задач, --tries 2, ~14-17 ч). Leaderboard-quality оценка для рекордной модели. **Ожидаем 60-65% pass_2** (статистика на 195 vs 70% на 20 -- regression к среднему).
 3. **Devstral 2 24B -- smoke + --tries 2** (~2 ч). Standard dense attention -- ещё одна точка hybrid vs dense vs MoE. **Ожидаем 30-50%** (dense не масштабируется как MoE).
 4. **Qwen3-Coder 30B-A3B -- replay** после применения upstream PR #20376 (Vulkan f16 GATED_DELTA_NET). Замерить speedup, актуально через 1-3 мес.
+5. **Qwen3.6-Coder (когда выйдет, ожидание июнь-июль 2026)** -- coder-specific вариант на той же hybrid Gated DeltaNet архитектуре. Скачать сразу, full --tries 2.
 
 ### Долгосрочно (после upstream merges)
 
@@ -79,14 +81,14 @@
 
 ## Доступные прогоны
 
-| Дата | Бенчмарк | Mode | Модель | Pass rate | Статья |
-|------|----------|------|--------|-----------|--------|
-| 2026-04-27 | Aider Polyglot | smoke 20 + --tries 2 | **Qwen3.6-35B-text** 🏆 | 30.0% / **70.0%** (рекорд) | [2026-04-27-aider-smoke-qwen3.6-35b-text-tries2](2026-04-27-aider-smoke-qwen3.6-35b-text-tries2.md) |
-| 2026-04-26 → 2026-04-27 | Aider Polyglot | **full** (no rust) | Qwen3-Coder 30B-A3B | 10.8% / **26.3%** на 194/195 ✅ | [2026-04-26-aider-full-qwen3-coder-30b](2026-04-26-aider-full-qwen3-coder-30b.md) |
-| 2026-04-26 | Aider Polyglot | smoke 20 (clean ✓, A/B) | Qwen3-Coder 30B-A3B | **15.0%** (3/20, **17 сек/задача!**) | [2026-04-26-aider-smoke-qwen3-coder-30b](2026-04-26-aider-smoke-qwen3-coder-30b.md) |
-| 2026-04-26 | Aider Polyglot | smoke 20 (clean ✓) | Qwen3.6-35B-A3B | **35.0%** (single-shot, 20/20) | [2026-04-26-aider-smoke-qwen3.6-35b-clean](2026-04-26-aider-smoke-qwen3.6-35b-clean.md) |
-| 2026-04-26 | Aider Polyglot | smoke (прерван) | Qwen3-Coder Next 80B-A3B | 36.7% / 46.7% (на 30 задачах) | [2026-04-26-aider-smoke-qwen-coder-next](2026-04-26-aider-smoke-qwen-coder-next.md) |
-| 2026-04-26 | Aider Polyglot | smoke (прерван) | Qwen3.6-35B-A3B | 27.3% / 54.5% (на 22 задачах) | [2026-04-26-aider-smoke-qwen3.6-35b](2026-04-26-aider-smoke-qwen3.6-35b.md) |
+| Дата | Бенчмарк | Mode | Модель | Pass rate | **Sec/case** | Total | Статья |
+|------|----------|------|--------|-----------|--------------|-------|--------|
+| 2026-04-27 | Aider Polyglot | smoke 20 + --tries 2 | **Qwen3.6-35B-text** 🏆 | 30.0% / **70.0%** (рекорд) | 248.8 | 1h 55m | [2026-04-27-aider-smoke-qwen3.6-35b-text-tries2](2026-04-27-aider-smoke-qwen3.6-35b-text-tries2.md) |
+| 2026-04-26 → 2026-04-27 | Aider Polyglot | **full** (no rust) | Qwen3-Coder 30B-A3B | 10.8% / **26.3%** на 194/195 ✅ | **47.7** ⭐ | ~7.5h | [2026-04-26-aider-full-qwen3-coder-30b](2026-04-26-aider-full-qwen3-coder-30b.md) |
+| 2026-04-26 | Aider Polyglot | smoke 20 (clean ✓, A/B) | Qwen3-Coder 30B-A3B | **15.0%** | **17.4** ⭐⭐ | 10m | [2026-04-26-aider-smoke-qwen3-coder-30b](2026-04-26-aider-smoke-qwen3-coder-30b.md) |
+| 2026-04-26 | Aider Polyglot | smoke 20 (clean ✓) | Qwen3.6-35B-A3B | **35.0%** (single-shot) | 210.5 | 1h 11m | [2026-04-26-aider-smoke-qwen3.6-35b-clean](2026-04-26-aider-smoke-qwen3.6-35b-clean.md) |
+| 2026-04-26 | Aider Polyglot | smoke (прерван) | Qwen3-Coder Next 80B-A3B | 36.7% / 46.7% (на 30) | 243.5 | -- (прерван) | [2026-04-26-aider-smoke-qwen-coder-next](2026-04-26-aider-smoke-qwen-coder-next.md) |
+| 2026-04-26 | Aider Polyglot | smoke (прерван) | Qwen3.6-35B-A3B | 27.3% / 54.5% (на 22) | 312.5 | -- (прерван) | [2026-04-26-aider-smoke-qwen3.6-35b](2026-04-26-aider-smoke-qwen3.6-35b.md) |
 
 ## Связанные статьи
 

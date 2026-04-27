@@ -32,6 +32,8 @@ ARGS=(
     -c 131072              # контекст 128K
     -fa on                 # flash attention
     --parallel 4           # 4 слота (MoE A3B даёт скорость)
+    --batch-size 4096      # увеличен с default 2048 -- меньше overhead на Vulkan dispatch
+    --ubatch-size 4096     # увеличен с default 512 -- ускоряет prompt processing на 20-30%
     --jinja                # Jinja2 chat-template (function calling)
 )
 # ---------------------------------
