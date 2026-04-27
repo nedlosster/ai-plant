@@ -46,6 +46,37 @@
 - **Выводы**: 5-7 пунктов
 - **Next steps**: что делать дальше -- как чек-лист
 
+## Покрытие тестами agent-coding моделей платформы
+
+Сводка по моделям, подходящим для agent-coding workflows (multi-turn aider/opencode/Continue.dev). Vision-only, FIM-only и general-purpose LLM в этой таблице не учитываются -- для них Aider Polyglot не подходящий бенчмарк.
+
+Маркеры покрытия:
+
+- ✅ **Полное покрытие** -- завершён --full прогон (>= 100 задач) с --tries 2
+- 🟡 **Частичное** -- только smoke (10-20 задач) или прерванный full
+- 🔴 **Не тестировано** -- модель скачана, бенчмарк не проводился
+
+| Модель | Q4 size | Архитектура | Cache reuse | Best result | Sec/case | Покрытие | Вывод |
+|--------|---------|-------------|-------------|-------------|----------|----------|-------|
+| **Qwen3.6-35B-A3B (text-only)** 🏆 | 21 GiB | Hybrid Gated DeltaNet, MoE 35B/3B | ❌ (hybrid) | **70.0%** pass_2 на smoke-20 | 248.8 | 🟡 smoke с --tries 2 | **Best quality, новый default**. Retry +40pp -- модель учится на ошибках. user_asks=0 (полная автономность). Нужен --full для leaderboard. |
+| Qwen3.6-35B-A3B (multimodal) | 21 GiB + mmproj 1.2 | Hybrid + multimodal | ❌❌ (hybrid+multimodal) | 35.0% pass_1 на smoke-20 (--tries 1) | 210.5 | 🟡 smoke clean | Замена есть -- text-only вариант на 8084. Этот пресет оставлен для vision tasks (когда нужны скриншоты в agent-mode). |
+| Qwen3-Coder 30B-A3B | 18 GiB | Standard MoE attention | ✅ | **26.3%** pass_2 на 194/195 | 47.7 | ✅ **full** | **Best throughput**, 5-10× быстрее 35B. Качество 60% relative weakness. Использовать для batch / throughput-sensitive workloads. |
+| Qwen3-Coder Next 80B-A3B | 45 GiB | Hybrid Gated DeltaNet | ❌ (hybrid) | 46.7% pass_2 на 30/50 | 243.5 | 🟡 smoke прерван (до фикса auto-resume) | Перепрогнать с auto-resume + --tries 2. **Ожидаем 50-65% pass_rate_2** -- проверим гипотезу что 80B размер компенсирует hybrid limitation. |
+| Devstral 2 24B (dense) | 14 GiB | Standard dense attention | ✅ | -- | -- | 🔴 не тестировано | Кандидат для теста как coding-specialist на dense архитектуре. Эталонная "третья точка" для сравнения hybrid vs dense vs MoE. |
+
+### Очередь следующих тестов (приоритет сверху)
+
+1. **Qwen3-Coder Next 80B-A3B -- full c auto-resume** (~5-7 ч, --tries 2). Hybrid Gated DeltaNet, без mmproj. **Ожидаем 50-65% pass_2** -- проверим гипотезу что размер компенсирует hybrid limitation.
+2. **Qwen3.6-35B-text -- full** (195 задач, --tries 2, ~14-17 ч). Leaderboard-quality оценка для рекордной модели. **Ожидаем 60-65% pass_2** (статистика на 195 vs 70% на 20 -- regression к среднему).
+3. **Devstral 2 24B -- smoke + --tries 2** (~2 ч). Standard dense attention -- ещё одна точка hybrid vs dense vs MoE. **Ожидаем 30-50%** (dense не масштабируется как MoE).
+4. **Qwen3-Coder 30B-A3B -- replay** после применения upstream PR #20376 (Vulkan f16 GATED_DELTA_NET). Замерить speedup, актуально через 1-3 мес.
+
+### Долгосрочно (после upstream merges)
+
+- После llama.cpp PR #20376 (Vulkan f16 GATED_DELTA_NET): перезамерить **Qwen3.6-35B-text** -- ожидаем -10-20% sec/case.
+- После PR #20819 + router-mode: перезамерить **Qwen3.6** + **Coder Next** в swap-сценарии.
+- После cross-turn cache reuse fix для hybrid: радикальное переосмысление лидерборда.
+
 ## Доступные прогоны
 
 | Дата | Бенчмарк | Mode | Модель | Pass rate | Статья |
