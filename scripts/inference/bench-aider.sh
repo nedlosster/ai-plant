@@ -211,7 +211,14 @@ while [[ $ATTEMPT -le $MAX_ATTEMPTS ]]; do
         "$TESTDIR_FLAG"
         --exercises-dir polyglot-benchmark
     )
-    [[ "$NUM_TESTS" -gt 0 ]] && BENCH_ARGS+=(--num-tests "$NUM_TESTS")
+    # КРИТИЧНО: --num-tests передаём ТОЛЬКО при --new (initial). При --cont
+    # benchmark.py продолжает работу в существующем testdir где задачи уже
+    # выбраны на initial-фазе. Если передать --num-tests на --cont -- benchmark.py
+    # повторно случайно выбирает N задач сверх уже сделанных, превышая cap.
+    # Bug обнаружен 2026-04-27 на 35B-text smoke (--num-tests 20 -> прогнал 22+).
+    if [[ "$NUM_TESTS" -gt 0 && $USE_CONT -eq 0 ]]; then
+        BENCH_ARGS+=(--num-tests "$NUM_TESTS")
+    fi
     [[ -n "$LANGUAGES" ]] && BENCH_ARGS+=(--languages "$LANGUAGES")
 
     CONTAINER="aider-bench-$$-${ATTEMPT}"
