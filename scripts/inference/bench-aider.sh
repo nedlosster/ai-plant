@@ -266,9 +266,11 @@ while [[ $ATTEMPT -le $MAX_ATTEMPTS ]]; do
     ) &
     WATCHDOG_PID=$!
 
-    # Ждём завершения docker (либо нормально, либо kill watchdog'ом)
-    wait "$DOCKER_PID" 2>/dev/null
-    EXIT_CODE=$?
+    # Ждём завершения docker (либо нормально, либо kill watchdog'ом).
+    # Важно: `wait` под `set -e` завершает скрипт при non-zero exit code дочернего
+    # процесса (например, 137 от docker kill). Защищаемся через `|| EXIT_CODE=$?`.
+    EXIT_CODE=0
+    wait "$DOCKER_PID" 2>/dev/null || EXIT_CODE=$?
     kill "$WATCHDOG_PID" 2>/dev/null || true
     wait "$WATCHDOG_PID" 2>/dev/null || true
 
