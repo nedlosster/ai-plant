@@ -424,6 +424,7 @@ Standard Sixunited плата, но с премиум-сборкой и liquid c
 
 ## Связано
 
+- [strix-halo-mini-pcs.md](strix-halo-mini-pcs.md) -- фокусированное сравнение mini-PC 128 GiB с финальной рекомендацией "какой купить"
 - [hardware-alternatives.md](hardware-alternatives.md) -- Strix Halo как класс vs RTX 5090 / Mac M4/M3 / DGX Spark
 - [server-spec.md](server-spec.md) -- наша конкретная конфигурация (Meigao MS-S1 MAX)
 - [bios-setup.md](bios-setup.md) -- настройка BIOS под inference (Meigao-specific, частично применимо к Minisforum)
