@@ -119,9 +119,9 @@ Vulkan быстрее на 26-57%. **Рекомендация: Vulkan для inf
 | Прогон | Tasks | pass_rate_1 | pass_rate_2 | sec/case | Дата |
 |--------|-------|-------------|-------------|----------|------|
 | **30B-A3B full** (no rust, --tries 2) | 194/195 | 10.8% | **26.3%** | 47.7 | 2026-04-26 |
-| **Next 80B-A3B full** (no rust, --tries 2) | в процессе | ~37% | **~67-70%** на 87+ задач | ~95-100 | 2026-04-27 |
+| **Next 80B-A3B full** (no rust, --tries 2) | **178/195** ✅ | **33.7%** | **68.0%** ⭐ | ~99 | 2026-04-28 |
 
-Coder Next выигрывает у 30B-A3B по качеству (+40pp pass_rate_2), но 30B-A3B в 2× быстрее (47.7 vs 95 sec/case). Trade-off скорость vs качество.
+Coder Next выигрывает у 30B-A3B по качеству (+41.7pp pass_rate_2), но 30B-A3B в 2× быстрее (47.7 vs 99 sec/case). Retry effect у Next **+34.3pp** -- лидер платформы (vs +15.5pp у 30B-A3B). Trade-off скорость vs качество.
 
 Подробные отчёты: [docs/llm-guide/benchmarks/runs/](../../llm-guide/benchmarks/runs/README.md).
 
