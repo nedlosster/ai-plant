@@ -258,7 +258,10 @@ while [[ $ATTEMPT -le $MAX_ATTEMPTS ]]; do
             fi
 
             # Progress timeout
-            CURRENT_COUNT=$(grep -c "^  test_cases:" "$LOG" 2>/dev/null || echo 0)
+            # grep -c при 0 совпадений возвращает exit 1, поэтому без `|| echo 0` команда упадёт
+            # под set -e. Но с `|| echo 0` мы получали multiline "0\n0" в случае пустого файла.
+            # Решение: считаем строки через wc -l, который всегда возвращает одно число.
+            CURRENT_COUNT=$(grep "^  test_cases:" "$LOG" 2>/dev/null | wc -l)
             if (( CURRENT_COUNT > LAST_COUNT )); then
                 LAST_PROGRESS=$NOW
                 LAST_COUNT=$CURRENT_COUNT

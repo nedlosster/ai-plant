@@ -1,13 +1,24 @@
 #!/bin/bash
-# Vulkan: Qwen3.6-27B Q4_K_M (DENSE, hybrid Gated DeltaNet)
+# Vulkan: Qwen3.6-27B Q4_K_M (DENSE, лидер SWE-V)
+#
+# !!! ВНИМАНИЕ: непрактична как daily agent на Strix Halo !!!
+# Замер 2026-04-28: pp2048 = 286.7 tok/s, tg256 = **12.4 tok/s**
+# Это в 4.7× медленнее [Qwen3.6-35B-A3B MoE] (58.7 tok/s) и в 7× медленнее
+# [Qwen3-Coder 30B-A3B] (86 tok/s). Memory-bound (теоретический потолок
+# 256 GB/s ÷ 15.65 GiB ≈ 16 tok/s, реально ~75% эффективность).
+# Aider Polyglot smoke нерентабелен -- multi-turn loop с retry разрастается
+# до 5+ часов на 20 задач. См. docs/llm-guide/benchmarks/runs/2026-04-28-bench-qwen3.6-27b.md.
+# Использовать только для batch с длинным prompt + коротким output (pp 286 OK)
+# или точечной сверки качества vs 35B-A3B (1-2 запроса, не loop).
 #
 # Особенности:
 #   - Dense 27B (vs MoE A3B у 35B-A3B / 30B-A3B / Coder Next)
-#   - Hybrid Gated DeltaNet -- cache-reuse архитектурно blocked
+#   - llama.cpp metadata: архитектура `qwen35 27B` (без recurrent state)
+#   - Cache-reuse архитектурно ДОПУСТИМ (нет hybrid memory),
+#     в отличие от 35B-A3B / Coder Next
 #   - Лидер open-weight SWE-V (77.2%) на момент апреля 2026
 #     (опережает Devstral 2 72.2% и Coder Next 70.6%)
-#   - Memory-bound по характеру: ~15 tok/s оценка на Strix Halo
-#     (vs 50-90 tok/s у MoE A3B той же эпохи)
+#   - Memory-bound: реально 12.4 tok/s на Strix Halo
 #
 # Конфигурация:
 #   - Q4_K_M (~16 GB) -- помещается с большим запасом в 120 GiB unified
