@@ -116,6 +116,7 @@ ssh -A -p <SSH_PORT> <user>@<host>
 |----------|-----------|
 | [enterprise-inference.md](enterprise-inference.md) | Datacenter GPU: NVIDIA B200/H200/H100, AMD MI300X/MI325X/MI355X, cloud pricing $/hr |
 | [hardware-alternatives.md](hardware-alternatives.md) | Consumer-альтернативы для локального inference: RTX 5090, Mac M4/M5, DGX Spark, M3 Ultra |
+| [strix-halo-vendors.md](strix-halo-vendors.md) | Сравнение Strix Halo mini-PC от разных вендоров: Meigao, Minisforum, Beelink, Framework, GMKtec, Bosgame, Corsair, HP, Sapphire -- косяки сборки, BIOS, охлаждение |
 
 ## Inference-стек
 
