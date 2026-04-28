@@ -10,12 +10,30 @@
 #   3. Порт 8084 -- чтобы можно было крутить параллельно с multimodal qwen3.6-35b
 #      на 8085 (если хватит VRAM, ~42 GiB на оба).
 #
-# ВАЖНО: cache-reuse полноценно НЕ работает даже без mmproj -- остаётся второй
-# блокер: hybrid Gated DeltaNet recurrent state не сохраняется между запросами.
-# В логе всё равно будет "forcing full prompt re-processing". Этот вариант
-# даёт лишь ~10% ускорения PP за счёт отсутствия mmproj projection pass.
-# Полное решение -- ждать llama.cpp PR #20376/#20819.
-# См. docs/inference/optimization-backlog.md (U-001).
+# Архитектура (по llama-server log на b8717):
+#   general.architecture = qwen35moe (40 blocks, 256 experts, 8 used, hybrid с SSM)
+#   only 10 / 40 layers full attention (остальные 30 -- recurrent SSM Gated DeltaNet)
+#   n_swa = 0 -- sliding window attention НЕ используется
+#   KV cache мал: 2.5 GiB (32768 cells × 10 attention layers × 4 seqs)
+#
+# Cache reuse статус (наблюдения из логов 2026-04-28):
+#   - PR #20819 active: slot context checkpoint работает (intra-task multi-turn кэш)
+#     "restored context checkpoint", "created context checkpoint N of 32"
+#   - Между tasks (или после смены exercise) cache invalidates:
+#     "forcing full prompt re-processing due to lack of cache data
+#      (likely due to SWA or hybrid/recurrent memory)"
+#   - PR #19670 (hybrid memory snapshot) ещё не merged -- ждём.
+#   См. docs/inference/optimization-backlog.md (U-001).
+#
+# Безопасные оптимизации (применены 2026-04-28):
+#   1. --cache-reuse 256 -- intra-task multi-turn re-use работает через slot
+#      checkpoints (PR #20819). Возвращён после observation что checkpoint
+#      механизм active. Эффект: меньше pp recomputation на retry внутри задачи.
+#   2. --cache-type-k q8_0 / --cache-type-v q8_0 -- KV cache quantization.
+#      KV cache 2.5 GiB → 1.25 GiB. Незначительная потеря точности (<0.5%),
+#      может улучшить L2/L3 cache hit rate. Безопасно для inference.
+#   3. --mlock -- запретить swap модели в дисковую подкачку. Гарантирует
+#      residency в LPDDR5. У нас 120 GiB unified, безопасно.
 #
 # CLI:
 #   ./qwen3.6-35b-text.sh -d                  # default --keep 1500
@@ -52,6 +70,10 @@ ARGS=(
     --parallel 4           # 4 слота (MoE A3B даёт скорость)
     --batch-size 4096      # увеличен с default 2048 -- меньше overhead на Vulkan dispatch
     --ubatch-size 4096     # увеличен с default 512 -- ускоряет prompt processing на 20-30%
+    --cache-reuse 256      # intra-task multi-turn re-use через slot checkpoints (PR #20819)
+    --cache-type-k q8_0    # KV cache K quantization: 2.5 GiB → 1.25 GiB, потеря <0.5%
+    --cache-type-v q8_0    # KV cache V quantization: то же
+    --mlock                # запрет swap модели в подкачку (residency в LPDDR5)
     --jinja                # Jinja2 chat-template (function calling)
 )
 
@@ -68,5 +90,5 @@ check_port_free "$PORT" || exit 1
 # Передаём оставшиеся args (например -d) в parse_daemon_flag
 parse_daemon_flag "${REMAINING_ARGS[@]}"
 
-echo "TEXT-ONLY preset: --mmproj отключён, --keep=${KEEP_TOKENS}"
+echo "TEXT-ONLY preset: --mmproj отключён, --keep=${KEEP_TOKENS}, KV q8_0, cache-reuse 256, mlock"
 launch_server "$PORT" "llama-server" "${ARGS[@]}"
