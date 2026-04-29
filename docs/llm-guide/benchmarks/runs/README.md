@@ -68,6 +68,14 @@
 ### Очередь следующих тестов (приоритет сверху)
 
 1. ~~Qwen3.6-27B (dense) -- скачать + smoke + --tries 2~~ -- **выполнено 2026-04-28**, smoke не делался. Замер показал 12.4 tok/s -- в 4.7× медленнее MoE-альтернативы, prompt-based бенчмарк нерентабелен (>5 ч на 20 задач). См. [2026-04-28-bench-qwen3.6-27b.md](2026-04-28-bench-qwen3.6-27b.md).
+
+### Очередь после завершения 35B-text full (приоритет сверху)
+
+1. **Gemma 4 26B-A4B (text-only) smoke + --tries 2** ⭐ (~2 ч). Никогда не тестировалась на aider polyglot. Ожидаем 50-65% pass_rate_2 (LiveCodeBench 77.1%, AIME 88.3% -- топ среди 25-30B). Native function calling + 256K контекст. Preset: [`gemma4-text.sh`](../../../../scripts/inference/vulkan/preset/gemma4-text.sh) (порт 8083, без mmproj). Заполнит пробел "Mistral/Google" в leaderboard платформы.
+
+2. **Qwen3.5-122B-A10B full + --tries 2** (30-50 ч на выходные). **Потенциальный абсолютный лидер** -- 10B active vs 3B у текущих топов. SWE-bench Verified ~75% leaderboard 2026. **Cache reuse РАБОТАЕТ** (standard MoE attention, не hybrid) -- единственная топ-модель платформы без cache блокировки. Preset обновлён: [`qwen3.5-122b.sh`](../../../../scripts/inference/vulkan/preset/qwen3.5-122b.sh) (порт 8081, 71 GiB модель, контекст 128K).
+
+3. **UD-Q5_K_M Qwen3.6-35B-A3B smoke + --tries 2** (~2 ч). Quality A/B vs текущий Q4_K_M. Скачать через `download-model.sh unsloth/Qwen3.6-35B-A3B-GGUF --include '*UD-Q5_K_M*'` (~26.5 GiB). Preset: [`qwen3.6-35b-text-q5.sh`](../../../../scripts/inference/vulkan/preset/qwen3.6-35b-text-q5.sh) (порт 8087 для side-by-side с Q4 на 8084). Если +3-5pp pass_rate_2 -- переключаем default.
 2. **Qwen3.6-35B-text -- full** (195 задач, --tries 2, ~14-17 ч). Leaderboard-quality оценка для рекордной модели. **Ожидаем 60-65% pass_2** (статистика на 195 vs 70% на 20 -- regression к среднему).
 3. **Devstral 2 24B -- smoke + --tries 2** (~2 ч). Standard dense attention -- ещё одна точка hybrid vs dense vs MoE. **Ожидаем 30-50%** (dense не масштабируется как MoE).
 4. **Qwen3-Coder 30B-A3B -- replay** после применения upstream PR #20376 (Vulkan f16 GATED_DELTA_NET). Замерить speedup, актуально через 1-3 мес.
