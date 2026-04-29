@@ -6,6 +6,37 @@
 
 ## 2026-Q2 (актуально)
 
+### Apr 15 -- OpenClaw v2026.4.15 "Dreaming" release: 347K GitHub stars, native Opus 4.7
+
+**15 апреля 2026** -- [OpenClaw](agents/openclaw/README.md) выпустил релиз "Dreaming" (`v2026.4.15`):
+
+- **347K GitHub stars** -- most starred repository in GitHub history (обогнал предыдущих лидеров)
+- **Native Claude Opus 4.7 integration** -- first-class support через тот же `claudeclaw` proxy
+- **Google Gemini TTS support** -- text-to-speech через Gemini API
+- **Advanced memory management** -- multi-session memory persistence для long-running agent loops
+- **Security hardening после ClawHavoc**: 341 malicious skill распространялись через ClawHub marketplace в январе 2026 (incident с supply chain). v2026.4.9 ужесточил SSRF defenses и node execution injection protections, продолжено в "Dreaming"
+
+OpenClaw закрепил позицию как production-grade open-source alternative для Fortune 500 (self-hosted security-sensitive workloads). Источники: [clawbot.blog](https://www.clawbot.blog/blog/openclaw-the-rise-of-an-open-source-ai-agent-framework-april-2026-update/), [Releasebot OpenClaw notes](https://releasebot.io/updates/openclaw).
+
+### Apr 14 -- Claude Code: full desktop app redesign + Routines (cloud automation)
+
+**14 апреля 2026** -- Anthropic shipped **полный редизайн** Claude Code desktop app:
+
+- **Новый sidebar** -- проект-tree с быстрой навигацией
+- **Parallel sessions** -- несколько Claude Code сессий в одном окне
+- **Project tabs** -- переключение между проектами без перезапуска CLI
+- **Routines** -- cloud automation layer для scheduled agent runs (replacement для Agent Teams workflow)
+
+Anthropic также shipped 30+ releases в Claude Code за 5 недель апреля 2026 -- focus на rendering cycles, enterprise cloud setups, Linux process isolation. Подробная хроника: [agents/claude-code/news.md](agents/claude-code/news.md). Источник: [BuildToLaunch обзор](https://buildtolaunch.substack.com/p/claude-code-redesign-routines-vs-cursor-openclaw).
+
+### Apr 2026 -- Anthropic запустил managed agent cloud service
+
+**Апрель 2026** -- Anthropic запустил [managed agent cloud service](https://www.anthropic.com/) -- enterprise offering для развёртывания Claude-агентов на инфраструктуре Anthropic. Снимает требование к customer'ам управлять собственным compute / scaling. Конкурирует с **Cursor cloud agents on isolated VMs** (релиз в Cursor 3) и **OpenClaw self-hosted** -- "agent infrastructure race" между тремя крупными игроками.
+
+Параллельные индустриальные сдвиги:
+- **Visa открыл payment rails для autonomous agents** -- агенты могут совершать payments без human-in-the-loop verification
+- **Microsoft релизнул OWASP-aligned governance toolkit** для всех 10 OWASP agentic risks -- enterprise security framework
+
 ### Apr 22 -- SpaceX берёт $60B option на покупку Cursor
 
 **22 апреля 2026** -- [SpaceX подписал $60B option на покупку Cursor](https://9to5mac.com/) (Anysphere). Сделка предусматривает совместную разработку AI-coding на суперкомпьютере **Colossus**. Cursor пока сохраняет операционную независимость, переход в собственность SpaceX -- по решению опциона. Один из крупнейших M&A-анонсов 2026 года в AI-coding-сегменте. Источники: [9to5Mac](https://9to5mac.com/), [The New Stack](https://thenewstack.io/).
