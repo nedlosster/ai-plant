@@ -227,6 +227,10 @@ while [[ $ATTEMPT -le $MAX_ATTEMPTS ]]; do
     echo "=== ${ATTEMPT_LABEL} -- container=${CONTAINER} (${TESTDIR_FLAG}) ==="
 
     # --- Запуск docker run в фоне ---
+    # LITELLM_REQUEST_TIMEOUT=600 -- 10 минут на отдельный API request к llama-server.
+    # На больших моделях (122B-A10B) длинные responses (>5K tokens) могут занимать
+    # >100 сек -- default litellm timeout (60-100s) приводит к bесконечному
+    # retry-loop без закрытия задачи. Поднимаем до 600s.
     docker run --rm --name "$CONTAINER" \
         --network host \
         --user "$(id -u):$(id -g)" \
@@ -235,6 +239,7 @@ while [[ $ATTEMPT -le $MAX_ATTEMPTS ]]; do
         -e OPENAI_API_KEY="dummy" \
         -e AIDER_DOCKER=1 \
         -e HOME=/tmp \
+        -e LITELLM_REQUEST_TIMEOUT=600 \
         -w /aider \
         "$DOCKER_IMAGE" \
         python3 ./benchmark/benchmark.py "${BENCH_ARGS[@]}" \
@@ -271,6 +276,24 @@ while [[ $ATTEMPT -le $MAX_ATTEMPTS ]]; do
                 docker kill "$CONTAINER" 2>/dev/null || true
                 touch "$WATCHDOG_FLAG"
                 break
+            fi
+
+            # Litellm retry-loop detector: aider может зависнуть в exponential
+            # backoff на API timeout, не закрывая задачу (test_cases не растёт),
+            # но непрерывно пишет "Retrying in N seconds" в лог. Это **не** ловится
+            # обычным task-timeout (log mtime обновляется), но видно через подсчёт
+            # "Retrying in" событий за последние 5 минут.
+            # Срабатывает когда:
+            #   - test_cases не рос >= 300 секунд (5 мин)
+            #   - в последних 200 строках лога >= 5 событий "Retrying in"
+            if (( NOW - LAST_PROGRESS > 300 )); then
+                RETRY_COUNT=$(tail -200 "$LOG" 2>/dev/null | grep -c "Retrying in" || true)
+                if [[ "$RETRY_COUNT" -ge 5 ]]; then
+                    echo "WATCHDOG: litellm retry-loop detected ($RETRY_COUNT 'Retrying in' events in tail-200), killing $CONTAINER (last test_cases=$LAST_COUNT)" >&2
+                    docker kill "$CONTAINER" 2>/dev/null || true
+                    touch "$WATCHDOG_FLAG"
+                    break
+                fi
             fi
         done
     ) &

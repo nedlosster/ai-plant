@@ -129,6 +129,27 @@ llama.cpp поддерживает `--draft-model` и `--draft-max`. Для Qwen
 
 **Применение 2026-04-26**: реализован bash-watchdog в bench-aider.sh -- запуск `docker run --name aider-bench-$$` в фоне + параллельный watchdog-loop, который проверяет рост счётчика `test_cases:` каждые 30 сек. Если не было прогресса >900 сек (default 15 мин) или общее время >21600 сек (6 ч) -- `docker kill`. Параметризируется флагами `--task-timeout N` / `--total-timeout N`.
 
+#### A-006: litellm retry-loop detector + LITELLM_REQUEST_TIMEOUT
+
+**Статус**: **применено 2026-04-29**
+**Impact**: критический -- закрывает дырку в watchdog A-005 (litellm не ловится progress-counter)
+**Effort**: малый (~30 строк bash + 1 env var)
+
+В прогоне Qwen3.5-122B-A10B (2026-04-29) обнаружился новый кейс: aider завис в **`litellm.Timeout` retry-loop** на JS задаче `affine-cipher`. Watchdog A-005 не сработал, потому что:
+
+1. `test_cases:` counter не растёт (задача не закрыта)
+2. **Лог обновляется** -- aider пишет "Retrying in 0.2 seconds..." каждые ~30 сек
+3. log mtime обновляется → watchdog по `--task-timeout` думает что прогресс есть
+
+Корень: litellm default timeout (60-100 сек) недостаточен для длинных responses на 122B-A10B (могут занимать >100 сек). Aider таймаутит → exponential backoff → бесконечный retry.
+
+**Действие** (применено в [bench-aider.sh](../../scripts/inference/bench-aider.sh)):
+
+1. **Proactive fix**: `LITELLM_REQUEST_TIMEOUT=600` env var в docker run -- 10 минут на отдельный API request, prevent timeout вообще
+2. **Reactive safety net**: дополнительный watchdog detector -- если test_cases не рос >300 сек И в tail-200 лога >5 событий "Retrying in" → kill container
+
+Это покрывает оба сценария: кейс быстрых responses (proactive timeout достаточен) и slow responses (reactive detector ловит).
+
 #### A-004: `--languages python,javascript` для quick валидации
 
 **Статус**: **применено 2026-04-26**
