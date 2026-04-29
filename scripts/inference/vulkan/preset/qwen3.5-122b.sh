@@ -47,6 +47,7 @@ ARGS=(
     --keep 1500            # защита system prompt при context shift
     --no-mmap              # модель 71 GiB сразу в RAM
     --jinja                # Jinja2 chat-template (function calling)
+    --reasoning off        # отключаем thinking-режим (Qwen3.5 встроенный) -- aider whole edit format не парсит <think>, экономим токены и время на single-shot
 )
 # ---------------------------------
 

@@ -55,6 +55,7 @@ ARGS=(
     --cache-type-v q8_0    # KV cache V quantization
     --mlock                # запрет swap модели в подкачку
     --jinja                # Jinja2 chat-template (function calling)
+    --reasoning off        # отключаем thinking-режим (Qwen3.6 встроенный)
 )
 
 [[ "$KEEP_TOKENS" -gt 0 ]] && ARGS+=(--keep "$KEEP_TOKENS")

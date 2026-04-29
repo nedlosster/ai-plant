@@ -20,6 +20,7 @@ ARGS=(
     --parallel 4           # 4 слота (MoE 3B active, экономичный)
     --cache-reuse 256      # KV-cache shifting
     --jinja                # Jinja2 chat-template
+    --reasoning off        # отключаем thinking-режим (Qwen3.5 встроенный)
 )
 # ---------------------------------
 

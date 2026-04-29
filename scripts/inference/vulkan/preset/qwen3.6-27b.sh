@@ -65,6 +65,7 @@ ARGS=(
     --ubatch-size 4096     # ускоряет prompt processing на 20-30%
     --no-mmap              # dense 16 GB сразу в RAM
     --jinja                # Jinja2 chat-template (function calling)
+    --reasoning off        # отключаем thinking-режим (Qwen3.6 встроенный)
 )
 
 # --keep N -- сохранить первые N токенов system promptа от eviction (default 1500)

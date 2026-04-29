@@ -78,6 +78,7 @@ ARGS=(
     --cache-type-v q8_0    # KV cache V quantization: то же
     --mlock                # запрет swap модели в подкачку (residency в LPDDR5)
     --jinja                # Jinja2 chat-template (function calling)
+    --reasoning off        # отключаем thinking-режим (Qwen3.6 встроенный)
 )
 
 # --keep N -- сохранить первые N токенов system promptа от eviction (default 1500, --no-keep отключает)

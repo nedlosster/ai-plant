@@ -44,6 +44,7 @@ ARGS=(
     --keep 1500            # сохранять первые 1500 токенов system prompt при context shift
     --no-mmap              # модель сразу в RAM, без mmap-overhead
     --jinja                # Jinja2 chat-template (function calling)
+    --reasoning off        # отключаем thinking-режим (Qwen3.6 встроенный)
 )
 # ---------------------------------
 
