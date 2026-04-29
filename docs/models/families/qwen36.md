@@ -126,6 +126,15 @@ Trade-off: -3.8 п.п. SWE-V в обмен на **в 4.7× быстрее** ге
 - llama.cpp: MoE-архитектура поддерживается, multimodal через mmproj-файл
 - Для платформы рекомендуется Q4_K_M (~20 GiB)
 
+**Замеры на платформе (Aider Polyglot, text-only вариант)**:
+
+| Прогон | Tasks | pass_1 | pass_2 | sec/case | Дата |
+|--------|-------|--------|--------|----------|------|
+| smoke 20 + --tries 2 | 20/20 | 30.0% | **70.0%** ⭐ | 248.8 | 2026-04-27 |
+| **full** + --tries 2 | **195/195** ✅ | **29.2%** | **65.6%** | ~407 | **2026-04-29** |
+
+Регрессия к среднему -4.4pp от smoke. Лидер C++ (73.1%) на платформе. **0 watchdog kills и 0 manual resumes за 22 часа full** -- best-in-class production-stability. Coder Next 80B-A3B на 2.4pp впереди по pass_2, но 35B-text меньше (20.6 vs 45 GiB) и достиг 100% покрытия. Полная статья: [runs/2026-04-29-aider-full-qwen3.6-35b-text.md](../../llm-guide/benchmarks/runs/2026-04-29-aider-full-qwen3.6-35b-text.md).
+
 **Источники**:
 - [HuggingFace: Qwen3.6-35B-A3B](https://huggingface.co/Qwen/Qwen3.6-35B-A3B)
 

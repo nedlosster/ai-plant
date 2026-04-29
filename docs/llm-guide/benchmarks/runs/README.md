@@ -58,7 +58,7 @@
 
 | Модель | Q4 size | Архитектура | Cache reuse | Best result | Sec/case | Покрытие | Вывод |
 |--------|---------|-------------|-------------|-------------|----------|----------|-------|
-| **Qwen3.6-35B-A3B (text-only)** 🏆 | 21 GiB | Hybrid Gated DeltaNet, MoE 35B/3B | ❌ (hybrid) | **70.0%** pass_2 на smoke-20 | 248.8 | 🟡 smoke с --tries 2 | **Best quality, новый default**. Retry +40pp -- модель учится на ошибках. user_asks=0 (полная автономность). Нужен --full для leaderboard. |
+| **Qwen3.6-35B-A3B (text-only)** 🏆 | 21 GiB | Hybrid Gated DeltaNet, MoE 35B/3B | ❌ (hybrid) | **29.2% / 65.6%** на 195/195 ✅ | ~407 | ✅ **full 100% coverage** | **Лидер C++ (73.1%) и стабильности**. 0 watchdog за 22h, 0 manual resumes. Регрессия к среднему -4.4pp от smoke 20. Coder Next +2.4pp по качеству, но 35B-text меньше (20.6 vs 45 GiB) и стабильнее. |
 | Qwen3.6-35B-A3B (multimodal) | 21 GiB + mmproj 1.2 | Hybrid + multimodal | ❌❌ (hybrid+multimodal) | 35.0% pass_1 на smoke-20 (--tries 1) | 210.5 | 🟡 smoke clean | Замена есть -- text-only вариант на 8084. Этот пресет оставлен для vision tasks (когда нужны скриншоты в agent-mode). |
 | Qwen3-Coder 30B-A3B | 18 GiB | Standard MoE attention | ✅ | **26.3%** pass_2 на 194/195 | 47.7 | ✅ **full** | **Best throughput**, 5-10× быстрее 35B. Качество 60% relative weakness. Использовать для batch / throughput-sensitive workloads. |
 | **Qwen3-Coder Next 80B-A3B** | 45 GiB | Hybrid Gated DeltaNet | ❌ (hybrid) | **33.7% / 68.0%** pass_2 на 178/195 ✅ | **~99** | ✅ **full** | Hybrid но без multimodal. Финальный pass_rate_2 68.0% (CI ±7pp на 178) -- значимо лучше 30B-A3B (26.3% на 194). Retry effect **+34.3pp** -- лидер платформы. Размер 80B компенсирует hybrid limit. **Best balanced default**: качество ~35B-text при 2.5× скорости. |
@@ -91,6 +91,7 @@
 
 | Дата | Бенчмарк | Mode | Модель | Pass rate | **Sec/case** | Total | Статья |
 |------|----------|------|--------|-----------|--------------|-------|--------|
+| 2026-04-28 → 2026-04-29 | Aider Polyglot | **full** (no rust) | **Qwen3.6-35B-text** 🏆 | 29.2% / **65.6%** на **195/195** ✅ | ~407 | ~22h | [2026-04-29-aider-full-qwen3.6-35b-text](2026-04-29-aider-full-qwen3.6-35b-text.md) |
 | 2026-04-27 → 2026-04-28 | Aider Polyglot | **full** (no rust) | **Qwen3-Coder Next 80B-A3B** 🏆 | 33.7% / **68.0%** на 178/195 ✅ | ~99 | ~16h | [2026-04-27-aider-full-qwen-coder-next](2026-04-27-aider-full-qwen-coder-next.md) |
 | 2026-04-27 | Aider Polyglot | smoke 20 + --tries 2 | **Qwen3.6-35B-text** 🏆 | 30.0% / **70.0%** (рекорд) | 248.8 | 1h 55m | [2026-04-27-aider-smoke-qwen3.6-35b-text-tries2](2026-04-27-aider-smoke-qwen3.6-35b-text-tries2.md) |
 | 2026-04-26 → 2026-04-27 | Aider Polyglot | **full** (no rust) | Qwen3-Coder 30B-A3B | 10.8% / **26.3%** на 194/195 ✅ | **47.7** ⭐ | ~7.5h | [2026-04-26-aider-full-qwen3-coder-30b](2026-04-26-aider-full-qwen3-coder-30b.md) |
