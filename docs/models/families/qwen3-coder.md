@@ -123,7 +123,7 @@ Vulkan быстрее на 26-57%. **Рекомендация: Vulkan для inf
 
 Coder Next выигрывает у 30B-A3B по качеству (+41.7pp pass_rate_2), но 30B-A3B в 2× быстрее (47.7 vs 99 sec/case). Retry effect у Next **+34.3pp** -- лидер платформы (vs +15.5pp у 30B-A3B). Trade-off скорость vs качество.
 
-Подробные отчёты: [docs/llm-guide/benchmarks/runs/](../../llm-guide/benchmarks/runs/README.md).
+Подробные отчёты: [docs/coding/benchmarks/runs/](../../coding/benchmarks/runs/README.md).
 
 ## Roadmap и planned updates
 
@@ -157,4 +157,4 @@ Coder Next выигрывает у 30B-A3B по качеству (+41.7pp pass_r
 - Направления: [coding](../coding.md), [llm](../llm.md)
 - Родственные семейства: [qwen25-coder](qwen25-coder.md) (FIM-линейка для inline-автодополнения), [qwen35](qwen35.md) (general-purpose Qwen той же эпохи), [qwen36](qwen36.md) (новое поколение, источник ожидаемого Qwen3.6-Coder)
 - Пресеты: [`scripts/inference/vulkan/preset/qwen-coder-next.sh`](../../../scripts/inference/vulkan/preset/qwen-coder-next.sh), [`scripts/inference/vulkan/preset/qwen3-coder-30b.sh`](../../../scripts/inference/vulkan/preset/qwen3-coder-30b.sh)
-- Бенчмарки на платформе: [benchmarks/runs/](../../llm-guide/benchmarks/runs/README.md)
+- Бенчмарки на платформе: [benchmarks/runs/](../../coding/benchmarks/runs/README.md)

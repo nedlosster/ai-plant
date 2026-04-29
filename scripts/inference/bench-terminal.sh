@@ -8,7 +8,7 @@
 # 56 задач, ~1-2 ч на платформе.
 #
 # Требования: Python 3.10+, venv ~/.venvs/aider-bench с установленным terminal-bench, Docker
-# Документация: docs/llm-guide/benchmarks/runbooks/terminal-bench.md
+# Документация: docs/coding/benchmarks/runbooks/terminal-bench.md
 
 set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -29,7 +29,7 @@ while [[ $# -gt 0 ]]; do
             echo "  --model   имя модели для логирования"
             echo "  --port    порт llama-server (по умолчанию 8085)"
             echo ""
-            echo "Документация: docs/llm-guide/benchmarks/runbooks/terminal-bench.md"
+            echo "Документация: docs/coding/benchmarks/runbooks/terminal-bench.md"
             exit 0
             ;;
         *) echo "Неизвестный параметр: $1"; exit 1;;
@@ -87,4 +87,4 @@ echo ""
 echo "=== Завершено за $((DURATION / 3600))h $(((DURATION % 3600) / 60))m ==="
 echo "Лог: $LOG"
 echo ""
-echo "Не забудь добавить запись в docs/llm-guide/benchmarks/results.md"
+echo "Не забудь добавить запись в docs/coding/benchmarks/results.md"

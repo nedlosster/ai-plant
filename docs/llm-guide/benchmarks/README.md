@@ -1,19 +1,17 @@
-# Бенчмарки AI-моделей
+# Бенчмарки AI-моделей: методология
 
-Бенчмарки измеряют способности моделей на стандартизированных задачах. Для выбора моделей на нашу платформу (120 GiB, llama-server + Vulkan) бенчмарки -- основной инструмент сравнения: модели нельзя "попробовать все" (скачивание 15-45 GiB, час на бенч), поэтому фильтрация по score экономит время.
+Описание самих бенчмарков -- что измеряют, как устроены, известные проблемы. Эта часть **не привязана к платформе** -- общая теория и анализ методов оценки моделей.
 
-Проблема: ни один бенчмарк не отражает реальное использование полностью. Синтетические задачи (HumanEval) насыщены, agentic (SWE-bench) загрязнены, human preference (LMSYS) субъективны. Грамотный выбор -- пересечение нескольких бенчмарков разных категорий.
+**Прогоны на нашей платформе Strix Halo** (наш leaderboard, отчёты по запускам, runbooks, история результатов) -- в [docs/coding/benchmarks/](../../coding/benchmarks/). Это разделение: здесь -- "что такое benchmark X", там -- "как мы тестировали модель Y на нашей платформе".
 
-## Статьи раздела
+## Статьи раздела (методология)
 
 | Статья | Тема |
 |--------|------|
 | [HumanEval](humaneval.md) | Методология, pass@k, критика, EvalPlus, таблица моделей платформы |
 | [SWE-bench](swe-bench.md) | Методология, Verified vs Pro, contamination, scaffolding, таблица моделей |
-| [MMMU / MMMU-Pro](mmmu.md) | Vision multimodal reasoning, 30 дисциплин, 11.5K задач, MMMU-Pro усложнения |
 | [LiveCodeBench](livecodebench.md) | Contamination-free coding, LeetCode/AtCoder/CodeForces, temporal segmentation |
-| [runbooks/](runbooks/README.md) | **Practical guides** -- запуск Aider Polyglot и Terminal-Bench локально на платформе |
-| [results.md](results.md) | Журнал результатов бенчмарков на Strix Halo (append-only) |
+| [MMMU / MMMU-Pro](mmmu.md) | Vision multimodal reasoning, 30 дисциплин, 11.5K задач, MMMU-Pro усложнения |
 
 ## Классификация бенчмарков
 
@@ -83,8 +81,8 @@
 
 | Бенчмарк | Фокус | Ссылка |
 |----------|-------|--------|
-| [Aider Polyglot](https://aider.chat/docs/leaderboards/) | Multi-language code editing через Aider | Python, JS, TS, Java, C++, Go. Runbook: [runbooks/aider-polyglot.md](runbooks/aider-polyglot.md) |
-| [Terminal-Bench 2.0](https://www.terminal-bench.com) | Agent tool use в shell-окружении | 56 задач: bash, git, debugging. Runbook: [runbooks/terminal-bench.md](runbooks/terminal-bench.md) |
+| [Aider Polyglot](https://aider.chat/docs/leaderboards/) | Multi-language code editing через Aider | Python, JS, TS, Java, C++, Go. Runbook: [coding/benchmarks/runbooks/aider-polyglot.md](../../coding/benchmarks/runbooks/aider-polyglot.md) |
+| [Terminal-Bench 2.0](https://www.terminal-bench.com) | Agent tool use в shell-окружении | 56 задач: bash, git, debugging. Runbook: [coding/benchmarks/runbooks/terminal-bench.md](../../coding/benchmarks/runbooks/terminal-bench.md) |
 | [Faros.ai](https://faros.ai/) | Frontend vs backend по отдельности | Используется для сравнения AI-агентов |
 | [Codeforces ELO](https://codeforces.com/) | Competitive programming | Оценка алгоритмического мышления |
 
@@ -172,35 +170,10 @@
 
 **Правило**: если score опубликован только вендором и не подтверждён ни одним независимым leaderboard -- относиться скептически.
 
-## Рекомендация для нашей платформы
-
-1. **Основной критерий**: SWE-bench Verified (с поправкой на contamination)
-2. **Contamination-free проверка**: LiveCodeBench (обновляется ежемесячно)
-3. **Практическая скорость**: платформенные замеры pp/tg через llama-bench (не бенчмарк качества, но критично для daily use)
-4. **Vision-модели**: MMMU / MMMU-Pro
-5. **FIM**: LMSYS Copilot Arena + Aider Polyglot
-6. **Не полагаться** на HumanEval для выбора frontier-моделей -- насыщен
-
-При добавлении новой модели в каталог (`/models-catalog add-family`) -- фиксировать score по SWE-bench Verified и HumanEval (как baseline) в таблице вариантов.
-
-## Запуск на платформе
-
-Для практического тестирования моделей на Strix Halo сервере подготовлены runbooks:
-
-| Бенчмарк | Задач | Время | Уровень | Runbook |
-|----------|-------|-------|---------|---------|
-| Aider Polyglot smoke | 50 | ~1.5 ч | быстрая проверка | [runbooks/aider-polyglot.md](runbooks/aider-polyglot.md) |
-| Aider Polyglot full | 225 | 6-12 ч | полный прогон | [runbooks/aider-polyglot.md](runbooks/aider-polyglot.md) |
-| Terminal-Bench 2.0 | 56 | 1-2 ч | tool use в shell | [runbooks/terminal-bench.md](runbooks/terminal-bench.md) |
-
-Стандартный порядок: smoke → full → tool-use. Результаты накапливаются в [results.md](results.md).
-
-Подробности и decision tree -- в [runbooks/README.md](runbooks/README.md).
-
 ## Связано
 
+- [docs/coding/benchmarks/](../../coding/benchmarks/) -- **прогоны на нашей платформе** Strix Halo, leaderboard, runbooks, отчёты по запускам
 - [docs/models/coding.md](../../models/coding.md#где-смотреть-актуальные-рейтинги) -- ссылки на все рейтинговые сайты
 - [docs/models/vision.md](../../models/vision.md) -- MMMU score в таблицах vision-моделей
 - [docs/ai-agents/comparison.md](../../ai-agents/comparison.md) -- бенчмарки Faros.ai для AI-агентов
 - [docs/models/coding.md](../../models/coding.md#open-vs-облачные-лидеры-апрель-2026) -- сравнение open vs closed SWE-bench
-- [docs/inference/optimization-backlog.md](../../inference/optimization-backlog.md) -- бэклог идей ускорения на базе наблюдений из прогонов

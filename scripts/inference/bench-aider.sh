@@ -41,7 +41,7 @@
 #   - aider репо: ~/projects/aider/
 #   - polyglot-benchmark dataset: ~/projects/aider/tmp.benchmarks/polyglot-benchmark/
 #
-# Документация: docs/llm-guide/benchmarks/runbooks/aider-polyglot.md
+# Документация: docs/coding/benchmarks/runbooks/aider-polyglot.md
 
 set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -87,7 +87,7 @@ Watchdog:
   --total-timeout N  максимум секунд на весь прогон (default ${TOTAL_TIMEOUT}, 0=unlimited)
   --max-resumes N    auto-resume через --cont после watchdog kill (default ${MAX_RESUMES}, 0 = выкл)
 
-Документация: docs/llm-guide/benchmarks/runbooks/aider-polyglot.md
+Документация: docs/coding/benchmarks/runbooks/aider-polyglot.md
 EOF
 }
 
@@ -345,7 +345,7 @@ if [[ -n "$LAST_AGG" ]]; then
     echo ""
 fi
 
-echo "Не забудь добавить запись в docs/llm-guide/benchmarks/results.md"
-echo "и создать статью в docs/llm-guide/benchmarks/runs/ (см. SKILL.md ops-engineer)"
+echo "Не забудь добавить запись в docs/coding/benchmarks/results.md"
+echo "и создать статью в docs/coding/benchmarks/runs/ (см. SKILL.md ops-engineer)"
 
 exit $EXIT_CODE

@@ -68,9 +68,9 @@
 
 ## Ограничения и допущения
 
-- **Не SWE-bench Verified/Lite на платформе** -- требует Docker + 150-300 GB storage + 30-60 часов на прогон. Реалистично только в облаке. См. [swe-bench.md](../swe-bench.md) для теории.
-- **Не HumanEval/MBPP** -- contamination, неинформативно. См. [humaneval.md](../humaneval.md).
-- **LiveCodeBench** -- требует API доступ к свежему snapshot, не настроено в проекте. Возможно добавить позже. См. [livecodebench.md](../livecodebench.md).
+- **Не SWE-bench Verified/Lite на платформе** -- требует Docker + 150-300 GB storage + 30-60 часов на прогон. Реалистично только в облаке. См. [swe-bench.md](../../../llm-guide/benchmarks/swe-bench.md) для теории.
+- **Не HumanEval/MBPP** -- contamination, неинформативно. См. [humaneval.md](../../../llm-guide/benchmarks/humaneval.md).
+- **LiveCodeBench** -- требует API доступ к свежему snapshot, не настроено в проекте. Возможно добавить позже. См. [livecodebench.md](../../../llm-guide/benchmarks/livecodebench.md).
 - Aider Polyglot -- best signal/effort ratio для local sanity check.
 
 ## Связанные статьи

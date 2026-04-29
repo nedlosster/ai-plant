@@ -15,7 +15,7 @@
 #
 # Документация:
 #   - .claude/skills/ops-engineer/SKILL.md (runbook bench-suite-aider)
-#   - docs/llm-guide/benchmarks/runbooks/aider-polyglot.md
+#   - docs/coding/benchmarks/runbooks/aider-polyglot.md
 
 set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -69,7 +69,7 @@ Watchdog (передаются в bench-aider.sh):
   $0 --quick --languages python --include qwen3.6-35b   # debug Python-задач
 
 Требования: Docker image aider-polyglot-bench:latest + polyglot-benchmark dataset.
-См. SKILL.md ops-engineer и docs/llm-guide/benchmarks/runbooks/aider-polyglot.md
+См. SKILL.md ops-engineer и docs/coding/benchmarks/runbooks/aider-polyglot.md
 HLP
             exit 0
             ;;
@@ -254,4 +254,4 @@ cat "$SUMMARY"
 echo ""
 echo "Чтобы добавить в журнал результатов:"
 echo "  cat $SUMMARY"
-echo "  # затем вручную скопировать таблицу в docs/llm-guide/benchmarks/results.md"
+echo "  # затем вручную скопировать таблицу в docs/coding/benchmarks/results.md"

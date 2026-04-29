@@ -48,7 +48,7 @@ Qwen3.6-Plus -- релиз от Alibaba / Tongyi Lab (2 апреля 2026). По
 
 **КРИТИЧНО для платформы Strix Halo**: dense-архитектура memory-bound. Реальный замер **tg256 = 12.4 tok/s** (близко к теоретическому потолку 256 GB/s ÷ 15.7 GiB ≈ 16 tok/s). Это **в 4.7× медленнее** [Qwen3.6-35B-A3B MoE](#35b-a3b) (58.7 tok/s) и **в 7× медленнее** [Qwen3-Coder 30B-A3B](qwen3-coder.md#30b-a3b) (86 tok/s).
 
-**Практический вывод**: 27B dense **непрактична** как daily agent на Strix Halo. Pilot smoke `bench-aider.sh --tries 2` 2026-04-28 был остановлен после 45 минут без единой закрытой задачи -- multi-turn с retry на 12.4 tok/s растягивает простую задачу на 7-15 мин, smoke 20 × --tries 2 = >5 часов. Замер записан в [runs/2026-04-28-bench-qwen3.6-27b.md](../../llm-guide/benchmarks/runs/2026-04-28-bench-qwen3.6-27b.md).
+**Практический вывод**: 27B dense **непрактична** как daily agent на Strix Halo. Pilot smoke `bench-aider.sh --tries 2` 2026-04-28 был остановлен после 45 минут без единой закрытой задачи -- multi-turn с retry на 12.4 tok/s растягивает простую задачу на 7-15 мин, smoke 20 × --tries 2 = >5 часов. Замер записан в [runs/2026-04-28-bench-qwen3.6-27b.md](../../coding/benchmarks/runs/2026-04-28-bench-qwen3.6-27b.md).
 
 **Когда всё-таки имеет смысл**:
 - Batch-задачи с длинным prompt и коротким output (где pp 286 tok/s окупается)
@@ -133,7 +133,7 @@ Trade-off: -3.8 п.п. SWE-V в обмен на **в 4.7× быстрее** ге
 | smoke 20 + --tries 2 | 20/20 | 30.0% | **70.0%** ⭐ | 248.8 | 2026-04-27 |
 | **full** + --tries 2 | **195/195** ✅ | **29.2%** | **65.6%** | ~407 | **2026-04-29** |
 
-Регрессия к среднему -4.4pp от smoke. Лидер C++ (73.1%) на платформе. **0 watchdog kills и 0 manual resumes за 22 часа full** -- best-in-class production-stability. Coder Next 80B-A3B на 2.4pp впереди по pass_2, но 35B-text меньше (20.6 vs 45 GiB) и достиг 100% покрытия. Полная статья: [runs/2026-04-29-aider-full-qwen3.6-35b-text.md](../../llm-guide/benchmarks/runs/2026-04-29-aider-full-qwen3.6-35b-text.md).
+Регрессия к среднему -4.4pp от smoke. Лидер C++ (73.1%) на платформе. **0 watchdog kills и 0 manual resumes за 22 часа full** -- best-in-class production-stability. Coder Next 80B-A3B на 2.4pp впереди по pass_2, но 35B-text меньше (20.6 vs 45 GiB) и достиг 100% покрытия. Полная статья: [runs/2026-04-29-aider-full-qwen3.6-35b-text.md](../../coding/benchmarks/runs/2026-04-29-aider-full-qwen3.6-35b-text.md).
 
 **Источники**:
 - [HuggingFace: Qwen3.6-35B-A3B](https://huggingface.co/Qwen/Qwen3.6-35B-A3B)
@@ -246,7 +246,7 @@ Trade-off: -3.8 п.п. SWE-V в обмен на **в 4.7× быстрее** ге
    - Qwen3.6-27B Q4_K_M скачана (15.7 GiB, прямой curl с huggingface.co)
    - Пресет [`qwen3.6-27b.sh`](../../../scripts/inference/vulkan/preset/qwen3.6-27b.sh) создан (порт 8086, `-c 131072`, `--keep 1500`, --batch-size/--ubatch-size 4096)
    - Замер: pp2048=286.7, **tg256=12.4 tok/s** -- в 4.7× медленнее MoE 35B-A3B
-   - Полный smoke не делался: на 12.4 tok/s aider-loop с --tries 2 = >5 часов на 20 задач, нерентабельно. См. [runs/2026-04-28-bench-qwen3.6-27b.md](../../llm-guide/benchmarks/runs/2026-04-28-bench-qwen3.6-27b.md)
+   - Полный smoke не делался: на 12.4 tok/s aider-loop с --tries 2 = >5 часов на 20 задач, нерентабельно. См. [runs/2026-04-28-bench-qwen3.6-27b.md](../../coding/benchmarks/runs/2026-04-28-bench-qwen3.6-27b.md)
    - Вывод: 27B dense **не daily option** на платформе. Для SWE-V лидерства лучше ждать 35B-A3B Coder fine-tune или 80B-A3B Coder Next refresh
 2. **Май-июнь 2026**: следить за анонсами в [Qwen blog](https://qwen.ai/blog) и [GitHub](https://github.com/QwenLM/Qwen3.6)
 3. **При релизе Qwen3.6-Coder**:

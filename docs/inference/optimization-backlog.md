@@ -433,4 +433,4 @@ Cargo создаёт `target/` для каждой задачи. Если исп
 - [troubleshooting.md](troubleshooting.md) -- диагностика проблем
 - [llama-cpp.md](llama-cpp.md) -- llama.cpp обзор
 - [vulkan-llama-cpp.md](vulkan-llama-cpp.md) -- Vulkan backend параметры
-- [../llm-guide/benchmarks/runs/](../llm-guide/benchmarks/runs/README.md) -- отчёты прогонов (источник наблюдений)
+- [../coding/benchmarks/runs/](../coding/benchmarks/runs/README.md) -- отчёты прогонов (источник наблюдений)

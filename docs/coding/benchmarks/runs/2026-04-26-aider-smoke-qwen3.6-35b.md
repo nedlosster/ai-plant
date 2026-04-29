@@ -230,4 +230,4 @@ docker run --rm --network host --user $(id -u):$(id -g) \
 - [results.md](../results.md) -- журнал прогонов и лидерборд платформы
 - [families/qwen36.md](../../../models/families/qwen36.md) -- описание модели
 - [inference/optimization-backlog.md](../../../inference/optimization-backlog.md) -- бэклог идей оптимизации (исходник для A-001/A-003/A-004)
-- [swe-bench.md](../swe-bench.md) -- родственный бенчмарк
+- [swe-bench.md](../../../llm-guide/benchmarks/swe-bench.md) -- родственный бенчмарк

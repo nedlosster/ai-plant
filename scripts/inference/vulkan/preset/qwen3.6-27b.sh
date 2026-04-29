@@ -7,7 +7,7 @@
 # [Qwen3-Coder 30B-A3B] (86 tok/s). Memory-bound (теоретический потолок
 # 256 GB/s ÷ 15.65 GiB ≈ 16 tok/s, реально ~75% эффективность).
 # Aider Polyglot smoke нерентабелен -- multi-turn loop с retry разрастается
-# до 5+ часов на 20 задач. См. docs/llm-guide/benchmarks/runs/2026-04-28-bench-qwen3.6-27b.md.
+# до 5+ часов на 20 задач. См. docs/coding/benchmarks/runs/2026-04-28-bench-qwen3.6-27b.md.
 # Использовать только для batch с длинным prompt + коротким output (pp 286 OK)
 # или точечной сверки качества vs 35B-A3B (1-2 запроса, не loop).
 #

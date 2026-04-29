@@ -15,6 +15,7 @@
 | [ide-setup.md](ide-setup.md) | Continue.dev, Cline, Roo Code: настройка IDE для автодополнения и inline edit |
 | [server-setup.md](server-setup.md) | llama-server: dual-instance config (FIM порт 8080 + Chat порт 8081) |
 | [prompts.md](prompts.md) | System prompts и prompt engineering для coding-задач |
+| [benchmarks/](benchmarks/README.md) | Прогоны бенчмарков на платформе: leaderboard, runbooks, история запусков |
 
 ## Текущий стек (апрель 2026)
 
@@ -77,6 +78,6 @@
 - [AI-агенты](../ai-agents/README.md) -- полный обзор индустрии агентов
 - [Сравнение агентов](../ai-agents/comparison.md) -- сводные таблицы
 - [SWE-bench](../llm-guide/benchmarks/swe-bench.md) -- методология бенчмарка
-- [Запуск бенчмарков на платформе](../llm-guide/benchmarks/runbooks/README.md) -- runbooks для Aider Polyglot и Terminal-Bench
-- [Журнал результатов](../llm-guide/benchmarks/results.md) -- бенчмарки моделей на Strix Halo
+- [Запуск бенчмарков на платформе](../coding/benchmarks/runbooks/README.md) -- runbooks для Aider Polyglot и Terminal-Bench
+- [Журнал результатов](../coding/benchmarks/results.md) -- бенчмарки моделей на Strix Halo
 - [Inference стек](../inference/README.md) -- как запускать модели на платформе
