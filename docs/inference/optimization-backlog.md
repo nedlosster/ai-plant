@@ -256,17 +256,18 @@ ssh -A -p 2277 nedlosster@79.164.89.150 -t \
 
 | PR | Что делает | Статус | Польза для нашего случая |
 |----|------------|--------|---------------------------|
-| [#20819](https://github.com/ggml-org/llama.cpp/pull/20819) | Persist context checkpoints через `/slots` save/restore (router mode) | **MERGED** (наблюдаем active 2026-04-28) | **Активна на платформе**. В логах llama-server видно `restored context checkpoint` / `created context checkpoint N of 32` -- intra-task multi-turn cache работает. Inter-task всё ещё blocked (нужен PR #19670). |
-| [#20376](https://github.com/ggml-org/llama.cpp/pull/20376) | Vulkan f16 mixed-precision state для **GATED_DELTA_NET** | OPEN | **Не решает cache reuse**, но ускорит prompt processing на ~10-20% для Coder Next и Qwen3.6 на нашей платформе. |
-| [#19670](https://github.com/ggml-org/llama.cpp/pull/19670) | partial seq_rm для hybrid memory (snapshot/rollback) | OPEN | **Главный приоритет** -- inter-task cache reuse для hybrid Gated DeltaNet. После merge ожидаем -20% sec/case на Coder Next и 35B-text. |
+| [#20819](https://github.com/ggml-org/llama.cpp/pull/20819) | Persist context checkpoints через `/slots` save/restore (router mode) | **OPEN** (на 2026-04-29, last activity 2026-03-29) | **Частично**. Решает router-mode (swap между моделями), не multi-turn в одной сессии. После merge -- replay 26K-токенов: 23s → 75ms при swap'е модели. |
+| [#19670](https://github.com/ggml-org/llama.cpp/pull/19670) | partial seq_rm для hybrid memory (snapshot/rollback) | **OPEN** (на 2026-04-29, last activity 2026-03-12) | **Главный приоритет** -- inter-task cache reuse для hybrid Gated DeltaNet. После merge ожидаем -20% sec/case на Coder Next и 35B-text. |
+| [#20376](https://github.com/ggml-org/llama.cpp/pull/20376) | Vulkan f16 mixed-precision state для **GATED_DELTA_NET** | **DRAFT** (на 2026-04-29, после feedback о numerical stability) | **Не решает cache reuse**, но ускорит prompt processing на ~10-20% для Coder Next и Qwen3.6. Автор переключается на "sharded approach" (PR #20391, #20361). |
 | [#20697](https://github.com/ggml-org/llama.cpp/issues/20697) | feature request `--cache-disk` (persistent checkpoints) | OPEN issue | Будущая фича для cold-start cache. |
 | [#16391](https://github.com/ggml-org/llama.cpp/issues/16391) | host-memory prompt caching | OPEN | Перспективная архитектурная задача. |
 | [#21811](https://github.com/ggml-org/llama.cpp/issues/21811) | **Регрессия** в b8271 на Vulkan multimodal Qwen3.5-27B | OPEN issue | Может задеть наш b8717. Suspected commit `a7b3dee` (PR #20288 "make 2 checkpoints near the end"). |
 
-**Вывод о перспективах** (обновлено 2026-04-29):
-- **Уже merged (PR #20819)**: slot context checkpoints active. Intra-task multi-turn cache работает на hybrid моделях. Эффект уже даёт ускорение retry внутри одной задачи.
-- **1-3 мес**: PR #20376 (Vulkan f16 GATED_DELTA_NET) -- наиболее вероятен merge, ускорит PP на 10-20%
-- **3-6 мес**: PR #19670 (partial seq_rm для hybrid memory) -- решающий PR для inter-task cache reuse в hybrid моделях. После merge -20% sec/case на полном aider workflow
+**Вывод о перспективах** (проверено 2026-04-29 через `gh pr view`):
+- **Все 3 целевых PR -- OPEN/DRAFT, не merged**. PR #20376 переведён в draft после feedback о numerical stability. PR #19670 ждёт review с марта. PR #20819 ждёт review с конца марта.
+- **Intra-task checkpoint работает встроенным механизмом llama-server** (не из PR #20819). В логах видно `created context checkpoint N of 32` / `restored context checkpoint` -- это base feature checkpoint storage в slot, не из этого PR. Помогает на retry внутри одной задачи. Inter-task всё равно требует full re-processing на hybrid моделях.
+- **3-6 мес**: PR #19670 -- решающий для inter-task cache reuse в hybrid моделях. После merge -20% sec/case на полном aider workflow
+- **3-6 мес**: PR #20376 (или его replacement через sharded approach) -- ускорит pp на 10-20% всех hybrid моделей через f16 mixed-precision GATED_DELTA_NET
 - **6-12+ мес**: cross-turn cache reuse в обычной (не save/restore) работе сервера для hybrid -- нет dedicated PR, требует архитектурного refactoring
 - **Multimodal cache** -- открытого PR нет, multimodal-стек намеренно отключает cache reuse (`cache_reuse is not supported by multimodal, it will be disabled`). Архитектурная задача без даты.
 

@@ -15,9 +15,9 @@
 | Ядро | 6.19.8-061908-generic | mainline, gfx1151 поддержка с 6.18+ |
 | Firmware | linux-firmware (март 2026) | gfx1151 blobs включены |
 | amdgpu driver | in-tree (ядро 6.19.8) | DCN 3.5.1, VCN, GFX, SDMA -- рабочие |
-| Mesa / RADV | 25.2.8 | Vulkan 1.4.318, основной backend |
+| Mesa / RADV | 25.2.8 | Vulkan 1.4.318, основной backend (Mesa 26.0+ доступна для апгрейда -- +4-5% gen speed на gfx1151) |
 | ROCm | 7.2.1 | KFD видит 120 GiB, HIP работает нативно gfx1151 |
-| llama.cpp | b8708 (апрель 2026) | Vulkan backend, GGUF v3 |
+| llama.cpp | b8717 (апрель 2026) | Vulkan backend, GGUF v3, commit `d9a12c82f` |
 | Ollama | 0.9.x | vendored llama.cpp |
 | XDNA / amdxdna | ядро 6.19+ | /dev/accel0, 50 TOPS INT8 |
 | PyTorch ROCm | 2.7.1+rocm6.2.4 | работает с wheels gfx1151 |
@@ -37,6 +37,31 @@
 ---
 
 ## 2026-Q2
+
+### Апрель 2026 -- статус критических llama.cpp PR'ов (29 апреля)
+
+Проверка через `gh pr view` трёх PR'ов влияющих на скорость inference на нашей платформе:
+
+- [PR #20819](https://github.com/ggml-org/llama.cpp/pull/20819) "server: persist context checkpoints across slot save/restore" -- **OPEN**, last activity 2026-03-29. Реализует router-mode swap между моделями через `/slots` save/restore. **Не путать с встроенным checkpoint механизмом llama-server** -- тот active без этого PR (видно в логах `created/restored context checkpoint`)
+- [PR #19670](https://github.com/ggml-org/llama.cpp/pull/19670) "Allow partial success of seq_rm for hybrid memory" -- **OPEN**, last activity 2026-03-12. Главный приоритет для нашей платформы -- решит inter-task cache reuse на hybrid Gated DeltaNet (Coder Next, Qwen3.6)
+- [PR #20376](https://github.com/ggml-org/llama.cpp/pull/20376) "vulkan: f16 mixed-precision state for GATED_DELTA_NET" -- **DRAFT** на 2026-04-29 после feedback о numerical stability. Автор переключается на sharded approach через PR #20391, #20361
+
+Прогноз: 3-6 месяцев до merge ключевого PR #19670 для inter-task cache reuse. Текущий 35B-text full прогон (running 2026-04-28..29) достигает 168/195 задач за ~22h из-за no-cache на hybrid -- benchmark будет переснят после merge для замера эффекта.
+
+### Апрель 2026 -- llama.cpp b8717 (29 апреля)
+
+- На сервере собрана версия b8717 (commit `d9a12c82f`) -- актуальная версия использовалась для full прогонов 2026-04-26..29 (Coder Next 178/195, 35B-text running)
+- Ранее в news было b8708 -- устаревшая запись, актуально b8717
+
+### Апрель 2026 -- Mesa 26.0 доступна (запланировано к апгрейду)
+
+[Mesa 26.0](https://docs.mesa3d.org/relnotes/26.0.0.html) релиз -- 11 февраля 2026, последняя [Mesa 26.0.5](https://www.linuxcompatible.org/story/mesa-2605-released) ещё актуальнее. Ключевое для нашей платформы:
+
+- **+4-5% generation speed на Strix Halo gfx1151** при сочетании Mesa 26.0.1+ и tuned accelerator-performance profile (по [strix-halo-guide community](https://github.com/hogeheer499-commits/strix-halo-guide))
+- Unified memory reporting на APUs работает корректно -- system utilities видят правильный VRAM
+- RADV ray tracing performance gains (не релевантно для inference)
+
+На сервере сейчас Mesa **25.2.8** (Ubuntu 24.04 stable). Апгрейд до 26.0+ не из стандартных PPA -- требует mesa-from-source или Kisak PPA. Запланировать после стабилизации текущих full прогонов.
 
 ### Апрель 2026 -- SSH-верификация стека (25 апреля)
 

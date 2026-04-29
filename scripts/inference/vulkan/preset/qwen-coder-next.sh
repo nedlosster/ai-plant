@@ -6,10 +6,12 @@
 # re-processing due to lack of cache data". PR #19670 (hybrid memory snapshot)
 # upstream pending.
 #
-# НО intra-task cache работает через slot context checkpoints (PR #20819):
+# НО intra-task cache работает через встроенный checkpoint механизм llama-server:
 # "restored context checkpoint" / "created context checkpoint N of 32".
+# Это base feature llama-server, не из PR #20819 (тот OPEN на 2026-04-29 и
+# реализует router-mode persist через /slots save/restore -- отдельная фича).
 # Поэтому --cache-reuse 256 имеет смысл -- ускоряет multi-turn внутри одной задачи.
-# См. docs/inference/optimization-backlog.md (U-001), llama.cpp PR 13194/19670/20819.
+# См. docs/inference/optimization-backlog.md (U-001), llama.cpp PR 13194/19670.
 #
 # Оптимизация PP (важно из-за hybrid memory -- много full re-processing'а):
 # - --batch-size 4096 + --ubatch-size 4096 -- ускоряет prompt processing на 20-30%

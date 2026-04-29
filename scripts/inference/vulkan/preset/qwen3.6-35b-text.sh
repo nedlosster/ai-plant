@@ -17,18 +17,21 @@
 #   KV cache мал: 2.5 GiB (32768 cells × 10 attention layers × 4 seqs)
 #
 # Cache reuse статус (наблюдения из логов 2026-04-28):
-#   - PR #20819 active: slot context checkpoint работает (intra-task multi-turn кэш)
-#     "restored context checkpoint", "created context checkpoint N of 32"
+#   - Встроенный slot context checkpoint механизм llama-server работает:
+#     "restored context checkpoint", "created context checkpoint N of 32".
+#     Это base feature, доступная в llama-server независимо от PR'ов.
+#     PR #20819 (persist через /slots save-restore) -- ОТДЕЛЬНАЯ фича для
+#     router-mode swap между моделями, на 2026-04-29 OPEN, не merged.
 #   - Между tasks (или после смены exercise) cache invalidates:
 #     "forcing full prompt re-processing due to lack of cache data
 #      (likely due to SWA or hybrid/recurrent memory)"
-#   - PR #19670 (hybrid memory snapshot) ещё не merged -- ждём.
+#   - PR #19670 (hybrid memory snapshot для inter-task) -- OPEN, ждём.
 #   См. docs/inference/optimization-backlog.md (U-001).
 #
 # Безопасные оптимизации (применены 2026-04-28):
-#   1. --cache-reuse 256 -- intra-task multi-turn re-use работает через slot
-#      checkpoints (PR #20819). Возвращён после observation что checkpoint
-#      механизм active. Эффект: меньше pp recomputation на retry внутри задачи.
+#   1. --cache-reuse 256 -- использует встроенный checkpoint механизм llama-server
+#      для intra-task multi-turn cache. Эффект: меньше pp recomputation на retry
+#      внутри одной задачи.
 #   2. --cache-type-k q8_0 / --cache-type-v q8_0 -- KV cache quantization.
 #      KV cache 2.5 GiB → 1.25 GiB. Незначительная потеря точности (<0.5%),
 #      может улучшить L2/L3 cache hit rate. Безопасно для inference.
