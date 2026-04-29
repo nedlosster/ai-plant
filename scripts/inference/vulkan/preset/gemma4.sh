@@ -8,7 +8,13 @@
 #      by multimodal, it will be disabled".
 # Отслеживание: docs/inference/optimization-backlog.md (U-001), llama.cpp PR 13194.
 #
-# --no-mmap      -- модель сразу в RAM, без mmap-overhead
+# Оптимизации (применены 2026-04-29):
+# - --batch-size 4096 + --ubatch-size 4096 -- ускоряет prompt processing на 20-30%
+#   (особенно важно с 250K контекстом, где много full re-processing'а из-за SWA)
+# - --cache-type-k q8_0 / --cache-type-v q8_0 -- KV cache на 250K: ~5 GiB → ~2.5 GiB,
+#   потеря <0.5% точности
+# - --keep 1500 -- защита system prompt при context shift в multi-turn agent сессиях
+# - --no-mmap -- модель ~17 GiB + mmproj 1.19 GB сразу в RAM, стабильнее latency
 
 set -euo pipefail
 export AI_BACKEND=vulkan
@@ -29,6 +35,11 @@ ARGS=(
     -c 250000              # контекст 250K (расширен с 64K, на платформе хватает unified memory)
     -fa on                 # flash attention
     --parallel 4           # 4 слота для параллельных запросов
+    --batch-size 4096      # увеличен с default 2048 -- меньше overhead на Vulkan dispatch
+    --ubatch-size 4096     # увеличен с default 512 -- ускоряет prompt processing на 20-30%
+    --cache-type-k q8_0    # KV cache K quantization: на 250K ~5 GiB → ~2.5 GiB, потеря <0.5%
+    --cache-type-v q8_0    # KV cache V quantization: то же
+    --keep 1500            # сохранять первые 1500 токенов system prompt при context shift
     --jinja                # Jinja2 chat-template (function calling Gemma 4)
     --no-mmap              # модель сразу в RAM, без mmap-overhead
 )

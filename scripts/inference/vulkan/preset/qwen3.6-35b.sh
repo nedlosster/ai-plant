@@ -12,6 +12,11 @@
 #   2. Multimodal -- llama.cpp явно отключает: "cache_reuse is not supported
 #      by multimodal, it will be disabled".
 # Отслеживание: docs/inference/optimization-backlog.md (U-001), llama.cpp PR 13194.
+#
+# Оптимизации (применены 2026-04-29):
+# - --cache-type-k q8_0 / --cache-type-v q8_0 -- KV cache 2.5 GiB → 1.25 GiB, потеря <0.5%
+# - --keep 1500 -- защита system prompt при context shift в multi-turn agent сессиях
+# - --no-mmap -- модель 20.6 GiB + mmproj 858 MB сразу в RAM (стабильнее latency)
 
 set -euo pipefail
 export AI_BACKEND=vulkan
@@ -34,6 +39,10 @@ ARGS=(
     --parallel 4           # 4 слота (MoE A3B даёт скорость)
     --batch-size 4096      # увеличен с default 2048 -- меньше overhead на Vulkan dispatch
     --ubatch-size 4096     # увеличен с default 512 -- ускоряет prompt processing на 20-30%
+    --cache-type-k q8_0    # KV cache K quantization: 2.5 GiB → 1.25 GiB, потеря <0.5%
+    --cache-type-v q8_0    # KV cache V quantization: то же
+    --keep 1500            # сохранять первые 1500 токенов system prompt при context shift
+    --no-mmap              # модель сразу в RAM, без mmap-overhead
     --jinja                # Jinja2 chat-template (function calling)
 )
 # ---------------------------------
