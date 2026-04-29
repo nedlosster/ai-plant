@@ -30,8 +30,12 @@ Qwen3.5 -- новое (февраль-март 2026) поколение унив
 - ~71 GiB Q4_K_M -- занимает большую часть памяти
 - 10B активных параметров -- умнее MoE-моделей с 3B active, но медленнее
 - **22.2 tok/s** -- приемлемо для интерактивного chat'а
-- Контекст ~128K
+- **Контекст 262144 (256K) native**, расширяемо до 1M через YaRN
 - Multimodal (text + images)
+- **Архитектура hybrid Gated DeltaNet** (по llama-server log: `qwen35moe`, 12 attention layers из 49, остальные 37 -- recurrent SSM). Это значит:
+  - **inter-task cache reuse архитектурно blocked** (как у Coder Next, 35B-text). Между разными запросами с разным prompt префиксом llama.cpp пересчитывает весь промпт с нуля
+  - **intra-task cache работает** через встроенный slot context checkpoint механизм llama-server
+  - Решение upstream: llama.cpp [PR #19670](https://github.com/ggml-org/llama.cpp/pull/19670) (partial seq_rm для hybrid memory) -- ETA 3-6 мес
 
 ### 27B Dense {#27b}
 

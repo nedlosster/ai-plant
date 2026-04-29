@@ -294,6 +294,34 @@ ssh -A -p 2277 nedlosster@79.164.89.150 -t \
 
 **Стратегия на сегодня**: для cache-sensitive workloads использовать **Qwen3-Coder 30B-A3B** (full attention MoE, no multimodal -- cache-reuse работает 100%). Hybrid-моделей (Coder Next, Qwen3.6) -- принять overhead full prompt re-processing на каждом запросе.
 
+### Сводная таблица: cache reuse по моделям (на 2026-04-29)
+
+В llama-server существует **два уровня cache reuse**:
+
+- **Intra-task** -- между retry внутри одной задачи / multi-turn в одной сессии. Работает через встроенный slot context checkpoint механизм (base feature, активна без специальных PR'ов). В логах: `created/restored context checkpoint N of 32`.
+- **Inter-task** -- между разными запросами с разным prompt префиксом. Архитектурно зависит от типа attention.
+
+| Модель | Архитектура | Intra-task | **Inter-task** |
+|--------|-------------|------------|------------------|
+| **[Qwen3-Coder 30B-A3B](../models/families/qwen3-coder.md#30b-a3b)** | Standard MoE attention | ✅ | **✅ работает 100%** |
+| **[Devstral 2 24B (dense)](../models/families/devstral.md)** | Standard dense attention | ✅ | **✅ работает 100%** |
+| [Qwen3.5-122B-A10B](../models/families/qwen35.md#122b-a10b) | Hybrid Gated DeltaNet (12 attn / 37 SSM из 49 layers) | ✅ | ❌ blocked |
+| [Qwen3-Coder Next 80B-A3B](../models/families/qwen3-coder.md#next-80b-a3b) | Hybrid Gated DeltaNet | ✅ | ❌ blocked |
+| [Qwen3.6-35B-A3B (text/multimodal)](../models/families/qwen36.md#35b-a3b) | Hybrid Gated DeltaNet | ✅ | ❌ blocked |
+| [Qwen3.6-27B (dense)](../models/families/qwen36.md#27b) | Hybrid Gated DeltaNet | ✅ | ❌ blocked |
+| [Gemma 4 26B-A4B](../models/families/gemma4.md) | SWA + multimodal | ✅ | ❌ blocked (двойная блокировка) |
+| [Qwen3.5-35B-A3B (multimodal)](../models/families/qwen35.md#35b-a3b) | + multimodal lock | ✅ | ❌ blocked |
+
+**Источник**: реальные logs llama-server (b8717), наблюдения 2026-04-29. Каждая модель проверена через `general.architecture` metadata + count attention layers vs total layers + `forcing full prompt re-processing` events.
+
+**Что значит "работает 100%"**: `--cache-reuse 256` в preset реально переиспользует prefix между tasks. На больших prompt (5K+ токенов общего контекста) это даёт **2-5× ускорение** vs full re-processing на каждом запросе.
+
+**Что значит "blocked"**: llama.cpp видит recurrent SSM state (Gated DeltaNet) или sliding window и не может корректно invalidate частичный prefix без полного пересчёта. Эффективная скорость на multi-task workloads -- как если бы cache не было вовсе.
+
+**Когда снимется блок**: после merge llama.cpp [PR #19670](https://github.com/ggml-org/llama.cpp/pull/19670) -- partial seq_rm для hybrid memory. Status OPEN на 2026-04-29, ETA 3-6 мес. После merge ожидаем **-20-50% sec/case** на hybrid моделях для multi-task workloads (aider polyglot, opencode session).
+
+**Production-вывод**: для cache-sensitive workloads сейчас доступны только **30B-A3B** (быстрая, но качество слабое: 26.3% pass_2) и **Devstral 2** (тестировался -- 15.0% pass_2, не подходит для agent). До merge PR #19670 hybrid модели (Coder Next, 35B-text, 122B-A10B) платят полную стоимость re-processing на каждой новой задаче.
+
 #### U-002: PR #20376 -- Vulkan f16 GATED_DELTA_NET (наша платформа)
 
 **Статус**: OPEN в upstream, ждёт review
