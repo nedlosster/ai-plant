@@ -123,7 +123,7 @@ LoRA-дообучение на трассах рассуждений Claude 4.6 
 
 - **Hub**: [Jackrong/Qwen3.5-35B-A3B-Claude-4.6-Opus-Reasoning-Distilled](https://huggingface.co/Jackrong/Qwen3.5-35B-A3B-Claude-4.6-Opus-Reasoning-Distilled)
 - **GGUF**: [mradermacher GGUF](https://huggingface.co/mradermacher/Qwen3.5-35B-A3B-Claude-4.6-Opus-Reasoning-Distilled-GGUF)
-- Контекст 8K (мало для [opencode](../../ai-agents/agents/opencode.md))
+- Контекст 8K (мало для [opencode](../../ai-agents/agents/opencode/README.md))
 - Подходит для standalone reasoning-задач (математика, алгоритмы)
 
 ### Qwen3-14B-Claude-4.5-Opus-High-Reasoning-Distill (TeichAI)
@@ -148,7 +148,7 @@ Fine-tune Qwen3-14B на 250 reasoning-трассах Claude Opus 4.5 (high reas
 
 ## Имеет ли смысл в агентах кодинга
 
-**Краткий ответ**: нет, как основной бэкенд для [opencode](../../ai-agents/agents/opencode.md) / [Aider](../../ai-agents/agents/aider.md) / [Cline](../../ai-agents/agents/cline.md) -- не стоит. Для редких вспомогательных задач -- можно, но почти всегда есть лучший вариант.
+**Краткий ответ**: нет, как основной бэкенд для [opencode](../../ai-agents/agents/opencode/README.md) / [Aider](../../ai-agents/agents/aider.md) / [Cline](../../ai-agents/agents/cline.md) -- не стоит. Для редких вспомогательных задач -- можно, но почти всегда есть лучший вариант.
 
 ### Почему не рекомендуется
 
@@ -174,7 +174,7 @@ Fine-tune Qwen3-14B на 250 reasoning-трассах Claude Opus 4.5 (high reas
 
 ### Когда всё-таки имеет смысл
 
-- **Скриншот ошибки + код в одном промпте** через [opencode](../../ai-agents/agents/opencode.md) -- но для этого лучше [Gemma 4 26B-A4B](gemma4.md) (специально натренирована на screenshot-to-code) или [Qwen3-VL](qwen3-vl.md).
+- **Скриншот ошибки + код в одном промпте** через [opencode](../../ai-agents/agents/opencode/README.md) -- но для этого лучше [Gemma 4 26B-A4B](gemma4.md) (специально натренирована на screenshot-to-code) или [Qwen3-VL](qwen3-vl.md).
 - **Code review с русскоязычными комментариями** -- 27B dense даёт лучший русский, объясняет диффы понятным языком. Узкая ниша.
 - **Standalone reasoning-задачи**: алгоритмика, математика, "объясни сложный участок", без многошаговой агентности. 122B-A10B здесь сильнее coder-вариантов на reasoning, но это уже не agent use case -- это chat по коду.
 - **35B-A3B-Claude-4.6-Opus-Reasoning-Distilled** (community-вариант) -- интересен для reasoning, но контекст 8K делает его непригодным для agent-loop.

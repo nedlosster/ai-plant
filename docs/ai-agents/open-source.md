@@ -6,7 +6,7 @@
 
 | Агент | Лицензия | Интерфейс | Local llama-server | Per-agent |
 |-------|----------|-----------|--------------------|-----------|
-| opencode | MIT | TUI/CLI | **да** ⭐ | [agents/opencode.md](agents/opencode.md) |
+| opencode | MIT | TUI/CLI | **да** ⭐ | [agents/opencode/README.md](agents/opencode/README.md) |
 | Aider | Apache 2.0 | CLI | **да** | [agents/aider.md](agents/aider.md) |
 | Cline | Apache 2.0 | VS Code | **да** | [agents/cline.md](agents/cline.md) |
 | Roo Code | Apache 2.0 | VS Code | **да** | [agents/roo-code.md](agents/roo-code.md) |
@@ -43,7 +43,7 @@
 
 | Use case | Агент + модель |
 |----------|----------------|
-| Daily coding в CLI | [opencode](agents/opencode.md) + Qwen3-Coder Next |
+| Daily coding в CLI | [opencode](agents/opencode/README.md) + Qwen3-Coder Next |
 | FIM autocomplete в IDE | [Continue.dev](agents/continue-dev.md) + Qwen2.5-Coder 1.5B FIM |
 | Architect режим (план + код) | [Aider](agents/aider.md) + Claude Opus / Qwen3-Coder Next |
 | VS Code agentic | [Cline](agents/cline.md) + Qwen3-Coder Next |

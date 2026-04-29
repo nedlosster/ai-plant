@@ -359,7 +359,7 @@ Gemma 4 Q6_K_XL занимает 22 GiB + mmproj 1.2 GiB = ~23 GiB, оставл
 
 Code / dev tasks:
 
-- **Скриншот ошибки IDE → объяснение и фикс** в [opencode](../../ai-agents/agents/opencode.md)
+- **Скриншот ошибки IDE → объяснение и фикс** в [opencode](../../ai-agents/agents/opencode/README.md)
 - **"Сгенерируй HTML по этому скетчу"** -- простая wireframe → стартовый каркас
 - **Скриншот terminal → разбор команды** ("что делает эта команда?", "почему упала?")
 

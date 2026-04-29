@@ -9,7 +9,7 @@ START
  │
  ├── Нужен полностью локальный inference (privacy/offline)?
  │    ├── ДА → CLI-стиль?
- │    │        ├── ДА → [opencode](agents/opencode.md) ⭐ или [Aider](agents/aider.md)
+ │    │        ├── ДА → [opencode](agents/opencode/README.md) ⭐ или [Aider](agents/aider.md)
  │    │        └── НЕТ (IDE) → [Continue.dev](agents/continue-dev.md) ⭐ или [Cline](agents/cline.md) / [Kilo Code](agents/kilo-code.md)
  │    └── НЕТ → дальше
  │
@@ -29,7 +29,7 @@ START
  │
  └── Нужен multi-agent orchestration?
       ├── Из коробки → [Claude Code](agents/claude-code/README.md) (sub-agents) или [Kilo Code](agents/kilo-code.md) (Orchestrator)
-      └── Через custom modes → [Roo Code](agents/roo-code.md) или [opencode](agents/opencode.md)
+      └── Через custom modes → [Roo Code](agents/roo-code.md) или [opencode](agents/opencode/README.md)
 ```
 
 ## По задаче
@@ -51,7 +51,7 @@ START
 
 | Бюджет/мес | Выбор | Альтернативы |
 |------------|-------|--------------|
-| **$0** -- электричество | [opencode](agents/opencode.md) + Qwen3-Coder Next локально | [Continue.dev](agents/continue-dev.md), [Cline](agents/cline.md), [Aider](agents/aider.md) + local |
+| **$0** -- электричество | [opencode](agents/opencode/README.md) + Qwen3-Coder Next локально | [Continue.dev](agents/continue-dev.md), [Cline](agents/cline.md), [Aider](agents/aider.md) + local |
 | **$0** -- free cloud | [Qwen Code](agents/qwen-code.md) + Qwen OAuth | Gemini CLI |
 | **$10** | Copilot | -- |
 | **$20** | [Cursor](agents/cursor.md) Pro | Windsurf, Devin starter |
@@ -63,7 +63,7 @@ START
 
 | Я работаю в... | Выбор |
 |----------------|-------|
-| Terminal only | [opencode](agents/opencode.md), [Aider](agents/aider.md), [Qwen Code](agents/qwen-code.md), Gemini CLI |
+| Terminal only | [opencode](agents/opencode/README.md), [Aider](agents/aider.md), [Qwen Code](agents/qwen-code.md), Gemini CLI |
 | VS Code | [Cline](agents/cline.md), [Continue.dev](agents/continue-dev.md), [Kilo Code](agents/kilo-code.md), [Roo Code](agents/roo-code.md), [Cursor](agents/cursor.md) |
 | JetBrains IDE | [Continue.dev](agents/continue-dev.md), [Kilo Code](agents/kilo-code.md), Junie |
 | Vim/Emacs | Copilot, [Aider](agents/aider.md) (CLI external) |
@@ -76,7 +76,7 @@ START
 
 | Use case | Клиент | Конфиг |
 |----------|--------|--------|
-| Daily coding в CLI | [opencode](agents/opencode.md) ⭐ | `~/.config/opencode/opencode.json` → llama-server |
+| Daily coding в CLI | [opencode](agents/opencode/README.md) ⭐ | `~/.config/opencode/opencode.json` → llama-server |
 | FIM autocomplete в VS Code | [Continue.dev](agents/continue-dev.md) ⭐ | `~/.continue/config.json` → llama-server |
 | Architect-режим (план на Opus, код локально) | [Aider](agents/aider.md) | `--architect --model claude-opus --editor-model qwen3-coder-next` |
 | Параллельные эксперименты | [Cline](agents/cline.md) | VS Code + llama-server endpoint |

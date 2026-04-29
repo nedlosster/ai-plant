@@ -24,7 +24,7 @@
 
 ## Обзор
 
-OpenClaw -- open-source personal AI assistant который запускается локально (Docker) или хостится в облаке. В отличие от [Claude Code](../claude-code/README.md) и [opencode](../opencode.md), сфокусированных на коде, OpenClaw позиционируется как "**Life OS**" -- подключается к 25+ каналам (WhatsApp, Slack, Telegram, Discord, GitHub), управляет desktop через Computer Use (xdotool + scrot), работает с локальной файловой системой.
+OpenClaw -- open-source personal AI assistant который запускается локально (Docker) или хостится в облаке. В отличие от [Claude Code](../claude-code/README.md) и [opencode](../opencode/README.md), сфокусированных на коде, OpenClaw позиционируется как "**Life OS**" -- подключается к 25+ каналам (WhatsApp, Slack, Telegram, Discord, GitHub), управляет desktop через Computer Use (xdotool + scrot), работает с локальной файловой системой.
 
 Архитектурный центр -- **Gateway**: always-on daemon на порту 18789, маршрутизирует входящие сообщения из каналов в agent sessions, вызывает LLM, tools/skills, возвращает ответ в канал-источник. Работает как systemd service или Docker container.
 
@@ -165,7 +165,7 @@ xdg-open http://localhost:18789
 ## Связанные статьи
 
 - [Claude Code](../claude-code/README.md) -- главный конкурент (узкий фокус на коде)
-- [opencode](../opencode.md) -- CLI-only open-source альтернатива
+- [opencode](../opencode/README.md) -- CLI-only open-source альтернатива
 - [Сравнение агентов](../../comparison.md) -- сводная таблица всех агентов
 - [Open-source агенты](../../open-source.md) -- каталог open-source
 - [Тренды AI-агентов](../../trends.md) -- контекст индустрии

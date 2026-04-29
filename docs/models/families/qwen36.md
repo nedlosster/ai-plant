@@ -103,10 +103,10 @@ Daily agent default остаётся [35B-A3B MoE](#35b-a3b).
 
 Trade-off: -3.8 п.п. SWE-V в обмен на **в 4.7× быстрее** генерацию -- решающее для agent loop, где итераций десятки. 27B dense непрактична как daily agent на Strix Halo (см. секцию [27B](#27b)). Aider Polyglot smoke на 27B не закрылся после 45 минут (0 задач) и был остановлен. MoE-вариант 35B-A3B остаётся новым default daily.
 
-**Multimodal**: vision encoder работает со скриншотами интерфейсов, диаграммами, дизайн-макетами -- стандартный сценарий для [opencode](../../ai-agents/agents/opencode.md), [Cline](../../ai-agents/agents/cline.md), [Aider](../../ai-agents/agents/aider.md) при отладке UI или чтении wireframes.
+**Multimodal**: vision encoder работает со скриншотами интерфейсов, диаграммами, дизайн-макетами -- стандартный сценарий для [opencode](../../ai-agents/agents/opencode/README.md), [Cline](../../ai-agents/agents/cline.md), [Aider](../../ai-agents/agents/aider.md) при отладке UI или чтении wireframes.
 
 **Когда брать MoE 35B-A3B** (новый default daily agent):
-- Daily agentic-loop ([opencode](../../ai-agents/agents/opencode.md), [Aider](../../ai-agents/agents/aider.md), [Cline](../../ai-agents/agents/cline.md))
+- Daily agentic-loop ([opencode](../../ai-agents/agents/opencode/README.md), [Aider](../../ai-agents/agents/aider.md), [Cline](../../ai-agents/agents/cline.md))
 - Vision-задачи: скриншоты, UI-отладка, дизайн → код
 - Multi-file orchestration со многими итерациями
 - Quick code review
@@ -156,7 +156,7 @@ Trade-off: -3.8 п.п. SWE-V в обмен на **в 4.7× быстрее** ге
 - **Контекст 1M** -- весь репозиторий + история обсуждений + документация в одном запросе
 - **Frontend development** -- интерпретация скриншотов UI, wireframes, прототипов и генерация функционального frontend-кода
 - **Document understanding** + multimodal reasoning
-- **Сложные workflow** в agent-инструментах ([Claude Code](../../ai-agents/agents/claude-code/README.md), [opencode](../../ai-agents/agents/opencode.md), [Aider](../../ai-agents/agents/aider.md), [Cline](../../ai-agents/agents/cline.md))
+- **Сложные workflow** в agent-инструментах ([Claude Code](../../ai-agents/agents/claude-code/README.md), [opencode](../../ai-agents/agents/opencode/README.md), [Aider](../../ai-agents/agents/aider.md), [Cline](../../ai-agents/agents/cline.md))
 
 ## Слабые стороны / ограничения
 
@@ -167,7 +167,7 @@ Trade-off: -3.8 п.п. SWE-V в обмен на **в 4.7× быстрее** ге
 
 ## Идеальные сценарии применения (когда появятся open weights)
 
-- **[opencode](../../ai-agents/agents/opencode.md) / [Claude Code](../../ai-agents/agents/claude-code/README.md) / [Aider](../../ai-agents/agents/aider.md) / [Cline](../../ai-agents/agents/cline.md)** -- бэкенд для agent-style кодинга
+- **[opencode](../../ai-agents/agents/opencode/README.md) / [Claude Code](../../ai-agents/agents/claude-code/README.md) / [Aider](../../ai-agents/agents/aider.md) / [Cline](../../ai-agents/agents/cline.md)** -- бэкенд для agent-style кодинга
 - **Long-context RAG** на больших корпусах документов
 - **Screenshot-to-code** -- генерация UI компонентов из дизайнов
 - **Multimodal agents** -- задачи с visual вводом + tool use
@@ -183,7 +183,7 @@ Trade-off: -3.8 п.п. SWE-V в обмен на **в 4.7× быстрее** ге
 
 # Совместимые клиенты:
 # - Claude Code (через Anthropic API protocol) -- ../../ai-agents/agents/claude-code/README.md
-# - opencode (через OpenAI-compatible endpoint) -- ../../ai-agents/agents/opencode.md
+# - opencode (через OpenAI-compatible endpoint) -- ../../ai-agents/agents/opencode/README.md
 # - Qwen Code, Kilo Code, Cline, OpenClaw -- см. ../../ai-agents/agents/
 ```
 

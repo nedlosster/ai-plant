@@ -511,7 +511,7 @@ Agent Teams **не работает с локальными моделями**. 
 
 Альтернативы для local setup'ов:
 - **[Kilo Code Orchestrator](../kilo-code.md)** -- мульти-агентный режим с поддержкой local models
-- **[opencode](../opencode.md)** + несколько параллельных instances через разные terminal sessions
+- **[opencode](../opencode/README.md)** + несколько параллельных instances через разные terminal sessions
 - **Кастомный bash-скрипт**: несколько `llama-server` с разными моделями + общий file-based task queue
 
 Для **hybrid setup** (local + API) можно использовать:

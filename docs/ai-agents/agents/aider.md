@@ -46,7 +46,7 @@ Aider -- классика CLI-агентов от Paul Gauthier. **39K+ stars, 4
 - **Repo map медленный** на очень больших проектах
 - **Конфигурация через CLI/env** -- нет богатого config-файла как у opencode
 - **Нет MCP support** (на момент 2026 -- может появится)
-- **Меньше "agentic"** чем opencode/Claude Code -- больше fixed workflow
+- **Меньше "agentic"** чем [opencode](opencode/README.md) / [Claude Code](claude-code/README.md) -- больше fixed workflow
 
 ## Базовые сценарии
 
@@ -137,7 +137,7 @@ Aider публикует [собственный leaderboard](https://aider.chat
 
 ## Связано
 
-- **Альтернативы (CLI)**: [opencode](opencode.md), [qwen-code](qwen-code.md), [claude-code](claude-code/README.md) для commercial
+- **Альтернативы (CLI)**: [opencode](opencode/README.md), [qwen-code](qwen-code.md), [claude-code](claude-code/README.md) для commercial
 - **Альтернативы (IDE)**: [cline](cline.md), [continue-dev](continue-dev.md)
 - **Лучшие модели для пары**: [qwen3-coder](../../models/families/qwen3-coder.md), [claude-code](claude-code/README.md) для architect mode
 - **Платформа**: [coding.md](../../models/coding.md)

@@ -130,7 +130,7 @@
 **Доступ через агенты**:
 - **Gemini CLI** -- терминальный агент от Google, OpenAI-compat API
 - **Gemini Code Assist** -- IDE-расширение (VS Code, JetBrains)
-- Через BYOK в [Aider](../ai-agents/agents/aider.md), [opencode](../ai-agents/agents/opencode.md), [Cline](../ai-agents/agents/cline.md)
+- Через BYOK в [Aider](../ai-agents/agents/aider.md), [opencode](../ai-agents/agents/opencode/README.md), [Cline](../ai-agents/agents/cline.md)
 
 **Ограничения**:
 - Latency выше чем у OpenAI/Anthropic (cold start на Flash ~2-3 сек)
@@ -334,12 +334,12 @@ SWE-bench Verified (апрель 2026):
 | Gemini CLI | Flash (free) / Pro | -- | API |
 | Amazon Q | Claude 3.7 | -- | API + CLI |
 | [Aider](../ai-agents/agents/aider.md) | Claude API / OpenAI API | **Qwen3-Coder Next (local)** | Both |
-| [opencode](../ai-agents/agents/opencode.md) | Claude API / OpenAI API | **Qwen3-Coder Next (local)** | Both |
+| [opencode](../ai-agents/agents/opencode/README.md) | Claude API / OpenAI API | **Qwen3-Coder Next (local)** | Both |
 | [Cline](../ai-agents/agents/cline.md) / [Roo Code](../ai-agents/agents/roo-code.md) | Claude API / OpenAI API | **Local через llama-server** | Both |
 | [Kilo Code](../ai-agents/agents/kilo-code.md) | Multi (500+ providers) | **Local через llama-server** | Both |
 | [Continue.dev](../ai-agents/agents/continue-dev.md) | Multi (any provider) | **Local через llama-server** | Both |
 
-**Стратегия на Strix Halo**: open-source агенты ([Aider](../ai-agents/agents/aider.md), [opencode](../ai-agents/agents/opencode.md), [Cline](../ai-agents/agents/cline.md)) переключаются между local и API через смену base_url. Для daily work -- local Qwen3-Coder Next. Для сложной задачи -- `OPENAI_API_KEY=... opencode` с Claude Opus через API.
+**Стратегия на Strix Halo**: open-source агенты ([Aider](../ai-agents/agents/aider.md), [opencode](../ai-agents/agents/opencode/README.md), [Cline](../ai-agents/agents/cline.md)) переключаются между local и API через смену base_url. Для daily work -- local Qwen3-Coder Next. Для сложной задачи -- `OPENAI_API_KEY=... opencode` с Claude Opus через API.
 
 ## Связанные статьи
 

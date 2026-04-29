@@ -9,7 +9,7 @@
 ## Индекс
 
 ### Open source
-- [opencode](opencode.md) -- CLI с TUI, OpenAI-compatible, MCP, поддерживает локальные LLM
+- [opencode](opencode/README.md) -- CLI с TUI, OpenAI-compatible, MCP, поддерживает локальные LLM
 - [cline](cline.md) -- VS Code extension, plan/act mode, browser use
 - [qwen-code](qwen-code.md) -- CLI от Qwen team, multi-protocol, optimized для Qwen3-Coder
 - [kilo-code](kilo-code.md) -- VS Code/JetBrains/CLI, fork Roo Code, Orchestrator mode

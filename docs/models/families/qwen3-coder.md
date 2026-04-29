@@ -13,7 +13,7 @@ Qwen3-Coder -- специализированная MoE-серия от Alibaba 
 
 Серия обучалась с large-scale reinforcement learning на agentic-задачах. По SWE-bench Verified обходит DeepSeek V3 при 10-20x меньшем числе активных параметров.
 
-Используется на платформе как основной бекенд для [opencode](../../ai-agents/agents/opencode.md), [Aider](../../ai-agents/agents/aider.md), [Cline](../../ai-agents/agents/cline.md) и других agent-style инструментов через 256K контекст.
+Используется на платформе как основной бекенд для [opencode](../../ai-agents/agents/opencode/README.md), [Aider](../../ai-agents/agents/aider.md), [Cline](../../ai-agents/agents/cline.md) и других agent-style инструментов через 256K контекст.
 
 **Function calling**: native (лучший на платформе для agent-style кодинга, формат `<tool_call>...</tool_call>`). Запуск с `--jinja` обязателен -- см. [llm-guide/function-calling.md](../../llm-guide/function-calling.md#function-calling-на-платформе-2026).
 
@@ -67,7 +67,7 @@ Qwen3-Coder -- специализированная MoE-серия от Alibaba 
 
 ## Идеальные сценарии применения
 
-- **[opencode](../../ai-agents/agents/opencode.md)** -- основной use case на платформе, через `vulkan/preset/qwen-coder-next.sh` на порту 8081
+- **[opencode](../../ai-agents/agents/opencode/README.md)** -- основной use case на платформе, через `vulkan/preset/qwen-coder-next.sh` на порту 8081
 - **[Aider](../../ai-agents/agents/aider.md), SWE-agent, [Cline](../../ai-agents/agents/cline.md), [Roo Code](../../ai-agents/agents/roo-code.md)** -- agent-style работа с кодом
 - **"Изучи проект и предложи план рефакторинга"** -- сложные многошаговые задачи
 - **Анализ legacy-кодбейзов** с длинной историей коммитов

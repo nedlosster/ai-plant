@@ -411,5 +411,5 @@ AttributeError: 'dict' object has no attribute 'decode'
 - [resources.md](resources.md) -- блоги и community
 - [Модели для кодинга](../models/coding.md) -- каталог, бенчмарки
 - [Agent Teams](../ai-agents/agents/claude-code/agent-teams.md) -- multi-agent strategy
-- [opencode](../ai-agents/agents/opencode.md) -- CLI agent
+- [opencode](../ai-agents/agents/opencode/README.md) -- CLI agent
 - [Inference стек](../inference/README.md) -- как запускать модели

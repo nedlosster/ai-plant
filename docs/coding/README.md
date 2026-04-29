@@ -35,7 +35,7 @@
 | Агент | Тип | Модель default | Лицензия |
 |-------|-----|----------------|----------|
 | [Claude Code](../ai-agents/agents/claude-code/README.md) | CLI | Claude Opus 4.7 | Proprietary ($20/мес) |
-| [opencode](../ai-agents/agents/opencode.md) | CLI | любая (OpenAI-compat) | MIT |
+| [opencode](../ai-agents/agents/opencode/README.md) | CLI | любая (OpenAI-compat) | MIT |
 | [Cursor](../ai-agents/agents/cursor.md) | IDE | Claude/GPT/custom | Proprietary ($20/мес) |
 | [Cline](../ai-agents/agents/cline.md) | VS Code ext | любая | Apache 2.0 |
 | [Aider](../ai-agents/agents/aider.md) | CLI | любая | Apache 2.0 |

@@ -110,7 +110,7 @@ Model: qwen3-coder-next
 - **Прародитель**: [cline](cline.md) -- Roo Code это fork
 - **Дальнейший fork**: [kilo-code](kilo-code.md) -- более крупный community-fork с Orchestrator
 - **Альтернативы (VS Code)**: [continue-dev](continue-dev.md), [cursor](cursor.md)
-- **Альтернативы (CLI)**: [opencode](opencode.md), [aider](aider.md), [qwen-code](qwen-code.md)
+- **Альтернативы (CLI)**: [opencode](opencode/README.md), [aider](aider.md), [qwen-code](qwen-code.md)
 - **Лучшие модели для пары**: [qwen3-coder](../../models/families/qwen3-coder.md)
 - **Платформа**: [coding.md](../../models/coding.md)
 - **Концепты**: [../README.md](../README.md)

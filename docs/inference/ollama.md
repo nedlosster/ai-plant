@@ -509,7 +509,7 @@ Ollama стал **неофициальным стандартом локальн
 | Категория | Продукты |
 |-----------|----------|
 | **UI chat** | [Open WebUI](../apps/open-webui/README.md), [LobeChat](../apps/lobe-chat/README.md), Msty, BigAGI, Chatbot Ollama, Hollama, Ollamac |
-| **IDE/coding** | [Continue.dev](../ai-agents/agents/continue-dev.md), [Aider](../ai-agents/agents/aider.md), [opencode](../ai-agents/agents/opencode.md) (через OpenAI-compat), twinny, Tabby |
+| **IDE/coding** | [Continue.dev](../ai-agents/agents/continue-dev.md), [Aider](../ai-agents/agents/aider.md), [opencode](../ai-agents/agents/opencode/README.md) (через OpenAI-compat), twinny, Tabby |
 | **Orchestration** | LangChain, LlamaIndex, CrewAI, AutoGen, Haystack, DSPy |
 | **Agents** | [Cline](../ai-agents/agents/cline.md), [Roo Code](../ai-agents/agents/roo-code.md), OpenHands, Devika, AgentGPT |
 | **Workflows** | Dify, n8n (AI-node), Flowise, LangFlow |

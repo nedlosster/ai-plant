@@ -233,5 +233,5 @@
 
 - [Workflow'ы](workflows.md)
 - [AI-агенты](../ai-agents/README.md)
-- [opencode (per-agent страница)](../ai-agents/agents/opencode.md)
+- [opencode (per-agent страница)](../ai-agents/agents/opencode/README.md)
 - [Модели для кодинга](../models/coding.md)

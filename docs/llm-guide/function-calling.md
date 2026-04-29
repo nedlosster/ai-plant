@@ -723,7 +723,7 @@ grep -l '\-\-jinja' scripts/inference/vulkan/preset/*.sh
 ./scripts/inference/vulkan/preset/qwen-coder-next.sh -d
 ```
 
-Уже настроен: `--jinja`, контекст 256K, порт 8081. Подключается напрямую к [opencode](../ai-agents/agents/opencode.md), [Cline](../ai-agents/agents/cline.md), [Aider](../ai-agents/agents/aider.md).
+Уже настроен: `--jinja`, контекст 256K, порт 8081. Подключается напрямую к [opencode](../ai-agents/agents/opencode/README.md), [Cline](../ai-agents/agents/cline.md), [Aider](../ai-agents/agents/aider.md).
 
 Особенности:
 - Native tool_calls в формате `<tool_call>...JSON...</tool_call>`
@@ -838,7 +838,7 @@ while True:
     break
 ```
 
-Этот цикл -- упрощённая версия того, что внутри [opencode](../ai-agents/agents/opencode.md), [Aider](../ai-agents/agents/aider.md), [Cline](../ai-agents/agents/cline.md). Реальные агенты добавляют ограничение глубины, ретраи, обработку ошибок tool calls, parallel execution.
+Этот цикл -- упрощённая версия того, что внутри [opencode](../ai-agents/agents/opencode/README.md), [Aider](../ai-agents/agents/aider.md), [Cline](../ai-agents/agents/cline.md). Реальные агенты добавляют ограничение глубины, ретраи, обработку ошибок tool calls, parallel execution.
 
 ### Vision + function calling (Gemma 4)
 
@@ -889,7 +889,7 @@ print(r["choices"][0]["message"]["tool_calls"])
 Вместо ручного описания tools в каждом запросе можно использовать **MCP** -- стандарт от Anthropic для подключения внешних сервисов как наборов готовых tools. MCP-сервер описывает свои tools один раз, клиент (agent) подключается и автоматически получает schema.
 
 **Где работает MCP на платформе**:
-- [opencode](../ai-agents/agents/opencode.md) -- через `mcp` секцию в `~/.config/opencode/opencode.json`
+- [opencode](../ai-agents/agents/opencode/README.md) -- через `mcp` секцию в `~/.config/opencode/opencode.json`
 - [Claude Code](../ai-agents/agents/claude-code/README.md) -- родная экосистема (Anthropic создатели стандарта)
 - [Cline](../ai-agents/agents/cline.md), [Roo Code](../ai-agents/agents/roo-code.md), [Continue.dev](../ai-agents/agents/continue-dev.md) -- через настройки расширений
 

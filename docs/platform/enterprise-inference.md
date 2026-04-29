@@ -147,7 +147,7 @@
 
 MoE-модели (Qwen3-Coder) сглаживают разрыв: 13x разница в bandwidth (3.35 TB/s vs 256 GB/s), но только 2.3x разница в tg -- потому что MoE читает ~3 GiB активных весов, а не 45 GiB total. Dense-модели (Devstral 2) показывают разрыв ближе к bandwidth ratio.
 
-**53 tok/s** на Qwen3-Coder Next (80B MoE, 70.6% SWE-V) -- **достаточно для интерактивного agent-loop** в [opencode](../ai-agents/agents/opencode.md)/[Cline](../ai-agents/agents/cline.md). На H100 было бы быстрее, но не качественнее -- модель та же, score тот же.
+**53 tok/s** на Qwen3-Coder Next (80B MoE, 70.6% SWE-V) -- **достаточно для интерактивного agent-loop** в [opencode](../ai-agents/agents/opencode/README.md)/[Cline](../ai-agents/agents/cline.md). На H100 было бы быстрее, но не качественнее -- модель та же, score тот же.
 
 **Ключевой вывод**: Strix Halo -- это **$70/год** vs **$13-210K/год** для enterprise GPU. Разница в bandwidth (256 GB/s vs 3.35 TB/s) компенсируется MoE-архитектурой для daily-задач. Для frontier-качества (200B+, параллелизм) -- только enterprise или API.
 

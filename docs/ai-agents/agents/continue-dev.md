@@ -160,6 +160,6 @@ slashCommands:
 
 - **Альтернативы (FIM)**: [qwen2.5-coder](../../models/families/qwen25-coder.md) -- лучшая модель для FIM на платформе
 - **Альтернативы (agent IDE)**: [cline](cline.md), [kilo-code](kilo-code.md), [cursor](cursor.md)
-- **Альтернативы (CLI)**: [aider](aider.md), [opencode](opencode.md)
+- **Альтернативы (CLI)**: [aider](aider.md), [opencode](opencode/README.md)
 - **Платформа**: [coding.md](../../models/coding.md)
 - **Концепты**: [../README.md](../README.md)

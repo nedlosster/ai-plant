@@ -18,7 +18,7 @@
 | Amazon Q | CLI+IDE | Terminal, VS Code, JB | 128K | Claude 3.7 | CLI: да | $0-19 |
 | Gemini CLI | CLI | Terminal | 1M | Flash, Pro | да | $0-19 |
 | [Aider](agents/aider.md) | CLI | Terminal | 128K* | Любая | **да** | Free |
-| [opencode](agents/opencode.md) | CLI/TUI | Terminal | 128K* | Любая | **да** ⭐ | Free |
+| [opencode](agents/opencode/README.md) | CLI/TUI | Terminal | 128K* | Любая | **да** ⭐ | Free |
 | Hermes | CLI+msg | Terminal, Telegram, Discord | 128K* | Любая | да | Free |
 | [Cline](agents/cline.md) | IDE | VS Code | 128K* | Любая | **да** | Free |
 | [Roo Code](agents/roo-code.md) | IDE | VS Code | 128K* | Любая | **да** | Free |
@@ -50,7 +50,7 @@
 - **Junie** -- баланс frontend/backend, #2 overall
 - **[Cursor](agents/cursor.md)** быстрее всех (150 сек), но score ниже
 
-Open-source агенты ([Cline](agents/cline.md), [opencode](agents/opencode.md), [Aider](agents/aider.md), [Kilo Code](agents/kilo-code.md)) в Faros не тестировались -- их результат зависит от используемой модели. С Qwen3-Coder Next 70.6% SWE-V, с Claude Sonnet 4.5 -- сравнимо с Claude Code.
+Open-source агенты ([Cline](agents/cline.md), [opencode](agents/opencode/README.md), [Aider](agents/aider.md), [Kilo Code](agents/kilo-code.md)) в Faros не тестировались -- их результат зависит от используемой модели. С Qwen3-Coder Next 70.6% SWE-V, с Claude Sonnet 4.5 -- сравнимо с Claude Code.
 
 ## Стоимость за задачу
 
@@ -64,7 +64,7 @@ Open-source агенты ([Cline](agents/cline.md), [opencode](agents/opencode.m
 | Devin | Proprietary | N/A | $2.25-9 (1-4 ACU) |
 | [Aider](agents/aider.md) | Claude API | 200K | $2-5 |
 | **[Aider](agents/aider.md) + llama-server** | **Qwen3-Coder Next** | 200K | **$0** (электричество) |
-| **[opencode](agents/opencode.md) + llama-server** | **Qwen3-Coder Next** | 200K | **$0** |
+| **[opencode](agents/opencode/README.md) + llama-server** | **Qwen3-Coder Next** | 200K | **$0** |
 | Gemini CLI | Flash (free) | 300K | $0 |
 | [Qwen Code](agents/qwen-code.md) + Qwen OAuth | Qwen3-Coder Next | 100-200K | $0 (1000 req/день free) |
 
@@ -75,7 +75,7 @@ Open-source агенты ([Cline](agents/cline.md), [opencode](agents/opencode.m
 | Тип | Агенты |
 |-----|--------|
 | Anthropic-привязанные | [Claude Code](agents/claude-code/README.md) |
-| OpenAI-compatible (любые модели) | [opencode](agents/opencode.md), [Aider](agents/aider.md), [Cline](agents/cline.md), [Kilo Code](agents/kilo-code.md), [Roo Code](agents/roo-code.md), [Continue.dev](agents/continue-dev.md), [Qwen Code](agents/qwen-code.md) |
+| OpenAI-compatible (любые модели) | [opencode](agents/opencode/README.md), [Aider](agents/aider.md), [Cline](agents/cline.md), [Kilo Code](agents/kilo-code.md), [Roo Code](agents/roo-code.md), [Continue.dev](agents/continue-dev.md), [Qwen Code](agents/qwen-code.md) |
 | Multi-protocol | [Qwen Code](agents/qwen-code.md), [OpenClaw](agents/openclaw/README.md), [Kilo Code](agents/kilo-code.md) |
 | Proprietary только | Codex, Devin, Cursor (только IDE), Windsurf |
 
@@ -83,7 +83,7 @@ Open-source агенты ([Cline](agents/cline.md), [opencode](agents/opencode.m
 
 | Интерфейс | Агенты |
 |-----------|--------|
-| **CLI only** | [Aider](agents/aider.md), [opencode](agents/opencode.md), [Qwen Code](agents/qwen-code.md), Gemini CLI |
+| **CLI only** | [Aider](agents/aider.md), [opencode](agents/opencode/README.md), [Qwen Code](agents/qwen-code.md), Gemini CLI |
 | **VS Code only** | [Cline](agents/cline.md), [Roo Code](agents/roo-code.md), Cursor (fork) |
 | **VS Code + JetBrains** | [Continue.dev](agents/continue-dev.md), [Kilo Code](agents/kilo-code.md), Junie |
 | **CLI + IDE + Web** | [Claude Code](agents/claude-code/README.md), Amazon Q |
@@ -94,7 +94,7 @@ Open-source агенты ([Cline](agents/cline.md), [opencode](agents/opencode.m
 | Поддержка | Агенты |
 |-----------|--------|
 | **Built-in multi-agent** | [Claude Code](agents/claude-code/README.md) (sub-agents), [Kilo Code](agents/kilo-code.md) (Orchestrator) |
-| **Custom modes для имитации** | [Roo Code](agents/roo-code.md), [opencode](agents/opencode.md) (custom agents) |
+| **Custom modes для имитации** | [Roo Code](agents/roo-code.md), [opencode](agents/opencode/README.md) (custom agents) |
 | **Architect mode (2 модели)** | [Aider](agents/aider.md) |
 | **Без multi-agent** | [Cline](agents/cline.md), [Continue.dev](agents/continue-dev.md), [Cursor](agents/cursor.md), [Qwen Code](agents/qwen-code.md) |
 
@@ -103,7 +103,7 @@ Open-source агенты ([Cline](agents/cline.md), [opencode](agents/opencode.m
 | MCP | Агенты |
 |-----|--------|
 | **Зрелая экосистема** | [Claude Code](agents/claude-code/README.md) (создатели стандарта) |
-| **Поддержка** | [opencode](agents/opencode.md), [Cline](agents/cline.md), [Kilo Code](agents/kilo-code.md), [Roo Code](agents/roo-code.md), [Continue.dev](agents/continue-dev.md), [Qwen Code](agents/qwen-code.md), [OpenClaw](agents/openclaw/README.md) |
+| **Поддержка** | [opencode](agents/opencode/README.md), [Cline](agents/cline.md), [Kilo Code](agents/kilo-code.md), [Roo Code](agents/roo-code.md), [Continue.dev](agents/continue-dev.md), [Qwen Code](agents/qwen-code.md), [OpenClaw](agents/openclaw/README.md) |
 | **Нет** | [Aider](agents/aider.md) (на момент 2026), Cursor (частично) |
 
 ## Матрица выбора
@@ -112,7 +112,7 @@ Open-source агенты ([Cline](agents/cline.md), [opencode](agents/opencode.m
 
 | Сценарий | Рекомендация |
 |----------|--------------|
-| Локальные модели + privacy + opencode-стиль | [opencode](agents/opencode.md) |
+| Локальные модели + privacy + opencode-стиль | [opencode](agents/opencode/README.md) |
 | Локальные модели + IDE | [Continue.dev](agents/continue-dev.md), [Cline](agents/cline.md), [Kilo Code](agents/kilo-code.md) |
 | FIM autocomplete с local llama-server | [Continue.dev](agents/continue-dev.md) |
 | Multi-agent орчестрация без танцев | [Kilo Code](agents/kilo-code.md) Orchestrator или [Claude Code](agents/claude-code/README.md) |
@@ -128,7 +128,7 @@ Open-source агенты ([Cline](agents/cline.md), [opencode](agents/opencode.m
 
 | Бюджет | Оптимальный выбор |
 |--------|-------------------|
-| **$0 (open-source + local)** | [opencode](agents/opencode.md) / [Cline](agents/cline.md) / [Continue.dev](agents/continue-dev.md) + Qwen3-Coder Next |
+| **$0 (open-source + local)** | [opencode](agents/opencode/README.md) / [Cline](agents/cline.md) / [Continue.dev](agents/continue-dev.md) + Qwen3-Coder Next |
 | **$0 (free cloud)** | Gemini CLI или [Qwen Code](agents/qwen-code.md) + Qwen OAuth (1000 req/day) |
 | **$10-20/мес** | Copilot ($10), Windsurf ($15) или [Cursor](agents/cursor.md) ($20) |
 | **$100-200/мес** | [Claude Code](agents/claude-code/README.md) Max ($200) |

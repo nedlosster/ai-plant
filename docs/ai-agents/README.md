@@ -189,8 +189,8 @@ Enterprise rollouts (Q1 2026)  | Goldman Sachs, Walmart, BMW
 
 Быстрый ответ:
 - **Ежедневная разработка**: [Claude Code](agents/claude-code/README.md) (CLI) или [Cursor](agents/cursor.md) (IDE)
-- **Бюджет**: Gemini CLI (бесплатный tier) или [opencode](agents/opencode.md) + локальная модель
-- **Privacy/self-hosted**: [Aider](agents/aider.md) или [opencode](agents/opencode.md) + llama-server
+- **Бюджет**: Gemini CLI (бесплатный tier) или [opencode](agents/opencode/README.md) + локальная модель
+- **Privacy/self-hosted**: [Aider](agents/aider.md) или [opencode](agents/opencode/README.md) + llama-server
 - **JetBrains**: Junie или [Continue.dev](agents/continue-dev.md)
 - **AWS**: Amazon Q Developer
 - **Автономные задачи (PR, bugs)**: Devin или Codex

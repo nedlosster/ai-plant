@@ -150,7 +150,7 @@ claude "fix the bug in src/auth.ts"
 
 ## Связано
 
-- **Альтернативы (open)**: [opencode](../opencode.md), [qwen-code](../qwen-code.md), [openclaw](../openclaw/README.md)
+- **Альтернативы (open)**: [opencode](../opencode/README.md), [qwen-code](../qwen-code.md), [openclaw](../openclaw/README.md)
 - **Альтернативы (commercial)**: [cursor](../cursor.md)
 - **Конкурент по протоколу**: Cline (также Anthropic API)
 - **Тренды**: [../../trends.md](../../trends.md), [../../news.md](../../news.md)

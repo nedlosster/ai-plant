@@ -134,7 +134,7 @@
 - **AI-agents раздел**:
   - [README.md](ai-agents/README.md) навигация
   - Markdown-ссылки на [agents/](ai-agents/agents/README.md) из [models/](models/README.md)
-  - Удалён `use-cases/coding/opencode/` (консолидировано в [agents/opencode.md](ai-agents/agents/opencode.md))
+  - Удалён `use-cases/coding/opencode/` (консолидировано в [agents/opencode/README.md](ai-agents/agents/opencode/README.md))
   - [`commercial.md`](ai-agents/commercial.md), [`open-source.md`](ai-agents/open-source.md) как индексы
 - **Function calling** ([`llm-guide/function-calling.md`](llm-guide/function-calling.md)) -- раздел про платформу, колонка FC в таблицах, поле в шапках
 - **Документы** -- статья про обработку документов (PDF/Word/Excel, pipelines)

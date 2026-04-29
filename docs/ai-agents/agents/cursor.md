@@ -53,7 +53,7 @@ Cursor от Anysphere -- лидер AI IDE категории. Это fork VS Co
 - **Проприетарные модели** для Tab autocomplete
 - **Платный** -- $20+/мес (хотя есть Hobby)
 - **Vendor lock-in** -- настройки и история привязаны к Cursor
-- **Локальные модели сложнее настроить** чем у opencode/Cline
+- **Локальные модели сложнее настроить** чем у [opencode](opencode/README.md) / [Cline](cline.md)
 
 ## Базовые сценарии
 
@@ -133,6 +133,6 @@ You are an expert React/TypeScript developer.
 ## Связано
 
 - **Альтернативы (IDE с открытым кодом)**: [cline](cline.md), [kilo-code](kilo-code.md), [continue-dev](continue-dev.md)
-- **Альтернативы (CLI)**: [claude-code](claude-code/README.md), [opencode](opencode.md)
+- **Альтернативы (CLI)**: [claude-code](claude-code/README.md), [opencode](opencode/README.md)
 - **Платформа**: [coding.md](../../models/coding.md) -- если нужны локальные модели, лучше использовать VS Code + Cline/Continue
 - **Концепты**: [../README.md](../README.md)
