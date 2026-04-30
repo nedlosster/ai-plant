@@ -150,6 +150,28 @@ llama.cpp поддерживает `--draft-model` и `--draft-max`. Для Qwen
 
 Это покрывает оба сценария: кейс быстрых responses (proactive timeout достаточен) и slow responses (reactive detector ловит).
 
+#### A-007: auto-skip stuck задач после max-resumes
+
+**Статус**: **применено 2026-04-30**
+**Impact**: критический -- benchmark прогоны автономно проходят stuck задачи без manual вмешательства
+**Effort**: средний (~50 строк bash + helper functions)
+
+В прогоне Coder Next replay (2026-04-30) обнаружено: после exhaust max-resumes (4 watchdog kills) скрипт останавливался полностью, требуя ручного `--cont` запуска. Это значит на каждой stuck задаче (как `cpp/diamond` или `javascript/affine-cipher`) workflow терял 5-15 минут на manual intervention. Особенно критично для long-running ночных прогонов где никого нет на стороне для перезапуска.
+
+**Действие**: реализован outer loop в [bench-aider.sh](../../scripts/inference/bench-aider.sh) поверх существующего max-resumes attempts loop:
+
+1. После exhaust max-resumes -- найти первую incomplete задачу (без `.aider.results.json` или с пустым)
+2. Создать `.aider.results.json` с `tests_outcomes: [false, false]` и `skipped_due_to_watchdog: true`
+3. Запустить новый max-resumes цикл с `--cont` -- benchmark.py пропустит помеченную задачу
+4. Лимит SKIP_LIMIT=10 защищает от бесконечного цикла
+
+Преимущества:
+- **Полностью автономные ночные прогоны** -- не нужно подключаться чтобы перезапустить
+- **Stuck задачи учтены в финальной статистике как failed** -- честная оценка качества модели
+- **Output финальный отчёт показывает список skipped задач** -- видно где модель зависает регулярно
+
+В финальном агрегате будет видна каждая помеченная задача через `skipped_due_to_watchdog: true`, что позволяет post-analysis "какие задачи модель не может решить даже с retry".
+
 #### A-004: `--languages python,javascript` для quick валидации
 
 **Статус**: **применено 2026-04-26**

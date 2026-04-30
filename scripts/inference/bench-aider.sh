@@ -27,11 +27,14 @@
 #
 # Watchdog убивает docker контейнер если:
 #   - счётчик "test_cases:" не растёт в логе > task-timeout сек, либо
-#   - общее время прогона > total-timeout сек
-# После kill автоматически перезапускается с --cont (до max-resumes раз),
-# пропуская задачу-зависалку и продолжая с следующей.
-# Введён после прогона 2026-04-26 -- aider застрял в litellm retry-loop на 3 ч.
-# См. docs/inference/optimization-backlog.md (A-005).
+#   - общее время прогона > total-timeout сек, либо
+#   - litellm retry-loop detected (5+ "Retrying in" событий за 5 мин stall)
+# После kill автоматически перезапускается с --cont (до max-resumes раз).
+# Если max-resumes исчерпан, скрипт находит первую incomplete задачу
+# и помечает её как failed (skipped_due_to_watchdog=true в .aider.results.json),
+# далее перезапускается с --cont -- benchmark.py пропустит её и пойдёт дальше.
+# Лимит skip -- 10 задач за прогон.
+# См. docs/inference/optimization-backlog.md (A-005, A-006, A-007).
 #
 # Требования:
 #   - Docker (для toolchain: Python, Java, Rust, Go, Node, C++)
@@ -186,9 +189,57 @@ echo "Watchdog:   task-timeout=${TASK_TIMEOUT}s, total-timeout=${TOTAL_TIMEOUT}s
 echo ""
 
 START=$(date +%s)
-ATTEMPT=1
 MAX_ATTEMPTS=$((MAX_RESUMES + 1))
 EXIT_CODE=0
+
+# A-007: автоскип stuck задач после max-resumes.
+# Когда max-resumes исчерпан И test_cases counter не вырос -- ищем первую
+# незавершённую задачу (без .aider.results.json или с пустым) и помечаем
+# как failed. Это даёт benchmark.py при следующем --cont пропустить её
+# и продолжить со следующей. Лимит SKIP_LIMIT защищает от бесконечного
+# цикла если что-то не так с детекцией.
+SKIP_LIMIT=10
+SKIPPED_COUNT=0
+SKIPPED_TASKS=()
+
+# Функция: найти первую stuck задачу (incomplete results.json)
+find_stuck_task() {
+    local run_dir
+    run_dir=$(ls -d "${AIDER_REPO}/tmp.benchmarks/"*"${RUN_NAME}" 2>/dev/null | head -1)
+    [[ -d "$run_dir" ]] || return 1
+    for lang in cpp go java javascript python rust; do
+        local lang_dir="${run_dir}/${lang}/exercises/practice"
+        [[ -d "$lang_dir" ]] || continue
+        for task_dir in "$lang_dir"/*/; do
+            local results="${task_dir}.aider.results.json"
+            if [[ ! -f "$results" ]] || ! grep -q '"tests_outcomes"' "$results" 2>/dev/null; then
+                echo "$task_dir"
+                return 0
+            fi
+        done
+    done
+    return 1
+}
+
+# Функция: пометить задачу как failed
+mark_task_skipped() {
+    local task_dir="$1"
+    cat > "${task_dir}.aider.results.json" <<EOF
+{
+    "tests_outcomes": [false, false],
+    "edit_format": "whole",
+    "model": "openai/${MODEL}",
+    "cost": 0.0,
+    "duration": 0.0,
+    "exception": "skipped by bench-aider.sh: max-resumes exhausted, watchdog detected stuck loop",
+    "skipped_due_to_watchdog": true
+}
+EOF
+}
+
+# Outer loop -- продолжает после auto-skip stuck-задач
+while true; do
+ATTEMPT=1
 
 while [[ $ATTEMPT -le $MAX_ATTEMPTS ]]; do
     rm -f "$WATCHDOG_FLAG"
@@ -329,11 +380,49 @@ while [[ $ATTEMPT -le $MAX_ATTEMPTS ]]; do
     break
 done
 
+# === A-007: после exhaustion max-resumes -- попытка skip stuck задачи ===
+# Если EXIT_CODE 0 -- benchmark.py завершился сам (все задачи сделаны), exit
+if [[ $EXIT_CODE -eq 0 ]]; then
+    break
+fi
+
+# Если SKIP_LIMIT исчерпан -- остановка
+if [[ $SKIPPED_COUNT -ge $SKIP_LIMIT ]]; then
+    echo ""
+    echo "=== AUTO-SKIP лимит исчерпан (${SKIP_LIMIT} задач), остановка ==="
+    break
+fi
+
+# Поиск stuck task
+STUCK_DIR=$(find_stuck_task)
+if [[ -z "$STUCK_DIR" ]]; then
+    echo ""
+    echo "=== Все задачи имеют results.json -- продолжать нечего, остановка ==="
+    break
+fi
+
+# Пометка stuck task как failed + следующий outer iteration
+SKIPPED_COUNT=$((SKIPPED_COUNT + 1))
+SKIPPED_TASKS+=("${STUCK_DIR##*/practice/}")
+echo ""
+echo "=== AUTO-SKIP #${SKIPPED_COUNT}/${SKIP_LIMIT}: stuck task '${STUCK_DIR##*/practice/}' помечена как failed, продолжаем ==="
+mark_task_skipped "$STUCK_DIR"
+USE_CONT=1
+EXIT_CODE=0
+sleep 5
+done
+
 END=$(date +%s)
 DURATION=$((END - START))
 
 echo ""
-echo "=== Total: $((DURATION / 3600))h $(((DURATION % 3600) / 60))m, attempts=${ATTEMPT}/${MAX_ATTEMPTS}, last exit=${EXIT_CODE} ==="
+echo "=== Total: $((DURATION / 3600))h $(((DURATION % 3600) / 60))m, last attempts=${ATTEMPT}/${MAX_ATTEMPTS}, last exit=${EXIT_CODE} ==="
+if [[ $SKIPPED_COUNT -gt 0 ]]; then
+    echo "=== Auto-skipped ${SKIPPED_COUNT} stuck задач: ==="
+    for t in "${SKIPPED_TASKS[@]}"; do
+        echo "    - ${t}"
+    done
+fi
 echo "Лог: $LOG"
 echo ""
 
