@@ -64,7 +64,7 @@
 | **Qwen3-Coder Next 80B-A3B** | 45 GiB | Hybrid Gated DeltaNet | ❌ (hybrid) | **33.7% / 68.0%** pass_2 на 178/195 ✅ | **~99** | ✅ **full** | Hybrid но без multimodal. Финальный pass_rate_2 68.0% (CI ±7pp на 178) -- значимо лучше 30B-A3B (26.3% на 194). Retry effect **+34.3pp** -- лидер платформы. Размер 80B компенсирует hybrid limit. **Best balanced default**: качество ~35B-text при 2.5× скорости. |
 | **Qwen3.6-27B (dense)** | 15.7 GiB | dense (по llama.cpp `qwen35`, без recurrent) | ✅ (cache-friendly) | -- | **12.4** ⚠️ | 🟠 замер выполнен, smoke не запущен | **Лидер open-weight SWE-V (77.2%)** на момент апреля 2026. Memory-bound (dense), реальный замер 12.4 tok/s -- в 4.7× медленнее MoE 35B-A3B. Aider smoke нерентабелен (>5 часов на 20 задач). Используется только для batch / точечных сравнений. См. [2026-04-28-bench-qwen3.6-27b.md](2026-04-28-bench-qwen3.6-27b.md). |
 | Devstral 2 24B (dense) | 14 GiB | Standard dense attention | ✅ | **0% / 15.0%** pass_2 на 20/20 | ~110 | ✅ smoke + --tries 2 | **Аутсайдер** на agent-coding -- 0% pass_rate_1 на 20 задачах указывает на несовместимость с aider whole edit format. Стабильная скорость, но качество не подходит для production agent. Cache reuse работает (standard dense), но не помогает при низком качестве. |
-| **Qwen3.5-122B-A10B** | 71 GiB | **Hybrid Gated DeltaNet** (12 attn / 37 SSM из 49) | ❌ (hybrid, ранее ошибочно классифицировалось как standard MoE) | running 2026-04-29 (60+/195) | ~165 (с reasoning off) | 🟡 full в процессе | 10B active vs 3B у текущих топов. На 60 задачах **pass_rate_2 71.7%** -- выше Coder Next (68.0%) и 35B-text (65.6%). Native контекст 256K. Применён `--reasoning off` (Qwen3.5 встроенный thinking ломал aider whole edit). |
+| **Qwen3.5-122B-A10B** ⭐⭐ | 71 GiB | **Hybrid Gated DeltaNet** (12 attn / 37 SSM из 49) | ❌ (hybrid) | **37.9% / 76.9%** на 195/195 ✅ | ~660 | ✅ **full** | ⭐⭐ **АБСОЛЮТНЫЙ РЕКОРД ПЛАТФОРМЫ**. 10B active vs 3B у топов даёт +8.9pp pass_2 над Coder Next (68.0%). **Paритет с o3 base** (76.9%), **обгон Opus 4** (72.0%). Лидер Python (85.3%) / JavaScript (85.7%). 0 watchdog kills за 36h после `--reasoning off`. |
 
 ### Очередь следующих тестов (приоритет сверху)
 
@@ -92,6 +92,7 @@
 
 | Дата | Бенчмарк | Mode | Модель | Pass rate | **Sec/case** | Total | Статья |
 |------|----------|------|--------|-----------|--------------|-------|--------|
+| 2026-04-29 → 2026-04-30 | Aider Polyglot | **full** (no rust) | **Qwen3.5-122B-A10B** 🏆🏆 | **37.9% / 76.9%** на **195/195** ✅⭐⭐ | ~660 | ~36h | [2026-04-30-aider-full-qwen3.5-122b](2026-04-30-aider-full-qwen3.5-122b.md) |
 | 2026-04-28 → 2026-04-29 | Aider Polyglot | **full** (no rust) | **Qwen3.6-35B-text** 🏆 | 29.2% / **65.6%** на **195/195** ✅ | ~407 | ~22h | [2026-04-29-aider-full-qwen3.6-35b-text](2026-04-29-aider-full-qwen3.6-35b-text.md) |
 | 2026-04-27 → 2026-04-28 | Aider Polyglot | **full** (no rust) | **Qwen3-Coder Next 80B-A3B** 🏆 | 33.7% / **68.0%** на 178/195 ✅ | ~99 | ~16h | [2026-04-27-aider-full-qwen-coder-next](2026-04-27-aider-full-qwen-coder-next.md) |
 | 2026-04-27 | Aider Polyglot | smoke 20 + --tries 2 | **Qwen3.6-35B-text** 🏆 | 30.0% / **70.0%** (рекорд) | 248.8 | 1h 55m | [2026-04-27-aider-smoke-qwen3.6-35b-text-tries2](2026-04-27-aider-smoke-qwen3.6-35b-text-tries2.md) |

@@ -37,6 +37,14 @@ Qwen3.5 -- новое (февраль-март 2026) поколение унив
   - **intra-task cache работает** через встроенный slot context checkpoint механизм llama-server
   - Решение upstream: llama.cpp [PR #19670](https://github.com/ggml-org/llama.cpp/pull/19670) (partial seq_rm для hybrid memory) -- ETA 3-6 мес
 
+**Замеры на платформе (Aider Polyglot)**:
+
+| Прогон | Tasks | pass_1 | pass_2 | sec/case | Дата |
+|--------|-------|--------|--------|----------|------|
+| **full + --tries 2 + --reasoning off** ⭐⭐ | **195/195** ✅ | **37.9%** | **76.9%** | ~660 | **2026-04-30** |
+
+**АБСОЛЮТНЫЙ РЕКОРД ПЛАТФОРМЫ** -- paитет с o3 base (76.9%), обгон Claude Opus 4 (72.0%). Лидер по Python (85.3%) и JavaScript (85.7%) -- сопоставимо с frontier closed-weight. Полный отчёт: [coding/benchmarks/runs/2026-04-30-aider-full-qwen3.5-122b.md](../../coding/benchmarks/runs/2026-04-30-aider-full-qwen3.5-122b.md).
+
 ### 27B Dense {#27b}
 
 Основная рабочая модель. Универсал для русскоязычного chat и кода.
